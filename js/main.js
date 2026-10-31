@@ -1,5 +1,5 @@
 /**
- * ALODANAX TECHFEST - CINEMATIC SCROLL-SCRUB ENGINE
+ * ALODANAX TECHFEST - CINEMATIC ENGINE & INTERACTION CONTROLLER
  * Plain vanilla JS + GSAP ScrollTrigger + Lenis
  */
 
@@ -41,7 +41,7 @@ let videoDuration = 9.96;
 let isReducedMotion = false;
 let debugMode = false;
 
-// DOM Elements
+// DOM Elements - Hero & Core
 const loaderEl = document.getElementById('loader');
 const loaderBarEl = document.getElementById('loader-bar');
 const siteHeaderEl = document.getElementById('site-header');
@@ -58,7 +58,7 @@ const heroMediaWrapperEl = document.querySelector('.hero-media-wrapper');
 const progressFillEl = document.getElementById('scroll-progress-fill');
 const rootStyle = document.documentElement.style;
 
-// Debug HUD elements
+// DOM Elements - Debug HUD
 const debugHudEl = document.getElementById('debug-hud');
 const dbgProgressEl = document.getElementById('dbg-progress');
 const dbgTimeEl = document.getElementById('dbg-time');
@@ -94,15 +94,391 @@ function checkReducedMotion() {
 function hydrateContent() {
   if (typeof SITE_CONTENT === 'undefined') return;
 
+  // 1. Meta & Hero Hydration
+  if (SITE_CONTENT.meta) {
+    document.title = `${SITE_CONTENT.meta.festName} ${SITE_CONTENT.meta.edition} | ${SITE_CONTENT.meta.tagline}`;
+  }
   if (heroPresenterEl) heroPresenterEl.textContent = SITE_CONTENT.hero.presenter;
   if (heroTaglineEl) heroTaglineEl.textContent = SITE_CONTENT.hero.tagline;
   if (heroDateVenueEl) heroDateVenueEl.textContent = SITE_CONTENT.hero.dateVenue;
   if (heroCtaRegisterEl) heroCtaRegisterEl.textContent = SITE_CONTENT.hero.ctaRegister;
   if (heroCtaEventsEl) heroCtaEventsEl.textContent = SITE_CONTENT.hero.ctaEvents;
 
-  if (SITE_CONTENT.meta) {
-    document.title = `${SITE_CONTENT.meta.festName} ${SITE_CONTENT.meta.edition} | ${SITE_CONTENT.meta.tagline}`;
+  // 2. About Section
+  const aboutTag = document.getElementById('about-tag');
+  const aboutTitle1 = document.getElementById('about-title-1');
+  const aboutTitle2 = document.getElementById('about-title-2');
+  const aboutDesc = document.getElementById('about-description');
+  if (aboutTag) aboutTag.textContent = SITE_CONTENT.about.sectionTag;
+  if (aboutTitle1) aboutTitle1.textContent = SITE_CONTENT.about.titlePrimary;
+  if (aboutTitle2) aboutTitle2.textContent = SITE_CONTENT.about.titleSecondary;
+  if (aboutDesc) aboutDesc.textContent = SITE_CONTENT.about.description;
+
+  // Stat Counters Hydration
+  SITE_CONTENT.about.stats.forEach((stat, i) => {
+    const valEl = document.getElementById(`stat-val-${i}`);
+    const lblEl = document.getElementById(`stat-lbl-${i}`);
+    if (valEl) valEl.textContent = stat.value;
+    if (lblEl) lblEl.textContent = stat.label;
+  });
+
+  // 3. Events Section Hydration
+  renderEvents('all');
+
+  // 4. Schedule Section Hydration
+  renderSchedule();
+
+  // 5. Register Section Dropdown
+  const selectEl = document.getElementById('reg-event');
+  if (selectEl && SITE_CONTENT.register && SITE_CONTENT.register.eventOptions) {
+    SITE_CONTENT.register.eventOptions.forEach(opt => {
+      const option = document.createElement('option');
+      option.value = opt.name;
+      option.textContent = `[${opt.category.toUpperCase()}] ${opt.name}`;
+      selectEl.appendChild(option);
+    });
   }
+
+  // 6. Footer Hydration
+  const footDept = document.getElementById('footer-department');
+  const footTag = document.getElementById('footer-tagline');
+  const footContact = document.getElementById('footer-contact-info');
+  const footVenue = document.getElementById('footer-venue-info');
+  const footInsta = document.getElementById('footer-instagram');
+  const footCopy = document.getElementById('footer-copyright');
+
+  if (footDept) footDept.textContent = SITE_CONTENT.meta.department;
+  if (footTag) footTag.textContent = SITE_CONTENT.meta.tagline;
+  if (footContact) footContact.textContent = SITE_CONTENT.contact.email;
+  if (footVenue) footVenue.textContent = SITE_CONTENT.meta.venue;
+  if (footInsta) footInsta.textContent = SITE_CONTENT.contact.instagram;
+  if (footCopy) footCopy.textContent = `© ${SITE_CONTENT.meta.edition} ${SITE_CONTENT.meta.festName}. ${SITE_CONTENT.meta.department}. ${SITE_CONTENT.footer.rights}.`;
+}
+
+/* ==========================================================================
+   RENDER EVENTS & 3D TILT
+   ========================================================================== */
+function renderEvents(filterCategory = 'all') {
+  const container = document.getElementById('events-grid-container');
+  if (!container || !SITE_CONTENT.events) return;
+
+  container.innerHTML = '';
+  let cardCount = 0;
+
+  SITE_CONTENT.events.categories.forEach(cat => {
+    if (filterCategory !== 'all' && cat.id !== filterCategory) return;
+
+    cat.items.forEach((item, index) => {
+      cardCount++;
+      const isFeatured = (filterCategory === 'all' && index === 0 && cat.id === 'technical');
+
+      const card = document.createElement('article');
+      card.className = `event-card reveal-item ${isFeatured ? 'featured-event-span' : ''}`;
+      card.setAttribute('data-tilt-card', 'true');
+
+      card.innerHTML = `
+        <div class="event-card-header">
+          <span class="event-tag-badge">${item.tag}</span>
+          <span class="event-category-label">${cat.name}</span>
+        </div>
+        <div class="event-card-body">
+          <h3>${item.title}</h3>
+          <p>${item.desc}</p>
+        </div>
+        <div class="event-card-footer">
+          <div class="event-meta-item">
+            <span class="meta-label">REWARD</span>
+            <span class="meta-value">${item.prize}</span>
+          </div>
+          <div class="event-meta-item">
+            <span class="meta-label">STRUCTURE</span>
+            <span class="meta-value">${item.team}</span>
+          </div>
+        </div>
+      `;
+
+      container.appendChild(card);
+    });
+  });
+
+  init3DTilt();
+  initScrollReveals();
+}
+
+/* 3D Tilt on Pointer Move (Disabled on touch) */
+function init3DTilt() {
+  const isTouch = window.matchMedia('(pointer: coarse)').matches;
+  if (isTouch) return;
+
+  const cards = document.querySelectorAll('[data-tilt-card]');
+  cards.forEach(card => {
+    card.addEventListener('mousemove', (e) => {
+      const rect = card.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      const centerX = rect.width / 2;
+      const centerY = rect.height / 2;
+
+      const rotateX = ((y - centerY) / centerY) * -8; // Max 8 deg
+      const rotateY = ((x - centerX) / centerX) * 8;
+
+      card.style.transform = `perspective(1000px) rotateX(${rotateX.toFixed(2)}deg) rotateY(${rotateY.toFixed(2)}deg) translateY(-4px)`;
+    });
+
+    card.addEventListener('mouseleave', () => {
+      card.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) translateY(0px)';
+    });
+  });
+}
+
+/* ==========================================================================
+   RENDER SCHEDULE TIMELINE
+   ========================================================================== */
+function renderSchedule() {
+  const wrapper = document.getElementById('timeline-days-wrapper');
+  if (!wrapper || !SITE_CONTENT.schedule) return;
+
+  wrapper.innerHTML = '';
+  let globalItemIndex = 0;
+
+  SITE_CONTENT.schedule.days.forEach(day => {
+    const dayBlock = document.createElement('div');
+    dayBlock.className = 'timeline-day-block reveal-item';
+
+    let itemsHtml = '';
+    day.events.forEach(ev => {
+      const side = (globalItemIndex % 2 === 0) ? 'side-left' : 'side-right';
+      itemsHtml += `
+        <div class="timeline-item ${side}" data-timeline-index="${globalItemIndex}">
+          <div class="item-content">
+            <span class="item-time">${ev.time}</span>
+            <h4 class="item-title">${ev.title}</h4>
+            <span class="item-venue">${ev.venue}</span>
+          </div>
+          <div class="timeline-node-slot">
+            <div class="timeline-node" id="tl-node-${globalItemIndex}" aria-hidden="true"></div>
+          </div>
+          <div></div>
+        </div>
+      `;
+      globalItemIndex++;
+    });
+
+    dayBlock.innerHTML = `
+      <div class="timeline-day-header">
+        <span class="day-badge">${day.day}</span>
+      </div>
+      <div class="timeline-events-list">
+        ${itemsHtml}
+      </div>
+    `;
+
+    wrapper.appendChild(dayBlock);
+  });
+
+  initScheduleScrollAnimation();
+}
+
+/* Schedule Scroll Animation: Drawing line & glowing nodes */
+function initScheduleScrollAnimation() {
+  const container = document.getElementById('timeline-container');
+  const progressLine = document.getElementById('timeline-progress-line');
+  if (!container || !progressLine) return;
+
+  ScrollTrigger.create({
+    trigger: container,
+    start: 'top 75%',
+    end: 'bottom 60%',
+    scrub: 0.5,
+    onUpdate: (self) => {
+      const p = self.progress;
+      progressLine.style.height = `${(p * 100).toFixed(1)}%`;
+
+      const nodes = document.querySelectorAll('.timeline-node');
+      nodes.forEach((node, i) => {
+        const threshold = (i + 0.5) / nodes.length;
+        if (p >= threshold) {
+          node.classList.add('is-active');
+        } else {
+          node.classList.remove('is-active');
+        }
+      });
+    }
+  });
+}
+
+/* ==========================================================================
+   SCROLL REVEALS & ANIMATED STAT COUNTERS
+   ========================================================================== */
+function initScrollReveals() {
+  const revealElements = document.querySelectorAll('.reveal-item:not(.is-revealed)');
+  revealElements.forEach(el => {
+    ScrollTrigger.create({
+      trigger: el,
+      start: 'top 88%',
+      once: true,
+      onEnter: () => {
+        el.classList.add('is-revealed');
+
+        // Check if element is a stat card to animate counter
+        if (el.classList.contains('stat-card')) {
+          animateStatCounter(el);
+        }
+      }
+    });
+  });
+}
+
+function animateStatCounter(cardEl) {
+  const statIndex = cardEl.getAttribute('data-stat-index');
+  const numberEl = cardEl.querySelector('.stat-number');
+  if (!numberEl || !statIndex || !SITE_CONTENT.about.stats[statIndex]) return;
+
+  const originalText = SITE_CONTENT.about.stats[statIndex].value;
+  // If it's a bracketed placeholder like "[50+]", animate with digital rolling effect
+  let steps = 0;
+  const maxSteps = 12;
+  const chars = "0123456789+₹AX";
+
+  const interval = setInterval(() => {
+    steps++;
+    if (steps >= maxSteps) {
+      clearInterval(interval);
+      numberEl.textContent = originalText;
+    } else {
+      let scrambled = "";
+      for (let c = 0; c < originalText.length; c++) {
+        if (originalText[c] === '[' || originalText[c] === ']') {
+          scrambled += originalText[c];
+        } else {
+          scrambled += chars[Math.floor(Math.random() * chars.length)];
+        }
+      }
+      numberEl.textContent = scrambled;
+    }
+  }, 50);
+}
+
+/* ==========================================================================
+   EVENT TABS FILTERING
+   ========================================================================== */
+function initEventTabs() {
+  const tabs = document.querySelectorAll('.event-tab-btn');
+  tabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      tabs.forEach(t => {
+        t.classList.remove('is-active');
+        t.setAttribute('aria-selected', 'false');
+      });
+      tab.classList.add('is-active');
+      tab.setAttribute('aria-selected', 'true');
+
+      const category = tab.getAttribute('data-category');
+      renderEvents(category);
+    });
+  });
+}
+
+/* ==========================================================================
+   REGISTRATION FORM CONTROLLER (FRONT-END ONLY)
+   ========================================================================== */
+function initRegistrationForm() {
+  const form = document.getElementById('registration-form');
+  const successPanel = document.getElementById('register-success');
+  const resetBtn = document.getElementById('reg-reset-btn');
+  const successEventName = document.getElementById('success-event-name');
+  const successPassId = document.getElementById('success-pass-id');
+
+  if (!form) return;
+
+  // NOTE: This interface is a front-end prototype.
+  // No live server backend is currently hooked up.
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+
+    let isValid = true;
+    const nameInput = document.getElementById('reg-name');
+    const emailInput = document.getElementById('reg-email');
+    const collegeInput = document.getElementById('reg-college');
+    const eventInput = document.getElementById('reg-event');
+
+    const errName = document.getElementById('err-name');
+    const errEmail = document.getElementById('err-email');
+    const errCollege = document.getElementById('err-college');
+    const errEvent = document.getElementById('err-event');
+
+    // Reset error states
+    [nameInput, emailInput, collegeInput, eventInput].forEach(el => el.classList.remove('is-invalid'));
+    [errName, errEmail, errCollege, errEvent].forEach(el => el.textContent = '');
+
+    // 1. Name check
+    if (!nameInput.value.trim()) {
+      nameInput.classList.add('is-invalid');
+      errName.textContent = 'Please enter your full name.';
+      isValid = false;
+    }
+
+    // 2. Email check
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailInput.value.trim() || !emailRegex.test(emailInput.value.trim())) {
+      emailInput.classList.add('is-invalid');
+      errEmail.textContent = 'Please provide a valid institutional email address.';
+      isValid = false;
+    }
+
+    // 3. College check
+    if (!collegeInput.value.trim()) {
+      collegeInput.classList.add('is-invalid');
+      errCollege.textContent = 'Please specify your college or university.';
+      isValid = false;
+    }
+
+    // 4. Event check
+    if (!eventInput.value) {
+      eventInput.classList.add('is-invalid');
+      errEvent.textContent = 'Please select a primary competition arena.';
+      isValid = false;
+    }
+
+    if (!isValid) return;
+
+    // Simulation of front-end registration success state
+    const generatedPass = `AX-${Math.floor(1000 + Math.random() * 9000)}-${Date.now().toString().slice(-4)}`;
+    if (successPassId) successPassId.textContent = generatedPass;
+    if (successEventName) successEventName.textContent = eventInput.value;
+
+    form.style.display = 'none';
+    if (successPanel) successPanel.style.display = 'block';
+  });
+
+  if (resetBtn) {
+    resetBtn.addEventListener('click', () => {
+      form.reset();
+      form.style.display = 'block';
+      if (successPanel) successPanel.style.display = 'none';
+    });
+  }
+}
+
+/* ==========================================================================
+   SMOOTH ANCHOR NAVIGATION (LENIS INTEGRATION)
+   ========================================================================== */
+function initSmoothAnchors() {
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', (e) => {
+      const targetId = anchor.getAttribute('href');
+      if (targetId === '#') return;
+      const targetEl = document.querySelector(targetId);
+      if (targetEl) {
+        e.preventDefault();
+        if (lenis) {
+          lenis.scrollTo(targetEl, { offset: -60, duration: 1.2 });
+        } else {
+          targetEl.scrollIntoView({ behavior: 'smooth' });
+        }
+      }
+    });
+  });
 }
 
 /* ==========================================================================
@@ -218,9 +594,6 @@ function enableFallbackMode() {
 
 /* ==========================================================================
    SCROLL CHOREOGRAPHY & SAFE ZONES
-   Safe zone: No text in 30% - 68% viewport during 40% - 100% of scroll
-   Top zone: 0% - 25% viewport height
-   Bottom zone: 70% - 100% viewport height
    ========================================================================== */
 function updateChoreography(progress) {
   // 1. Right Edge Progress Bar & Dynamic Accent Color
@@ -314,7 +687,6 @@ function updateChoreography(progress) {
     heroCtaGroupEl.style.pointerEvents = ctaOpacity > 0.5 ? 'auto' : 'none';
   }
 
-  // Update Debug HUD if active
   if (debugMode) {
     if (dbgProgressEl) dbgProgressEl.textContent = `${(progress * 100).toFixed(2)}%`;
   }
@@ -396,12 +768,16 @@ window.addEventListener('DOMContentLoaded', () => {
 
   if (isReducedMotion) {
     enableFallbackMode();
-    return;
+  } else {
+    initLenis();
+    setupVideoSource();
+    initSmoothScrub();
   }
 
-  initLenis();
-  setupVideoSource();
-  initSmoothScrub();
+  initEventTabs();
+  initRegistrationForm();
+  initSmoothAnchors();
+  initScrollReveals();
 
   setTimeout(() => {
     if (!isVideoReady) {
