@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ALODANAX 2026 | Annual IT/CS TechFest</title>
+  <meta name="description" content="ALODANAX - The premier annual techfest of [DEPARTMENT, COLLEGE]. Join us for flagship hackathons, competitive programming, and esports.">
+
+  <!-- Google Fonts: Syne & Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Syne:wght@700;800&display=swap" rel="stylesheet">
+
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- Keyboard Accessibility: Skip to Content -->
+  <a href="#content" class="skip-link">Skip to main content</a>
+
+  <!-- Minimalist Cinematic Loader -->
+  <div id="loader" role="status" aria-live="polite" aria-label="Loading ALODANAX Experience">
+    <div class="loader-brand">ALODANAX</div>
+    <div class="loader-track">
+      <div class="loader-bar" id="loader-bar"></div>
+    </div>
+  </div>
+
+  <!-- Persistent Global Header (Fades in at 20% scroll) -->
+  <header id="site-header" role="banner">
+    <a href="#hero" class="nav-brand" aria-label="ALODANAX Techfest Home">ALODANAX</a>
+    <nav class="nav-menu-wrapper" aria-label="Primary Site Navigation">
+      <ul class="nav-menu">
+        <li><a href="#about" class="nav-link">ABOUT</a></li>
+        <li><a href="#events" class="nav-link">EVENTS</a></li>
+        <li><a href="#schedule" class="nav-link">SCHEDULE</a></li>
+        <li><a href="#register" class="nav-cta-btn">REGISTER</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- Pinned Scroll-Scrubbed Hero Section (500vh) -->
+  <section id="hero" aria-label="ALODANAX Title Showcase">
+    <div class="hero-media-wrapper">
+      <video
+        id="hero-video"
+        class="hero-video"
+        muted
+        playsinline
+        preload="auto"
+        aria-hidden="true"
+        poster="assets/hero-poster.jpg"
+      ></video>
+      <canvas id="hero-canvas" class="hero-video" style="display: none;"></canvas>
+    </div>
+
+    <!-- Edge Vignette to blend #000202 edges seamlessly -->
+    <div class="hero-vignette" aria-hidden="true"></div>
+
+    <!-- Impact Flash (Letter lock-in moment at 40-50%) -->
+    <div id="impact-flash" aria-hidden="true"></div>
+
+    <!-- Safe-Zone Overlays -->
+    <div class="hero-overlay-layer">
+      <!-- Top Zone (0 - 25% viewport height) -->
+      <div class="overlay-top-zone">
+        <div class="hero-presenter" id="hero-presenter">[DEPARTMENT, COLLEGE] PRESENTS</div>
+      </div>
+
+      <!-- Bottom Zone (70 - 100% viewport height) -->
+      <div class="overlay-bottom-zone">
+        <!-- 0–10% Scroll Cue -->
+        <div class="scroll-cue" id="scroll-cue">
+          <span class="scroll-cue-text">SCROLL</span>
+          <div class="scroll-cue-line" aria-hidden="true"></div>
+        </div>
+
+        <!-- 70–88% Starburst Tagline & Date/Venue -->
+        <div class="hero-tagline-wrap" id="hero-tagline-wrap">
+          <h1 class="hero-tagline" id="hero-tagline">[TAGLINE]</h1>
+          <p class="hero-date-venue" id="hero-date-venue">[DATE] · [VENUE]</p>
+        </div>
+
+        <!-- 88–100% Hold CTAs -->
+        <div class="hero-cta-group" id="hero-cta-group">
+          <a href="#register" class="btn-cta btn-primary-neon" id="hero-cta-register">REGISTER NOW</a>
+          <a href="#events" class="btn-cta btn-secondary-blue" id="hero-cta-events">VIEW EVENTS</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Vertical Accent Progress Rail (Right Edge) -->
+  <div id="scroll-progress-rail" aria-hidden="true">
+    <div id="scroll-progress-fill"></div>
+  </div>
+
+  <!-- Post-Pin Seam: 25vh smooth gradient from #000000 to #05060A -->
+  <div class="seam-transition" aria-hidden="true"></div>
+
+  <!-- Main content area (Phase 1 anchor targets, Phase 2 full implementation) -->
+  <main id="content">
+    <div id="about"></div>
+    <div id="events"></div>
+    <div id="schedule"></div>
+    <div id="register"></div>
+  </main>
+
+  <!-- Debug HUD (enabled via ?debug=1) -->
+  <div id="debug-hud" aria-hidden="true">
+    <div>PROGRESS: <span id="dbg-progress">0.00%</span></div>
+    <div>TIME: <span id="dbg-time">0.00s</span> / <span id="dbg-dur">0.00s</span></div>
+    <div>FPS: <span id="dbg-fps">0</span></div>
+  </div>
+
+  <!-- CDN Dependencies -->
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.18/dist/lenis.min.js"></script>
+
+  <!-- Site Content & Scrub Engine -->
+  <script src="js/content.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>

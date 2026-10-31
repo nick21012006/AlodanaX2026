@@ -1,0 +1,666 @@
+/* ==========================================================================
+   ALODANAX TECHFEST - CORE STYLESHEET
+   Strict Palette: Black (#000000 / #05060A), Surface (#0B0D14),
+   Electric Blue (#0A84FF), Neon Red (#FF1744), White (#FFFFFF / rgba(255,255,255,0.7))
+   ========================================================================== */
+
+:root {
+  --black: #000000;
+  --page-bg: #05060A;
+  --surface: #0B0D14;
+  --surface-border: rgba(10, 132, 255, 0.22);
+  --blue: #0A84FF;
+  --blue-glow: rgba(10, 132, 255, 0.5);
+  --neon-red: #FF1744;
+  --neon-red-glow: rgba(255, 23, 68, 0.55);
+  --white: #FFFFFF;
+  --white-muted: rgba(255, 255, 255, 0.7);
+  --white-dim: rgba(255, 255, 255, 0.4);
+  --white-blue: #D6ECFF;
+  
+  /* Dynamic accent driven by ScrollTrigger */
+  --accent: #FF1744;
+
+  /* Typography */
+  --font-display: 'Syne', sans-serif;
+  --font-body: 'Inter', sans-serif;
+
+  /* Fluid spacing */
+  --container-max: 1320px;
+  --ease-cinematic: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Base Reset & Box Sizing */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-family: var(--font-body);
+  background-color: var(--black);
+  color: var(--white);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  background-color: var(--page-bg);
+  min-height: 100vh;
+  overflow-x: hidden;
+  position: relative;
+}
+
+/* Accessibility: Skip to Content */
+.skip-link {
+  position: absolute;
+  top: -60px;
+  left: 20px;
+  background: var(--blue);
+  color: var(--white);
+  padding: 10px 18px;
+  font-family: var(--font-body);
+  font-size: 0.875rem;
+  font-weight: 600;
+  text-decoration: none;
+  z-index: 99999;
+  border-radius: 2px;
+  box-shadow: 0 0 20px var(--blue-glow);
+  transition: top 0.2s ease;
+}
+
+.skip-link:focus {
+  top: 20px;
+  outline: 2px solid var(--white);
+}
+
+/* Focus states */
+a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible {
+  outline: 2px solid var(--blue);
+  outline-offset: 3px;
+}
+
+/* ==========================================================================
+   LOADING SCREEN
+   Minimalist: Pure black, small caps ALODANAX, thin electric-blue progress bar
+   ========================================================================== */
+#loader {
+  position: fixed;
+  inset: 0;
+  background-color: #000000;
+  z-index: 10000;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  transition: opacity 0.8s var(--ease-cinematic), visibility 0.8s ease;
+}
+
+#loader.is-hidden {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.loader-brand {
+  font-family: var(--font-display);
+  font-size: clamp(1rem, 2vw, 1.25rem);
+  font-weight: 800;
+  letter-spacing: 0.35em;
+  color: var(--white);
+  text-transform: uppercase;
+}
+
+.loader-track {
+  width: min(240px, 60vw);
+  height: 2px;
+  background: rgba(255, 255, 255, 0.08);
+  position: relative;
+  overflow: hidden;
+  border-radius: 1px;
+}
+
+.loader-bar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 0%;
+  background: var(--blue);
+  box-shadow: 0 0 12px var(--blue-glow);
+  transition: width 0.25s linear;
+}
+
+/* ==========================================================================
+   NAVIGATION BAR
+   Fades in at 20% scroll. Brushed metal text logo, thin blue border.
+   ========================================================================== */
+#site-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+  padding: 1.25rem 2.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  background: rgba(5, 6, 10, 0.75);
+  border-bottom: 1px solid rgba(10, 132, 255, 0.15);
+  transform: translateY(-100%);
+  opacity: 0;
+  pointer-events: none;
+  transition: transform 0.4s var(--ease-cinematic), opacity 0.4s ease;
+}
+
+#site-header.is-visible {
+  transform: translateY(0);
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.nav-brand {
+  font-family: var(--font-display);
+  font-size: clamp(1rem, 1.8vw, 1.35rem);
+  font-weight: 800;
+  letter-spacing: 0.2em;
+  text-decoration: none;
+  background: linear-gradient(135deg, #FFFFFF 20%, #A0B2C6 60%, #FFFFFF 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-transform: uppercase;
+  flex-shrink: 0;
+}
+
+.nav-menu {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  list-style: none;
+}
+
+.nav-link {
+  font-family: var(--font-display);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  color: var(--white-muted);
+  text-decoration: none;
+  text-transform: uppercase;
+  position: relative;
+  padding: 0.35rem 0;
+  transition: color 0.3s ease;
+}
+
+.nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0%;
+  height: 1px;
+  background: var(--blue);
+  box-shadow: 0 0 8px var(--blue-glow);
+  transition: width 0.3s var(--ease-cinematic);
+}
+
+.nav-link:hover {
+  color: var(--white);
+}
+
+.nav-link:hover::after {
+  width: 100%;
+}
+
+.nav-cta-btn {
+  font-family: var(--font-display);
+  font-size: 0.75rem;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+  color: var(--white);
+  text-decoration: none;
+  padding: 0.5rem 1.2rem;
+  border: 1px solid var(--neon-red);
+  background: rgba(255, 23, 68, 0.08);
+  box-shadow: 0 0 14px rgba(255, 23, 68, 0.25);
+  transition: all 0.3s ease;
+  white-space: nowrap;
+}
+
+.nav-cta-btn:hover {
+  background: var(--neon-red);
+  box-shadow: 0 0 24px var(--neon-red-glow);
+  transform: translateY(-1px);
+}
+
+/* ==========================================================================
+   HERO CONTAINER (PINNED 500VH)
+   ========================================================================== */
+#hero {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  background-color: #000000;
+  overflow: hidden;
+}
+
+.hero-media-wrapper {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  background: #000000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hero-video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  background-color: #000000;
+}
+
+/* Mobile Portrait: object-fit contain with black letterboxing */
+@media (max-width: 768px) and (orientation: portrait) {
+  .hero-video {
+    object-fit: contain;
+  }
+}
+
+/* Inset Radial Vignette (Corners ≈#000202, Center glow ≈#090d11) */
+.hero-vignette {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(ellipse at 50% 50%, rgba(9, 13, 17, 0) 30%, rgba(0, 2, 2, 0.45) 70%, #000000 100%);
+  z-index: 2;
+}
+
+/* Subtle Impact Flash (Synced to letters locking in at 40-50%) */
+#impact-flash {
+  position: absolute;
+  inset: 0;
+  background: #FFFFFF;
+  opacity: 0;
+  pointer-events: none;
+  z-index: 3;
+}
+
+/* ==========================================================================
+   SAFE ZONE OVERLAYS
+   Strict Rule: No text in vertical band 30% - 68% during 40-100% of scroll.
+   Top Zone: 0% - 25% viewport height
+   Bottom Zone: 70% - 100% viewport height
+   ========================================================================== */
+.hero-overlay-layer {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 4;
+}
+
+/* Top Safe Zone (0 - 25vh) */
+.overlay-top-zone {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 25vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 1.5rem;
+}
+
+.hero-presenter {
+  font-family: var(--font-display);
+  font-size: clamp(0.75rem, 1.3vw, 0.95rem);
+  font-weight: 700;
+  letter-spacing: 0.32em;
+  color: var(--white-muted);
+  text-transform: uppercase;
+  text-align: center;
+  opacity: 0;
+  transform: translateY(-8px);
+  will-change: opacity, transform;
+}
+
+/* Bottom Safe Zone (70 - 100vh) */
+.overlay-bottom-zone {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 30vh;
+  pointer-events: none;
+}
+
+/* 0–10% Scroll Cue */
+.scroll-cue {
+  position: absolute;
+  bottom: 2.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  opacity: 1;
+  will-change: opacity, transform;
+  pointer-events: none;
+}
+
+.scroll-cue-text {
+  font-family: var(--font-display);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.3em;
+  color: var(--neon-red);
+  text-transform: uppercase;
+  text-shadow: 0 0 10px var(--neon-red-glow);
+}
+
+.scroll-cue-line {
+  width: 1.5px;
+  height: 36px;
+  background: linear-gradient(180deg, var(--neon-red) 0%, rgba(255, 23, 68, 0) 100%);
+  box-shadow: 0 0 8px var(--neon-red-glow);
+  animation: cuePulse 2s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+
+@keyframes cuePulse {
+  0% { transform: scaleY(0); transform-origin: top; }
+  50% { transform: scaleY(1); transform-origin: top; }
+  50.1% { transform: scaleY(1); transform-origin: bottom; }
+  100% { transform: scaleY(0); transform-origin: bottom; }
+}
+
+/* 70–88% Starburst Tagline & Date/Venue */
+.hero-tagline-wrap {
+  position: absolute;
+  bottom: 2.2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 90%;
+  max-width: 800px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  text-align: center;
+  opacity: 0;
+  will-change: opacity, transform;
+  pointer-events: none;
+}
+
+.hero-tagline {
+  font-family: var(--font-display);
+  font-size: clamp(0.95rem, 2.2vw, 1.45rem);
+  font-weight: 800;
+  letter-spacing: 0.22em;
+  color: var(--white);
+  text-transform: uppercase;
+  text-shadow: 0 0 20px rgba(255, 255, 255, 0.4);
+}
+
+.hero-date-venue {
+  font-family: var(--font-body);
+  font-size: clamp(0.75rem, 1.1vw, 0.9rem);
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  color: var(--white-blue);
+  text-transform: uppercase;
+  text-shadow: 0 0 12px var(--blue-glow);
+}
+
+/* 88–100% Final CTAs */
+.hero-cta-group {
+  position: absolute;
+  bottom: 2.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5rem;
+  opacity: 0;
+  will-change: opacity, transform;
+  pointer-events: none;
+  white-space: nowrap;
+}
+
+.btn-cta {
+  font-family: var(--font-display);
+  font-size: clamp(0.72rem, 1.1vw, 0.85rem);
+  font-weight: 800;
+  letter-spacing: 0.18em;
+  text-decoration: none;
+  text-transform: uppercase;
+  padding: 0.85rem 2rem;
+  min-width: 170px;
+  text-align: center;
+  position: relative;
+  transition: all 0.3s ease;
+  pointer-events: auto;
+  cursor: pointer;
+}
+
+.btn-primary-neon {
+  background: var(--neon-red);
+  color: var(--white);
+  border: 1px solid var(--neon-red);
+  box-shadow: 0 0 22px var(--neon-red-glow), inset 0 0 12px rgba(255, 255, 255, 0.2);
+  animation: neonPulse 3s ease-in-out infinite;
+}
+
+@keyframes neonPulse {
+  0%, 100% {
+    box-shadow: 0 0 20px var(--neon-red-glow), 0 0 35px rgba(255, 23, 68, 0.35);
+  }
+  50% {
+    box-shadow: 0 0 30px var(--neon-red-glow), 0 0 50px rgba(255, 23, 68, 0.55);
+  }
+}
+
+.btn-primary-neon:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 0 35px var(--neon-red-glow), 0 0 60px rgba(255, 23, 68, 0.7);
+}
+
+.btn-secondary-blue {
+  background: rgba(5, 6, 10, 0.8);
+  color: var(--white);
+  border: 1px solid var(--blue);
+  box-shadow: 0 0 15px rgba(10, 132, 255, 0.25);
+}
+
+.btn-secondary-blue:hover {
+  background: rgba(10, 132, 255, 0.15);
+  border-color: #54A6FF;
+  box-shadow: 0 0 25px var(--blue-glow);
+  transform: translateY(-2px);
+}
+
+/* ==========================================================================
+   VERTICAL ACCENT PROGRESS RAIL (RIGHT EDGE)
+   Follows mood: Neon Red (10-20%), Electric Blue (20-55%), White-Blue (70-88%)
+   ========================================================================== */
+#scroll-progress-rail {
+  position: fixed;
+  right: 1.5rem;
+  top: 25%;
+  height: 50%;
+  width: 2px;
+  background: rgba(255, 255, 255, 0.08);
+  z-index: 999;
+  pointer-events: none;
+}
+
+#scroll-progress-fill {
+  width: 100%;
+  height: 0%;
+  background: var(--accent);
+  box-shadow: 0 0 12px var(--accent);
+  transition: background-color 0.4s ease, box-shadow 0.4s ease;
+}
+
+/* ==========================================================================
+   SEAM TRANSITION (POST-PIN)
+   25vh gradient from #000000 to #05060A so no seam shows
+   ========================================================================== */
+.seam-transition {
+  width: 100%;
+  height: 25vh;
+  background: linear-gradient(180deg, #000000 0%, #05060A 100%);
+  position: relative;
+  z-index: 10;
+}
+
+/* ==========================================================================
+   DEBUG HUD (?debug=1)
+   ========================================================================== */
+#debug-hud {
+  display: none;
+  position: fixed;
+  bottom: 1.5rem;
+  left: 1.5rem;
+  background: rgba(11, 13, 20, 0.92);
+  border: 1px solid var(--blue);
+  padding: 0.6rem 1rem;
+  border-radius: 4px;
+  font-family: monospace;
+  font-size: 0.75rem;
+  color: var(--white);
+  z-index: 999999;
+  line-height: 1.6;
+  box-shadow: 0 0 16px rgba(10, 132, 255, 0.35);
+  pointer-events: none;
+}
+
+#debug-hud.is-active {
+  display: block;
+}
+
+#debug-hud span {
+  color: var(--blue);
+  font-weight: 700;
+}
+
+/* ==========================================================================
+   FALLBACK MODE (REDUCED MOTION / VIDEO FAILURE)
+   Statically displays poster with all overlays visible, no scroll pin
+   ========================================================================== */
+body.is-fallback #hero {
+  height: auto;
+  min-height: 100vh;
+}
+
+body.is-fallback .hero-media-wrapper {
+  position: absolute;
+}
+
+body.is-fallback .hero-presenter {
+  opacity: 1 !important;
+  transform: none !important;
+}
+
+body.is-fallback .hero-tagline-wrap {
+  opacity: 1 !important;
+  transform: translateX(-50%) !important;
+  bottom: 6.5rem !important;
+  pointer-events: auto !important;
+}
+
+body.is-fallback .hero-cta-group {
+  opacity: 1 !important;
+  transform: translateX(-50%) !important;
+  bottom: 2rem !important;
+  pointer-events: auto !important;
+}
+
+body.is-fallback .scroll-cue {
+  display: none !important;
+}
+
+body.is-fallback #site-header {
+  transform: translateY(0) !important;
+  opacity: 1 !important;
+  pointer-events: auto !important;
+}
+
+/* Media Query: prefers-reduced-motion */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Mobile responsive padding & adjustments (390x844 etc.) */
+@media (max-width: 768px) {
+  #site-header {
+    padding: 0.85rem 1.25rem;
+  }
+
+  .nav-menu {
+    gap: 1.25rem;
+  }
+
+  .nav-link {
+    font-size: 0.72rem;
+    letter-spacing: 0.12em;
+  }
+
+  .nav-cta-btn {
+    display: none;
+  }
+
+  #scroll-progress-rail {
+    right: 0.4rem;
+  }
+
+  .hero-cta-group {
+    flex-direction: column;
+    width: 85%;
+    max-width: 260px;
+    gap: 0.65rem;
+    bottom: 2rem;
+  }
+
+  .btn-cta {
+    width: 100%;
+    min-width: unset;
+    padding: 0.75rem 1.25rem;
+  }
+}
+
+@media (max-width: 480px) {
+  #site-header {
+    padding: 0.75rem 1rem;
+  }
+
+  .nav-brand {
+    font-size: 0.95rem;
+    letter-spacing: 0.14em;
+  }
+
+  .nav-menu {
+    gap: 0.85rem;
+  }
+
+  .nav-link {
+    font-size: 0.68rem;
+    letter-spacing: 0.08em;
+  }
+}
