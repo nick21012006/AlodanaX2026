@@ -91,68 +91,208 @@ function checkReducedMotion() {
 /* ==========================================================================
    CONTENT HYDRATION (FROM content.js)
    ========================================================================== */
+/* ==========================================================================
+   CONTENT HYDRATION (FROM site.js & events.js)
+   ========================================================================== */
 function hydrateContent() {
-  if (typeof SITE_CONTENT === 'undefined') return;
+  const site = window.SITE_DATA || {};
+  const meta = site.brand || (typeof SITE_CONTENT !== 'undefined' ? SITE_CONTENT.meta : {});
+  const utils = window.ALODANAX_UTILS || {};
 
   // 1. Meta & Hero Hydration
-  if (SITE_CONTENT.meta) {
-    document.title = `${SITE_CONTENT.meta.festName} ${SITE_CONTENT.meta.edition} | ${SITE_CONTENT.meta.tagline}`;
+  if (meta && meta.name) {
+    document.title = `${meta.name} ${meta.edition || '2026'} | ${meta.tagline || ''}`;
   }
-  if (heroPresenterEl) heroPresenterEl.textContent = SITE_CONTENT.hero.presenter;
-  if (heroTaglineEl) heroTaglineEl.textContent = SITE_CONTENT.hero.tagline;
-  if (heroDateVenueEl) heroDateVenueEl.textContent = SITE_CONTENT.hero.dateVenue;
-  if (heroCtaRegisterEl) heroCtaRegisterEl.textContent = SITE_CONTENT.hero.ctaRegister;
-  if (heroCtaEventsEl) heroCtaEventsEl.textContent = SITE_CONTENT.hero.ctaEvents;
+
+  const presenterText = (site.college && site.college.fullTitle) ? `${site.college.fullTitle} PRESENTS` : (typeof SITE_CONTENT !== 'undefined' && SITE_CONTENT.hero && SITE_CONTENT.hero.presenter);
+  if (heroPresenterEl && presenterText) heroPresenterEl.textContent = presenterText;
+  if (heroTaglineEl && meta.tagline) heroTaglineEl.textContent = meta.tagline;
+  if (heroDateVenueEl && site.college) {
+    heroDateVenueEl.textContent = `${site.college.dates || '[DATE TBA]'} · ${site.college.venue || '[VENUE TBA]'}`;
+  }
 
   // 2. About Section
-  const aboutTag = document.getElementById('about-tag');
-  const aboutTitle1 = document.getElementById('about-title-1');
-  const aboutTitle2 = document.getElementById('about-title-2');
   const aboutDesc = document.getElementById('about-description');
-  if (aboutTag) aboutTag.textContent = SITE_CONTENT.about.sectionTag;
-  if (aboutTitle1) aboutTitle1.textContent = SITE_CONTENT.about.titlePrimary;
-  if (aboutTitle2) aboutTitle2.textContent = SITE_CONTENT.about.titleSecondary;
-  if (aboutDesc) aboutDesc.textContent = SITE_CONTENT.about.description;
+  const aboutVision = document.getElementById('about-vision');
+  const aboutPurpose = document.getElementById('about-purpose');
+  const aboutQuote = document.getElementById('about-quote');
+  const aboutStatsContainer = document.getElementById('about-stats-container');
 
-  // Stat Counters Hydration
-  SITE_CONTENT.about.stats.forEach((stat, i) => {
-    const valEl = document.getElementById(`stat-val-${i}`);
-    const lblEl = document.getElementById(`stat-lbl-${i}`);
-    if (valEl) valEl.textContent = stat.value;
-    if (lblEl) lblEl.textContent = stat.label;
-  });
-
-  // 3. Events Section Hydration
-  renderEvents('all');
-
-  // 4. Schedule Section Hydration
-  renderSchedule();
-
-  // 5. Register Section Dropdown
-  const selectEl = document.getElementById('reg-event');
-  if (selectEl && SITE_CONTENT.register && SITE_CONTENT.register.eventOptions) {
-    SITE_CONTENT.register.eventOptions.forEach(opt => {
-      const option = document.createElement('option');
-      option.value = opt.name;
-      option.textContent = `[${opt.category.toUpperCase()}] ${opt.name}`;
-      selectEl.appendChild(option);
-    });
+  if (site.about) {
+    if (aboutDesc && site.about.shortIntro) aboutDesc.textContent = site.about.shortIntro;
+    if (aboutVision && site.about.vision) aboutVision.textContent = site.about.vision;
+    if (aboutPurpose && site.about.purpose) aboutPurpose.textContent = site.about.purpose;
+  }
+  if (aboutQuote && site.college) {
+    aboutQuote.textContent = `${site.college.fullTitle || '[DEPARTMENT, COLLEGE]'} · ANNUAL SYMPOSIUM`;
   }
 
-  // 6. Footer Hydration
-  const footDept = document.getElementById('footer-department');
-  const footTag = document.getElementById('footer-tagline');
-  const footContact = document.getElementById('footer-contact-info');
-  const footVenue = document.getElementById('footer-venue-info');
-  const footInsta = document.getElementById('footer-instagram');
-  const footCopy = document.getElementById('footer-copyright');
+  // Stat Counters: keep only if real non-placeholder values exist; otherwise omit
+  if (aboutStatsContainer && site.about && Array.isArray(site.about.stats)) {
+    const hasRealStats = site.about.stats.some(s => !utils.isPlaceholder(s.value));
+    if (hasRealStats) {
+      aboutStatsContainer.innerHTML = '';
+      site.about.stats.forEach((stat, i) => {
+        if (!utils.isPlaceholder(stat.value)) {
+          const card = document.createElement('div');
+          card.className = `stat-card reveal-item ${i === 2 ? 'featured-stat' : ''}`;
+          card.innerHTML = `
+            <div class="stat-inner">
+              <span class="stat-number">${stat.value}</span>
+              <span class="stat-label">${stat.label}</span>
+            </div>
+            <div class="card-hairline-corner"></div>
+          `;
+          aboutStatsContainer.appendChild(card);
+        }
+      });
+    } else {
+      aboutStatsContainer.style.display = 'none';
+    }
+  }
 
-  if (footDept) footDept.textContent = SITE_CONTENT.meta.department;
-  if (footTag) footTag.textContent = SITE_CONTENT.meta.tagline;
-  if (footContact) footContact.textContent = SITE_CONTENT.contact.email;
-  if (footVenue) footVenue.textContent = SITE_CONTENT.meta.venue;
-  if (footInsta) footInsta.textContent = SITE_CONTENT.contact.instagram;
-  if (footCopy) footCopy.textContent = `© ${SITE_CONTENT.meta.edition} ${SITE_CONTENT.meta.festName}. ${SITE_CONTENT.meta.department}. ${SITE_CONTENT.footer.rights}.`;
+  // 3. Collaborator Section
+  const collab = site.collaborator;
+  if (collab) {
+    const nameEl = document.getElementById('collab-name');
+    const introEl = document.getElementById('collab-intro');
+    const infoListEl = document.getElementById('collab-info-list');
+    const guestsGrid = document.getElementById('collab-guests-grid');
+
+    if (nameEl && collab.name) nameEl.textContent = collab.name;
+    if (introEl && collab.intro) introEl.textContent = collab.intro;
+
+    if (infoListEl && Array.isArray(collab.info)) {
+      infoListEl.innerHTML = '';
+      collab.info.forEach(infoText => {
+        const li = document.createElement('li');
+        li.className = 'collaborator-info-item';
+        li.innerHTML = `<span class="collaborator-info-bullet">✦</span><span>${infoText}</span>`;
+        infoListEl.appendChild(li);
+      });
+    }
+
+    if (guestsGrid && Array.isArray(collab.guests)) {
+      guestsGrid.innerHTML = '';
+      collab.guests.slice(0, 3).forEach(guest => {
+        const gCard = document.createElement('div');
+        gCard.className = 'guest-card reveal-item';
+        gCard.innerHTML = `
+          <div class="guest-photo-wrap">
+            <img
+              src="${guest.photo || 'assets/images/collaborator/guest.jpg'}"
+              alt="${guest.name || 'Honored Guest'}"
+              class="guest-photo-img"
+              loading="lazy"
+              decoding="async"
+              onerror="window.ALODANAX_UTILS && window.ALODANAX_UTILS.handleImageError(this, 'profile', '${guest.name || 'GUEST'}')"
+            >
+          </div>
+          <div class="guest-meta-box">
+            <h4 class="guest-name">${guest.name || '[GUEST NAME]'}</h4>
+            <span class="guest-designation">${guest.designation || '[GUEST DESIGNATION]'}</span>
+          </div>
+        `;
+        guestsGrid.appendChild(gCard);
+      });
+    }
+  }
+
+  // 4. Featured Events (5 primary cards from events.js)
+  renderFeaturedEvents();
+
+  // 5. Why ALODANAX (4 pillars)
+  renderWhyPillars();
+}
+
+/* ==========================================================================
+   RENDER FEATURED EVENTS (HOME PAGE - 5 CARDS)
+   ========================================================================== */
+function renderFeaturedEvents() {
+  const container = document.getElementById('featured-events-container');
+  if (!container || !window.EVENTS_DATA) return;
+
+  container.innerHTML = '';
+  const utils = window.ALODANAX_UTILS || {};
+
+  // Pull the 5 specified featured events: Hackathon, Bit Bash Bonanza, Ideathon, BGMI, Discovering Derlicts
+  const featuredSlugs = ['hackathon', 'bit-bash-bonanza', 'ideathon', 'bgmi', 'discovering-derlicts'];
+  const featuredList = featuredSlugs
+    .map(s => window.EVENTS_DATA.find(ev => ev.slug === s))
+    .filter(Boolean);
+
+  featuredList.forEach(ev => {
+    const card = document.createElement('article');
+    card.className = `featured-event-card reveal-item category-${ev.category}`;
+
+    const catBadgeClass = ev.category === 'technical' ? 'cat-technical' : (ev.category === 'gaming' ? 'cat-gaming' : 'cat-non-technical');
+    const dateVenueText = `${ev.date || '[DATE TBA]'} · ${ev.venue || '[VENUE TBA]'}`;
+    const registerBtnHtml = utils.renderRegistrationButton
+      ? utils.renderRegistrationButton(ev, { className: 'btn-cta', text: 'REGISTER NOW' })
+      : '<button type="button" class="btn-cta btn-disabled" aria-disabled="true">Registration Opening Soon</button>';
+
+    card.innerHTML = `
+      <div class="featured-poster-wrap">
+        <img
+          src="${ev.image || 'assets/images/events/' + ev.slug + '.jpg'}"
+          alt="${ev.name} Poster"
+          class="featured-poster-img"
+          loading="lazy"
+          decoding="async"
+          onerror="window.ALODANAX_UTILS && window.ALODANAX_UTILS.handleImageError(this, 'event', '${ev.name}')"
+        >
+        <div class="featured-badge-overlay">
+          <span class="category-badge ${catBadgeClass}">${ev.category.toUpperCase()}</span>
+          ${ev.tag ? `<span class="event-tag-badge">${ev.tag}</span>` : ''}
+        </div>
+      </div>
+      <div class="featured-card-body">
+        <h3 class="featured-event-name">${ev.name}</h3>
+        <p class="featured-event-desc">${ev.shortDescription}</p>
+        <div class="featured-meta-bar">
+          <span>${dateVenueText}</span>
+        </div>
+        <div class="featured-actions-row">
+          <a href="events.html#event=${ev.slug}" class="btn-cta btn-secondary-blue">
+            <span>VIEW DETAILS</span>
+          </a>
+          ${registerBtnHtml}
+        </div>
+      </div>
+    `;
+
+    container.appendChild(card);
+  });
+}
+
+/* ==========================================================================
+   RENDER WHY ALODANAX (4 PILLARS)
+   ========================================================================== */
+function renderWhyPillars() {
+  const container = document.getElementById('why-pillars-container');
+  if (!container) return;
+
+  const site = window.SITE_DATA || {};
+  const pillars = site.why || [
+    { pillar: "Innovation", title: "GROUNDBREAKING TECH", description: "Push beyond theoretical boundaries with emerging frameworks and neural pipelines." },
+    { pillar: "Creativity", title: "UNBOUND DESIGN", description: "Engineering meets aesthetic mastery: intuitive interfaces and fluid motion design." },
+    { pillar: "Collaboration", title: "SYNERGISTIC SQUADS", description: "Unite with cross-functional talent across universities to solve urgent challenges." },
+    { pillar: "Competition", title: "ELITE BATTLEGROUNDS", description: "Test your mental limits against national-caliber coders, security analysts, and gamers." }
+  ];
+
+  container.innerHTML = '';
+  pillars.forEach((p, idx) => {
+    const card = document.createElement('div');
+    card.className = 'pillar-card reveal-item';
+    const num = (idx + 1).toString().padStart(2, '0');
+    card.innerHTML = `
+      <span class="pillar-number">${num}</span>
+      <span class="pillar-name-tag">${p.pillar.toUpperCase()}</span>
+      <h3 class="pillar-title">${p.title}</h3>
+      <p class="pillar-desc">${p.description}</p>
+    `;
+    container.appendChild(card);
+  });
 }
 
 /* ==========================================================================
@@ -575,7 +715,8 @@ function enableFallbackMode() {
     mediaWrap.style.backgroundPosition = 'center';
   }
 
-  if (siteHeaderEl) siteHeaderEl.classList.add('is-visible');
+  const activeHeader = document.getElementById('site-header');
+  if (activeHeader) activeHeader.classList.add('is-visible');
   if (heroPresenterEl) {
     heroPresenterEl.style.opacity = '1';
     heroPresenterEl.style.transform = 'none';
@@ -619,11 +760,12 @@ function updateChoreography(progress) {
   }
 
   // 3. Navbar fade-in at 20%
-  if (siteHeaderEl) {
+  const currentHeader = document.getElementById('site-header');
+  if (currentHeader) {
     if (progress >= CHOREO.NAVBAR.trigger) {
-      siteHeaderEl.classList.add('is-visible');
+      currentHeader.classList.add('is-visible');
     } else {
-      siteHeaderEl.classList.remove('is-visible');
+      currentHeader.classList.remove('is-visible');
     }
   }
 

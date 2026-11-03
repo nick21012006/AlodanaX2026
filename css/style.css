@@ -2288,3 +2288,513 @@ body.is-fallback #site-header {
     display: flex !important;
   }
 }
+
+
+/* ==========================================================================
+   HOME PAGE EXPANDED SECTIONS: COLLABORATOR, CATEGORIES, FEATURED, WHY, CTA
+   ========================================================================== */
+
+/* 1. Collaborator Section */
+.section-collaborator {
+  position: relative;
+  background: #05060A;
+}
+
+.collaborator-card-main {
+  background: #0B0D14;
+  border: 1px solid rgba(10, 132, 255, 0.25);
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6);
+  padding: 2.5rem;
+  margin-bottom: 3.5rem;
+  position: relative;
+  overflow: hidden;
+  clip-path: polygon(0 0, calc(100% - 20px) 0, 100% 20px, 100% 100%, 0 100%);
+}
+
+.collaborator-card-main::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, var(--blue) 0%, rgba(10, 132, 255, 0.2) 60%, transparent 100%);
+}
+
+.collaborator-top-row {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 2.5rem;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.collaborator-logo-wrap {
+  width: 220px;
+  height: 80px;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.8rem;
+}
+
+.collaborator-logo-img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+
+.collaborator-company-name {
+  font-family: var(--font-display);
+  font-size: 1.6rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  color: var(--white);
+  margin-bottom: 0.5rem;
+}
+
+.collaborator-intro-text {
+  color: var(--white-muted);
+  font-size: 1.05rem;
+  line-height: 1.65;
+}
+
+.collaborator-info-list {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  padding-top: 1.8rem;
+}
+
+.collaborator-info-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: 0.88rem;
+  color: var(--white);
+  letter-spacing: 0.04em;
+}
+
+.collaborator-info-bullet {
+  color: var(--blue);
+  font-size: 1.1rem;
+}
+
+/* Guest Cards */
+.collaborator-guests-title {
+  font-family: var(--font-display);
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  color: var(--white);
+  text-transform: uppercase;
+  margin-bottom: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+}
+
+.collaborator-guests-title::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: rgba(10, 132, 255, 0.2);
+}
+
+.guests-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.8rem;
+}
+
+.guest-card {
+  background: #0B0D14;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  overflow: hidden;
+  transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+  position: relative;
+}
+
+.guest-card:hover {
+  transform: translateY(-4px);
+  border-color: var(--blue);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8), 0 0 15px rgba(10, 132, 255, 0.15);
+}
+
+.guest-photo-wrap {
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  background: #05060A;
+  overflow: hidden;
+  position: relative;
+}
+
+.guest-photo-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.guest-card:hover .guest-photo-img {
+  transform: scale(1.03);
+}
+
+.guest-meta-box {
+  padding: 1.4rem;
+}
+
+.guest-name {
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  color: var(--white);
+  margin-bottom: 0.3rem;
+}
+
+.guest-designation {
+  font-size: 0.8rem;
+  color: var(--blue);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+/* 2. Event Categories Section */
+.section-categories {
+  background: #000000;
+}
+
+.categories-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+}
+
+.category-card {
+  background: #0B0D14;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 2.5rem 2rem;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow: hidden;
+  text-decoration: none;
+  transition: transform 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease;
+  clip-path: polygon(0 0, calc(100% - 18px) 0, 100% 18px, 100% 100%, 0 100%);
+}
+
+.category-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background: var(--card-accent);
+}
+
+.category-card.cat-tech {
+  --card-accent: var(--blue);
+  --card-glow: var(--blue-glow);
+}
+
+.category-card.cat-non-tech {
+  --card-accent: #FFFFFF;
+  --card-glow: rgba(255, 255, 255, 0.2);
+}
+
+.category-card.cat-gaming {
+  --card-accent: var(--neon-red);
+  --card-glow: var(--neon-glow);
+}
+
+.category-card:hover {
+  transform: translateY(-6px);
+  border-color: var(--card-accent);
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.9), 0 0 25px var(--card-glow);
+}
+
+.category-icon-box {
+  width: 50px;
+  height: 50px;
+  border: 1px solid var(--card-accent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1.8rem;
+  color: var(--card-accent);
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.category-card-title {
+  font-family: var(--font-display);
+  font-size: 1.45rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  color: var(--white);
+  margin-bottom: 0.8rem;
+}
+
+.category-card-desc {
+  font-size: 0.92rem;
+  color: var(--white-muted);
+  line-height: 1.6;
+  margin-bottom: 2rem;
+  flex: 1;
+}
+
+.category-card-link-text {
+  font-family: var(--font-display);
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  color: var(--card-accent);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: gap 0.2s ease;
+}
+
+.category-card:hover .category-card-link-text {
+  gap: 0.8rem;
+}
+
+/* 3. Featured Events Section */
+.section-featured-events {
+  background: #05060A;
+}
+
+.featured-events-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+  gap: 2rem;
+}
+
+.featured-event-card {
+  background: #0B0D14;
+  border: 1px solid rgba(10, 132, 255, 0.2);
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease;
+}
+
+.featured-event-card:hover {
+  transform: translateY(-5px);
+  border-color: var(--blue);
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.8), 0 0 20px rgba(10, 132, 255, 0.18);
+}
+
+.featured-poster-wrap {
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  background: #000000;
+  overflow: hidden;
+  position: relative;
+}
+
+.featured-poster-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.featured-event-card:hover .featured-poster-img {
+  transform: scale(1.04);
+}
+
+.featured-badge-overlay {
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+  display: flex;
+  gap: 0.5rem;
+  z-index: 2;
+}
+
+.featured-card-body {
+  padding: 1.8rem;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.featured-event-name {
+  font-family: var(--font-display);
+  font-size: 1.35rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  color: var(--white);
+  margin-bottom: 0.6rem;
+}
+
+.featured-event-desc {
+  font-size: 0.9rem;
+  color: var(--white-muted);
+  line-height: 1.6;
+  margin-bottom: 1.4rem;
+  flex: 1;
+}
+
+.featured-meta-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  margin-bottom: 1.4rem;
+  font-size: 0.78rem;
+  color: var(--white-muted);
+  letter-spacing: 0.05em;
+}
+
+.featured-actions-row {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+}
+
+.featured-actions-row .btn-cta,
+.featured-actions-row .btn-disabled {
+  flex: 1;
+  text-align: center;
+  padding: 0.65rem 1rem;
+  font-size: 0.72rem;
+}
+
+/* 4. Why ALODANAX Section */
+.section-why {
+  background: #000000;
+}
+
+.why-pillars-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.8rem;
+}
+
+.pillar-card {
+  background: #0B0D14;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 2.2rem 1.6rem;
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.3s ease, border-color 0.3s ease;
+}
+
+.pillar-card:hover {
+  transform: translateY(-4px);
+  border-color: var(--blue);
+}
+
+.pillar-number {
+  font-family: var(--font-display);
+  font-size: 2.2rem;
+  font-weight: 800;
+  color: rgba(10, 132, 255, 0.25);
+  margin-bottom: 1rem;
+  display: block;
+}
+
+.pillar-name-tag {
+  font-family: var(--font-display);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  color: var(--blue);
+  text-transform: uppercase;
+  margin-bottom: 0.4rem;
+}
+
+.pillar-title {
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  color: var(--white);
+  margin-bottom: 0.8rem;
+}
+
+.pillar-desc {
+  font-size: 0.88rem;
+  color: var(--white-muted);
+  line-height: 1.6;
+}
+
+/* 5. Call To Action Section */
+.section-cta {
+  background: linear-gradient(180deg, #05060A 0%, #000000 100%);
+  position: relative;
+  overflow: hidden;
+  text-align: center;
+  padding: 7rem 0;
+}
+
+.cta-box-inner {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.cta-main-title {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 3.8vw, 3.4rem);
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  color: var(--white);
+  margin-bottom: 1.2rem;
+  line-height: 1.15;
+}
+
+.cta-main-subtext {
+  font-size: clamp(1rem, 1.3vw, 1.2rem);
+  color: var(--white-muted);
+  line-height: 1.65;
+  margin-bottom: 2.5rem;
+}
+
+.cta-buttons-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.4rem;
+  flex-wrap: wrap;
+}
+
+/* Responsive Overrides for Expanded Sections */
+@media (max-width: 1024px) {
+  .categories-grid {
+    grid-template-columns: 1fr;
+  }
+  .guests-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .why-pillars-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .collaborator-top-row {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+  .collaborator-card-main {
+    padding: 1.8rem 1.4rem;
+  }
+  .guests-grid {
+    grid-template-columns: 1fr;
+  }
+  .why-pillars-grid {
+    grid-template-columns: 1fr;
+  }
+  .featured-events-grid {
+    grid-template-columns: 1fr;
+  }
+}

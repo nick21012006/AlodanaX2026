@@ -6,6 +6,12 @@
   <title>ALODANAX 2026 | Annual IT/CS TechFest</title>
   <meta name="description" content="ALODANAX - The premier annual techfest of [DEPARTMENT, COLLEGE]. Join us for flagship hackathons, competitive programming, and esports.">
 
+  <!-- Open Graph Meta Tags -->
+  <meta property="og:title" content="ALODANAX 2026 | Annual IT/CS TechFest">
+  <meta property="og:description" content="Experience precision engineering and cyber evolution at ALODANAX. 24h Hackathon, Competitive Coding, and Esports.">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="assets/hero-poster.jpg">
+
   <!-- Google Fonts: Syne & Inter -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -27,18 +33,8 @@
     </div>
   </div>
 
-  <!-- Persistent Global Header (Fades in at 20% scroll) -->
-  <header id="site-header" role="banner">
-    <a href="#hero" class="nav-brand" aria-label="ALODANAX Techfest Home">ALODANAX</a>
-    <nav class="nav-menu-wrapper" aria-label="Primary Site Navigation">
-      <ul class="nav-menu">
-        <li><a href="#about" class="nav-link">ABOUT</a></li>
-        <li><a href="#events" class="nav-link">EVENTS</a></li>
-        <li><a href="#schedule" class="nav-link">SCHEDULE</a></li>
-        <li><a href="#register" class="nav-cta-btn">REGISTER</a></li>
-      </ul>
-    </nav>
-  </header>
+  <!-- Shared Global Navigation (Injected by js/components.js) -->
+  <div id="site-nav"></div>
 
   <!-- Pinned Scroll-Scrubbed Hero Section (500vh) -->
   <section id="hero" aria-label="ALODANAX Title Showcase">
@@ -84,8 +80,8 @@
 
         <!-- 88–100% Hold CTAs -->
         <div class="hero-cta-group" id="hero-cta-group">
-          <a href="#register" class="btn-cta btn-primary-neon" id="hero-cta-register">REGISTER NOW</a>
-          <a href="#events" class="btn-cta btn-secondary-blue" id="hero-cta-events">VIEW EVENTS</a>
+          <a href="events.html" class="btn-cta btn-primary-neon" id="hero-cta-register">REGISTER NOW</a>
+          <a href="#featured-events" class="btn-cta btn-secondary-blue" id="hero-cta-events">VIEW EVENTS</a>
         </div>
       </div>
     </div>
@@ -119,229 +115,234 @@
         <div class="about-grid">
           <div class="about-text-column reveal-item">
             <p class="lead-text" id="about-description">
-              [ANNUAL NATIONAL LEVEL TECHFEST OF THE IT/CS DEPARTMENT. BRINGING TOGETHER INNOVATORS, CODERS, DESIGNERS, AND GAMERS FOR AN IMMERSIVE TECH ODYSSEY.]
+              ALODANAX is the premier annual technical symposium orchestrated by the Department of Information Technology &amp; Computer Science. Built at the intersection of precision engineering and raw creativity, the symposium convenes student developers, algorithmic designers, cybersecurity operatives, and competitive gamers from across the nation.
             </p>
-            <div class="about-quote-box">
+
+            <div class="about-vision-purpose-grid" id="about-vision-purpose">
+              <div class="vision-card">
+                <h3 class="vision-title">VISION</h3>
+                <p class="vision-desc" id="about-vision">
+                  To cultivate an elite competitive forum that bridges foundational computer science with production-grade engineering, accelerating student innovation across artificial intelligence, cybersecurity, and distributed systems.
+                </p>
+              </div>
+              <div class="vision-card">
+                <h3 class="vision-title">PURPOSE</h3>
+                <p class="vision-desc" id="about-purpose">
+                  Empowering the next generation of technologists through rigorous hackathons, competitive problem-solving arenas, creative digital showcases, and direct industry collaboration.
+                </p>
+              </div>
+            </div>
+
+            <div class="about-quote-box" style="margin-top: 1.8rem;">
               <span class="quote-accent-bar"></span>
-              <p class="quote-text">[DEPARTMENT, COLLEGE] · ANNUAL SYMPOSIUM</p>
+              <p class="quote-text" id="about-quote">[DEPARTMENT, COLLEGE] · ANNUAL SYMPOSIUM</p>
             </div>
           </div>
 
-          <!-- Animated Stat Counters -->
-          <div class="about-stats-column">
-            <div class="stat-card reveal-item" data-stat-index="0">
-              <div class="stat-inner">
-                <span class="stat-number" id="stat-val-0">[50+]</span>
-                <span class="stat-label" id="stat-lbl-0">UNIVERSITIES & COLLEGES</span>
-              </div>
-              <div class="card-hairline-corner"></div>
-            </div>
-
-            <div class="stat-card reveal-item" data-stat-index="1">
-              <div class="stat-inner">
-                <span class="stat-number" id="stat-val-1">[15+]</span>
-                <span class="stat-label" id="stat-lbl-1">FLAGSHIP COMPETITIONS</span>
-              </div>
-              <div class="card-hairline-corner"></div>
-            </div>
-
-            <div class="stat-card reveal-item featured-stat" data-stat-index="2">
-              <div class="stat-inner">
-                <span class="stat-number" id="stat-val-2">[₹1,00,000+]</span>
-                <span class="stat-label" id="stat-lbl-2">TOTAL CASH PRIZE POOL</span>
-              </div>
-              <div class="card-hairline-corner"></div>
-            </div>
+          <!-- Animated Stat Counters (Omitted if values are empty or all placeholders) -->
+          <div class="about-stats-column" id="about-stats-container">
+            <!-- Dynamically populated or rendered -->
           </div>
         </div>
       </div>
     </section>
 
-    <!-- 2. EVENTS SECTION (Card grid by category with 3D tilt) -->
-    <section id="events" class="page-section section-events" aria-labelledby="events-heading">
+    <!-- 2. OUR COLLABORATOR SECTION -->
+    <section id="collaborator" class="page-section section-collaborator" aria-labelledby="collaborator-heading">
       <div class="section-container">
         <div class="section-header-wrap reveal-item">
-          <span class="section-tag" id="events-tag">EVENTS</span>
-          <h2 id="events-heading" class="display-title">
-            <span class="title-solid">ARENAS OF</span>
-            <span class="title-outline">COMPETITION</span>
+          <span class="section-tag">INDUSTRY ALLIANCE</span>
+          <h2 id="collaborator-heading" class="display-title">
+            <span class="title-solid">OUR VALUED</span>
+            <span class="title-outline">COLLABORATOR</span>
           </h2>
           <div class="hairline-divider"></div>
         </div>
 
-        <!-- Category Tabs -->
-        <div class="event-tabs-bar reveal-item" role="tablist" aria-label="Event Categories">
-          <button class="event-tab-btn is-active" role="tab" aria-selected="true" data-category="all">ALL CATEGORIES</button>
-          <button class="event-tab-btn" role="tab" aria-selected="false" data-category="technical">TECHNICAL</button>
-          <button class="event-tab-btn" role="tab" aria-selected="false" data-category="non-technical">NON-TECHNICAL</button>
-          <button class="event-tab-btn" role="tab" aria-selected="false" data-category="gaming">GAMING</button>
+        <!-- Collaborator Overview Card -->
+        <div class="collaborator-card-main reveal-item" id="collaborator-main-card">
+          <div class="collaborator-top-row">
+            <div class="collaborator-logo-wrap">
+              <img
+                src="assets/images/collaborator/logo.png"
+                alt="Collaborator Organization Logo"
+                class="collaborator-logo-img"
+                id="collab-logo"
+                loading="lazy"
+                decoding="async"
+                onerror="window.ALODANAX_UTILS && window.ALODANAX_UTILS.handleImageError(this, 'logo', 'PARTNER')"
+              >
+            </div>
+            <div class="collaborator-text-wrap">
+              <h3 class="collaborator-company-name" id="collab-name">[COLLABORATOR COMPANY NAME]</h3>
+              <p class="collaborator-intro-text" id="collab-intro">
+                [COLLABORATOR INTRO - A LEADING TECHNOLOGY INNOVATOR EMPOWERING ACADEMIC EXCELLENCE, CLOUD ARCHITECTURE, AND STUDENT RESEARCH]
+              </p>
+            </div>
+          </div>
+
+          <!-- Information List -->
+          <ul class="collaborator-info-list" id="collab-info-list">
+            <li class="collaborator-info-item">
+              <span class="collaborator-info-bullet">✦</span>
+              <span>[INDUSTRY PARTNER IN CLOUD &amp; AI RESEARCH]</span>
+            </li>
+            <li class="collaborator-info-item">
+              <span class="collaborator-info-bullet">✦</span>
+              <span>[SPONSOR OF FLAGSHIP 24H HACKATHON ARENA]</span>
+            </li>
+            <li class="collaborator-info-item">
+              <span class="collaborator-info-bullet">✦</span>
+              <span>[OFFERING INTERNSHIP PATHWAYS &amp; EXPERT MENTORSHIP]</span>
+            </li>
+          </ul>
         </div>
 
-        <!-- Asymmetrical Event Cards Grid -->
-        <div class="events-grid" id="events-grid-container">
-          <!-- Dynamically populated from js/content.js with 3D tilt handles -->
+        <!-- 3 Guest Cards -->
+        <div class="collaborator-guests-wrap reveal-item">
+          <h4 class="collaborator-guests-title">HONORED INDUSTRY GUESTS</h4>
+          <div class="guests-grid" id="collab-guests-grid">
+            <!-- 3 Guest Cards Hydrated Dynamically -->
+          </div>
         </div>
       </div>
     </section>
 
-    <!-- 3. SCHEDULE SECTION (Dynamic line drawing & lighting nodes) -->
-    <section id="schedule" class="page-section section-schedule" aria-labelledby="schedule-heading">
+    <!-- 3. EVENT CATEGORIES SECTION -->
+    <section id="categories" class="page-section section-categories" aria-labelledby="categories-heading">
       <div class="section-container">
         <div class="section-header-wrap reveal-item">
-          <span class="section-tag">ITINERARY</span>
-          <h2 id="schedule-heading" class="display-title">
-            <span class="title-solid">MISSION</span>
-            <span class="title-outline">TIMELINE</span>
+          <span class="section-tag">ARENAS OF CHALLENGE</span>
+          <h2 id="categories-heading" class="display-title">
+            <span class="title-solid">EVENT</span>
+            <span class="title-outline">CATEGORIES</span>
           </h2>
           <div class="hairline-divider"></div>
         </div>
 
-        <!-- Schedule Timeline Days Container -->
-        <div class="timeline-container" id="timeline-container">
-          <!-- Central Dynamic Line -->
-          <div class="timeline-center-rail" aria-hidden="true">
-            <div class="timeline-progress-line" id="timeline-progress-line"></div>
-          </div>
-
-          <div class="timeline-days-wrapper" id="timeline-days-wrapper">
-            <!-- Populated from js/content.js -->
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- 4. REGISTER SECTION (Front-end form with client-side validation) -->
-    <section id="register" class="page-section section-register" aria-labelledby="register-heading">
-      <div class="section-container">
-        <div class="section-header-wrap reveal-item">
-          <span class="section-tag">REGISTRATION</span>
-          <h2 id="register-heading" class="display-title">
-            <span class="title-solid">CLAIM YOUR</span>
-            <span class="title-outline">PASS</span>
-          </h2>
-          <div class="hairline-divider"></div>
-        </div>
-
-        <div class="register-layout">
-          <!-- Notice card -->
-          <div class="register-info-card reveal-item">
-            <div class="info-badge">PROTOTYPE NOTICE</div>
-            <h3 class="info-title">PASS PREVIEW PROTOCOL</h3>
-            <p class="info-description">
-              This interface is a front-end preview demonstration for [DEPARTMENT, COLLEGE]. No live server backend is currently hooked up. Submissions undergo complete client-side validation and generate an instantaneous local session confirmation pass.
+        <div class="categories-grid">
+          <!-- Card 1: Technical Events (Blue) -->
+          <a href="events.html?category=technical" class="category-card cat-tech reveal-item" aria-label="Explore Technical Events">
+            <div class="category-icon-box" aria-hidden="true">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="16 18 22 12 16 6"></polyline>
+                <polyline points="8 6 2 12 8 18"></polyline>
+              </svg>
+            </div>
+            <h3 class="category-card-title">TECHNICAL EVENTS</h3>
+            <p class="category-card-desc">
+              High-intensity 24h hackathons, competitive algorithmic problem solving, web engineering crucibles, and sandboxed CTF cyber defense.
             </p>
-            <ul class="info-perks-list">
-              <li>✦ Access to all technical and non-technical competition arenas</li>
-              <li>✦ Official ALODANAX digital credentials and badges</li>
-              <li>✦ Eligibility for category awards and national ranking</li>
-            </ul>
-          </div>
-
-          <!-- Registration Form -->
-          <div class="register-form-card reveal-item">
-            <form id="registration-form" novalidate>
-              <div class="form-group">
-                <label for="reg-name" class="form-label">FULL NAME *</label>
-                <input type="text" id="reg-name" name="name" class="form-input" placeholder="e.g. Alex Mercer" required autocomplete="name">
-                <span class="form-error-msg" id="err-name" aria-live="polite"></span>
-              </div>
-
-              <div class="form-group">
-                <label for="reg-email" class="form-label">STUDENT EMAIL *</label>
-                <input type="email" id="reg-email" name="email" class="form-input" placeholder="e.g. student@college.edu" required autocomplete="email">
-                <span class="form-error-msg" id="err-email" aria-live="polite"></span>
-              </div>
-
-              <div class="form-group">
-                <label for="reg-college" class="form-label">COLLEGE / INSTITUTION *</label>
-                <input type="text" id="reg-college" name="college" class="form-input" placeholder="e.g. Department of Computer Science" required>
-                <span class="form-error-msg" id="err-college" aria-live="polite"></span>
-              </div>
-
-              <div class="form-group">
-                <label for="reg-event" class="form-label">SELECT PRIMARY EVENT *</label>
-                <select id="reg-event" name="event" class="form-select" required>
-                  <option value="">-- Choose an event --</option>
-                  <!-- Populated from content.js -->
-                </select>
-                <span class="form-error-msg" id="err-event" aria-live="polite"></span>
-              </div>
-
-              <div class="form-group">
-                <label for="reg-comments" class="form-label">TEAM MEMBERS / QUERY (OPTIONAL)</label>
-                <textarea id="reg-comments" name="comments" class="form-textarea" rows="3" placeholder="List co-participants or team name..."></textarea>
-              </div>
-
-              <button type="submit" class="btn-cta btn-primary-neon form-submit-btn" id="reg-submit-btn">
-                <span>AUTHENTICATE & REGISTER</span>
-              </button>
-            </form>
-
-            <!-- Success State Panel (Hidden by default) -->
-            <div id="register-success" class="register-success-panel" style="display: none;" role="alert">
-              <div class="success-icon-wrap">
-                <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#FF1744" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
-                  <polyline points="22 4 12 14.01 9 11.01"></polyline>
-                </svg>
-              </div>
-              <h3 class="success-heading">PASS RESERVED</h3>
-              <p class="success-subtext" id="success-user-text">Your preview entry has been confirmed locally.</p>
-              <div class="pass-meta-box">
-                <div class="pass-row"><span>STATUS:</span> <strong>CONFIRMED (LOCAL DEMO)</strong></div>
-                <div class="pass-row"><span>EVENT:</span> <strong id="success-event-name">[EVENT]</strong></div>
-                <div class="pass-row"><span>PASS ID:</span> <code id="success-pass-id">AX-2026-PREVIEW</code></div>
-              </div>
-              <button type="button" class="btn-cta btn-secondary-blue" id="reg-reset-btn">REGISTER ANOTHER PARTICIPANT</button>
+            <div class="category-card-link-text">
+              <span>EXPLORE ARENA</span>
+              <span aria-hidden="true">→</span>
             </div>
+          </a>
+
+          <!-- Card 2: Non-Technical Events (Silver/White) -->
+          <a href="events.html?category=non-technical" class="category-card cat-non-tech reveal-item" aria-label="Explore Non-Technical Events">
+            <div class="category-icon-box" aria-hidden="true">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"></circle>
+                <polygon points="12 8 8 12 12 16 16 12 12 8"></polygon>
+              </svg>
+            </div>
+            <h3 class="category-card-title">NON-TECHNICAL</h3>
+            <p class="category-card-desc">
+              High-stakes technology pitching, venture ideation showcases, tech trivia sprints, and creative digital storytelling.
+            </p>
+            <div class="category-card-link-text">
+              <span>EXPLORE ARENA</span>
+              <span aria-hidden="true">→</span>
+            </div>
+          </a>
+
+          <!-- Card 3: Gaming Events (Neon Red) -->
+          <a href="events.html?category=gaming" class="category-card cat-gaming reveal-item" aria-label="Explore Gaming Events">
+            <div class="category-icon-box" aria-hidden="true">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="2" y="6" width="20" height="12" rx="2"></rect>
+                <path d="M6 12h4m-2-2v4"></path>
+                <line x1="15" y1="11" x2="15.01" y2="11"></line>
+                <line x1="18" y1="13" x2="18.01" y2="13"></line>
+              </svg>
+            </div>
+            <h3 class="category-card-title">GAMING EVENTS</h3>
+            <p class="category-card-desc">
+              Tactical esports tournaments including BGMI mobile battle royales and campus-wide cryptographic mystery quests.
+            </p>
+            <div class="category-card-link-text">
+              <span>EXPLORE ARENA</span>
+              <span aria-hidden="true">→</span>
+            </div>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4. FEATURED EVENTS SECTION (5 PRIMARY CARDS) -->
+    <section id="featured-events" class="page-section section-featured-events" aria-labelledby="featured-heading">
+      <div class="section-container">
+        <div class="section-header-wrap reveal-item">
+          <span class="section-tag">COMPETITIVE SHOWCASE</span>
+          <h2 id="featured-heading" class="display-title">
+            <span class="title-solid">FEATURED</span>
+            <span class="title-outline">EVENTS</span>
+          </h2>
+          <div class="hairline-divider"></div>
+        </div>
+
+        <!-- 5 Cards: Hackathon, Bit Bash Bonanza, Ideathon, BGMI, Discovering Derlicts -->
+        <div class="featured-events-grid" id="featured-events-container">
+          <!-- Populated from js/data/events.js -->
+        </div>
+      </div>
+    </section>
+
+    <!-- 5. WHY ALODANAX (FOUR PILLARS) -->
+    <section id="why" class="page-section section-why" aria-labelledby="why-heading">
+      <div class="section-container">
+        <div class="section-header-wrap reveal-item">
+          <span class="section-tag">FOUNDATIONAL PILLARS</span>
+          <h2 id="why-heading" class="display-title">
+            <span class="title-solid">WHY PARTICIPATE IN</span>
+            <span class="title-outline">ALODANAX</span>
+          </h2>
+          <div class="hairline-divider"></div>
+        </div>
+
+        <div class="why-pillars-grid" id="why-pillars-container">
+          <!-- Populated dynamically or semantic fallback -->
+        </div>
+      </div>
+    </section>
+
+    <!-- 6. CALL TO ACTION SECTION -->
+    <section id="cta" class="page-section section-cta" aria-labelledby="cta-heading">
+      <div class="section-container">
+        <div class="cta-box-inner reveal-item">
+          <h2 id="cta-heading" class="cta-main-title">
+            JOIN THE NATION'S TOP DEVELOPERS &amp; GAMERS
+          </h2>
+          <p class="cta-main-subtext">
+            Step onto the competitive stage, demonstrate high-throughput engineering craft, and vie for national recognition and prizes.
+          </p>
+          <div class="cta-buttons-wrap">
+            <a href="events.html" class="btn-cta btn-primary-neon">
+              <span>EXPLORE ALL EVENTS</span>
+              <span aria-hidden="true">→</span>
+            </a>
+            <a href="events.html" class="btn-cta btn-secondary-blue">
+              <span>REGISTER NOW</span>
+            </a>
           </div>
         </div>
       </div>
     </section>
   </main>
 
-  <!-- 5. FOOTER SECTION -->
-  <footer id="site-footer" class="site-footer" role="contentinfo">
-    <div class="section-container">
-      <div class="footer-grid">
-        <div class="footer-brand-column">
-          <a href="#hero" class="footer-brand">ALODANAX</a>
-          <p class="footer-department" id="footer-department">[DEPARTMENT, COLLEGE]</p>
-          <p class="footer-tagline" id="footer-tagline">[TAGLINE]</p>
-        </div>
-
-        <div class="footer-links-column">
-          <h4 class="footer-col-title">NAVIGATION</h4>
-          <ul class="footer-nav-list">
-            <li><a href="#hero">HOME</a></li>
-            <li><a href="#about">ABOUT</a></li>
-            <li><a href="#events">EVENTS</a></li>
-            <li><a href="#schedule">SCHEDULE</a></li>
-            <li><a href="#register">REGISTER</a></li>
-          </ul>
-        </div>
-
-        <div class="footer-contact-column">
-          <h4 class="footer-col-title">DIRECT DISPATCH</h4>
-          <p class="footer-contact-line"><strong>CONTACT:</strong> <span id="footer-contact-info">[EMAIL / PHONE / INSTAGRAM]</span></p>
-          <p class="footer-contact-line"><strong>VENUE:</strong> <span id="footer-venue-info">[VENUE]</span></p>
-          <div class="footer-social-row">
-            <span class="social-pill">INSTAGRAM: <span id="footer-instagram">@[INSTAGRAM_HANDLE]</span></span>
-          </div>
-        </div>
-      </div>
-
-      <div class="footer-bottom-bar">
-        <p class="footer-copyright" id="footer-copyright">© 2026 ALODANAX. [DEPARTMENT, COLLEGE]. ALL RIGHTS RESERVED.</p>
-        <a href="#hero" class="back-to-top" aria-label="Back to top of page">
-          <span>TOP</span>
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-            <polyline points="18 15 12 9 6 15"></polyline>
-          </svg>
-        </a>
-      </div>
-    </div>
-  </footer>
+  <!-- 7. Shared Footer (Injected by js/components.js) -->
+  <div id="site-footer"></div>
 
   <!-- Debug HUD (enabled via ?debug=1) -->
   <div id="debug-hud" aria-hidden="true">
@@ -354,6 +355,19 @@
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.18/dist/lenis.min.js"></script>
+
+  <!-- Data Layer (Single Source of Truth) -->
+  <script src="js/data/site.js"></script>
+  <script src="js/data/events.js"></script>
+  <script src="js/data/committee.js"></script>
+  <script src="js/data/faculty.js"></script>
+  <script src="js/data/team.js"></script>
+  <script src="js/data/hackathon.js"></script>
+  <script src="js/data/faq.js"></script>
+
+  <!-- Core Utilities & Shared Components -->
+  <script src="js/utils.js"></script>
+  <script src="js/components.js"></script>
 
   <!-- Site Content & Scrub Engine -->
   <script src="js/content.js"></script>
