@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact &amp; Inquiries | ALODANAX 2026</title>
+  <meta name="description" content="Get in touch with ALODANAX 2026 coordinators. Campus location, event coordinators directory, FAQs, and official inquiry form.">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Contact &amp; Inquiries | ALODANAX 2026">
+  <meta property="og:description" content="Reach the ALODANAX organizing council, find event coordinators, and view festival FAQs.">
+  <meta property="og:type" content="website">
+
+  <!-- Google Fonts: Syne & Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Syne:wght@700;800&display=swap" rel="stylesheet">
+
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="page-contact">
+
+  <!-- Keyboard Accessibility: Skip Link -->
+  <a href="#contact-main" class="skip-link">Skip to main content</a>
+
+  <!-- Shared Global Navigation (Injected by js/components.js) -->
+  <div id="site-nav"></div>
+
+  <!-- Common Subpage Hero (Injected by js/components.js) -->
+  <section id="contact-hero"></section>
+
+  <!-- Main Content: Contact & Inquiries -->
+  <main id="contact-main" class="site-main contact-portal-main">
+    <div class="section-container">
+
+      <!-- Section 1: Official Contacts & College Location Grid -->
+      <section class="contact-overview-grid" aria-label="Official College and Festival Contacts">
+        <!-- Official Details Card -->
+        <div class="contact-card-box">
+          <div class="card-tag-header">
+            <span class="tier-tag">DIRECT LIAISON</span>
+            <h2 class="contact-box-title">OFFICIAL CONTACTS</h2>
+          </div>
+          <p class="contact-box-desc">
+            For institutional collaborations, sponsorship inquiries, press accreditation, and general fest information.
+          </p>
+
+          <div class="contact-meta-items">
+            <div class="contact-meta-entry">
+              <span class="meta-label">EMAIL DISPATCH</span>
+              <div id="official-email-val" class="meta-val">[EMAIL TBA]</div>
+            </div>
+            <div class="contact-meta-entry">
+              <span class="meta-label">HELPLINE TELEPHONE</span>
+              <div id="official-phone-val" class="meta-val">[PHONE TBA]</div>
+            </div>
+            <div class="contact-meta-entry">
+              <span class="meta-label">VENUE ARENA</span>
+              <div id="official-venue-val" class="meta-val">[VENUE TBA]</div>
+            </div>
+          </div>
+
+          <!-- Social Links Strip -->
+          <div class="contact-social-strip" id="contact-socials-wrap">
+            <!-- Populated from site.js socials -->
+          </div>
+        </div>
+
+        <!-- Campus Location & Map Box -->
+        <div class="contact-card-box" id="map-container-box">
+          <div class="card-tag-header">
+            <span class="tier-tag">CAMPUS LOCATION</span>
+            <h2 class="contact-box-title">FIND OUR VENUE</h2>
+          </div>
+          <div class="contact-address-block">
+            <p id="college-full-title" class="address-title">[DEPARTMENT, COLLEGE]</p>
+            <p id="college-address" class="address-line">[CAMPUS ADDRESS, CITY, STATE, PIN]</p>
+          </div>
+
+          <!-- Map Render Area: iframe if embedUrl exists, else graceful designed panel -->
+          <div class="map-frame-wrapper" id="map-frame-area">
+            <!-- Populated dynamically via js/contact-page.js -->
+          </div>
+        </div>
+      </section>
+
+      <!-- Section 2: General Inquiry Form (Honeypot + Endpoint Detection) -->
+      <section class="inquiry-section-block" aria-labelledby="heading-inquiry">
+        <div class="tier-header-bar">
+          <span class="tier-tag">COMMUNICATIONS</span>
+          <h2 id="heading-inquiry" class="tier-title">TRANSMIT AN INQUIRY</h2>
+        </div>
+        <div class="hairline-divider-cat divider-tech" aria-hidden="true"></div>
+
+        <div class="inquiry-form-card">
+          <form id="contact-inquiry-form" novalidate>
+            <!-- Honeypot spam trap -->
+            <input type="text" name="website_url_trap" id="inquiry-honeypot" style="display:none !important;" tabindex="-1" autocomplete="off">
+
+            <div class="form-row-2col">
+              <div class="form-group">
+                <label for="inq-name" class="form-label">FULL NAME *</label>
+                <input type="text" id="inq-name" name="name" class="form-input" placeholder="e.g. Alex Mercer" required autocomplete="name">
+                <span class="form-error-msg" id="err-inq-name" aria-live="polite"></span>
+              </div>
+
+              <div class="form-group">
+                <label for="inq-email" class="form-label">EMAIL ADDRESS *</label>
+                <input type="email" id="inq-email" name="email" class="form-input" placeholder="e.g. alex@university.edu" required autocomplete="email">
+                <span class="form-error-msg" id="err-inq-email" aria-live="polite"></span>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="inq-subject" class="form-label">SUBJECT *</label>
+              <input type="text" id="inq-subject" name="subject" class="form-input" placeholder="e.g. Query regarding Hackathon hardware requirements" required>
+              <span class="form-error-msg" id="err-inq-subject" aria-live="polite"></span>
+            </div>
+
+            <div class="form-group">
+              <label for="inq-message" class="form-label">MESSAGE *</label>
+              <textarea id="inq-message" name="message" class="form-textarea" rows="4" placeholder="Detail your query or communication..." required></textarea>
+              <span class="form-error-msg" id="err-inq-message" aria-live="polite"></span>
+            </div>
+
+            <div class="inquiry-action-row" id="inquiry-action-row">
+              <!-- Dynamically populated button or disabled state if endpoint is placeholder -->
+            </div>
+          </form>
+
+          <!-- Success State Panel -->
+          <div id="inquiry-success-panel" class="register-success-panel" style="display: none;" role="alert">
+            <div class="success-icon-wrap">
+              <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#FF1744" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                <polyline points="22 4 12 14.01 9 11.01"></polyline>
+              </svg>
+            </div>
+            <h3 class="success-heading">INQUIRY DISPATCHED</h3>
+            <p class="success-subtext" id="inquiry-success-msg">
+              Your inquiry preview has been recorded locally. The coordination committee will follow up shortly.
+            </p>
+            <button type="button" class="btn-cta btn-secondary-blue" id="btn-reset-inquiry">SUBMIT ANOTHER QUERY</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Section 3: Event-Specific Coordinators (Derived from events.js) -->
+      <section class="coordinators-section-block" aria-labelledby="heading-coordinators">
+        <div class="tier-header-bar">
+          <span class="tier-tag">ARENA HEADS</span>
+          <h2 id="heading-coordinators" class="tier-title">EVENT COORDINATORS DIRECTORY</h2>
+        </div>
+        <div class="hairline-divider-cat divider-tech" aria-hidden="true"></div>
+
+        <div class="events-coordinators-grid" id="events-coordinators-grid">
+          <!-- Dynamically populated from events.js -->
+        </div>
+      </section>
+
+      <!-- Section 4: FAQ Accordion (From faq.js) -->
+      <section class="faq-section-block" aria-labelledby="heading-faq">
+        <div class="tier-header-bar">
+          <span class="tier-tag">KNOWLEDGE BASE</span>
+          <h2 id="heading-faq" class="tier-title">FREQUENTLY ASKED QUESTIONS</h2>
+        </div>
+        <div class="hairline-divider-cat divider-tech" aria-hidden="true"></div>
+
+        <div class="faq-accordion-container" id="faq-accordion-container" role="region" aria-label="Frequently Asked Questions Accordion">
+          <!-- Populated from faq.js -->
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <!-- Shared Footer (Injected by js/components.js) -->
+  <div id="site-footer"></div>
+
+  <!-- Data Layer -->
+  <script src="js/data/site.js"></script>
+  <script src="js/data/events.js"></script>
+  <script src="js/data/committee.js"></script>
+  <script src="js/data/faculty.js"></script>
+  <script src="js/data/team.js"></script>
+  <script src="js/data/hackathon.js"></script>
+  <script src="js/data/faq.js"></script>
+
+  <!-- Core Utilities & Shared Components -->
+  <script src="js/utils.js"></script>
+  <script src="js/components.js"></script>
+
+  <!-- Contact Page Controller -->
+  <script src="js/contact-page.js"></script>
+</body>
+</html>
