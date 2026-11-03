@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Faculty Mentors &amp; Jury | ALODANAX 2026</title>
+  <meta name="description" content="Meet the faculty mentors, competition convenors, and technical evaluators of ALODANAX 2026.">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Faculty Mentors &amp; Jury | ALODANAX 2026">
+  <meta property="og:description" content="Academic leadership and event mentors for ALODANAX 2026.">
+  <meta property="og:type" content="website">
+
+  <!-- Google Fonts: Syne & Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Syne:wght@700;800&display=swap" rel="stylesheet">
+
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="page-faculty">
+
+  <!-- Keyboard Accessibility: Skip Link -->
+  <a href="#faculty-main" class="skip-link">Skip to main content</a>
+
+  <!-- Shared Global Navigation (Injected by js/components.js) -->
+  <div id="site-nav"></div>
+
+  <!-- Common Subpage Hero (Injected by js/components.js) -->
+  <section id="faculty-hero"></section>
+
+  <!-- Main Content: Faculty Directory -->
+  <main id="faculty-main" class="site-main faculty-portal-main">
+    <div class="section-container">
+
+      <!-- Faculty Search Toolbar -->
+      <div class="faculty-toolbar-wrap" role="region" aria-label="Search faculty members">
+        <div class="events-search-box">
+          <svg class="search-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="11" cy="11" r="8"></circle>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+          </svg>
+          <input
+            type="search"
+            id="faculty-search-input"
+            class="events-search-input"
+            placeholder="Search faculty by name or area of expertise..."
+            aria-label="Search faculty mentors"
+            autocomplete="off"
+          >
+          <button type="button" id="faculty-search-clear" class="search-clear-btn" aria-label="Clear search" style="display: none;">✕</button>
+        </div>
+        <div class="faculty-count-badge" id="faculty-count-badge">
+          Showing all faculty
+        </div>
+      </div>
+
+      <!-- Faculty Grid Container -->
+      <div class="faculty-grid" id="faculty-grid-container">
+        <!-- Populated via js/faculty-page.js -->
+      </div>
+
+      <!-- Empty State -->
+      <div id="faculty-empty-state" class="events-empty-state" style="display: none;" role="status">
+        <div class="empty-icon-box" aria-hidden="true">✦</div>
+        <h3 class="empty-heading">NO FACULTY FOUND</h3>
+        <p class="empty-subtext">No faculty members match your search criteria.</p>
+        <button type="button" class="btn-cta btn-secondary-blue" id="btn-reset-faculty-search">CLEAR SEARCH</button>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- Shared Footer (Injected by js/components.js) -->
+  <div id="site-footer"></div>
+
+  <!-- Data Layer -->
+  <script src="js/data/site.js"></script>
+  <script src="js/data/events.js"></script>
+  <script src="js/data/committee.js"></script>
+  <script src="js/data/faculty.js"></script>
+  <script src="js/data/team.js"></script>
+  <script src="js/data/hackathon.js"></script>
+  <script src="js/data/faq.js"></script>
+
+  <!-- Core Utilities & Shared Components -->
+  <script src="js/utils.js"></script>
+  <script src="js/components.js"></script>
+
+  <!-- Faculty Page Controller -->
+  <script src="js/faculty-page.js"></script>
+</body>
+</html>

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Organizing Committee | ALODANAX 2026</title>
+  <meta name="description" content="Meet the organizing committee of ALODANAX 2026: Head of Department, Patrons, Faculty Convenors, and Student Executive Leadership.">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Organizing Committee | ALODANAX 2026">
+  <meta property="og:description" content="Institutional leadership, faculty convenors, and student executives powering ALODANAX 2026.">
+  <meta property="og:type" content="website">
+
+  <!-- Google Fonts: Syne & Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Syne:wght@700;800&display=swap" rel="stylesheet">
+
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="page-committee">
+
+  <!-- Keyboard Accessibility: Skip Link -->
+  <a href="#committee-main" class="skip-link">Skip to main content</a>
+
+  <!-- Shared Global Navigation (Injected by js/components.js) -->
+  <div id="site-nav"></div>
+
+  <!-- Common Subpage Hero (Injected by js/components.js) -->
+  <section id="committee-hero"></section>
+
+  <!-- Main Content: Hierarchical Leadership -->
+  <main id="committee-main" class="site-main committee-portal-main">
+    <div class="section-container">
+
+      <!-- 1. Head of the Department: ONE Large Full-Width Featured Card -->
+      <section id="section-hod" class="committee-tier-section" aria-labelledby="heading-hod">
+        <div class="tier-header-bar">
+          <span class="tier-tag">EXECUTIVE LEADERSHIP</span>
+          <h2 id="heading-hod" class="tier-title">HEAD OF DEPARTMENT</h2>
+        </div>
+        <div class="hairline-divider-cat divider-tech" aria-hidden="true"></div>
+
+        <div id="hod-featured-container" class="hod-card-wrapper">
+          <!-- Populated from js/committee-page.js -->
+        </div>
+      </section>
+
+      <!-- 2–7. Remaining Tiers Rendered in Strict Order -->
+      <div id="committee-tiers-container" class="committee-tiers-stack">
+        <!-- Tiers populated dynamically from js/committee-page.js -->
+      </div>
+
+    </div>
+  </main>
+
+  <!-- Shared Footer (Injected by js/components.js) -->
+  <div id="site-footer"></div>
+
+  <!-- Data Layer -->
+  <script src="js/data/site.js"></script>
+  <script src="js/data/events.js"></script>
+  <script src="js/data/committee.js"></script>
+  <script src="js/data/faculty.js"></script>
+  <script src="js/data/team.js"></script>
+  <script src="js/data/hackathon.js"></script>
+  <script src="js/data/faq.js"></script>
+
+  <!-- Core Utilities & Shared Components -->
+  <script src="js/utils.js"></script>
+  <script src="js/components.js"></script>
+
+  <!-- Committee Page Controller -->
+  <script src="js/committee-page.js"></script>
+</body>
+</html>
