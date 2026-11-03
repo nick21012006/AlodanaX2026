@@ -3570,3 +3570,371 @@ body.is-fallback #site-header {
     padding: 1.6rem;
   }
 }
+
+
+/* ==========================================================================
+   HACKATHON FLAGSHIP PORTAL STYLING (hackathon.html)
+   Action Banner, Domain Tabs, Problem Statement Cards, Sample Deck, Rules
+   ========================================================================== */
+
+.hackathon-portal-main {
+  padding-top: 3.5rem;
+  padding-bottom: 6rem;
+  background: #05060A;
+}
+
+.hackathon-action-banner {
+  background: #0B0D14;
+  border: 1px solid var(--blue);
+  box-shadow: 0 15px 45px rgba(0, 0, 0, 0.8), 0 0 25px rgba(10, 132, 255, 0.25);
+  padding: 2.2rem 2.8rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+  margin-bottom: 4.5rem;
+  clip-path: polygon(0 0, calc(100% - 20px) 0, 100% 20px, 100% 100%, 0 100%);
+  flex-wrap: wrap;
+}
+
+.hackathon-meta-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2rem;
+  flex: 1;
+}
+
+.hack-meta-box {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.hack-meta-box .meta-label {
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  color: var(--blue);
+  text-transform: uppercase;
+}
+
+.hack-meta-box .meta-val {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--white);
+  letter-spacing: 0.04em;
+}
+
+.hack-register-btn {
+  padding: 0.85rem 1.8rem;
+  font-size: 0.8rem;
+}
+
+.hackathon-section-block {
+  margin-bottom: 4.5rem;
+}
+
+/* Domain Tabs */
+.domain-tabs-bar {
+  display: flex;
+  gap: 1.2rem;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+}
+
+.domain-tab-btn {
+  background: #0B0D14;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  padding: 1.2rem 1.6rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  text-align: left;
+  cursor: pointer;
+  flex: 1;
+  min-width: 250px;
+  border-radius: 2px;
+  transition: all 0.25s ease;
+}
+
+.domain-tab-btn:hover {
+  border-color: rgba(10, 132, 255, 0.5);
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.domain-tab-btn.is-active {
+  border-color: var(--blue);
+  background: rgba(10, 132, 255, 0.08);
+  box-shadow: 0 0 20px rgba(10, 132, 255, 0.25);
+}
+
+.domain-tab-tag {
+  font-family: var(--font-display);
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.15em;
+  color: var(--blue);
+}
+
+.domain-tab-name {
+  font-family: var(--font-display);
+  font-size: 0.95rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  color: var(--white);
+}
+
+.domain-desc-box {
+  background: rgba(255, 255, 255, 0.02);
+  border-left: 3px solid var(--blue);
+  padding: 1.2rem 1.6rem;
+  margin-bottom: 2.2rem;
+}
+
+.domain-active-title {
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  color: var(--white);
+  margin-bottom: 0.4rem;
+}
+
+.domain-active-desc {
+  font-size: 0.92rem;
+  color: var(--white-muted);
+  line-height: 1.6;
+}
+
+/* Problem Statements Grid */
+.problem-statements-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(420px, 1fr));
+  gap: 2rem;
+}
+
+.problem-statement-card {
+  background: #0B0D14;
+  border: 1px solid rgba(10, 132, 255, 0.25);
+  padding: 2.2rem;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.problem-statement-card:hover {
+  transform: translateY(-4px);
+  border-color: var(--blue);
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.8), 0 0 20px rgba(10, 132, 255, 0.2);
+}
+
+.ps-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.2rem;
+}
+
+.ps-id-badge {
+  font-family: monospace;
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--blue);
+  letter-spacing: 0.1em;
+}
+
+.ps-diff-badge {
+  font-family: var(--font-display);
+  font-size: 0.65rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  padding: 0.2rem 0.6rem;
+  border-radius: 2px;
+}
+
+.badge-hard {
+  background: rgba(255, 23, 68, 0.12);
+  border: 1px solid var(--neon-red);
+  color: var(--neon-red);
+}
+
+.badge-medium {
+  background: rgba(10, 132, 255, 0.12);
+  border: 1px solid var(--blue);
+  color: var(--blue);
+}
+
+.ps-title {
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  color: var(--white);
+  margin-bottom: 0.8rem;
+  line-height: 1.35;
+}
+
+.ps-desc {
+  font-size: 0.9rem;
+  color: var(--white-muted);
+  line-height: 1.65;
+  margin-bottom: 1.6rem;
+  flex: 1;
+}
+
+.ps-outcome-box {
+  background: rgba(5, 6, 10, 0.8);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  padding: 1rem 1.2rem;
+}
+
+.ps-outcome-lbl {
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  color: var(--blue);
+  text-transform: uppercase;
+  display: block;
+  margin-bottom: 0.35rem;
+}
+
+.ps-outcome-text {
+  font-size: 0.85rem;
+  line-height: 1.55;
+  color: var(--white-muted);
+}
+
+/* Sample PPT Deck Card */
+.sample-ppt-card {
+  background: #0B0D14;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 2.5rem;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: 2rem;
+  align-items: center;
+}
+
+.ppt-icon-wrap {
+  width: 60px;
+  height: 60px;
+  background: rgba(10, 132, 255, 0.1);
+  border: 1px solid var(--blue);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--blue);
+}
+
+.ppt-card-title {
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  color: var(--white);
+  margin-bottom: 0.5rem;
+}
+
+.ppt-card-desc {
+  font-size: 0.9rem;
+  color: var(--white-muted);
+  line-height: 1.6;
+}
+
+/* Hackathon Rules Card */
+.hackathon-rules-card {
+  background: #0B0D14;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 2.5rem;
+}
+
+.hackathon-numbered-rules {
+  padding-left: 1.6rem;
+  line-height: 1.85;
+  color: var(--white-muted);
+  font-size: 0.95rem;
+}
+
+.hack-rule-item {
+  margin-bottom: 0.8rem;
+}
+
+.hack-rule-item::marker {
+  color: var(--blue);
+  font-weight: 700;
+}
+
+/* Hackathon Heads Grid */
+.hackathon-heads-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.8rem;
+}
+
+.hackathon-head-card {
+  background: #0B0D14;
+  border: 1px solid rgba(10, 132, 255, 0.25);
+  padding: 1.8rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.head-role-badge {
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  color: var(--blue);
+  text-transform: uppercase;
+  margin-bottom: 0.4rem;
+}
+
+.head-name {
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+  font-weight: 800;
+  color: var(--white);
+  letter-spacing: 0.05em;
+  margin-bottom: 1rem;
+}
+
+.head-contacts-list {
+  font-size: 0.82rem;
+  color: var(--white-muted);
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.head-contact-link {
+  color: var(--white);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  transition: color 0.2s ease;
+}
+
+.head-contact-link:hover {
+  color: var(--blue);
+}
+
+@media (max-width: 900px) {
+  .hackathon-meta-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .sample-ppt-card {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+  .problem-statements-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 600px) {
+  .hackathon-meta-grid {
+    grid-template-columns: 1fr;
+  }
+  .hackathon-action-banner {
+    padding: 1.6rem;
+  }
+}
