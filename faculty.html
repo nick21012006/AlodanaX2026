@@ -14,7 +14,7 @@
   <!-- Google Fonts: Syne & Inter -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Syne:wght@700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
 
   <!-- Stylesheet -->
   <style>
@@ -34,25 +34,52 @@
   --surface-alt: #10131E;
   --surface-border: rgba(10, 132, 255, 0.2);
   --blue: #0A84FF;
+  --blue-bright: #409CFF; /* WCAG AA accessible on black */
+  --blue-glow: rgba(10, 132, 255, 0.45);
   --blue-glow: rgba(10, 132, 255, 0.5);
   --neon-red: #FF1744;
+  --neon-red-bright: #FF4D6D; /* WCAG AA accessible on black */
   --neon-red-glow: rgba(255, 23, 68, 0.55);
   --white: #FFFFFF;
-  --white-muted: rgba(255, 255, 255, 0.7);
-  --white-dim: rgba(255, 255, 255, 0.4);
+  --text-primary: rgba(255, 255, 255, 0.94);
+  --text-secondary: rgba(255, 255, 255, 0.78);
+  --text-tertiary: #8A94A6;
+  --white-muted: rgba(255, 255, 255, 0.78);
+  --white-dim: #8A94A6;
   --white-blue: #D6ECFF;
   
   /* Dynamic accent driven by ScrollTrigger */
   --accent: #FF1744;
 
   /* Typography */
-  --font-display: 'Syne', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  --font-body: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-display: 'Space Grotesk', 'Inter', system-ui, sans-serif;
+  --font-body: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
 
   /* Spacing & Motion */
   --container-max: 1280px;
   --ease-cinematic: cubic-bezier(0.16, 1, 0.3, 1);
   --ease-sharp: cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+/* Global Typography Defaults */
+body {
+  font-family: var(--font-body);
+  font-size: 1.0625rem; /* 17px desktop */
+  line-height: 1.65;
+  color: var(--text-primary);
+  background-color: var(--black);
+}
+
+@media (max-width: 768px) {
+  body {
+    font-size: 1rem; /* 16px mobile */
+  }
+}
+
+p {
+  max-width: 68ch;
+  line-height: 1.65;
+  color: var(--text-secondary);
 }
 
 /* Base Reset & Box Sizing */
@@ -65,12 +92,12 @@
 html {
   font-family: var(--font-body);
   background-color: var(--black);
-  color: var(--white);
-  line-height: 1.6;
+  color: var(--text-primary);
+  line-height: 1.65;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  scroll-behavior: auto; /* Handled smoothly by Lenis */
+  scroll-behavior: auto;
 }
 
 /* Lenis Recommended Compatibility Styles */
@@ -190,15 +217,14 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
 
 .nav-link {
   font-family: var(--font-display);
-  font-size: 0.78rem;
-  font-weight: 700;
-  letter-spacing: 0.18em;
-  color: var(--white-muted);
-  text-decoration: none;
-  text-transform: uppercase;
+  font-size: 0.875rem; /* 14px */
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  color: var(--text-secondary);
+  transition: color 0.2s ease;
   position: relative;
-  padding: 0.35rem 0;
-  transition: color 0.3s ease;
+  display: inline-block;
+  padding: 0.4rem 0.2rem;
 }
 
 .nav-link::after {
@@ -223,17 +249,11 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
 
 .nav-cta-btn {
   font-family: var(--font-display);
-  font-size: 0.75rem;
-  font-weight: 800;
-  letter-spacing: 0.16em;
-  color: var(--white);
-  text-decoration: none;
-  padding: 0.5rem 1.25rem;
-  border: 1px solid var(--neon-red);
-  background: rgba(255, 23, 68, 0.08);
-  box-shadow: 0 0 14px rgba(255, 23, 68, 0.25);
-  transition: all 0.3s ease;
-  white-space: nowrap;
+  font-size: 0.875rem; /* 14px */
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  padding: 0.55rem 1.25rem;
+  min-height: 44px;
 }
 
 .nav-cta-btn:hover {
@@ -266,14 +286,13 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
 
 .section-tag {
   font-family: var(--font-display);
-  font-size: 0.72rem;
+  font-size: 0.8125rem; /* 13px */
   font-weight: 700;
-  letter-spacing: 0.35em;
-  color: var(--blue);
+  letter-spacing: 0.08em;
+  color: var(--blue-bright);
   text-transform: uppercase;
-  display: inline-block;
-  margin-bottom: 0.8rem;
-  text-shadow: 0 0 10px var(--blue-glow);
+  margin-bottom: 0.75rem;
+  display: block;
 }
 
 .display-title {
@@ -374,7 +393,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
   letter-spacing: 0.18em;
   color: var(--blue);
   margin-bottom: 0.4rem;
-  text-transform: uppercase;
+  text-transform: none;
 }
 
 .footer-tagline {
@@ -384,12 +403,12 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
 
 .footer-col-title {
   font-family: var(--font-display);
-  font-size: 0.78rem;
-  font-weight: 800;
-  letter-spacing: 0.22em;
-  color: var(--white);
-  text-transform: uppercase;
-  margin-bottom: 1.4rem;
+  font-size: 0.875rem; /* 14px */
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: var(--blue-bright);
+  margin-bottom: 1.25rem;
+  text-transform: none;
 }
 
 .footer-nav-list {
@@ -400,13 +419,11 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
 }
 
 .footer-nav-list a {
-  font-family: var(--font-display);
-  font-size: 0.76rem;
-  font-weight: 700;
-  letter-spacing: 0.16em;
-  color: var(--white-muted);
-  text-decoration: none;
-  transition: color 0.25s ease;
+  font-size: 0.875rem; /* 14px */
+  color: var(--text-secondary);
+  transition: color 0.2s ease;
+  display: inline-block;
+  padding: 0.25rem 0;
 }
 
 .footer-nav-list a:hover {
@@ -421,23 +438,25 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
 }
 
 .footer-contact-line strong {
-  color: var(--white);
-  font-family: var(--font-display);
-  font-size: 0.75rem;
-  letter-spacing: 0.12em;
+  color: var(--blue-bright);
+  font-size: 0.8125rem; /* 13px */
+  letter-spacing: 0.06em;
 }
 
 .social-pill {
-  display: inline-block;
   font-family: var(--font-display);
-  font-size: 0.72rem;
-  font-weight: 700;
-  letter-spacing: 0.16em;
-  color: var(--white);
-  background: rgba(10, 132, 255, 0.1);
-  border: 1px solid rgba(10, 132, 255, 0.25);
-  padding: 0.4rem 0.85rem;
-  margin-top: 0.5rem;
+  font-size: 0.8125rem; /* 13px */
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  padding: 0.45rem 0.95rem;
+  min-height: 40px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-secondary);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 4px;
+  transition: all 0.2s ease;
 }
 
 .footer-bottom-bar {
@@ -449,22 +468,22 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
 }
 
 .footer-copyright {
-  font-size: 0.78rem;
-  color: var(--white-dim);
-  letter-spacing: 0.06em;
+  font-size: 0.8125rem; /* 13px */
+  color: var(--text-tertiary);
+  letter-spacing: 0.02em;
 }
 
 .back-to-top {
-  display: flex;
+  display: inline-flex;
   align-items: center;
   gap: 0.5rem;
   font-family: var(--font-display);
-  font-size: 0.75rem;
-  font-weight: 800;
-  letter-spacing: 0.18em;
-  color: var(--white-muted);
-  text-decoration: none;
-  transition: color 0.25s ease, transform 0.25s ease;
+  font-size: 0.8125rem; /* 13px */
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  color: var(--text-secondary);
+  min-height: 44px;
+  padding: 0.35rem 0.75rem;
 }
 
 .back-to-top:hover {
@@ -660,7 +679,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
 .drawer-footer-meta {
   margin-top: auto;
   padding-top: 2rem;
-  font-size: 0.72rem;
+  font-size: 0.8125rem; /* 13px */
   color: var(--white-muted);
   letter-spacing: 0.08em;
   text-transform: uppercase;
@@ -698,112 +717,13 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
 .subpage-breadcrumb {
   display: flex;
   align-items: center;
-  gap: 0.6rem;
-  font-size: 0.72rem;
-  font-weight: 600;
-  letter-spacing: 0.18em;
-  margin-bottom: 1.2rem;
-}
-
-.breadcrumb-item {
-  color: var(--white-muted);
-  transition: color 0.2s ease;
-}
-
-.breadcrumb-item:hover {
-  color: var(--blue);
-}
-
-.breadcrumb-separator {
-  color: rgba(255, 255, 255, 0.3);
-}
-
-.breadcrumb-current {
-  color: var(--blue);
-}
-
-.subpage-hero-title {
-  margin-bottom: 0.8rem;
-}
-
-.subpage-hero-subtitle {
-  font-size: clamp(0.95rem, 1.2vw, 1.15rem);
-  color: var(--white-muted);
-  max-width: 720px;
-  line-height: 1.6;
-}
-
-/* Animated Thin Red-to-Blue Hairline Sweep (CSS only) */
-.hero-hairline-sweep-track {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  height: 2px;
-  background: rgba(255, 255, 255, 0.06);
-  overflow: hidden;
-}
-
-.hero-hairline-sweep-beam {
-  width: 30%;
-  height: 100%;
-  background: linear-gradient(90deg, transparent 0%, #FF1744 35%, #0A84FF 70%, transparent 100%);
-  animation: hairlineBeamSweep 3.6s infinite cubic-bezier(0.4, 0, 0.2, 1);
-  will-change: transform;
-}
-
-@keyframes hairlineBeamSweep {
-  0% { transform: translateX(-100%); }
-  100% { transform: translateX(380%); }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .hero-hairline-sweep-beam {
-    animation: none;
-    transform: none;
-    width: 100%;
-    background: linear-gradient(90deg, #FF1744 0%, #0A84FF 100%);
-    opacity: 0.5;
-  }
-}
-
-
-/* TBA Badges & Disabled Button States */
-/* ==========================================================================
-   TBA BADGES & DISABLED BUTTON STATES
-   ========================================================================== */
-.badge-tba {
-  display: inline-block;
-  font-family: var(--font-body);
-  font-size: 0.68rem;
-  font-weight: 600;
-  letter-spacing: 0.1em;
-  padding: 0.12rem 0.45rem;
-  background: rgba(142, 154, 168, 0.12);
-  border: 1px dashed rgba(142, 154, 168, 0.35);
-  color: var(--white-muted);
-  border-radius: 2px;
-  vertical-align: middle;
-}
-
-.btn-disabled {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
   gap: 0.5rem;
-  background: rgba(16, 20, 28, 0.7);
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  color: #8E9AA8;
   font-family: var(--font-display);
-  font-size: 0.75rem;
-  font-weight: 700;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  padding: 0.75rem 1.4rem;
-  cursor: not-allowed;
-  opacity: 0.7;
-  user-select: none;
-  border-radius: 1px;
+  font-size: 0.8125rem; /* 13px */
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  color: var(--text-tertiary);
+  margin-bottom: 1.5rem;
 }
 
 .disabled-status-dot {
@@ -846,7 +766,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
 .category-badge {
   display: inline-block;
   font-family: var(--font-display);
-  font-size: 0.65rem;
+  font-size: 0.8125rem; /* 13px */
   font-weight: 800;
   letter-spacing: 0.15em;
   text-transform: uppercase;
@@ -1008,7 +928,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
   border: 1px solid var(--blue);
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.9), 0 0 15px rgba(10, 132, 255, 0.2);
   font-family: var(--font-body);
-  font-size: 0.78rem;
+  font-size: 0.875rem; /* 14px */
   border-radius: 2px;
   overflow: hidden;
 }
@@ -1028,7 +948,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
   gap: 0.5rem;
   color: var(--white);
   font-family: var(--font-display);
-  font-size: 0.75rem;
+  font-size: 0.8125rem; /* 13px */
   letter-spacing: 0.1em;
 }
 
@@ -1087,7 +1007,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
 
 .audit-stat-lbl {
   display: block;
-  font-size: 0.62rem;
+  font-size: 0.8125rem; /* 13px */
   color: var(--white-muted);
   letter-spacing: 0.08em;
 }
@@ -1112,7 +1032,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
 
 .audit-file-name {
   font-family: monospace;
-  font-size: 0.72rem;
+  font-size: 0.8125rem; /* 13px */
   color: var(--white);
 }
 
@@ -1132,7 +1052,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
   color: var(--white);
   border: none;
   font-family: var(--font-display);
-  font-size: 0.7rem;
+  font-size: 0.8125rem; /* 13px */
   font-weight: 700;
   letter-spacing: 0.1em;
   cursor: pointer;
@@ -1201,7 +1121,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
 
 .tier-tag {
   font-family: var(--font-display);
-  font-size: 0.7rem;
+  font-size: 0.8125rem; /* 13px */
   font-weight: 700;
   letter-spacing: 0.15em;
   color: var(--blue);
@@ -1358,7 +1278,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
 }
 
 .profile-role-tag {
-  font-size: 0.68rem;
+  font-size: 0.8125rem; /* 13px */
   font-weight: 700;
   letter-spacing: 0.12em;
   color: var(--blue);
@@ -1384,7 +1304,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
 }
 
 .profile-department {
-  font-size: 0.78rem;
+  font-size: 0.875rem; /* 14px */
   color: var(--white-muted);
   margin-bottom: 0.8rem;
 }
@@ -1415,7 +1335,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
 }
 
 .faculty-expertise-badge {
-  font-size: 0.72rem;
+  font-size: 0.8125rem; /* 13px */
   color: var(--blue);
   background: rgba(10, 132, 255, 0.08);
   border: 1px solid rgba(10, 132, 255, 0.25);
@@ -1463,13 +1383,28 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
   <div id="site-nav"></div>
 
   <!-- Common Subpage Hero (Injected by js/components.js) -->
-  <section id="faculty-hero"></section>
+  <section id="faculty-hero" class="subpage-hero-section" role="region" aria-label="Faculty Page Header">
+    <div class="subpage-hero-vignette" aria-hidden="true"></div>
+    <div class="section-container subpage-hero-container">
+      <nav class="subpage-breadcrumb" aria-label="Breadcrumb">
+        <a href="index.html" class="breadcrumb-item">HOME</a>
+        <span class="breadcrumb-separator">/</span>
+        <span class="breadcrumb-current" aria-current="page">FACULTY</span>
+      </nav>
+      <h1 class="subpage-hero-title display-title">
+        <span class="title-solid">FACULTY</span>
+        <span class="title-outline">MENTORS</span>
+      </h1>
+      <p class="subpage-hero-subtitle">Meet our esteemed academic mentors, department leadership, and project supervisors.</p>
+    </div>
+  </section>
 
   <!-- Main Content: Faculty Directory -->
   <main id="faculty-main" class="site-main faculty-portal-main">
     <div class="section-container">
 
       <!-- Faculty Search Toolbar -->
+      <h2 class="sr-only">Faculty Mentors Directory</h2>
       <div class="faculty-toolbar-wrap" role="region" aria-label="Search faculty members">
         <div class="events-search-box">
           <svg class="search-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
@@ -2323,6 +2258,8 @@ if (typeof window !== 'undefined') {
   function renderFooter() {
     const container = document.getElementById('site-footer');
     if (!container) return;
+    container.setAttribute('role', 'contentinfo');
+    container.setAttribute('aria-label', 'Site Footer');
 
     const site = window.SITE_DATA || {};
     const brand = site.brand || { name: 'ALODANAX', edition: '2026', tagline: '[TAGLINE]' };
@@ -2373,7 +2310,7 @@ if (typeof window !== 'undefined') {
 
             <!-- Quick Links -->
             <div class="footer-links-column">
-              <h4 class="footer-col-title">NAVIGATION</h4>
+              <h3 class="footer-col-title">NAVIGATION</h3>
               <ul class="footer-nav-list">
                 ${quickLinksHtml}
               </ul>
@@ -2381,7 +2318,7 @@ if (typeof window !== 'undefined') {
 
             <!-- Contacts & Venue -->
             <div class="footer-contact-column">
-              <h4 class="footer-col-title">COORDINATION DESK</h4>
+              <h3 class="footer-col-title">COORDINATION DESK</h3>
               <p class="footer-contact-line"><strong>EMAIL:</strong> ${emailDisplay}</p>
               <p class="footer-contact-line"><strong>PHONE:</strong> ${phoneDisplay}</p>
               <p class="footer-contact-line"><strong>VENUE:</strong> <span>${college.venue || '[VENUE TBA]'}</span></p>
@@ -2432,6 +2369,8 @@ if (typeof window !== 'undefined') {
     const subtitle = options.subtitle || '';
 
     el.className = 'subpage-hero-section';
+    el.setAttribute('role', 'region');
+    el.setAttribute('aria-label', `${breadcrumb} Hero`);
     el.innerHTML = `
       <div class="subpage-hero-vignette" aria-hidden="true"></div>
       <div class="section-container subpage-hero-container">
