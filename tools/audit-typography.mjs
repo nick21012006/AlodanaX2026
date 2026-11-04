@@ -38,3 +38,4 @@ pages.forEach(p => {
   console.log(`  Uppercase on copy/text/descriptions (${uppercaseMatches.length} instances):`);
   uppercaseMatches.slice(0, 10).forEach(u => console.log(`    ${u}`));
 });
+

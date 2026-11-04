@@ -211,7 +211,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
 .nav-menu {
   display: flex;
   align-items: center;
-  gap: 2rem;
+  gap: clamp(0.9rem, 1.4vw, 1.6rem);
   list-style: none;
 }
 
@@ -2499,6 +2499,7 @@ if (typeof window !== 'undefined') {
     { label: "Home", href: "index.html", pageId: "index" },
     { label: "About", href: "index.html#about", pageId: "about" },
     { label: "Events", href: "events.html", pageId: "events" },
+    { label: "Hackathon", href: "hackathon.html", pageId: "hackathon" },
     { label: "Organizing Committee", href: "committee.html", pageId: "committee" },
     { label: "Faculty", href: "faculty.html", pageId: "faculty" },
     { label: "Our Team", href: "team.html", pageId: "team" },
