@@ -42,7 +42,7 @@ Whenever you update design tokens, global site data, or shared navigation in `in
 node tools/sync-shared.mjs
 ```
 
-The script automatically updates all target subpages (`events.html`, `committee.html`, `faculty.html`, `hackathon.html`, `team.html`, `contact.html`) and reports sync status.
+The script automatically updates all target subpages (`events.html`, `faculty.html`, `hackathon.html`, `team.html`, `contact.html`) and reports sync status.
 
 ---
 
@@ -60,7 +60,6 @@ Every page houses its editable content inside an inline `<script>` block under t
 | :--- | :--- | :--- |
 | **`index.html`** | `SHARED:DATA-SITE`<br>`SHARED:DATA-EVENTS`<br>`SITE_CONTENT` | Fest edition, hero copy, about paragraphs, statistics, pillars, and post-hero section text. |
 | **`events.html`** | `SHARED:DATA-EVENTS` | Competition names, categories (`technical`, `non-technical`, `gaming`), descriptions, dates, rules, team sizes, and registration links. |
-| **`committee.html`** | `COMMITTEE_DATA` | HOD featured card, Chief Patron, Patrons, Convenors, and Student Leadership councils. |
 | **`faculty.html`** | `FACULTY_DATA` | Faculty mentor directory (names, roles, departments, areas of expertise, photos, and biographies). |
 | **`hackathon.html`** | `HACKATHON_DATA` | 24-Hour hackathon metadata, 3 problem statement domains (`domains[]`), round timelines, and official PPT deck link. |
 | **`team.html`** | `TEAM_DATA` | 40 student organizing team members (`name`, `role`, `department`, `photo`, `social`). |
@@ -179,10 +178,9 @@ The repository includes automated tools in `tools/`:
 - **WCAG AA Accessibility Audit**: `node tools/run-accessibility-audit.mjs`
 
 ### Accessibility Test Results
-Tested using **axe-core 4.9.1** across all 7 pages:
+Tested using **axe-core 4.9.1** across all 6 pages:
 - `index.html`: **100%** (41 passed, 0 violations)
 - `events.html`: **100%** (47 passed, 0 violations)
-- `committee.html`: **100%** (39 passed, 0 violations)
 - `faculty.html`: **100%** (43 passed, 0 violations)
 - `hackathon.html`: **100%** (40 passed, 0 violations)
 - `team.html`: **100%** (45 passed, 0 violations)

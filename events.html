@@ -4,3459 +4,1192 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Arenas &amp; Competitions | ALODANAX 2026</title>
-  <meta name="description" content="Discover and register for technical, non-technical, and gaming competitions at ALODANAX TechFest. Flagship 24h Hackathon, Bit Bash, BGMI, and more.">
+  <meta name="description" content="Discover and register for technical, non-technical, and gaming competitions at ALODANAX TechFest.">
 
   <!-- Open Graph -->
   <meta property="og:title" content="Arenas &amp; Competitions | ALODANAX 2026">
   <meta property="og:description" content="Explore and register for all competitive arenas at ALODANAX 2026.">
   <meta property="og:type" content="website">
 
-  <!-- Google Fonts: Syne & Inter -->
+  <!-- Fonts: Orbitron (Tech Display) & Outfit (Clean Body) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
   <!-- Stylesheet -->
   <style>
-/* ==== SHARED:BASE-CSS START ==== */
-/* Design Tokens, Reset, Typography Defaults */
-/* ==========================================================================
-   ALODANAX TECHFEST - CINEMATIC PRODUCTION STYLESHEET
-   Strict Palette: Black (#000000 / #05060A), Surface (#0B0D14),
-   Electric Blue (#0A84FF), Neon Red (#FF1744), White (#FFFFFF / rgba(255,255,255,0.7))
-   All vendor prefixes, clip-path glows, form controls, and viewports optimized.
-   ========================================================================== */
-
+/* ==== SHARED BASE CSS ==== */
 :root {
   --black: #000000;
   --page-bg: #05060A;
   --surface: #0B0D14;
-  --surface-alt: #10131E;
-  --surface-border: rgba(10, 132, 255, 0.2);
   --blue: #0A84FF;
-  --blue-bright: #409CFF; /* WCAG AA accessible on black */
   --blue-glow: rgba(10, 132, 255, 0.45);
-  --blue-glow: rgba(10, 132, 255, 0.5);
   --neon-red: #FF1744;
-  --neon-red-bright: #FF4D6D; /* WCAG AA accessible on black */
   --neon-red-glow: rgba(255, 23, 68, 0.55);
   --white: #FFFFFF;
-  --text-primary: rgba(255, 255, 255, 0.94);
-  --text-secondary: rgba(255, 255, 255, 0.78);
+  --text-primary: rgba(255, 255, 255, 0.95);
+  --text-secondary: rgba(255, 255, 255, 0.75);
   --text-tertiary: #8A94A6;
-  --white-muted: rgba(255, 255, 255, 0.78);
-  --white-dim: #8A94A6;
-  --white-blue: #D6ECFF;
-  
-  /* Dynamic accent driven by ScrollTrigger */
-  --accent: #FF1744;
 
   /* Typography */
-  --font-display: 'Space Grotesk', 'Inter', system-ui, sans-serif;
-  --font-body: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --font-display: 'Orbitron', sans-serif;
+  --font-body: 'Outfit', sans-serif;
 
-  /* Spacing & Motion */
   --container-max: 1280px;
-  --ease-cinematic: cubic-bezier(0.16, 1, 0.3, 1);
-  --ease-sharp: cubic-bezier(0.25, 1, 0.5, 1);
-}
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
 
-/* Global Typography Defaults */
-body {
-  font-family: var(--font-body);
-  font-size: 1.0625rem; /* 17px desktop */
-  line-height: 1.65;
-  color: var(--text-primary);
-  background-color: var(--black);
-}
-
-@media (max-width: 768px) {
-  body {
-    font-size: 1rem; /* 16px mobile */
-  }
-}
-
-p {
-  max-width: 68ch;
-  line-height: 1.65;
-  color: var(--text-secondary);
-}
-
-/* Base Reset & Box Sizing */
-*, *::before, *::after {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
-
-html {
-  font-family: var(--font-body);
-  background-color: var(--black);
-  color: var(--text-primary);
-  line-height: 1.65;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  scroll-behavior: auto;
-}
-
-/* Lenis Recommended Compatibility Styles */
-html.lenis, html.lenis body {
-  height: auto;
-}
-
-.lenis.lenis-smooth {
-  scroll-behavior: auto !important;
-}
-
-.lenis.lenis-smooth [data-lenis-prevent] {
-  overscroll-behavior: contain;
-}
-
-.lenis.lenis-stopped {
-  overflow: hidden;
+  /* CardNav Dark Theme Variables */
+  --cn-max: 1280px;
+  --cn-bar: 68px;
+  --cn-inset: 8px;
+  --cn-gap: 8px;
+  --cn-radius: 24px;
+  --cn-logo: 32px;
+  --cn-card: 180px;
+  --cn-panel: rgba(38, 35, 46, 0.72);
+  --cn-solid: #26232e;
+  --cn-edge: rgba(255, 255, 255, 0.08);
+  --cn-highlight: rgba(255, 255, 255, 0.07);
+  --cn-shadow: 0 24px 48px -20px rgba(0, 0, 0, 0.8), 0 6px 16px -8px rgba(0, 0, 0, 0.5);
+  --cn-text: #f4f4f5;
+  --cn-muted: rgba(244, 244, 245, 0.56);
+  --cn-hover: rgba(255, 255, 255, 0.06);
+  --cn-ring: rgba(244, 244, 245, 0.55);
+  --cn-tile: linear-gradient(180deg, rgba(52, 48, 61, 0.6) 0%, rgba(39, 36, 47, 0.6) 100%);
+  --cn-tile-rim: inset 0 0 0 1px rgba(255, 255, 255, 0.06), inset 0 1px 0 rgba(255, 255, 255, 0.1), 0 4px 10px -4px rgba(0, 0, 0, 0.6);
+  --cn-blur: blur(20px) saturate(1.6);
 }
 
 body {
+  font-family: var(--font-body);
+  font-size: 1.0625rem; 
+  line-height: 1.6;
+  color: var(--text-primary);
   background-color: var(--page-bg);
   min-height: 100vh;
-  min-height: 100dvh;
+  margin: 0;
   overflow-x: hidden;
-  position: relative;
+  background-image: 
+    linear-gradient(rgba(10, 132, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(10, 132, 255, 0.03) 1px, transparent 1px);
+  background-size: 40px 40px;
+  background-position: center top;
 }
 
-/* Accessibility: Skip to Content */
-.skip-link {
-  position: absolute;
-  top: -60px;
-  left: 20px;
-  background: var(--blue);
-  color: var(--white);
-  padding: 10px 18px;
-  font-family: var(--font-body);
-  font-size: 0.875rem;
-  font-weight: 600;
-  text-decoration: none;
-  z-index: 99999;
-  border-radius: 2px;
-  box-shadow: 0 0 20px var(--blue-glow);
-  transition: top 0.2s ease;
-}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+a { text-decoration: none; color: inherit; }
+a:focus-visible, button:focus-visible, input:focus-visible { outline: 2px solid var(--blue); outline-offset: 3px; }
 
-.skip-link:focus {
-  top: 20px;
-  outline: 2px solid var(--white);
-}
+.section-container { width: 90%; max-width: var(--container-max); margin: 0 auto; position: relative; }
 
-/* Focus states */
-a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible {
-  outline: 2px solid var(--blue);
-  outline-offset: 3px;
-}
-
-/* Container Utility */
-.section-container {
-  width: 90%;
-  max-width: var(--container-max);
-  margin: 0 auto;
-  position: relative;
-}
-
-
-/* Navigation Bar & Header */
-/* ==========================================================================
-   NAVIGATION BAR
-   ========================================================================== */
-#site-header {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  z-index: 1000;
-  padding: 1.25rem 2.5rem;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  -webkit-backdrop-filter: blur(16px);
-  backdrop-filter: blur(16px);
-  background: rgba(5, 6, 10, 0.78);
-  border-bottom: 1px solid rgba(10, 132, 255, 0.15);
-  transform: translateY(-100%);
-  opacity: 0;
-  pointer-events: none;
-  transition: transform 0.4s var(--ease-cinematic), opacity 0.4s ease;
-}
-
-#site-header.is-visible {
-  transform: translateY(0);
-  opacity: 1;
-  pointer-events: auto;
-}
-
-.nav-brand {
-  font-family: var(--font-display);
-  font-size: clamp(1rem, 1.8vw, 1.35rem);
-  font-weight: 800;
-  letter-spacing: 0.2em;
-  text-decoration: none;
-  color: var(--white);
-  background: linear-gradient(135deg, #FFFFFF 20%, #A0B2C6 60%, #FFFFFF 100%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-  text-transform: uppercase;
-  flex-shrink: 0;
-}
-
-.nav-menu {
-  display: flex;
-  align-items: center;
-  gap: clamp(0.9rem, 1.4vw, 1.6rem);
-  list-style: none;
-}
-
-.nav-link {
-  font-family: var(--font-display);
-  font-size: 0.875rem; /* 14px */
-  font-weight: 600;
-  letter-spacing: 0.06em;
-  color: var(--text-secondary);
-  transition: color 0.2s ease;
-  position: relative;
-  display: inline-block;
-  padding: 0.4rem 0.2rem;
-}
-
-.nav-link::after {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 0%;
-  height: 1px;
-  background: var(--blue);
-  box-shadow: 0 0 8px var(--blue-glow);
-  transition: width 0.3s var(--ease-cinematic);
-}
-
-.nav-link:hover {
-  color: var(--white);
-}
-
-.nav-link:hover::after {
-  width: 100%;
-}
-
-.nav-cta-btn {
-  font-family: var(--font-display);
-  font-size: 0.875rem; /* 14px */
-  font-weight: 600;
-  letter-spacing: 0.06em;
-  padding: 0.55rem 1.25rem;
-  min-height: 44px;
-}
-
-.nav-cta-btn:hover {
-  background: var(--neon-red);
-  box-shadow: 0 0 24px var(--neon-red-glow);
-  transform: translateY(-1px);
-}
-
-
-/* Post-Hero Cinematic Design System: Buttons, Section Headers, Utilities */
-/* ==========================================================================
-   POST-HERO CINEMATIC DESIGN SYSTEM
-   ========================================================================== */
-.site-main {
-  position: relative;
-  z-index: 20;
-  background-color: var(--page-bg);
-}
-
-.page-section {
-  padding: 8rem 0;
-  position: relative;
-  border-bottom: 1px solid rgba(10, 132, 255, 0.08);
-}
-
-/* Section Header & Huge Display Headings */
-.section-header-wrap {
-  margin-bottom: 4rem;
-}
-
-.section-tag {
-  font-family: var(--font-display);
-  font-size: 0.8125rem; /* 13px */
-  font-weight: 700;
-  letter-spacing: 0.08em;
-  color: var(--blue-bright);
-  text-transform: uppercase;
-  margin-bottom: 0.75rem;
-  display: block;
-}
-
+/* Display Titles */
 .display-title {
   font-family: var(--font-display);
-  font-size: clamp(2rem, 5.5vw, 4.25rem);
-  font-weight: 800;
-  letter-spacing: 0.06em;
-  line-height: 1.05;
-  text-transform: uppercase;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem 1rem;
-  align-items: baseline;
-}
-
-.title-solid {
-  color: var(--white);
-  text-shadow: 0 0 24px rgba(255, 255, 255, 0.25);
-}
-
-.title-outline {
-  color: var(--white);
-  -webkit-text-fill-color: transparent;
-  -webkit-text-stroke: 1.5px rgba(255, 255, 255, 0.85);
-  letter-spacing: 0.08em;
-  transition: -webkit-text-stroke 0.3s ease;
-}
-
-@supports (-webkit-text-stroke: 1px white) {
-  .title-outline {
-    color: transparent;
-  }
-}
-
-.display-title:hover .title-outline {
-  -webkit-text-stroke: 1.5px var(--blue);
-}
-
-.hairline-divider {
-  width: 100%;
-  height: 1px;
-  background: linear-gradient(90deg, var(--blue) 0%, rgba(10, 132, 255, 0.2) 60%, transparent 100%);
-  margin-top: 1.8rem;
-}
-
-/* ScrollTrigger Reveals (Staggered fade/translate ≤0.8s) */
-.reveal-item {
-  opacity: 0;
-  transform: translateY(32px);
-  will-change: opacity, transform;
-  transition: opacity 0.75s var(--ease-cinematic), transform 0.75s var(--ease-cinematic);
-}
-
-.reveal-item.is-revealed {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-
-/* Shared Footer */
-/* ==========================================================================
-   5. FOOTER SECTION
-   ========================================================================== */
-.site-footer {
-  background: #020306;
-  border-top: 1px solid rgba(10, 132, 255, 0.18);
-  padding: 5rem 0 2.5rem;
-  position: relative;
-  z-index: 25;
-}
-
-.footer-grid {
-  display: grid;
-  grid-template-columns: 1.5fr 1fr 1.2fr;
-  gap: 3.5rem;
-  margin-bottom: 4rem;
-}
-
-.footer-brand {
-  font-family: var(--font-display);
-  font-size: 1.6rem;
-  font-weight: 800;
-  letter-spacing: 0.22em;
-  color: var(--white);
-  text-decoration: none;
-  display: inline-block;
-  margin-bottom: 0.8rem;
-  background: linear-gradient(135deg, #FFFFFF 0%, #A0B2C6 100%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
-.footer-department {
-  font-family: var(--font-display);
-  font-size: 0.82rem;
-  font-weight: 700;
-  letter-spacing: 0.18em;
-  color: var(--blue);
-  margin-bottom: 0.4rem;
-  text-transform: none;
-}
-
-.footer-tagline {
-  font-size: 0.88rem;
-  color: var(--white-muted);
-}
-
-.footer-col-title {
-  font-family: var(--font-display);
-  font-size: 0.875rem; /* 14px */
-  font-weight: 700;
-  letter-spacing: 0.08em;
-  color: var(--blue-bright);
-  margin-bottom: 1.25rem;
-  text-transform: none;
-}
-
-.footer-nav-list {
-  list-style: none;
-  display: flex;
-  flex-direction: column;
-  gap: 0.75rem;
-}
-
-.footer-nav-list a {
-  font-size: 0.875rem; /* 14px */
-  color: var(--text-secondary);
-  transition: color 0.2s ease;
-  display: inline-block;
-  padding: 0.25rem 0;
-}
-
-.footer-nav-list a:hover {
-  color: var(--blue);
-}
-
-.footer-contact-line {
-  font-size: 0.85rem;
-  color: var(--white-muted);
-  margin-bottom: 0.75rem;
-  line-height: 1.6;
-}
-
-.footer-contact-line strong {
-  color: var(--blue-bright);
-  font-size: 0.8125rem; /* 13px */
-  letter-spacing: 0.06em;
-}
-
-.social-pill {
-  font-family: var(--font-display);
-  font-size: 0.8125rem; /* 13px */
-  font-weight: 600;
-  letter-spacing: 0.06em;
-  padding: 0.45rem 0.95rem;
-  min-height: 40px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  color: var(--text-secondary);
-  border: 1px solid rgba(255, 255, 255, 0.16);
-  border-radius: 4px;
-  transition: all 0.2s ease;
-}
-
-.footer-bottom-bar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding-top: 2rem;
-  border-top: 1px solid rgba(255, 255, 255, 0.08);
-}
-
-.footer-copyright {
-  font-size: 0.8125rem; /* 13px */
-  color: var(--text-tertiary);
+  font-size: clamp(1.4rem, 6vw, 4.5rem);
+  font-weight: 900;
   letter-spacing: 0.02em;
+  text-transform: uppercase;
+  line-height: 1.1;
+  display: flex; flex-wrap: wrap; gap: 0.5rem 1rem;
+}
+.title-solid { color: var(--white); text-shadow: 0 0 20px rgba(255,255,255,0.2); overflow-wrap: break-word; }
+.title-outline {
+  color: transparent;
+  -webkit-text-stroke: 1.5px rgba(255, 255, 255, 0.6);
+  transition: -webkit-text-stroke 0.3s ease;
+  overflow-wrap: break-word;
+}
+.display-title:hover .title-outline { -webkit-text-stroke: 1.5px var(--blue); }
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
-.back-to-top {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  font-family: var(--font-display);
-  font-size: 0.8125rem; /* 13px */
-  font-weight: 600;
-  letter-spacing: 0.06em;
-  color: var(--text-secondary);
-  min-height: 44px;
-  padding: 0.35rem 0.75rem;
-}
-
-.back-to-top:hover {
-  color: var(--blue);
-  transform: translateY(-2px);
-}
-
-
-/* Multi-Page Navigation Enhancements & Mobile Drawer */
 /* ==========================================================================
-   ALODANAX MULTI-PAGE EXPANSION SUITE
-   Shared Nav, Subpage Hero, Accessible Modal, Categories, Audit HUD
+   CARD NAV (Spring Animated Header)
    ========================================================================== */
+#site-header {
+  position: fixed; top: 0; left: 0; width: 100%; z-index: 1000;
+  padding: 1.5rem 0; pointer-events: none; transition: padding 0.3s;
+}
+#site-header.is-scrolled { padding: 0.75rem 0; }
 
-/* Shared Nav Enhancements */
-.site-header.is-subpage-nav {
-  opacity: 1 !important;
-  pointer-events: auto !important;
-  transform: none !important;
-  background: rgba(5, 6, 10, 0.9);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border-bottom: 1px solid rgba(10, 132, 255, 0.2);
+.cn-root {
+  position: relative; margin: 0 auto; height: var(--cn-bar); width: 90%;
+  max-width: var(--cn-max); text-align: left; pointer-events: auto;
+}
+.cn-panel {
+  position: absolute; inset: 0; top: 0; z-index: 10; height: var(--cn-bar);
+  overflow: hidden; border-radius: var(--cn-radius); background: var(--cn-panel);
+  box-shadow: var(--cn-shadow); backdrop-filter: var(--cn-blur); -webkit-backdrop-filter: var(--cn-blur);
+  will-change: height, clip-path; transition: background 0.3s ease;
+}
+#site-header.is-scrolled .cn-panel { background: rgba(5,6,10,0.9); border: 1px solid rgba(10,132,255,0.2); }
+.cn-rim {
+  pointer-events: none; position: absolute; inset: 0; z-index: 3;
+  border-radius: inherit; box-shadow: inset 0 0 0 1px var(--cn-edge), inset 0 1px 0 var(--cn-highlight);
+}
+.cn-bar {
+  position: relative; z-index: 2; box-sizing: border-box; display: grid;
+  height: var(--cn-bar); grid-template-columns: 1fr auto 1fr; align-items: center;
+  padding: 0 var(--cn-inset);
+}
+.cn-menu-btn {
+  grid-column: 1; grid-row: 1;
+  display: inline-flex; height: calc(var(--cn-bar) - var(--cn-inset)*2); cursor: pointer;
+  align-items: center; gap: 10px; justify-self: start; border-radius: calc(var(--cn-radius) - var(--cn-inset));
+  border: 0; padding: 0 16px; background: none; font-family: var(--font-body);
+  font-size: 15px; font-weight: 600; color: var(--cn-text); outline: none;
+  transition: background-color 0.2s ease; text-transform: uppercase;
+}
+.cn-menu-btn:hover { background: var(--cn-hover); }
+.cn-burger { position: relative; height: 12px; width: 18px; }
+.cn-line {
+  position: absolute; left: 0; height: 1.5px; width: 100%; border-radius: 2px;
+  background: currentColor; transition: top 0.5s var(--ease-spring), transform 0.5s var(--ease-spring);
+}
+.cn-line-top { top: 2px; }
+.cn-line-bottom { top: 8px; }
+.cn-root[data-open] .cn-line-top { top: 5px; transform: rotate(45deg); }
+.cn-root[data-open] .cn-line-bottom { top: 5px; transform: rotate(-45deg); }
+
+.cn-menu-label { position: relative; display: inline-grid; overflow: hidden; height: 18px; line-height: 18px; }
+.cn-word-open, .cn-word-close {
+  grid-area: 1/1; transition: transform 0.5s var(--ease-spring);
+}
+.cn-word-close { transform: translateY(110%); }
+.cn-root[data-open] .cn-word-open { transform: translateY(-110%); }
+.cn-root[data-open] .cn-word-close { transform: translateY(0); }
+
+.cn-logo {
+  grid-column: 2; grid-row: 1;
+  font-family: var(--font-display); font-size: 1.4rem; font-weight: 900;
+  letter-spacing: 0.1em; color: var(--white); justify-self: center; text-transform: uppercase;
+  text-decoration: none;
+}
+#nav-reg-wrap {
+  grid-column: 3; grid-row: 1; justify-self: end;
 }
 
-.site-header.is-scrolled {
-  background: rgba(5, 6, 10, 0.96) !important;
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border-bottom: 1px solid var(--blue) !important;
-  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.8), 0 0 15px rgba(10, 132, 255, 0.15);
+.cn-content {
+  visibility: hidden; position: absolute; left: 0; right: 0; top: var(--cn-bar);
+  box-sizing: border-box; display: flex; flex-direction: column; gap: var(--cn-gap);
+  padding: 0 var(--cn-inset) var(--cn-inset); perspective: 900px;
 }
-
-.nav-inner-container {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  width: 100%;
-  max-width: var(--max-w);
-  margin: 0 auto;
+.cn-root[data-shown] .cn-content { visibility: visible; }
+.cn-cards { display: flex; gap: var(--cn-gap); }
+.cn-card {
+  position: relative; box-sizing: border-box; display: flex; min-height: var(--cn-card);
+  min-width: 0; flex: 1 1 0; flex-direction: column; gap: 18px; transform-origin: top;
+  border-radius: calc(var(--cn-radius) - var(--cn-inset)); padding: 16px 16px 14px;
+  background: var(--cn-tile); box-shadow: var(--cn-tile-rim); color: var(--cn-text);
+  will-change: transform, opacity; opacity: 0;
 }
-
-.nav-link.is-active {
-  color: var(--white);
-  border-bottom: 2px solid var(--blue);
-  text-shadow: 0 0 8px var(--blue-glow);
-}
-
-/* Mobile Hamburger & Accessible Drawer */
-.nav-hamburger {
-  display: none;
-  background: transparent;
-  border: 1px solid rgba(10, 132, 255, 0.3);
-  padding: 0.55rem 0.65rem;
-  cursor: pointer;
-  flex-direction: column;
-  gap: 5px;
-  border-radius: 2px;
-  transition: border-color 0.2s ease, background 0.2s ease;
-}
-
-.nav-hamburger:hover, .nav-hamburger:focus-visible {
-  border-color: var(--blue);
-  background: rgba(10, 132, 255, 0.1);
-  outline: 2px solid var(--blue);
-}
-
-.hamburger-line {
-  display: block;
-  width: 22px;
-  height: 2px;
-  background: var(--white);
-  transition: transform 0.25s ease, opacity 0.25s ease;
-}
-
-.mobile-drawer {
-  position: fixed;
-  inset: 0;
-  z-index: 9999;
-  visibility: hidden;
-  pointer-events: none;
-  transition: visibility 0.3s ease;
-}
-
-.mobile-drawer.is-open {
-  visibility: visible;
-  pointer-events: auto;
-}
-
-.drawer-backdrop {
-  position: absolute;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.8);
-  backdrop-filter: blur(6px);
-  -webkit-backdrop-filter: blur(6px);
-  opacity: 0;
-  transition: opacity 0.3s ease;
-}
-
-.mobile-drawer.is-open .drawer-backdrop {
-  opacity: 1;
-}
-
-.drawer-panel {
-  position: absolute;
-  top: 0;
-  right: 0;
-  width: 82%;
-  max-width: 340px;
-  height: 100%;
-  background: #0B0D14;
-  border-left: 1px solid var(--blue);
-  box-shadow: -10px 0 40px rgba(0, 0, 0, 0.9), 0 0 20px rgba(10, 132, 255, 0.2);
-  display: flex;
-  flex-direction: column;
-  padding: 1.5rem;
-  transform: translateX(100%);
-  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
-  overflow-y: auto;
-}
-
-.mobile-drawer.is-open .drawer-panel {
-  transform: translateX(0);
-}
-
-.drawer-top-bar {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding-bottom: 1.2rem;
-  border-bottom: 1px solid rgba(10, 132, 255, 0.2);
-  margin-bottom: 1.5rem;
-}
-
-.drawer-brand {
-  font-family: var(--font-display);
-  font-size: 1.2rem;
-  font-weight: 800;
-  letter-spacing: 0.15em;
-  color: var(--white);
-}
-
-.drawer-close-btn {
-  background: transparent;
-  border: 1px solid rgba(255, 23, 68, 0.4);
-  color: var(--neon-red);
-  width: 36px;
-  height: 36px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  border-radius: 2px;
-  transition: background 0.2s ease, border-color 0.2s ease;
-}
-
-.drawer-close-btn:hover, .drawer-close-btn:focus-visible {
-  background: rgba(255, 23, 68, 0.15);
-  border-color: var(--neon-red);
-  outline: 2px solid var(--neon-red);
-}
-
-.drawer-links-list {
-  list-style: none;
-  display: flex;
-  flex-direction: column;
-  gap: 1.1rem;
-}
-
-.drawer-link {
-  font-family: var(--font-display);
-  font-size: 0.95rem;
-  font-weight: 700;
-  letter-spacing: 0.12em;
-  color: var(--white-muted);
-  display: block;
-  padding: 0.4rem 0;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
-  transition: color 0.2s ease, padding-left 0.2s ease;
-}
-
-.drawer-link:hover, .drawer-link:focus-visible {
-  color: var(--blue);
-  padding-left: 0.4rem;
-}
-
-.drawer-link.is-active {
-  color: var(--white);
-  border-left: 3px solid var(--blue);
-  padding-left: 0.6rem;
-}
-
-.drawer-footer-meta {
-  margin-top: auto;
-  padding-top: 2rem;
-  font-size: 0.8125rem; /* 13px */
-  color: var(--white-muted);
-  letter-spacing: 0.08em;
+.cn-card-head { display: flex; flex-direction: column; gap: 4px; }
+.cn-label { font-size: 18px; font-weight: 700; font-family: var(--font-display); letter-spacing: 1px; text-transform: uppercase; color: var(--blue-bright);}
+.cn-desc { margin: 0; font-size: 13px; line-height: 1.45; color: var(--cn-muted); font-family: var(--font-body); }
+.cn-links { margin: auto 0 0; display: flex; list-style: none; flex-direction: column; gap: 2px; padding: 0; }
+.cn-link {
+  display: inline-flex; cursor: pointer; align-items: center; gap: 8px; border-radius: 6px;
+  border: 0; padding: 3px 0; background: none; font-family: var(--font-body); font-size: 15px;
+  font-weight: 600; color: inherit; opacity: 0.82; transition: opacity 0.2s ease, color 0.2s;
   text-transform: uppercase;
 }
+.cn-link:hover { opacity: 1; color: var(--white); }
+.cn-link::before { content: '>'; color: var(--blue); font-family: monospace; font-weight: bold; opacity: 0; transform: translateX(-5px); transition: all 0.2s; }
+.cn-link:hover::before { opacity: 1; transform: translateX(0); }
 
+@media (max-width: 800px) {
+  .cn-bar { grid-template-columns: auto 1fr auto; }
+  .cn-logo { grid-column: 1; grid-row: 1; justify-self: start; padding-left: 12px; font-size: 1.2rem; }
+  #nav-reg-wrap { grid-column: 2; grid-row: 1; justify-self: center; }
+  .cn-menu-btn { grid-column: 3; grid-row: 1; justify-self: end; }
+  .cn-cards { flex-direction: column; }
+  .cn-card { min-height: 0; flex: none; gap: 10px; padding: 14px 14px 12px; }
+  .cn-links { flex-direction: row; flex-wrap: wrap; gap: 6px 16px; }
+  .cn-panel { max-height: calc(100vh - 1.5rem); overflow-y: auto; -webkit-overflow-scrolling: touch; }
+}
 
-/* Common Subpage Hero (~45vh) */
+@media (max-width: 520px) {
+  #site-header { padding: 0.75rem 0 !important; }
+  #site-header.is-scrolled { padding: 0.5rem 0 !important; }
+  .cn-root { width: calc(100% - 1.5rem) !important; margin: 0 auto !important; }
+  #nav-reg-wrap { display: none !important; }
+  .cn-bar {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    padding: 0 10px !important;
+    height: var(--cn-bar) !important;
+  }
+  .cn-logo {
+    order: 1 !important;
+    grid-column: auto !important;
+    grid-row: auto !important;
+    justify-self: auto !important;
+    font-size: 1.15rem !important;
+    letter-spacing: 0.08em !important;
+    padding: 0 0 0 6px !important;
+    margin: 0 !important;
+    line-height: 1 !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    white-space: nowrap !important;
+    text-decoration: none !important;
+  }
+  .cn-menu-btn {
+    order: 2 !important;
+    grid-column: auto !important;
+    grid-row: auto !important;
+    justify-self: auto !important;
+    padding: 0 12px !important;
+    margin: 0 !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 8px !important;
+  }
+  .cn-panel {
+    max-height: calc(100dvh - 1.5rem) !important;
+    overflow-y: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+  }
+  .cn-cards { flex-direction: column !important; gap: 8px !important; }
+  .cn-card { padding: 12px !important; min-height: 0 !important; flex: none !important; gap: 8px !important; }
+  .cn-links { flex-direction: column !important; gap: 4px !important; }
+  .cn-link { padding: 6px 0 !important; min-height: 38px !important; }
+}
+
+@media (max-width: 360px) {
+  .cn-logo { font-size: 1rem !important; letter-spacing: 0.05em !important; padding-left: 2px !important; }
+  .cn-menu-btn { padding: 0 8px !important; font-size: 13px !important; }
+}
+
 /* ==========================================================================
-   COMMON SUBPAGE HERO (~45vh)
+   SPECULAR BUTTON (WebGL Hover Effect)
    ========================================================================== */
+.specular-btn {
+  position: relative; display: inline-flex; align-items: center; justify-content: center;
+  border: 0; font-family: var(--font-display); font-weight: 700; letter-spacing: 0.1em;
+  border-radius: var(--sb-radius, 14px);
+  background: rgba(10, 132, 255, 0.05); /* Fallback */
+  box-shadow: 0 10px 24px -14px rgba(0,0,0,0.45);
+  backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+  cursor: pointer; outline: none; -webkit-tap-highlight-color: transparent;
+  transition: transform 0.25s cubic-bezier(0.2,0.8,0.2,1);
+  color: #ffffff; text-transform: uppercase; margin: 0; padding: 0;
+}
+.specular-btn:active { transform: scale(0.96); }
+.specular-btn canvas {
+  position: absolute; top: -24px; left: -24px; z-index: 1; display: block;
+  width: calc(100% + 48px); height: calc(100% + 48px); pointer-events: none;
+}
+.specular-text { position: relative; z-index: 2; display: inline-flex; align-items: center; gap: 8px; }
+.specular-btn.size-sm { padding: 10px 20px; font-size: 0.85rem; }
+.specular-btn.size-md { padding: 14px 28px; font-size: 1rem; }
+.specular-btn.size-lg { padding: 16px 34px; font-size: 1.1rem; }
+
+/* Subpage Hero */
 .subpage-hero-section {
-  min-height: 44vh;
-  position: relative;
-  background: #000000;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  padding-top: 6rem;
-  padding-bottom: 3.5rem;
-  overflow: hidden;
+  padding: 10rem 0 4rem;
+  background: radial-gradient(circle at 50% 100%, rgba(10, 132, 255, 0.1) 0%, transparent 60%);
+  text-align: center; position: relative;
 }
-
-.subpage-hero-vignette {
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(circle at 50% 40%, rgba(10, 132, 255, 0.07) 0%, #000000 80%);
-  pointer-events: none;
-}
-
-.subpage-hero-container {
-  position: relative;
-  z-index: 2;
-}
-
 .subpage-breadcrumb {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  font-family: var(--font-display);
-  font-size: 0.8125rem; /* 13px */
-  font-weight: 600;
-  letter-spacing: 0.06em;
-  color: var(--text-tertiary);
-  margin-bottom: 1.5rem;
+  font-family: var(--font-display); font-size: 0.85rem; font-weight: 700;
+  letter-spacing: 0.15em; color: var(--blue); margin-bottom: 1rem;
+  display: inline-flex; align-items: center; gap: 0.5rem; text-transform: uppercase;
 }
+.subpage-hero-subtitle { margin: 1.5rem auto 0; font-size: 1.15rem; color: var(--text-secondary); font-weight: 400; max-width: 600px; }
 
-.disabled-status-dot {
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: #FF9800;
-  box-shadow: 0 0 6px #FF9800;
-  display: inline-block;
+/* EVENTS PORTAL MAIN */
+.events-portal-main { padding-bottom: 6rem; }
+
+/* Toolbar */
+.events-toolbar-wrap {
+  display: flex; justify-content: space-between; align-items: center;
+  gap: 1.5rem; flex-wrap: wrap; margin-bottom: 2rem;
+  background: rgba(11, 13, 20, 0.6); padding: 1rem; border-radius: 16px;
+  border: 1px solid rgba(255,255,255,0.05); backdrop-filter: blur(10px);
 }
-
-/* Fallback Image Design */
-.is-fallback-image {
-  object-fit: cover;
-  background: #0B0D14;
-  border: 1px solid rgba(10, 132, 255, 0.25);
+.events-search-box {
+  display: flex; align-items: center; gap: 0.75rem; background: rgba(0, 0, 0, 0.5);
+  border: 1px solid rgba(10, 132, 255, 0.3); padding: 0.75rem 1.25rem; border-radius: 100px;
+  flex: 1; max-width: 400px; transition: all 0.3s ease;
 }
+.events-search-box:focus-within { border-color: var(--blue); box-shadow: 0 0 15px var(--blue-glow); }
+.search-icon { color: var(--text-tertiary); }
+.events-search-box:focus-within .search-icon { color: var(--blue); }
+.events-search-input { background: transparent; border: none; color: var(--white); font-family: var(--font-body); font-size: 1rem; width: 100%; outline: none; }
+.search-clear-btn { background: none; border: none; color: var(--text-tertiary); font-size: 1.5rem; cursor: pointer; line-height: 1; }
 
-
-/* Category Color Coding & Badges */
-/* ==========================================================================
-   CATEGORY COLOR CODING & CARDS
-   ========================================================================== */
-.category-technical {
-  --cat-accent: var(--blue);
-  --cat-glow: var(--blue-glow);
+/* Filter Chips */
+.category-chips-bar { display: flex; gap: 0.6rem; flex-wrap: wrap; }
+.category-chip {
+  background: transparent; border: 1px solid rgba(255,255,255,0.15);
+  color: var(--white-muted); font-family: var(--font-display);
+  font-size: 0.85rem; font-weight: 700; letter-spacing: 0.1em;
+  padding: 0.6rem 1.4rem; border-radius: 100px; cursor: pointer;
+  display: flex; align-items: center; gap: 0.5rem;
+  transition: all 0.3s ease; text-transform: uppercase;
 }
+.chip-dot { width: 6px; height: 6px; border-radius: 50%; background: currentColor; }
+.chip-tech { --chip-col: var(--blue); }
+.chip-non-tech { --chip-col: #FFFFFF; }
+.chip-gaming { --chip-col: var(--neon-red); }
 
-.category-non-technical {
-  --cat-accent: #FFFFFF;
-  --cat-glow: rgba(255, 255, 255, 0.2);
+.category-chip:hover { border-color: rgba(255,255,255,0.4); color: var(--white); }
+.category-chip.is-active { background: var(--white); color: var(--black); border-color: var(--white); }
+.category-chip.chip-tech.is-active { background: var(--blue); color: var(--white); border-color: var(--blue); box-shadow: 0 0 15px var(--blue-glow); }
+.category-chip.chip-gaming.is-active { background: var(--neon-red); color: var(--white); border-color: var(--neon-red); box-shadow: 0 0 15px var(--neon-red-glow); }
+
+.events-status-bar { font-family: var(--font-body); font-weight: 500; font-size: 0.9rem; color: var(--text-tertiary); margin-bottom: 2rem; border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 1rem; }
+
+/* Grid & Cards */
+.category-section { margin-bottom: 4.5rem; }
+.category-section-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 1.5rem; border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 0.5rem; }
+.category-heading { font-family: var(--font-display); font-size: 2.2rem; font-weight: 800; color: var(--white); text-transform: uppercase; }
+.category-count-pill { font-family: var(--font-body); font-size: 0.9rem; font-weight: 600; color: var(--text-secondary); background: rgba(255,255,255,0.05); padding: 0.3rem 1rem; border-radius: 100px; }
+
+.events-category-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 2rem; }
+
+/* THE CARD - Animated & Cyber */
+.event-card-item {
+  background: rgba(11, 13, 20, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 16px;
+  overflow: hidden; display: flex; flex-direction: column; position: relative;
+  opacity: 0; transform: translateY(30px);
+  transition: transform 0.4s var(--ease-spring), box-shadow 0.4s ease, border-color 0.4s ease;
 }
-
-.category-gaming {
-  --cat-accent: var(--neon-red);
-  --cat-glow: var(--neon-glow);
+.event-card-item.animate-in { animation: fadeUp 0.6s var(--ease-spring) forwards; }
+.event-card-item::before {
+  content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+  background: linear-gradient(180deg, rgba(255,255,255,0.02) 0%, transparent 100%); pointer-events: none;
 }
+.event-card-item:hover {
+  transform: translateY(-8px); border-color: rgba(10, 132, 255, 0.4);
+  box-shadow: 0 20px 40px rgba(0,0,0,0.6), 0 0 20px rgba(10, 132, 255, 0.15);
+}
+.event-card-item.category-gaming:hover { border-color: rgba(255, 23, 68, 0.4); box-shadow: 0 20px 40px rgba(0,0,0,0.6), 0 0 20px rgba(255, 23, 68, 0.15); }
 
-/* Category Pill Badges */
+.event-card-poster-wrap { width: 100%; aspect-ratio: 16/9; position: relative; overflow: hidden; }
+.event-card-poster { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s ease, filter 0.6s ease; filter: brightness(0.8); }
+.event-card-item:hover .event-card-poster { transform: scale(1.05); filter: brightness(1); }
+
+.event-card-overlay-badges { position: absolute; top: 1rem; left: 1rem; display: flex; gap: 0.5rem; z-index: 2; }
 .category-badge {
-  display: inline-block;
-  font-family: var(--font-display);
-  font-size: 0.8125rem; /* 13px */
-  font-weight: 800;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-  padding: 0.25rem 0.65rem;
-  border-radius: 1px;
+  font-family: var(--font-display); font-size: 0.75rem; font-weight: 700;
+  letter-spacing: 0.1em; text-transform: uppercase; padding: 0.3rem 0.8rem;
+  border-radius: 100px; backdrop-filter: blur(4px);
 }
+.category-badge.cat-technical { background: rgba(10, 132, 255, 0.9); color: #fff; }
+.category-badge.cat-non-technical { background: rgba(255, 255, 255, 0.9); color: #000; }
+.category-badge.cat-gaming { background: rgba(255, 23, 68, 0.9); color: #fff; }
 
-.category-badge.cat-technical {
-  background: rgba(10, 132, 255, 0.12);
-  border: 1px solid var(--blue);
-  color: var(--blue);
-}
+.event-card-body-content { padding: 1.5rem; display: flex; flex-direction: column; flex: 1; z-index: 2; }
+.event-card-title { font-family: var(--font-display); font-size: 1.6rem; font-weight: 800; color: var(--white); margin-bottom: 0.5rem; }
+.event-card-short-desc { font-family: var(--font-body); font-size: 0.95rem; color: var(--text-secondary); margin-bottom: 1.5rem; flex: 1; }
+.event-card-meta-row { font-family: var(--font-body); font-size: 0.85rem; color: var(--text-tertiary); margin-bottom: 1.5rem; font-weight: 600; display: flex; align-items: center; gap: 0.5rem; text-transform: uppercase; }
+.event-card-meta-row::before { content: ''; width: 4px; height: 4px; border-radius: 50%; background: var(--blue); }
 
-.category-badge.cat-non-technical {
-  background: rgba(255, 255, 255, 0.08);
-  border: 1px solid rgba(255, 255, 255, 0.4);
-  color: var(--white);
-}
+.event-card-action-bar { display: flex; gap: 0.75rem; }
+/* Disable button styling fallback if SpecularButton isn't used */
+.btn-disabled { background: rgba(255,255,255,0.05); border: 1px dashed rgba(255,255,255,0.2); color: var(--text-tertiary); cursor: not-allowed; border-radius: 8px; padding: 10px 20px; font-family: var(--font-display); font-size: 0.85rem;}
 
-.category-badge.cat-gaming {
-  background: rgba(255, 23, 68, 0.12);
-  border: 1px solid var(--neon-red);
-  color: var(--neon-red);
-}
-
-
-/* Accessible Event Modal Dialog */
-/* ==========================================================================
-   ACCESSIBLE EVENT MODAL DIALOG
-   ========================================================================== */
+/* MODAL - Pop Up Animations & Transitions */
 .modal-overlay {
-  position: fixed;
-  inset: 0;
-  z-index: 10000;
-  background: rgba(0, 0, 0, 0.88);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 1.5rem;
-  opacity: 0;
-  visibility: hidden;
-  transition: opacity 0.3s ease, visibility 0.3s ease;
+  position: fixed; inset: 0; z-index: 10000; background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(0px); -webkit-backdrop-filter: blur(0px);
+  display: flex; align-items: center; justify-content: center; padding: 1rem;
+  opacity: 0; visibility: hidden; transition: backdrop-filter 0.4s ease, opacity 0.4s ease, visibility 0.4s;
 }
-
-.modal-overlay.is-active {
-  opacity: 1;
-  visibility: visible;
-}
+.modal-overlay.is-active { opacity: 1; visibility: visible; backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); }
 
 .modal-window {
-  background: #0B0D14;
-  border: 1px solid var(--blue);
-  box-shadow: 0 0 50px rgba(0, 0, 0, 0.9), 0 0 30px rgba(10, 132, 255, 0.25);
-  max-width: 820px;
-  width: 100%;
-  max-height: 88vh;
-  display: flex;
-  flex-direction: column;
-  position: relative;
-  overflow: hidden;
-  transform: translateY(20px) scale(0.98);
-  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  background: var(--surface); border: 1px solid rgba(10, 132, 255, 0.3); border-radius: 20px;
+  box-shadow: 0 25px 50px -12px rgba(0,0,0,0.8), 0 0 30px rgba(10, 132, 255, 0.15);
+  max-width: 800px; width: 100%; max-height: 85vh; display: flex; flex-direction: column; overflow: hidden;
+  opacity: 0; transform: scale(0.95) translateY(20px); transition: all 0.5s var(--ease-spring);
 }
+.modal-overlay.is-active .modal-window { opacity: 1; transform: scale(1) translateY(0); }
 
-.modal-overlay.is-active .modal-window {
-  transform: translateY(0) scale(1);
-}
-
-.modal-header-bar {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 1.25rem 1.8rem;
-  border-bottom: 1px solid rgba(10, 132, 255, 0.2);
-  background: rgba(5, 6, 10, 0.95);
-}
-
+.modal-header-bar { display: flex; justify-content: space-between; align-items: center; padding: 1.25rem 1.5rem; background: rgba(255,255,255,0.02); border-bottom: 1px solid rgba(255,255,255,0.05); }
+.modal-title-group { display: flex; align-items: center; gap: 1rem; }
+.modal-title { font-family: var(--font-display); font-size: 1.5rem; font-weight: 800; color: var(--white); margin: 0; }
 .modal-close-btn {
-  background: transparent;
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  color: var(--white);
-  width: 36px;
-  height: 36px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  border-radius: 2px;
-  transition: border-color 0.2s ease, background 0.2s ease, color 0.2s ease;
-}
-
-.modal-close-btn:hover, .modal-close-btn:focus-visible {
-  border-color: var(--neon-red);
-  color: var(--neon-red);
-  background: rgba(255, 23, 68, 0.1);
-  outline: 2px solid var(--neon-red);
-}
-
-.modal-body-scroll {
-  padding: 1.8rem;
-  overflow-y: auto;
-  display: flex;
-  flex-direction: column;
-  gap: 1.8rem;
-}
-
-.modal-poster-banner {
-  width: 100%;
-  aspect-ratio: 16 / 9;
-  max-height: 300px;
-  object-fit: cover;
-  border: 1px solid rgba(10, 132, 255, 0.25);
-}
-
-.modal-section-title {
-  font-family: var(--font-display);
-  font-size: 0.85rem;
-  font-weight: 700;
-  letter-spacing: 0.15em;
-  color: var(--blue);
-  text-transform: uppercase;
-  margin-bottom: 0.6rem;
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-}
-
-.modal-section-title::after {
-  content: '';
-  flex: 1;
-  height: 1px;
-  background: rgba(10, 132, 255, 0.2);
-}
-
-.modal-footer-action-bar {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 1.2rem 1.8rem;
-  border-top: 1px solid rgba(10, 132, 255, 0.2);
-  background: rgba(5, 6, 10, 0.98);
-  gap: 1rem;
-}
-
-
-/* Dev Audit HUD (?audit=1) */
-/* ==========================================================================
-   DEV AUDIT HUD (?audit=1)
-   ========================================================================== */
-.audit-hud-panel {
-  position: fixed;
-  bottom: 1.2rem;
-  left: 1.2rem;
-  z-index: 10050;
-  width: 320px;
-  background: #0B0D14;
-  border: 1px solid var(--blue);
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.9), 0 0 15px rgba(10, 132, 255, 0.2);
-  font-family: var(--font-body);
-  font-size: 0.875rem; /* 14px */
-  border-radius: 2px;
-  overflow: hidden;
-}
-
-.audit-hud-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0.65rem 0.9rem;
-  background: rgba(10, 132, 255, 0.15);
-  border-bottom: 1px solid rgba(10, 132, 255, 0.25);
-}
-
-.audit-title-wrap {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  color: var(--white);
-  font-family: var(--font-display);
-  font-size: 0.8125rem; /* 13px */
-  letter-spacing: 0.1em;
-}
-
-.audit-pulse-dot {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: var(--blue);
-  box-shadow: 0 0 8px var(--blue-glow);
-  animation: auditPulse 2s infinite ease-in-out;
-}
-
-@keyframes auditPulse {
-  0%, 100% { opacity: 1; transform: scale(1); }
-  50% { opacity: 0.4; transform: scale(0.85); }
-}
-
-.audit-close-btn {
-  background: transparent;
-  border: none;
-  color: var(--white-muted);
-  font-size: 1rem;
-  cursor: pointer;
-  padding: 0 0.4rem;
-}
-
-.audit-close-btn:hover {
-  color: var(--white);
-}
-
-.audit-hud-body {
-  padding: 0.9rem;
-}
-
-.audit-stat-strip {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 0.6rem;
-  margin-bottom: 0.9rem;
-}
-
-.audit-stat-box {
-  background: rgba(5, 6, 10, 0.8);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  padding: 0.5rem;
-  text-align: center;
-}
-
-.audit-stat-num {
-  display: block;
-  font-family: var(--font-display);
-  font-size: 1.15rem;
-  font-weight: 800;
-  color: var(--neon-red);
-}
-
-.audit-stat-lbl {
-  display: block;
-  font-size: 0.8125rem; /* 13px */
-  color: var(--white-muted);
-  letter-spacing: 0.08em;
-}
-
-.audit-files-list {
-  display: flex;
-  flex-direction: column;
-  gap: 0.4rem;
-  max-height: 160px;
-  overflow-y: auto;
-  margin-bottom: 0.9rem;
-}
-
-.audit-file-row {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0.35rem 0.5rem;
-  background: rgba(255, 255, 255, 0.03);
-  border-left: 2px solid var(--blue);
-}
-
-.audit-file-name {
-  font-family: monospace;
-  font-size: 0.8125rem; /* 13px */
-  color: var(--white);
-}
-
-.audit-file-count.count-pending {
-  color: var(--neon-red);
-  font-weight: 700;
-}
-
-.audit-file-count.count-done {
-  color: #00E676;
-}
-
-.btn-audit-copy {
-  width: 100%;
-  padding: 0.5rem;
-  background: var(--blue);
-  color: var(--white);
-  border: none;
-  font-family: var(--font-display);
-  font-size: 0.8125rem; /* 13px */
-  font-weight: 700;
-  letter-spacing: 0.1em;
-  cursor: pointer;
-  transition: opacity 0.2s ease;
-}
-
-.btn-audit-copy:hover {
-  opacity: 0.85;
-}
-
-/* Media Query overrides for mobile nav toggle */
-@media (max-width: 991px) {
-  .nav-menu-wrapper {
-    display: none !important;
-  }
-
-  .nav-hamburger {
-    display: flex !important;
-  }
-}
-
-
-
-/* Shared Responsive Layout & Footer Queries */
-@media (max-width: 1024px) {
-  .footer-grid {
-    grid-template-columns: 1fr 1fr;
-  }
-}
-@media (max-width: 768px) {
-  .footer-grid {
-    grid-template-columns: 1fr;
-    gap: 2.5rem;
-  }
-  .footer-bottom-bar {
-    flex-direction: column;
-    gap: 1.2rem;
-    text-align: center;
-  }
-}
-/* ==== SHARED:BASE-CSS END ==== */
-
-/* ==== PAGE: EVENTS.HTML SPECIFIC CSS ==== */
-/* ==========================================================================
-   EVENTS PORTAL STYLING (events.html)
-   Toolbar, Search, Category Chips, Grids, Modal Details, Empty State
-   ========================================================================== */
-
-.events-portal-main {
-  padding-top: 3rem;
-  padding-bottom: 6rem;
-  background: #05060A;
-}
-
-.events-toolbar-wrap {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 1.5rem;
-  margin-bottom: 1.5rem;
-  flex-wrap: wrap;
-}
-
-.events-search-box {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-  background: #0B0D14;
-  border: 1px solid rgba(10, 132, 255, 0.3);
-  padding: 0.65rem 1rem;
-  max-width: 440px;
-  width: 100%;
-  border-radius: 2px;
-  transition: border-color 0.25s ease, box-shadow 0.25s ease;
-}
-
-.events-search-box:focus-within {
-  border-color: var(--blue);
-  box-shadow: 0 0 15px rgba(10, 132, 255, 0.25);
-}
-
-.search-icon {
-  color: var(--blue);
-  flex-shrink: 0;
-}
-
-.events-search-input {
-  background: transparent;
-  border: none;
-  outline: none;
-  color: var(--white);
-  font-family: var(--font-body);
-  font-size: 0.88rem;
-  width: 100%;
-}
-
-.events-search-input::placeholder {
-  color: #5A6675;
-}
-
-.search-clear-btn {
-  background: transparent;
-  border: none;
-  color: var(--white-muted);
-  cursor: pointer;
-  font-size: 0.9rem;
-  padding: 0 0.2rem;
-  transition: color 0.2s ease;
-}
-
-.search-clear-btn:hover {
-  color: var(--neon-red);
-}
-
-.category-chips-bar {
-  display: flex;
-  gap: 0.75rem;
-  flex-wrap: wrap;
-}
-
-.category-chip {
-  background: #0B0D14;
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  color: var(--white-muted);
-  font-family: var(--font-display);
-  font-size: 0.8125rem; /* 13px */
-  font-weight: 700;
-  letter-spacing: 0.12em;
-  padding: 0.6rem 1.1rem;
-  cursor: pointer;
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  border-radius: 2px;
-  transition: all 0.25s ease;
-}
-
-.chip-dot {
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: currentColor;
-}
-
-.chip-tech {
-  --chip-col: var(--blue);
-}
-
-.chip-non-tech {
-  --chip-col: #FFFFFF;
-}
-
-.chip-gaming {
-  --chip-col: var(--neon-red);
-}
-
-.category-chip:hover {
-  border-color: rgba(255, 255, 255, 0.4);
-  color: var(--white);
-}
-
-.category-chip.is-active {
-  background: rgba(255, 255, 255, 0.05);
-  border-color: var(--blue);
-  color: var(--white);
-  box-shadow: 0 0 14px var(--blue-glow);
-}
-
-.category-chip.chip-gaming.is-active {
-  border-color: var(--neon-red);
-  box-shadow: 0 0 14px var(--neon-glow);
-}
-
-.category-chip.chip-non-tech.is-active {
-  border-color: #FFFFFF;
-  box-shadow: 0 0 14px rgba(255, 255, 255, 0.25);
-}
-
-.events-status-bar {
-  font-size: 0.8rem;
-  color: var(--white-muted);
-  letter-spacing: 0.05em;
-  margin-bottom: 2.5rem;
-  padding-bottom: 0.8rem;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-}
-
-/* Category Sections */
-.category-section {
-  margin-bottom: 4.5rem;
-}
-
-.category-section-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 0.75rem;
-}
-
-.category-title-wrap {
-  display: flex;
-  align-items: baseline;
-  gap: 1rem;
-}
-
-.category-tag-indicator {
-  font-family: var(--font-display);
-  font-size: 0.8125rem; /* 13px */
-  font-weight: 700;
-  letter-spacing: 0.15em;
-}
-
-.tag-tech { color: var(--blue); }
-.tag-non-tech { color: #FFFFFF; }
-.tag-gaming { color: var(--neon-red); }
-
-.category-heading {
-  font-family: var(--font-display);
-  font-size: clamp(1.3rem, 2vw, 1.7rem);
-  font-weight: 800;
-  letter-spacing: 0.06em;
-  color: var(--white);
-}
-
-.category-count-pill {
-  font-family: var(--font-display);
-  font-size: 0.8125rem; /* 13px */
-  font-weight: 700;
-  letter-spacing: 0.12em;
-  padding: 0.25rem 0.65rem;
-  border-radius: 2px;
-}
-
-.pill-tech {
-  background: rgba(10, 132, 255, 0.1);
-  border: 1px solid var(--blue);
-  color: var(--blue);
-}
-
-.pill-non-tech {
-  background: rgba(255, 255, 255, 0.08);
-  border: 1px solid rgba(255, 255, 255, 0.4);
-  color: var(--white);
-}
-
-.pill-gaming {
-  background: rgba(255, 23, 68, 0.1);
-  border: 1px solid var(--neon-red);
-  color: var(--neon-red);
-}
-
-.hairline-divider-cat {
-  width: 100%;
-  height: 1px;
-  margin-bottom: 2rem;
-}
-
-.divider-tech {
-  background: linear-gradient(90deg, var(--blue) 0%, rgba(10, 132, 255, 0.2) 60%, transparent 100%);
-}
-
-.divider-non-tech {
-  background: linear-gradient(90deg, #FFFFFF 0%, rgba(255, 255, 255, 0.2) 60%, transparent 100%);
-}
-
-.divider-gaming {
-  background: linear-gradient(90deg, var(--neon-red) 0%, rgba(255, 23, 68, 0.2) 60%, transparent 100%);
-}
-
-.events-category-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
-  gap: 2rem;
-}
-
-/* Individual Event Card */
-.event-card-item {
-  background: #0B0D14;
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
-  position: relative;
-  transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
-}
-
-.event-card-item:hover {
-  transform: translateY(-5px);
-  border-color: var(--blue);
-  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.8), 0 0 20px rgba(10, 132, 255, 0.18);
-}
-
-.event-card-item.category-gaming:hover {
-  border-color: var(--neon-red);
-  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.8), 0 0 20px rgba(255, 23, 68, 0.2);
-}
-
-.event-card-poster-wrap {
-  width: 100%;
-  aspect-ratio: 16 / 10;
-  background: #000000;
-  overflow: hidden;
-  position: relative;
-}
-
-.event-card-poster {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: transform 0.45s ease;
-}
-
-.event-card-item:hover .event-card-poster {
-  transform: scale(1.04);
-}
-
-.event-card-overlay-badges {
-  position: absolute;
-  top: 1rem;
-  left: 1rem;
-  display: flex;
-  gap: 0.5rem;
-  z-index: 2;
-}
-
-.event-card-body-content {
-  padding: 1.8rem;
-  display: flex;
-  flex-direction: column;
-  flex: 1;
-}
-
-.event-card-title {
-  font-family: var(--font-display);
-  font-size: 1.35rem;
-  font-weight: 800;
-  letter-spacing: 0.06em;
-  color: var(--white);
-  margin-bottom: 0.6rem;
-}
-
-.event-card-short-desc {
-  font-size: 0.9rem;
-  color: var(--white-muted);
-  line-height: 1.6;
-  margin-bottom: 1.4rem;
-  flex: 1;
-}
-
-.event-card-meta-row {
-  display: flex;
-  align-items: center;
-  gap: 0.6rem;
-  padding-top: 1rem;
-  border-top: 1px solid rgba(255, 255, 255, 0.06);
-  margin-bottom: 1.4rem;
-  font-size: 0.8rem;
-  color: var(--white-muted);
-}
-
-.event-meta-icon {
-  color: var(--blue);
-}
-
-.event-card-action-bar {
-  display: flex;
-  align-items: center;
-  gap: 0.8rem;
-}
-
-.event-card-action-bar .btn-cta,
-.event-card-action-bar .btn-disabled {
-  flex: 1;
-  text-align: center;
-  padding: 0.65rem 0.9rem;
-  font-size: 0.8125rem; /* 13px */
-}
+  background: rgba(255,255,255,0.05); border: none; color: var(--white); font-size: 1.5rem;
+  width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.2s;
+}
+.modal-close-btn:hover { background: var(--neon-red); transform: rotate(90deg); }
+
+.modal-body-scroll { padding: 1.5rem; overflow-y: auto; display: flex; flex-direction: column; gap: 2rem; }
+.modal-body-scroll::-webkit-scrollbar { width: 6px; }
+.modal-body-scroll::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.2); border-radius: 10px; }
+
+.modal-poster-banner { width: 100%; aspect-ratio: 16/7; object-fit: cover; border-radius: 12px; border: 1px solid rgba(255,255,255,0.05); }
+.modal-meta-strip { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 1rem; background: rgba(10, 132, 255, 0.05); padding: 1.25rem; border-radius: 12px; border: 1px dashed rgba(10, 132, 255, 0.2); }
+.meta-label { font-family: var(--font-display); font-size: 0.8rem; font-weight: 700; color: var(--blue-bright); text-transform: uppercase; margin-bottom: 0.2rem; display: block; }
+.meta-val { font-family: var(--font-body); font-size: 1rem; font-weight: 600; color: var(--white); }
+
+.modal-section-title { font-family: var(--font-display); font-size: 1.3rem; font-weight: 800; color: var(--white); margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem; text-transform: uppercase; }
+.modal-section-title::before { content: ''; width: 8px; height: 8px; background: var(--blue); border-radius: 50%; }
+.modal-lead-intro { font-family: var(--font-body); font-size: 1.15rem; line-height: 1.6; color: var(--white); margin-bottom: 0.5rem; font-weight: 500; }
+.modal-full-desc, .modal-format-text { font-family: var(--font-body); font-size: 1rem; color: var(--text-secondary); line-height: 1.6; }
+.modal-format-text { padding: 1rem; background: rgba(255,255,255,0.02); border-left: 3px solid var(--blue); border-radius: 0 8px 8px 0; }
+.modal-numbered-list, .modal-bulleted-list { padding-left: 1.2rem; color: var(--text-secondary); line-height: 1.6; font-family: var(--font-body); font-size: 1rem; }
+.modal-numbered-list li, .modal-bulleted-list li { margin-bottom: 0.5rem; }
+
+.modal-coordinators-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; }
+.modal-coord-card { background: rgba(255,255,255,0.02); padding: 1rem; border-radius: 12px; border: 1px solid rgba(255,255,255,0.05); }
+.coord-role { font-family: var(--font-display); font-size: 0.75rem; color: var(--blue-bright); text-transform: uppercase; font-weight: 700; display: block; margin-bottom: 0.2rem; }
+.coord-name { font-family: var(--font-body); font-size: 1.1rem; color: var(--white); font-weight: 600; margin-bottom: 0.5rem; }
+.coord-contacts { font-family: var(--font-body); font-size: 0.9rem; color: var(--text-secondary); display: flex; flex-direction: column; gap: 0.2rem; }
+.coord-link { color: var(--white); transition: color 0.2s; }
+.coord-link:hover { color: var(--blue); text-decoration: underline; }
+
+.modal-footer-action-bar { display: flex; justify-content: space-between; align-items: center; padding: 1.25rem 1.5rem; background: rgba(5,6,10,0.95); border-top: 1px solid rgba(255,255,255,0.05); gap: 1rem; }
 
 /* Empty State */
-.events-empty-state {
-  text-align: center;
-  padding: 5rem 2rem;
-  background: #0B0D14;
-  border: 1px dashed rgba(255, 255, 255, 0.15);
-  margin: 2rem 0;
-}
+.events-empty-state { text-align: center; padding: 4rem 1rem; border: 1px dashed rgba(255,255,255,0.2); border-radius: 16px; margin: 2rem 0; background: rgba(255,255,255,0.02); }
+.empty-icon-box { font-size: 3rem; margin-bottom: 1rem; opacity: 0.5; font-family: var(--font-display); color: var(--text-tertiary); }
+.empty-heading { font-family: var(--font-display); font-size: 1.8rem; font-weight: 800; color: var(--white); margin-bottom: 0.5rem; }
+.empty-subtext { font-family: var(--font-body); color: var(--text-secondary); margin-bottom: 1.5rem; font-size: 1rem; }
 
-.empty-icon-box {
-  font-size: 2.2rem;
-  color: var(--blue);
-  margin-bottom: 1rem;
-}
+/* Footer */
+.site-footer { background: #020306; padding: 5rem 0 2rem; border-top: 1px solid rgba(255,255,255,0.05); margin-top: auto; }
+.footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 3rem; margin-bottom: 4rem; }
+.footer-brand { font-family: var(--font-display); font-size: 1.8rem; font-weight: 900; color: var(--white); margin-bottom: 1rem; display: block; letter-spacing: 0.1em; }
+.footer-col-title { font-family: var(--font-display); color: var(--white); margin-bottom: 1.2rem; font-size: 1.2rem; font-weight: 700; text-transform: uppercase; }
+.footer-nav-list { list-style: none; display: flex; flex-direction: column; gap: 0.75rem; }
+.footer-nav-list a { font-family: var(--font-body); font-weight: 500; color: var(--text-secondary); transition: color 0.2s; font-size: 1rem; }
+.footer-nav-list a:hover { color: var(--blue); }
+.footer-contact-line { font-family: var(--font-body); font-size: 1rem; color: var(--text-secondary); margin-bottom: 0.5rem; }
+.footer-social-row { display: flex; gap: 0.5rem; margin-top: 1.5rem; }
+.social-pill { background: rgba(255,255,255,0.05); padding: 0.5rem 1.2rem; border-radius: 100px; font-family: var(--font-display); font-size: 0.85rem; font-weight: 700; transition: background 0.2s; }
+.social-pill:hover { background: var(--blue); color: #fff; }
+.footer-bottom-bar { display: flex; justify-content: space-between; align-items: center; border-top: 1px solid rgba(255,255,255,0.05); padding-top: 2rem; font-family: var(--font-body); font-size: 0.9rem; color: var(--text-tertiary); }
 
-.empty-heading {
-  font-family: var(--font-display);
-  font-size: 1.4rem;
-  font-weight: 800;
-  color: var(--white);
-  letter-spacing: 0.08em;
-  margin-bottom: 0.6rem;
-}
-
-.empty-subtext {
-  font-size: 0.92rem;
-  color: var(--white-muted);
-  margin-bottom: 2rem;
-}
-
-/* Modal Inner Styling Extensions */
-.modal-meta-strip {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 1rem;
-  background: rgba(255, 255, 255, 0.02);
-  border: 1px solid rgba(255, 255, 255, 0.06);
-  padding: 1.2rem;
-}
-
-.modal-meta-cell {
-  display: flex;
-  flex-direction: column;
-  gap: 0.25rem;
-}
-
-.modal-meta-cell .meta-label {
-  font-size: 0.8125rem; /* 13px */
-  font-weight: 700;
-  color: var(--blue);
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-}
-
-.modal-meta-cell .meta-val {
-  font-size: 0.85rem;
-  color: var(--white);
-  font-weight: 600;
-}
-
-.modal-lead-intro {
-  font-size: 1.05rem;
-  line-height: 1.65;
-  color: var(--white);
-  margin-bottom: 0.8rem;
-}
-
-.modal-full-desc {
-  font-size: 0.92rem;
-  line-height: 1.65;
-  color: var(--white-muted);
-}
-
-.modal-format-text {
-  font-size: 0.92rem;
-  line-height: 1.65;
-  color: var(--white-muted);
-  background: rgba(255, 255, 255, 0.02);
-  border-left: 2px solid var(--blue);
-  padding: 0.8rem 1.2rem;
-}
-
-.modal-numbered-list,
-.modal-bulleted-list {
-  padding-left: 1.4rem;
-  font-size: 0.9rem;
-  line-height: 1.7;
-  color: var(--white-muted);
-}
-
-.modal-numbered-list li,
-.modal-bulleted-list li {
-  margin-bottom: 0.5rem;
-}
-
-.modal-coordinators-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-  gap: 1rem;
-}
-
-.modal-coord-card {
-  background: rgba(5, 6, 10, 0.8);
-  border: 1px solid rgba(10, 132, 255, 0.2);
-  padding: 1.1rem;
-}
-
-.coord-role {
-  font-size: 0.8125rem; /* 13px */
-  font-weight: 700;
-  color: var(--blue);
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  display: block;
-  margin-bottom: 0.3rem;
-}
-
-.coord-name {
-  font-family: var(--font-display);
-  font-size: 0.98rem;
-  font-weight: 700;
-  color: var(--white);
-  margin-bottom: 0.6rem;
-}
-
-.coord-contacts {
-  font-size: 0.875rem; /* 14px */
-  color: var(--white-muted);
-  display: flex;
-  flex-direction: column;
-  gap: 0.25rem;
-}
-
-.coord-link {
-  color: var(--white);
-  text-decoration: underline;
-  text-underline-offset: 3px;
-  transition: color 0.2s ease;
-}
-
-.coord-link:hover {
-  color: var(--blue);
-}
-
+/* ==========================================================================
+   MOBILE OPTIMIZATION (Responsive Overrides)
+   ========================================================================== */
 @media (max-width: 768px) {
-  .events-category-grid {
-    grid-template-columns: 1fr;
-  }
-  .modal-meta-strip {
-    grid-template-columns: 1fr;
-    gap: 0.8rem;
-  }
-  .modal-footer-action-bar {
-    flex-direction: column;
-    align-items: stretch;
-  }
+  #site-header { padding: 1rem 0; }
+  .subpage-hero-section { padding: 9rem 0 3rem; }
+  .display-title { font-size: clamp(1.4rem, 6vw, 2.2rem); }
+  .events-toolbar-wrap { flex-direction: column; align-items: stretch; padding: 1.25rem; min-width: 0; max-width: 100%; overflow: hidden; }
+  .events-search-box { max-width: 100%; min-width: 0; }
+  .category-chips-bar { flex-wrap: nowrap; overflow-x: auto; padding-bottom: 0.5rem; scrollbar-width: none; min-width: 0; max-width: 100%; width: 100%; -webkit-overflow-scrolling: touch; }
+  .category-chips-bar::-webkit-scrollbar { display: none; }
+  .category-chip { flex-shrink: 0; }
+  .category-section-header { flex-wrap: wrap; gap: 0.5rem 1rem; align-items: center; }
+  .category-heading { font-size: clamp(1.3rem, 5vw, 1.8rem); }
+  .events-category-grid { grid-template-columns: 1fr; gap: 1.5rem; }
+  
+  .modal-overlay { padding: 0.75rem; }
+  .modal-window { max-height: 90vh; width: 100%; border-radius: 16px; margin: auto; }
+  .modal-header-bar { padding: 1.25rem; }
+  .modal-title { font-size: 1.2rem; }
+  .modal-body-scroll { padding: 1.25rem; gap: 1.5rem; }
+  .modal-footer-action-bar { padding: 1.25rem; flex-direction: column; align-items: stretch; gap: 1rem; }
+  .modal-footer-action-bar .specular-btn { width: 100%; }
+  
+  .footer-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+  .footer-bottom-bar { flex-direction: column; gap: 1.5rem; text-align: center; }
+}
+@media (max-width: 480px) {
+  .events-category-grid { grid-template-columns: 1fr; }
+  .event-card-action-bar { flex-direction: column; }
+  .event-card-action-bar .specular-btn { width: 100%; }
+  .modal-meta-strip { grid-template-columns: 1fr 1fr; }
+  .modal-poster-banner { aspect-ratio: 4/3; }
 }
   </style>
 </head>
 <body class="page-events">
 
-  <!-- Keyboard Accessibility: Skip Link -->
   <a href="#events-main" class="skip-link">Skip to main content</a>
 
-  <!-- Shared Global Navigation (Injected by js/components.js) -->
-  <div id="site-nav"></div>
+  <!-- Animated CardNav Navigation -->
+  <header id="site-header">
+    <div class="cn-root" id="card-nav">
+      <nav class="cn-panel">
+        <div class="cn-bar">
+          
+          <button type="button" class="cn-menu-btn" aria-expanded="false">
+            <span class="cn-burger">
+              <span class="cn-line cn-line-top"></span>
+              <span class="cn-line cn-line-bottom"></span>
+            </span>
+            <span class="cn-menu-label">
+              <span class="cn-word-open">MENU</span>
+              <span class="cn-word-close">CLOSE</span>
+            </span>
+          </button>
 
-  <!-- Common Subpage Hero (Injected by js/components.js) -->
+          <a href="index.html" class="cn-logo">ALODANAX</a>
+
+          <div style="justify-self: end;" id="nav-reg-wrap">
+            <a href="#events-main" class="specular-btn size-sm" data-tint="#0A84FF" data-radius="8">
+              <canvas aria-hidden="true"></canvas><span class="specular-text">EXPLORE</span>
+            </a>
+          </div>
+        </div>
+
+        <div class="cn-content">
+          <div class="cn-cards">
+            
+            <div class="cn-card">
+              <div class="cn-card-head">
+                <span class="cn-label">Home</span>
+                <p class="cn-desc">Return to the main terminal.</p>
+              </div>
+              <ul class="cn-links">
+                <li><a href="index.html" class="cn-link">Go to Home</a></li>
+                <li><a href="index.html#about" class="cn-link">About TechFest</a></li>
+              </ul>
+            </div>
+            
+            <div class="cn-card">
+              <div class="cn-card-head">
+                <span class="cn-label">Arenas</span>
+                <p class="cn-desc">Competitive events & hackathons.</p>
+              </div>
+              <ul class="cn-links">
+                <li><a href="events.html" class="cn-link">All Events</a></li>
+                <li><a href="hackathon.html" class="cn-link">24H Hackathon</a></li>
+              </ul>
+            </div>
+            
+            <div class="cn-card">
+              <div class="cn-card-head">
+                <span class="cn-label">Connect</span>
+                <p class="cn-desc">Meet the team & faculty.</p>
+              </div>
+              <ul class="cn-links">
+                <li><a href="team.html" class="cn-link">Our Team</a></li>
+                <li><a href="contact.html" class="cn-link">Contact Us</a></li>
+              </ul>
+            </div>
+
+          </div>
+        </div>
+        <span class="cn-rim"></span>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Subpage Hero -->
   <section id="events-hero"></section>
 
-  <!-- Main Content: Discovery & Registration Portal -->
   <main id="events-main" class="site-main events-portal-main">
     <div class="section-container">
 
-      <!-- Interactive Toolbar: Live Search & Category Chips -->
+      <!-- Interactive Toolbar -->
       <div class="events-toolbar-wrap" role="region" aria-label="Event Search and Filters">
-        <!-- Live Search Input -->
         <div class="events-search-box">
           <svg class="search-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
             <circle cx="11" cy="11" r="8"></circle>
             <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
           </svg>
-          <input
-            type="search"
-            id="events-search-input"
-            class="events-search-input"
-            placeholder="Search competitions by name or keywords..."
-            aria-label="Search competitions"
-            autocomplete="off"
-          >
-          <button type="button" id="events-search-clear" class="search-clear-btn" aria-label="Clear search query" style="display: none;">✕</button>
+          <input type="search" id="events-search-input" class="events-search-input" placeholder="Search events..." autocomplete="off">
+          <button type="button" id="events-search-clear" class="search-clear-btn" style="display: none;">&times;</button>
         </div>
 
-        <!-- Category Filter Chips -->
-        <div class="category-chips-bar" role="tablist" aria-label="Filter events by category">
-          <button type="button" class="category-chip is-active" role="tab" aria-selected="true" data-cat="all">
-            <span>ALL ARENAS</span>
-          </button>
-          <button type="button" class="category-chip chip-tech" role="tab" aria-selected="false" data-cat="technical">
-            <span class="chip-dot"></span>
-            <span>TECHNICAL</span>
-          </button>
-          <button type="button" class="category-chip chip-non-tech" role="tab" aria-selected="false" data-cat="non-technical">
-            <span class="chip-dot"></span>
-            <span>NON-TECHNICAL</span>
-          </button>
-          <button type="button" class="category-chip chip-gaming" role="tab" aria-selected="false" data-cat="gaming">
-            <span class="chip-dot"></span>
-            <span>GAMING</span>
-          </button>
+        <div class="category-chips-bar" role="tablist">
+          <button type="button" class="category-chip is-active" data-cat="all">ALL ARENAS</button>
+          <button type="button" class="category-chip chip-tech" data-cat="technical"><span class="chip-dot"></span>TECHNICAL</button>
+          <button type="button" class="category-chip chip-non-tech" data-cat="non-technical"><span class="chip-dot"></span>NON-TECHNICAL</button>
+          <button type="button" class="category-chip chip-gaming" data-cat="gaming"><span class="chip-dot"></span>GAMING</button>
         </div>
       </div>
 
-      <!-- Active Filter Status & Count -->
-      <div class="events-status-bar" id="events-status-bar" aria-live="polite">
-        <span id="events-count-text">Showing all competitions</span>
-      </div>
+      <div class="events-status-bar" id="events-status-bar">Showing all competitions</div>
 
-      <!-- 3 Visually Distinct Category Sections -->
       <div class="events-categories-container" id="events-categories-container">
-
-        <!-- A) TECHNICAL SECTION -->
-        <section id="section-technical" class="category-section category-technical-wrap" aria-labelledby="heading-technical">
+        
+        <section id="section-technical" class="category-section">
           <div class="category-section-header">
-            <div class="category-title-wrap">
-              <span class="category-tag-indicator tag-tech">CATEGORY A</span>
-              <h2 id="heading-technical" class="category-heading">TECHNICAL ARENAS</h2>
-            </div>
-            <span class="category-count-pill pill-tech" id="count-technical">2 ARENAS</span>
+            <h2 class="category-heading">TECHNICAL</h2>
+            <span class="category-count-pill" id="count-technical"></span>
           </div>
-          <div class="hairline-divider-cat divider-tech" aria-hidden="true"></div>
-          <div class="events-category-grid" id="grid-technical">
-            <!-- Populated via js/events-page.js -->
-          </div>
+          <div class="events-category-grid" id="grid-technical"></div>
         </section>
 
-        <!-- B) NON-TECHNICAL SECTION -->
-        <section id="section-non-technical" class="category-section category-non-technical-wrap" aria-labelledby="heading-non-technical">
+        <section id="section-non-technical" class="category-section">
           <div class="category-section-header">
-            <div class="category-title-wrap">
-              <span class="category-tag-indicator tag-non-tech">CATEGORY B</span>
-              <h2 id="heading-non-technical" class="category-heading">NON-TECHNICAL ARENAS</h2>
-            </div>
-            <span class="category-count-pill pill-non-tech" id="count-non-technical">1 ARENA</span>
+            <h2 class="category-heading">NON-TECHNICAL</h2>
+            <span class="category-count-pill" id="count-non-technical"></span>
           </div>
-          <div class="hairline-divider-cat divider-non-tech" aria-hidden="true"></div>
-          <div class="events-category-grid" id="grid-non-technical">
-            <!-- Populated via js/events-page.js -->
-          </div>
+          <div class="events-category-grid" id="grid-non-technical"></div>
         </section>
 
-        <!-- C) GAMING SECTION -->
-        <section id="section-gaming" class="category-section category-gaming-wrap" aria-labelledby="heading-gaming">
+        <section id="section-gaming" class="category-section">
           <div class="category-section-header">
-            <div class="category-title-wrap">
-              <span class="category-tag-indicator tag-gaming">CATEGORY C</span>
-              <h2 id="heading-gaming" class="category-heading">GAMING ARENAS</h2>
-            </div>
-            <span class="category-count-pill pill-gaming" id="count-gaming">2 ARENAS</span>
+            <h2 class="category-heading">GAMING</h2>
+            <span class="category-count-pill" id="count-gaming"></span>
           </div>
-          <div class="hairline-divider-cat divider-gaming" aria-hidden="true"></div>
-          <div class="events-category-grid" id="grid-gaming">
-            <!-- Populated via js/events-page.js -->
-          </div>
+          <div class="events-category-grid" id="grid-gaming"></div>
         </section>
 
-        <!-- Empty State (Shown when no events match filters) -->
-        <div id="events-empty-state" class="events-empty-state" style="display: none;" role="status">
-          <div class="empty-icon-box" aria-hidden="true">✦</div>
-          <h3 class="empty-heading">NO COMPETITIONS FOUND</h3>
-          <p class="empty-subtext">No event matches your current search query or active filter.</p>
-          <button type="button" class="btn-cta btn-secondary-blue" id="btn-reset-filters">RESET ALL FILTERS</button>
+        <div id="events-empty-state" class="events-empty-state" style="display: none;">
+          <div class="empty-icon-box">&empty;</div>
+          <h3 class="empty-heading">NO MATCHES FOUND</h3>
+          <p class="empty-subtext">Adjust your search or change category filters.</p>
+          <button type="button" class="specular-btn size-md" id="btn-reset-filters" data-tint="#ffffff" data-base="#525252" data-radius="12">
+            <canvas aria-hidden="true"></canvas><span class="specular-text">CLEAR FILTERS</span>
+          </button>
         </div>
-
       </div>
     </div>
   </main>
 
-  <!-- Accessible Event Details Modal -->
-  <div id="event-modal" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modal-event-title" aria-hidden="true">
+  <!-- Animated Modal Dialog -->
+  <div id="event-modal" class="modal-overlay" role="dialog" aria-modal="true" aria-hidden="true">
     <div class="modal-window" id="modal-window">
-      <!-- Modal Header -->
       <div class="modal-header-bar">
         <div class="modal-title-group">
-          <span class="category-badge" id="modal-category-badge">TECHNICAL</span>
-          <h2 class="modal-title" id="modal-event-title">EVENT TITLE</h2>
+          <span class="category-badge" id="modal-category-badge">TECH</span>
+          <h2 class="modal-title" id="modal-event-title">EVENT</h2>
         </div>
-        <button type="button" class="modal-close-btn" id="modal-close-btn" aria-label="Close competition details">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
-            <line x1="18" y1="6" x2="6" y2="18"></line>
-            <line x1="6" y1="6" x2="18" y2="18"></line>
-          </svg>
-        </button>
+        <button type="button" class="modal-close-btn" id="modal-close-btn">&times;</button>
       </div>
 
-      <!-- Modal Body (Scrollable) -->
       <div class="modal-body-scroll" id="modal-body-content">
-        <!-- Banner Poster -->
-        <div class="modal-banner-wrap">
-          <img
-            id="modal-poster-img"
-            src=""
-            alt="Competition Poster"
-            class="modal-poster-banner"
-            loading="lazy"
-            decoding="async"
-          >
-        </div>
+        <img id="modal-poster-img" src="" alt="Poster" class="modal-poster-banner" loading="lazy">
 
-        <!-- Meta Strip: Date, Venue, Team Size, Prize -->
         <div class="modal-meta-strip">
-          <div class="modal-meta-cell">
-            <span class="meta-label">DATE &amp; TIME</span>
-            <span class="meta-val" id="modal-datetime">[DATE TBA]</span>
-          </div>
-          <div class="modal-meta-cell">
-            <span class="meta-label">VENUE</span>
-            <span class="meta-val" id="modal-venue">[VENUE TBA]</span>
-          </div>
-          <div class="modal-meta-cell">
-            <span class="meta-label">TEAM SIZE</span>
-            <span class="meta-val" id="modal-teamsize">[TEAM TBA]</span>
-          </div>
+          <div><span class="meta-label">DATE &amp; TIME</span><span class="meta-val" id="modal-datetime"></span></div>
+          <div><span class="meta-label">LOCATION</span><span class="meta-val" id="modal-venue"></span></div>
+          <div><span class="meta-label">TEAM SIZE</span><span class="meta-val" id="modal-teamsize"></span></div>
         </div>
 
-        <!-- Introduction & Detailed Description -->
-        <div class="modal-section-block">
+        <div>
           <h3 class="modal-section-title">OVERVIEW</h3>
           <p class="modal-lead-intro" id="modal-intro"></p>
           <p class="modal-full-desc" id="modal-description"></p>
         </div>
 
-        <!-- Event Format -->
-        <div class="modal-section-block" id="modal-format-block">
-          <h3 class="modal-section-title">EVENT FORMAT</h3>
+        <div id="modal-format-block">
+          <h3 class="modal-section-title">FORMAT</h3>
           <p class="modal-format-text" id="modal-format"></p>
         </div>
 
-        <!-- Rules & Guidelines -->
-        <div class="modal-section-block" id="modal-rules-block">
-          <h3 class="modal-section-title">RULES &amp; REGULATIONS</h3>
+        <div id="modal-rules-block">
+          <h3 class="modal-section-title">RULES</h3>
           <ol class="modal-numbered-list" id="modal-rules-list"></ol>
         </div>
 
-        <!-- Participation Requirements -->
-        <div class="modal-section-block" id="modal-requirements-block">
-          <h3 class="modal-section-title">REQUIREMENTS &amp; ELIGIBILITY</h3>
+        <div id="modal-requirements-block">
+          <h3 class="modal-section-title">REQUIREMENTS</h3>
           <ul class="modal-bulleted-list" id="modal-requirements-list"></ul>
         </div>
 
-        <!-- Important Instructions -->
-        <div class="modal-section-block" id="modal-instructions-block">
-          <h3 class="modal-section-title">IMPORTANT INSTRUCTIONS</h3>
+        <div id="modal-instructions-block">
+          <h3 class="modal-section-title">INSTRUCTIONS</h3>
           <ul class="modal-bulleted-list" id="modal-instructions-list"></ul>
         </div>
 
-        <!-- Student & Faculty Coordinators (TBA safe) -->
-        <div class="modal-section-block" id="modal-coordinators-block">
+        <div id="modal-coordinators-block">
           <h3 class="modal-section-title">COORDINATORS</h3>
           <div class="modal-coordinators-grid" id="modal-coordinators-list"></div>
         </div>
       </div>
 
-      <!-- Modal Footer Action Bar -->
       <div class="modal-footer-action-bar">
-        <div class="modal-footer-left" id="modal-extra-link-wrap">
-          <!-- Hackathon extra link "Problem Statements & Rules" -->
-        </div>
-        <div class="modal-footer-right" id="modal-register-wrap">
-          <!-- Register Now or Disabled Button -->
-        </div>
+        <div id="modal-extra-link-wrap"></div>
+        <div id="modal-register-wrap" style="flex:1; text-align:right;"></div>
       </div>
     </div>
   </div>
 
-  <!-- Shared Footer (Injected by js/components.js) -->
   <div id="site-footer"></div>
 
-  <!-- Data Layer -->
-
-  <!-- Core Utilities & Shared Components -->
-
-  <!-- Events Page Controller -->
-  <!-- Global & Page Data -->
-    <!-- Global & Festival Data -->
+  <!-- Global & Festival Data -->
   <script>
-/* ==== SHARED:DATA-SITE START ==== */
-/**
- * ALODANAX TechFest - Global Site Data
- * Single Source of Truth for Brand, College Details, Socials, Collaborator
- * DO NOT invent facts. Unfilled details remain bracketed placeholders.
- */
-
-const SITE_DATA = {
-  brand: {
-    name: "ALODANAX",
-    edition: "2026",
-    tagline: "[TAGLINE]",
-    subtagline: "Annual National Level IT/CS TechFest",
-    theme: "Precision Engineering Meets Cyber Evolution"
-  },
-  college: {
-    name: "[COLLEGE NAME]",
-    department: "[DEPARTMENT OF INFORMATION TECHNOLOGY / COMPUTER SCIENCE]",
-    fullTitle: "[DEPARTMENT, COLLEGE]",
-    address: "[CAMPUS ADDRESS, CITY, STATE, PIN]",
-    affiliation: "[AFFILIATED UNIVERSITY / ACCREDITATION]",
-    dates: "[DATE TBA]",
-    venue: "[VENUE TBA]"
-  },
-  contacts: {
-    email: "[EMAIL TBA]",
-    phone: "[PHONE TBA]",
-    inquiryEmail: "[INQUIRY EMAIL TBA]"
-  },
-  socials: {
-    instagram: "[INSTAGRAM TBA]",
-    linkedin: "[LINKEDIN TBA]",
-    github: "[GITHUB TBA]",
-    youtube: "[YOUTUBE TBA]",
-    x: "[X / TWITTER TBA]"
-  },
-  map: {
-    embedUrl: "", // If empty or placeholder, graceful card fallback
-    link: ""      // Google Maps external link
-  },
-  inquiryEndpoint: "[ENDPOINT TBA]", // If placeholder, form submission shows preview note
-  about: {
-    shortIntro: "ALODANAX is the premier annual technical symposium orchestrated by the Department of Information Technology & Computer Science at [COLLEGE NAME]. Built at the intersection of precision engineering and raw creativity, the symposium convenes student developers, algorithmic designers, cybersecurity operatives, and competitive gamers from across the nation.",
-    vision: "To cultivate an elite competitive forum that bridges foundational computer science with production-grade engineering, accelerating student innovation across artificial intelligence, cybersecurity, and distributed systems.",
-    purpose: "Empowering the next generation of technologists through rigorous hackathons, competitive problem-solving arenas, creative digital showcases, and direct industry collaboration.",
-    stats: [
-      { value: "[50+]", label: "UNIVERSITIES & COLLEGES" },
-      { value: "[15+]", label: "FLAGSHIP COMPETITIONS" },
-      { value: "[₹1,00,000+]", label: "TOTAL CASH PRIZE POOL" }
-    ]
-  },
-  collaborator: {
-    name: "[COLLABORATOR COMPANY NAME]",
-    logo: "assets/images/collaborator/logo.png",
-    intro: "[COLLABORATOR INTRO - A LEADING TECHNOLOGY INNOVATOR EMPOWERING ACADEMIC EXCELLENCE, CLOUD ARCHITECTURE, AND STUDENT RESEARCH]",
-    info: [
-      "[INDUSTRY PARTNER IN CLOUD & AI RESEARCH]",
-      "[SPONSOR OF FLAGSHIP 24H HACKATHON ARENA]",
-      "[OFFERING INTERNSHIP PATHWAYS & EXPERT MENTORSHIP]"
-    ],
-    link: "[COLLABORATOR WEBSITE URL]",
-    guests: [
-      {
-        name: "[GUEST NAME 01]",
-        designation: "[KEYNOTE SPEAKER / SENIOR CLOUD ARCHITECT]",
-        photo: "assets/images/collaborator/guest-1.jpg"
-      },
-      {
-        name: "[GUEST NAME 02]",
-        designation: "[INDUSTRY MENTOR / VP ENGINEERING]",
-        photo: "assets/images/collaborator/guest-2.jpg"
-      },
-      {
-        name: "[GUEST NAME 03]",
-        designation: "[HACKATHON JURY CHAIR / PRINCIPAL AI RESEARCHER]",
-        photo: "assets/images/collaborator/guest-3.jpg"
-      }
-    ]
-  },
-  why: [
-    {
-      pillar: "Innovation",
-      title: "GROUNDBREAKING TECH",
-      description: "Push beyond theoretical boundaries with emerging frameworks, neural pipelines, and decentralized systems."
-    },
-    {
-      pillar: "Creativity",
-      title: "UNBOUND DESIGN",
-      description: "Engineering meets aesthetic mastery: intuitive human interfaces, generative media, and fluid motion design."
-    },
-    {
-      pillar: "Collaboration",
-      title: "SYNERGISTIC SQUADS",
-      description: "Unite with cross-functional talent across universities to solve urgent infrastructure and social challenges."
-    },
-    {
-      pillar: "Competition",
-      title: "ELITE BATTLEGROUNDS",
-      description: "Test your mental limits against national-caliber coders, security analysts, and tactical esports champions."
-    }
-  ]
-};
-
-if (typeof window !== 'undefined') {
-  window.SITE_DATA = SITE_DATA;
-}
-/* ==== SHARED:DATA-SITE END ==== */
-
-/* ==== SHARED:DATA-EVENTS START ==== */
-/**
- * ALODANAX TechFest - Events Data
- * Single Source of Truth for all competition arenas and workshops.
- * Schema per event:
- * slug, name, category, shortDescription, image, date, venue, intro, description,
- * format, rules[], requirements[], teamSize, instructions[],
- * coordinators[{name, phone, email}], registrationUrl, extraLink.
- *
- * DO NOT invent facts. Unfilled values remain bracketed placeholders.
- */
-
-const EVENTS_DATA = [
-  // =========================================================================
-  // CATEGORY A: TECHNICAL
-  // =========================================================================
-  {
-    slug: "hackathon",
-    name: "Hackathon",
-    category: "technical",
-    tag: "FLAGSHIP SPRINT",
-    featured: true,
-    image: "assets/images/events/hackathon.jpg",
-    date: "[DATE TBA]",
-    venue: "[MAIN AUDITORIUM & COMPUTER LABS]",
-    shortDescription: "A relentless 24-hour product engineering sprint challenging squads to build distributed, fault-tolerant prototypes under real-world constraints.",
-    intro: "The flagship 24-Hour Hackathon convenes elite student developers, system architects, and creative designers from across the nation to build impactful technology solutions.",
-    description: "Participants will collaborate overnight across three designated domains (AI & Autonomous Systems, Cloud Infrastructure & Web3, and Smart Campus Innovation). Mentors from industry and academia will conduct scheduled review checkpoints throughout the 24 hours before final jury presentations.",
-    format: "24-Hour continuous offline sprint with 2 mandatory mentor review checkpoints, code freeze at hour 24, followed by 7-minute live stage presentations and 3-minute jury Q&A.",
-    rules: [
-      "All code, designs, and documentation must be created exclusively during the official 24-hour hackathon window.",
-      "Open-source libraries, frameworks, and public APIs are permitted provided they are disclosed in the project README.",
-      "Teams must push source code with verifiable commit logs to a newly initialized public repository.",
-      "Hardware components must be brought by the teams and demonstrated live during jury evaluation.",
-      "Plagiarism, pre-built applications, or code violation results in instantaneous squad disqualification."
-    ],
-    requirements: [
-      "Laptops with required SDKs, Docker, and developer environments pre-installed.",
-      "Valid institutional student identity cards for all participants.",
-      "Personal multi-plug extension cords and necessary hardware peripherals."
-    ],
-    teamSize: "[2 TO 4 PARTICIPANTS]",
-    instructions: [
-      "Check-in desk opens 90 minutes prior to keynote kickoff.",
-      "Wi-Fi credentials, workstation power, and rest lounge access will be issued upon badge verification.",
-      "Midnight meals, caffeine stations, and emergency first-aid will be staffed throughout the night."
-    ],
-    coordinators: [
-      {
-        name: "[STUDENT COORDINATOR 01]",
-        role: "Student Lead",
-        phone: "[PHONE TBA]",
-        email: "[EMAIL TBA]"
-      },
-      {
-        name: "[FACULTY COORDINATOR 01]",
-        role: "Faculty Mentor",
-        phone: "[PHONE TBA]",
-        email: "[EMAIL TBA]"
-      }
-    ],
-    registrationUrl: "[GOOGLE FORM URL HACKATHON]",
-    extraLink: {
-      label: "Problem Statements & Rules",
-      url: "hackathon.html"
-    }
-  },
-
-  {
-    slug: "bit-bash-bonanza",
-    name: "Bit Bash Bonanza",
-    category: "technical",
-    tag: "SPEED CODING",
-    featured: true,
-    image: "assets/images/events/bit-bash-bonanza.jpg",
-    date: "[DATE TBA]",
-    venue: "[CENTRAL COMPUTER LAB 101]",
-    shortDescription: "A high-octane competitive programming duel testing algorithmic intuition, memory efficiency, and speed under strict clock limits.",
-    intro: "Bit Bash Bonanza is a multi-stage algorithmic tournament testing algorithmic precision, dynamic programming, and computational geometry under rapid-fire constraints.",
-    description: "Competitors will solve increasingly difficult problem sets hosted on a dedicated competitive platform. Fast execution, clean code, and zero time-limit-exceeded (TLE) submissions determine the leaderboard.",
-    format: "Round 1: 45-minute speed preliminary screening. Round 2: 90-minute advanced algorithmic finals with live leaderboard projection.",
-    rules: [
-      "Permitted languages: C++, Java 17+, Python 3.10+.",
-      "No external IDE auto-completes, LLMs, or unauthorized web browsing.",
-      "Ties broken by earliest accepted submission and lowest cumulative penalty points."
-    ],
-    requirements: [
-      "Institutional student ID card.",
-      "Familiarity with standard I/O competitive judge formats."
-    ],
-    teamSize: "[INDIVIDUAL (1 PARTICIPANT)]",
-    instructions: [
-      "Lab terminals will be configured with standard gcc, openjdk, and python3 runtimes.",
-      "Report to Lab 101 at least 20 minutes before Round 1."
-    ],
-    coordinators: [
-      {
-        name: "[STUDENT COORDINATOR 02]",
-        role: "Technical Lead",
-        phone: "[PHONE TBA]",
-        email: "[EMAIL TBA]"
-      }
-    ],
-    registrationUrl: "[GOOGLE FORM URL BIT BASH]",
-    extraLink: null
-  },
-
-  // =========================================================================
-  // CATEGORY B: NON-TECHNICAL
-  // =========================================================================
-  {
-    slug: "ideathon",
-    name: "Ideathon",
-    category: "non-technical",
-    tag: "VENTURE PITCH",
-    featured: true,
-    image: "assets/images/events/ideathon.jpg",
-    date: "[DATE TBA]",
-    venue: "[SEMINAR HALL A]",
-    shortDescription: "A technology venture pitching competition evaluating architecture viability, market impact, and disruptive product execution.",
-    intro: "The ALODANAX Ideathon provides a stage for student visionaries to pitch groundbreaking product concepts to venture investors and faculty leaders.",
-    description: "Teams present their ideas addressing sustainability, healthcare, fintech, or education technology. Pitches are scrutinized on problem relevance, architectural feasibility, revenue models, and scalability.",
-    format: "7-minute slide presentation followed by 3 minutes of rigorous jury question-and-answer.",
-    rules: [
-      "Presentations must use the standardized slide structure outlined in the handbook.",
-      "Both hardware and software venture concepts are eligible.",
-      "All presented ideas must be original work of the registered team members."
-    ],
-    requirements: [
-      "Pitch deck in PDF or PPTX format submitted 2 hours prior to the event.",
-      "At least one team member present for presentation synchronization."
-    ],
-    teamSize: "[2 TO 3 PARTICIPANTS]",
-    instructions: [
-      "Presentation remotes and wireless lapel mics will be provided.",
-      "Teams must be seated in Seminar Hall A at the scheduled briefing call."
-    ],
-    coordinators: [
-      {
-        name: "[STUDENT COORDINATOR 03]",
-        role: "Pitch Liaison",
-        phone: "[PHONE TBA]",
-        email: "[EMAIL TBA]"
-      }
-    ],
-    registrationUrl: "[GOOGLE FORM URL IDEATHON]",
-    extraLink: null
-  },
-
-  // =========================================================================
-  // CATEGORY C: GAMING
-  // =========================================================================
-  {
-    slug: "bgmi",
-    name: "BGMI",
-    category: "gaming",
-    tag: "TACTICAL BATTLE ROYALE",
-    featured: true,
-    image: "assets/images/events/bgmi.jpg",
-    date: "[DATE TBA]",
-    venue: "[ESPORTS ARENA / AUDIO-VISUAL LAB]",
-    shortDescription: "Squad-based mobile battle royale showdown across Erangel and Miramar testing rotations, clutch utility, and gunplay.",
-    intro: "The official ALODANAX BGMI Championship tests collegiate squads in custom room lobbies managed by dedicated referees.",
-    description: "Squads will battle through qualifier matches to secure points on the official tournament board. Only the top squads advance to the LAN Grand Finals broadcast live on the arena displays.",
-    format: "3 Qualifier Erangel matches, top 16 squads advance to 4-match Grand Finals (Erangel, Miramar, Sanhok, Erangel).",
-    rules: [
-      "Mobile devices only. Strictly no emulators, iPads/tablets, triggers, or modified configs.",
-      "Tournament scoring follows standard esports placement and kill point tables.",
-      "Any player found using third-party scripts or exploiting map glitches faces immediate squad disqualification."
-    ],
-    requirements: [
-      "Personal mobile devices with latest official game client installed.",
-      "Personal wired or wireless headphones/earphones.",
-      "Active high-speed mobile data connection (backup campus Wi-Fi provided)."
-    ],
-    teamSize: "[SQUAD (4 PLAYERS + 1 SUB)]",
-    instructions: [
-      "Room ID and passwords will be distributed in the verified team Discord/WhatsApp channel 15 minutes before match kickoff.",
-      "Squad captains must verify roster nicknames with officials at check-in."
-    ],
-    coordinators: [
-      {
-        name: "[STUDENT COORDINATOR 04]",
-        role: "Esports Referee",
-        phone: "[PHONE TBA]",
-        email: "[EMAIL TBA]"
-      }
-    ],
-    registrationUrl: "[GOOGLE FORM URL BGMI]",
-    extraLink: null
-  },
-
-  {
-    slug: "discovering-derlicts",
-    name: "Discovering Derlicts",
-    category: "gaming",
-    tag: "GEO-CACHED CIPHER HUNT",
-    featured: true,
-    image: "assets/images/events/discovering-derlicts.jpg",
-    date: "[DATE TBA]",
-    venue: "[DEPARTMENT AMPHITHEATRE & CAMPUS GROUNDS]",
-    shortDescription: "A high-intensity campus-wide puzzle quest decoding cryptographic beacons, vintage computing hardware, and cryptic riddles.",
-    intro: "Discovering Derlicts blends alternate reality gaming, hardware repair puzzles, and geo-located riddles scattered across the university campus.",
-    description: "Squads navigate cryptic steganography clues, extract encoded hex strings from retired circuit boards, and locate hidden beacons before rival squads decipher the master key.",
-    format: "Multi-checkpoint time trial. Checkpoints must be cleared sequentially with QR verification.",
-    rules: [
-      "Teams must clear checkpoints in designated order; bypasses forfeit checkpoint points.",
-      "Interfering with checkpoint physical apparatus or other squads results in immediate disqualification.",
-      "Digital clues must be decoded on designated squad devices."
-    ],
-    requirements: [
-      "At least one smartphone per squad with camera scanner and cellular connectivity.",
-      "Comfortable shoes for outdoor campus navigation."
-    ],
-    teamSize: "[3 TO 4 PARTICIPANTS]",
-    instructions: [
-      "The initial briefing and cipher key distribution commences at the Dept Amphitheatre.",
-      "Emergency campus boundaries and out-of-bounds facilities will be explicitly briefed."
-    ],
-    coordinators: [
-      {
-        name: "[STUDENT COORDINATOR 05]",
-        role: "Quest Master",
-        phone: "[PHONE TBA]",
-        email: "[EMAIL TBA]"
-      }
-    ],
-    registrationUrl: "[GOOGLE FORM URL DERLICTS]",
-    extraLink: null
-  }
-];
-
-if (typeof window !== 'undefined') {
-  window.EVENTS_DATA = EVENTS_DATA;
-}
-/* ==== SHARED:DATA-EVENTS END ==== */
-
-  </script>
-
-  <!-- Shared Component System & Utilities -->
-  <script>
-/* ==== SHARED:COMPONENTS START ==== */
-// --- ALODANAX Utilities & Diagnostics ---
-/**
- * ALODANAX TechFest - Core Utilities & Validation Suite
- * Handles placeholder detection, Google Form validation, safe link formatting,
- * image error fallbacks, and the ?audit=1 diagnostic engine.
- */
-
-(function (window) {
-  'use strict';
-
-  /**
-   * Check if a value is undefined, empty, or a bracketed placeholder like "[TBA]" or "[NAME]".
-   * @param {*} val
-   * @returns {boolean}
-   */
-  function isPlaceholder(val) {
-    if (val === null || val === undefined) return true;
-    if (typeof val !== 'string') return false;
-    const trimmed = val.trim();
-    if (trimmed === '') return true;
-    return trimmed.startsWith('[') || trimmed.includes('[') && trimmed.includes(']');
-  }
-
-  /**
-   * Safe text renderer: Returns subtle TBA badge if value is placeholder or empty.
-   * @param {string} val
-   * @param {string} fallbackLabel
-   * @param {boolean} returnHtml
-   * @returns {string}
-   */
-  function formatSafeText(val, fallbackLabel = 'TBA', returnHtml = true) {
-    if (isPlaceholder(val)) {
-      return returnHtml ? `<span class="badge-tba" aria-label="To be announced">${fallbackLabel}</span>` : fallbackLabel;
-    }
-    return val;
-  }
-
-  /**
-   * Safe link generator: returns null if value is a placeholder.
-   * Otherwise returns tel:, mailto:, or valid url.
-   * @param {'tel'|'mailto'|'url'} type
-   * @param {string} val
-   * @returns {string|null}
-   */
-  function formatSafeLink(type, val) {
-    if (isPlaceholder(val)) return null;
-    const clean = val.trim();
-    if (type === 'tel') return `tel:${clean.replace(/[^\d+]/g, '')}`;
-    if (type === 'mailto') return `mailto:${clean}`;
-    if (type === 'url') return clean.startsWith('http') ? clean : `https://${clean}`;
-    return clean;
-  }
-
-  /**
-   * Validates per-event Google Form URL according to strict festival requirements.
-   * URL must:
-   * 1. Start with https://
-   * 2. Host must be docs.google.com (path /forms), forms.gle, or www.google.com (path /forms)
-   * 3. Not be empty or start with "["
-   *
-   * @param {object} event
-   * @returns {string|null} - Returns valid URL string or null if invalid/placeholder
-   */
-  function getEventRegistrationUrl(event) {
-    if (!event || !event.registrationUrl) return null;
-    const urlStr = event.registrationUrl.trim();
-    if (isPlaceholder(urlStr)) return null;
-
-    try {
-      const parsed = new URL(urlStr);
-      if (parsed.protocol !== 'https:') return null;
-
-      const host = parsed.hostname.toLowerCase();
-      const path = parsed.pathname.toLowerCase();
-
-      if (host === 'forms.gle') return urlStr;
-      if ((host === 'docs.google.com' || host === 'www.google.com') && path.startsWith('/forms')) {
-        return urlStr;
-      }
-      return null;
-    } catch (e) {
-      return null;
-    }
-  }
-
-  /**
-   * Renders registration CTA: active Google Form link or disabled "Registration Opening Soon" button.
-   * @param {object} event
-   * @param {object} options
-   * @returns {string} HTML string
-   */
-  function renderRegistrationButton(event, options = {}) {
-    const validUrl = getEventRegistrationUrl(event);
-    const extraClass = options.className || 'btn-cta';
-    const btnText = options.text || 'REGISTER NOW';
-
-    if (validUrl) {
-      return `<a href="${validUrl}" target="_blank" rel="noopener noreferrer" class="${extraClass} btn-primary-neon" aria-label="Register for ${event.name || 'Event'} via official Google Form">
-        <span>${btnText}</span>
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-          <line x1="7" y1="17" x2="17" y2="7"></line>
-          <polyline points="7 7 17 7 17 17"></polyline>
-        </svg>
-      </a>`;
-    }
-
-    return `<button type="button" class="${extraClass} btn-disabled" aria-disabled="true" tabindex="-1" title="Registration link is being finalized">
-      <span class="disabled-status-dot" aria-hidden="true"></span>
-      <span>Registration Opening Soon</span>
-    </button>`;
-  }
-
-  /**
-   * Verifies that no two different events share the exact same registration URL.
-   * Logs console.error if duplicate URLs are found.
-   * @param {Array} eventsList
-   */
-  function verifyUniqueRegistrationUrls(eventsList) {
-    if (!Array.isArray(eventsList)) return;
-    const seen = new Map();
-
-    eventsList.forEach(ev => {
-      const url = getEventRegistrationUrl(ev);
-      if (url) {
-        if (seen.has(url)) {
-          console.error(
-            `[ALODANAX REGISTRATION SECURITY]: Duplicate Google Form URL detected!\n` +
-            `Event "${ev.name}" shares registration link with "${seen.get(url)}":\n${url}`
-          );
-        } else {
-          seen.set(url, ev.name);
-        }
-      }
-    });
-  }
-
-  /**
-   * Designed SVG silhouette & initial fallback generator.
-   * Produces an inline SVG data-uri with dark styling, electric blue hairline, and typography.
-   * @param {'event'|'profile'|'team'|'logo'} type
-   * @param {string} label
-   * @returns {string}
-   */
-  function createFallbackSvg(type, label = 'ALODANAX') {
-    const safeLabel = (label || 'AX').replace(/[<>&"]/g, '');
-    let w = 800, h = 500, ratio = '16:10'; // Default event
-    let iconSvg = '';
-
-    if (type === 'profile') {
-      w = 400; h = 500; ratio = '4:5';
-      iconSvg = `
-        <circle cx="200" cy="180" r="50" fill="#0E131F" stroke="#0A84FF" stroke-width="2"/>
-        <path d="M120 310 C120 250, 280 250, 280 310 Z" fill="#0E131F" stroke="#0A84FF" stroke-width="2"/>
-      `;
-    } else if (type === 'team') {
-      w = 400; h = 400; ratio = '1:1';
-      iconSvg = `
-        <circle cx="200" cy="150" r="45" fill="#0E131F" stroke="#0A84FF" stroke-width="2"/>
-        <path d="M130 260 C130 210, 270 210, 270 260 Z" fill="#0E131F" stroke="#0A84FF" stroke-width="2"/>
-      `;
-    } else if (type === 'logo') {
-      w = 300; h = 100; ratio = '3:1';
-      iconSvg = `<polygon points="30,20 50,50 30,80" fill="none" stroke="#FF1744" stroke-width="3"/>`;
-    } else {
-      // Event default
-      iconSvg = `
-        <rect x="360" y="210" width="80" height="80" fill="#0B0D14" stroke="#0A84FF" stroke-width="2" transform="rotate(45 400 250)"/>
-        <polyline points="390,250 400,240 410,250" fill="none" stroke="#FF1744" stroke-width="3"/>
-      `;
-    }
-
-    const svg = `
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${w} ${h}" width="${w}" height="${h}">
-        <defs>
-          <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stop-color="#05060A"/>
-            <stop offset="50%" stop-color="#0B0D14"/>
-            <stop offset="100%" stop-color="#020305"/>
-          </linearGradient>
-          <pattern id="grid" width="30" height="30" patternUnits="userSpaceOnUse">
-            <path d="M 30 0 L 0 0 0 30" fill="none" stroke="rgba(10,132,255,0.06)" stroke-width="1"/>
-          </pattern>
-        </defs>
-        <rect width="100%" height="100%" fill="url(#bgGrad)"/>
-        <rect width="100%" height="100%" fill="url(#grid)"/>
-        <rect x="1" y="1" width="${w - 2}" height="${h - 2}" fill="none" stroke="rgba(10,132,255,0.3)" stroke-width="1"/>
-        ${iconSvg}
-        <text x="50%" y="${h - 35}" fill="#8E9AA8" font-family="'Inter', sans-serif" font-size="12" font-weight="600" text-anchor="middle" letter-spacing="2">
-          ${safeLabel.toUpperCase()}
-        </text>
-        <text x="50%" y="${h - 18}" fill="rgba(255,255,255,0.25)" font-family="'Inter', sans-serif" font-size="10" font-weight="500" text-anchor="middle" letter-spacing="1">
-          IMAGE ASSET PENDING [${ratio}]
-        </text>
-      </svg>
-    `.trim().replace(/\s+/g, ' ');
-
-    return `data:image/svg+xml;charset=utf-8,${encodeURIComponent(svg)}`;
-  }
-
-  /**
-   * Image onError handler to prevent broken-image icons anywhere in the application.
-   * @param {HTMLImageElement} img
-   * @param {'event'|'profile'|'team'|'logo'} type
-   * @param {string} label
-   */
-  function handleImageError(img, type = 'event', label = '') {
-    if (!img) return;
-    img.onerror = null; // Prevent infinite loop
-    img.src = createFallbackSvg(type, label || img.alt || 'ALODANAX');
-    img.classList.add('is-fallback-image');
-  }
-
-  /**
-   * Diagnostic dev tool activated via ?audit=1.
-   * Scans all loaded data objects and DOM for unfilled placeholders and missing assets.
-   */
-  function initAuditTool() {
-    const params = new URLSearchParams(window.location.search);
-    if (params.get('audit') !== '1') return;
-
-    const report = {
-      site: [],
-      events: [],
-      committee: [],
-      faculty: [],
-      team: [],
-      hackathon: [],
-      faq: []
+    const SITE_DATA = {
+      brand: { name: "ALODANAX", edition: "2026", tagline: "Precision Engineering Meets Cyber Evolution" },
+      college: { name: "[COLLEGE NAME]", department: "[DEPARTMENT OF IT/CS]", venue: "[VENUE TBA]" },
+      contacts: { email: "[EMAIL TBA]", phone: "[PHONE TBA]" }
     };
-
-    let totalPlaceholders = 0;
-    let missingImages = 0;
-
-    // Helper to recursively inspect objects
-    function inspect(obj, fileKey, path = '') {
-      if (!obj) return;
-      if (typeof obj === 'string') {
-        if (isPlaceholder(obj)) {
-          report[fileKey].push({ path, value: obj, type: 'placeholder' });
-          totalPlaceholders++;
-        }
-      } else if (Array.isArray(obj)) {
-        obj.forEach((item, idx) => inspect(item, fileKey, `${path}[${idx}]`));
-      } else if (typeof obj === 'object') {
-        Object.keys(obj).forEach(k => inspect(obj[k], fileKey, path ? `${path}.${k}` : k));
+    
+    const EVENTS_DATA = [
+      {
+        slug: "hackathon", name: "Hackathon", category: "technical", date: "[DATE TBA]", venue: "Main Auditorium",
+        shortDescription: "A relentless 24-hour product engineering sprint challenging squads to build distributed prototypes.",
+        intro: "The flagship 24-Hour Hackathon convenes elite student developers from across the nation.",
+        description: "Participants collaborate overnight across designated domains. Mentors conduct scheduled review checkpoints throughout the 24 hours.",
+        format: "24-Hour continuous offline sprint with mentor reviews, followed by 7-minute presentations.",
+        rules: [
+          "All code must be created during the 24-hour window.",
+          "Open-source libraries are permitted if disclosed.",
+          "Plagiarism results in instantaneous disqualification."
+        ],
+        requirements: ["Laptops with required SDKs pre-installed.", "Valid student ID cards."],
+        instructions: ["Check-in opens 90 mins prior.", "Wi-Fi credentials issued upon verification."],
+        teamSize: "2 TO 4 PARTICIPANTS", coordinators: [{name:"[COORD 1]", role:"Student Lead", phone:"[PHONE]", email:"[EMAIL]"}],
+        registrationUrl: "https://forms.gle/demo", extraLink: {label:"Problem Statements", url:"#"}
+      },
+      {
+        slug: "bit-bash-bonanza", name: "Bit Bash Bonanza", category: "technical", date: "[DATE TBA]", venue: "Computer Lab 101",
+        shortDescription: "A high-octane competitive programming duel testing algorithmic intuition.",
+        rules: ["Permitted languages: C++, Java 17+, Python 3.10+."], requirements: ["Student ID card."],
+        teamSize: "INDIVIDUAL"
+      },
+      {
+        slug: "ideathon", name: "Ideathon", category: "non-technical", date: "[DATE TBA]", venue: "Seminar Hall",
+        shortDescription: "A technology venture pitching competition evaluating architecture viability and market impact.",
+        rules: ["Must use standardized slide structure."], requirements: ["Pitch deck in PDF."],
+        teamSize: "2 TO 3 PARTICIPANTS"
+      },
+      {
+        slug: "bgmi", name: "BGMI", category: "gaming", date: "[DATE TBA]", venue: "Esports Arena",
+        shortDescription: "Squad-based mobile battle royale showdown across Erangel and Miramar.",
+        rules: ["Mobile devices only. No emulators."], requirements: ["Personal mobile devices.", "Headphones."],
+        teamSize: "SQUAD (4 + 1 SUB)"
+      },
+      {
+        slug: "discovering-derlicts", name: "Discovering Derlicts", category: "gaming", date: "[DATE TBA]", venue: "Campus Grounds",
+        shortDescription: "A high-intensity campus-wide puzzle quest decoding cryptographic beacons.",
+        rules: ["Teams must clear checkpoints in order."], requirements: ["Smartphone with camera."],
+        teamSize: "3 TO 4 PARTICIPANTS"
       }
-    }
-
-    if (window.SITE_DATA) inspect(window.SITE_DATA, 'site');
-    if (window.EVENTS_DATA) inspect(window.EVENTS_DATA, 'events');
-    if (window.COMMITTEE_DATA) inspect(window.COMMITTEE_DATA, 'committee');
-    if (window.FACULTY_DATA) inspect(window.FACULTY_DATA, 'faculty');
-    if (window.TEAM_DATA) inspect(window.TEAM_DATA, 'team');
-    if (window.HACKATHON_DATA) inspect(window.HACKATHON_DATA, 'hackathon');
-    if (window.FAQ_DATA) inspect(window.FAQ_DATA, 'faq');
-
-    // Count missing images on page
-    document.querySelectorAll('img').forEach(img => {
-      if (img.classList.contains('is-fallback-image') || !img.complete || img.naturalWidth === 0) {
-        missingImages++;
-      }
-    });
-
-    // Console output
-    console.group(`%c✦ ALODANAX AUDIT SUITE (?audit=1) ✦`, 'color: #0A84FF; font-size: 14px; font-weight: bold;');
-    console.log(`%cTotal Unfilled Placeholders: ${totalPlaceholders}`, 'color: #FF1744; font-weight: bold;');
-    console.log(`%cPending / Fallback Image Elements: ${missingImages}`, 'color: #0A84FF;');
-
-    Object.keys(report).forEach(fileKey => {
-      const items = report[fileKey];
-      if (items.length > 0) {
-        console.groupCollapsed(`js/data/${fileKey}.js (${items.length} pending items)`);
-        console.table(items);
-        console.groupEnd();
-      }
-    });
-    console.groupEnd();
-
-    // Render floating Audit HUD Panel
-    renderAuditHud(report, totalPlaceholders, missingImages);
-  }
-
-  function renderAuditHud(report, totalPlaceholders, missingImages) {
-    let hud = document.getElementById('audit-hud');
-    if (hud) hud.remove();
-
-    hud = document.createElement('div');
-    hud.id = 'audit-hud';
-    hud.className = 'audit-hud-panel';
-
-    let filesHtml = '';
-    Object.keys(report).forEach(f => {
-      const count = report[f].length;
-      filesHtml += `
-        <div class="audit-file-row">
-          <span class="audit-file-name">js/data/${f}.js</span>
-          <span class="audit-file-count ${count > 0 ? 'count-pending' : 'count-done'}">${count} pending</span>
-        </div>
-      `;
-    });
-
-    hud.innerHTML = `
-      <div class="audit-hud-header">
-        <div class="audit-title-wrap">
-          <span class="audit-pulse-dot"></span>
-          <strong>DEV AUDIT HUD</strong>
-        </div>
-        <button type="button" class="audit-close-btn" aria-label="Minimize Audit HUD" id="audit-toggle-btn">_</button>
-      </div>
-      <div class="audit-hud-body" id="audit-hud-body">
-        <div class="audit-stat-strip">
-          <div class="audit-stat-box">
-            <span class="audit-stat-num">${totalPlaceholders}</span>
-            <span class="audit-stat-lbl">PLACEHOLDERS</span>
-          </div>
-          <div class="audit-stat-box">
-            <span class="audit-stat-num">${missingImages}</span>
-            <span class="audit-stat-lbl">MISSING ASSETS</span>
-          </div>
-        </div>
-        <div class="audit-files-list">
-          ${filesHtml}
-        </div>
-        <div class="audit-footer-actions">
-          <button type="button" class="btn-audit-copy" id="btn-copy-audit">COPY REPORT</button>
-        </div>
-      </div>
-    `;
-
-    document.body.appendChild(hud);
-
-    const toggleBtn = document.getElementById('audit-toggle-btn');
-    const hudBody = document.getElementById('audit-hud-body');
-    if (toggleBtn && hudBody) {
-      toggleBtn.addEventListener('click', () => {
-        const isHidden = hudBody.style.display === 'none';
-        hudBody.style.display = isHidden ? 'block' : 'none';
-        toggleBtn.textContent = isHidden ? '_' : '+';
-      });
-    }
-
-    const copyBtn = document.getElementById('btn-copy-audit');
-    if (copyBtn) {
-      copyBtn.addEventListener('click', () => {
-        const text = JSON.stringify(report, null, 2);
-        navigator.clipboard.writeText(text).then(() => {
-          copyBtn.textContent = 'COPIED TO CLIPBOARD!';
-          setTimeout(() => { copyBtn.textContent = 'COPY REPORT'; }, 2000);
-        });
-      });
-    }
-  }
-
-  // Export to window.ALODANAX_UTILS
-  window.ALODANAX_UTILS = {
-    isPlaceholder,
-    formatSafeText,
-    formatSafeLink,
-    getEventRegistrationUrl,
-    renderRegistrationButton,
-    verifyUniqueRegistrationUrls,
-    createFallbackSvg,
-    handleImageError,
-    initAuditTool
-  };
-
-  // Run audit and duplicate URL verification on load
-  function initSharedUtils() {
-    if (window.EVENTS_DATA) {
-      verifyUniqueRegistrationUrls(window.EVENTS_DATA);
-    }
-    initAuditTool();
-  }
-  if (typeof document !== 'undefined') {
-    if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', initSharedUtils);
-    } else {
-      initSharedUtils();
-    }
-  }
-
-})(window);
-
-
-// --- ALODANAX Shared Navigation & Components ---
-/**
- * ALODANAX TechFest - Shared Components Layer
- * Injects shared navigation, mobile drawer with focus trap, shared footer,
- * and standard subpage heroes across all pages.
- */
-
-(function (window) {
-  'use strict';
-
-  // Navigation Links Definition
-  const NAV_LINKS = [
-    { label: "Home", href: "index.html", pageId: "index" },
-    { label: "About", href: "index.html#about", pageId: "about" },
-    { label: "Events", href: "events.html", pageId: "events" },
-    { label: "Hackathon", href: "hackathon.html", pageId: "hackathon" },
-    { label: "Organizing Committee", href: "committee.html", pageId: "committee" },
-    { label: "Faculty", href: "faculty.html", pageId: "faculty" },
-    { label: "Our Team", href: "team.html", pageId: "team" },
-    { label: "Contact", href: "contact.html", pageId: "contact" }
-  ];
-
-  /**
-   * Determine the current page identifier from window.location.pathname.
-   * @returns {string}
-   */
-  function getCurrentPageId() {
-    const path = window.location.pathname.toLowerCase();
-    const filename = path.substring(path.lastIndexOf('/') + 1) || 'index.html';
-
-    if (filename.startsWith('index') || filename === '') return 'index';
-    if (filename.startsWith('event')) return 'events';
-    if (filename.startsWith('committee')) return 'committee';
-    if (filename.startsWith('faculty')) return 'faculty';
-    if (filename.startsWith('hackathon')) return 'hackathon';
-    if (filename.startsWith('team')) return 'team';
-    if (filename.startsWith('contact')) return 'contact';
-    return '';
-  }
-
-  /**
-   * Injects the shared navigation bar into #site-nav.
-   * Preserves hero scroll choreography on index.html, immediately visible on subpages.
-   */
-  function renderNavigation() {
-    const container = document.getElementById('site-nav');
-    if (!container) return;
-
-    const brandName = (window.SITE_DATA && window.SITE_DATA.brand && window.SITE_DATA.brand.name) || 'ALODANAX';
-    const isHomePage = (getCurrentPageId() === 'index');
-    const currentPage = getCurrentPageId();
-
-    let navListHtml = '';
-    let drawerListHtml = '';
-
-    NAV_LINKS.forEach(link => {
-      const isActive = (currentPage === link.pageId);
-      const activeAttr = isActive ? ' aria-current="page" class="nav-link is-active"' : ' class="nav-link"';
-      const drawerActiveAttr = isActive ? ' aria-current="page" class="drawer-link is-active"' : ' class="drawer-link"';
-
-      navListHtml += `<li><a href="${link.href}"${activeAttr}>${link.label.toUpperCase()}</a></li>`;
-      drawerListHtml += `<li><a href="${link.href}"${drawerActiveAttr}>${link.label.toUpperCase()}</a></li>`;
-    });
-
-    // Subpages start with is-visible; home page waits for hero scrub trigger
-    const initialHeaderClass = isHomePage ? 'site-header site-header-hero' : 'site-header is-visible is-subpage-nav';
-
-    container.innerHTML = `
-      <header id="site-header" class="${initialHeaderClass}" role="banner">
-        <div class="nav-inner-container">
-          <a href="index.html" class="nav-brand" aria-label="${brandName} Home">
-            <span class="brand-text">${brandName}</span>
-          </a>
-
-          <!-- Desktop Navigation Menu -->
-          <nav class="nav-menu-wrapper" aria-label="Primary Navigation">
-            <ul class="nav-menu">
-              ${navListHtml}
-            </ul>
-          </nav>
-
-          <!-- Mobile Hamburger Toggle -->
-          <button
-            type="button"
-            class="nav-hamburger"
-            id="nav-hamburger-btn"
-            aria-label="Open mobile navigation menu"
-            aria-expanded="false"
-            aria-controls="mobile-nav-drawer"
-          >
-            <span class="hamburger-line line-1" aria-hidden="true"></span>
-            <span class="hamburger-line line-2" aria-hidden="true"></span>
-            <span class="hamburger-line line-3" aria-hidden="true"></span>
-          </button>
-        </div>
-
-        <!-- Accessible Mobile Navigation Drawer -->
-        <div
-          id="mobile-nav-drawer"
-          class="mobile-drawer"
-          aria-hidden="true"
-          role="dialog"
-          aria-modal="true"
-          aria-label="Mobile Navigation Menu"
-        >
-          <div class="drawer-backdrop" id="drawer-backdrop" aria-hidden="true"></div>
-          <div class="drawer-panel" id="drawer-panel">
-            <div class="drawer-top-bar">
-              <span class="drawer-brand">${brandName}</span>
-              <button type="button" class="drawer-close-btn" id="drawer-close-btn" aria-label="Close navigation menu">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
-                  <line x1="18" y1="6" x2="6" y2="18"></line>
-                  <line x1="6" y1="6" x2="18" y2="18"></line>
-                </svg>
-              </button>
-            </div>
-            <nav class="drawer-nav" aria-label="Mobile Navigation Links">
-              <ul class="drawer-links-list">
-                ${drawerListHtml}
-              </ul>
-            </nav>
-            <div class="drawer-footer-meta">
-              <span class="drawer-meta-sub">${(window.SITE_DATA && window.SITE_DATA.brand && window.SITE_DATA.brand.subtagline) || ''}</span>
-            </div>
-          </div>
-        </div>
-      </header>
-    `;
-
-    initNavigationInteractions();
-  }
-
-  /**
-   * Initializes mobile drawer focus trap, ESC key dismiss, and scroll styling.
-   */
-  function initNavigationInteractions() {
-    const header = document.getElementById('site-header');
-    const hamburgerBtn = document.getElementById('nav-hamburger-btn');
-    const drawer = document.getElementById('mobile-nav-drawer');
-    const closeBtn = document.getElementById('drawer-close-btn');
-    const backdrop = document.getElementById('drawer-backdrop');
-    const panel = document.getElementById('drawer-panel');
-
-    if (!header || !hamburgerBtn || !drawer) return;
-
-    // Sticky transparent-to-solid on scroll
-    window.addEventListener('scroll', () => {
-      if (window.scrollY > 40) {
-        header.classList.add('is-scrolled');
-      } else {
-        header.classList.remove('is-scrolled');
-      }
-    }, { passive: true });
-
-    let previouslyFocusedElement = null;
-
-    function openDrawer() {
-      previouslyFocusedElement = document.activeElement;
-      drawer.classList.add('is-open');
-      drawer.setAttribute('aria-hidden', 'false');
-      hamburgerBtn.setAttribute('aria-expanded', 'true');
-      hamburgerBtn.setAttribute('aria-label', 'Close mobile navigation menu');
-      document.body.style.overflow = 'hidden';
-
-      // Set focus inside drawer
-      if (closeBtn) closeBtn.focus();
-      document.addEventListener('keydown', handleDrawerKeydown);
-    }
-
-    function closeDrawer() {
-      drawer.classList.remove('is-open');
-      drawer.setAttribute('aria-hidden', 'true');
-      hamburgerBtn.setAttribute('aria-expanded', 'false');
-      hamburgerBtn.setAttribute('aria-label', 'Open mobile navigation menu');
-      document.body.style.overflow = '';
-
-      document.removeEventListener('keydown', handleDrawerKeydown);
-      if (previouslyFocusedElement && typeof previouslyFocusedElement.focus === 'function') {
-        previouslyFocusedElement.focus();
-      }
-    }
-
-    // Accessible Focus Trap inside Drawer
-    function handleDrawerKeydown(e) {
-      if (e.key === 'Escape') {
-        e.preventDefault();
-        closeDrawer();
-        return;
-      }
-
-      if (e.key === 'Tab') {
-        const focusable = panel.querySelectorAll('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])');
-        if (focusable.length === 0) return;
-
-        const first = focusable[0];
-        const last = focusable[focusable.length - 1];
-
-        if (e.shiftKey) {
-          if (document.activeElement === first) {
-            e.preventDefault();
-            last.focus();
-          }
-        } else {
-          if (document.activeElement === last) {
-            e.preventDefault();
-            first.focus();
-          }
-        }
-      }
-    }
-
-    hamburgerBtn.addEventListener('click', () => {
-      const isOpen = drawer.classList.contains('is-open');
-      if (isOpen) closeDrawer();
-      else openDrawer();
-    });
-
-    if (closeBtn) closeBtn.addEventListener('click', closeDrawer);
-    if (backdrop) backdrop.addEventListener('click', closeDrawer);
-
-    // Close on any link click
-    drawer.querySelectorAll('a').forEach(a => {
-      a.addEventListener('click', closeDrawer);
-    });
-  }
-
-  /**
-   * Injects the shared footer into #site-footer.
-   */
-  function renderFooter() {
-    const container = document.getElementById('site-footer');
-    if (!container) return;
-    container.setAttribute('role', 'contentinfo');
-    container.setAttribute('aria-label', 'Site Footer');
-
-    const site = window.SITE_DATA || {};
-    const brand = site.brand || { name: 'ALODANAX', edition: '2026', tagline: '[TAGLINE]' };
-    const college = site.college || {};
-    const contacts = site.contacts || {};
-    const socials = site.socials || {};
-    const utils = window.ALODANAX_UTILS || {};
-
-    // Nav links in footer
-    let quickLinksHtml = '';
-    NAV_LINKS.forEach(l => {
-      quickLinksHtml += `<li><a href="${l.href}">${l.label.toUpperCase()}</a></li>`;
-    });
-
-    // Social pills (rendered only if valid / not placeholder)
-    let socialsHtml = '';
-    const socialKeys = ['instagram', 'linkedin', 'github', 'youtube', 'x'];
-    socialKeys.forEach(k => {
-      const sVal = socials[k];
-      if (sVal && !utils.isPlaceholder(sVal)) {
-        socialsHtml += `<a href="${sVal}" target="_blank" rel="noopener noreferrer" class="social-pill" aria-label="${k.toUpperCase()}">${k.toUpperCase()}</a>`;
-      }
-    });
-
-    // Safe contacts
-    const phoneLink = utils.formatSafeLink ? utils.formatSafeLink('tel', contacts.phone) : null;
-    const emailLink = utils.formatSafeLink ? utils.formatSafeLink('mailto', contacts.email) : null;
-
-    const phoneDisplay = phoneLink
-      ? `<a href="${phoneLink}" class="footer-link-active">${contacts.phone}</a>`
-      : `<span class="footer-val-tba">${contacts.phone || '[PHONE TBA]'}</span>`;
-
-    const emailDisplay = emailLink
-      ? `<a href="${emailLink}" class="footer-link-active">${contacts.email}</a>`
-      : `<span class="footer-val-tba">${contacts.email || '[EMAIL TBA]'}</span>`;
-
-    container.innerHTML = `
-      <div class="site-footer-inner">
-        <div class="section-container">
-          <div class="footer-grid">
-            <!-- Brand & College Column -->
-            <div class="footer-brand-column">
-              <a href="index.html" class="footer-brand" aria-label="${brand.name} Home">${brand.name}</a>
-              <p class="footer-department">${college.department || '[DEPARTMENT OF IT/CS]'}</p>
-              <p class="footer-college-name">${college.name || '[COLLEGE NAME]'}</p>
-              <p class="footer-tagline">${brand.tagline || ''}</p>
-            </div>
-
-            <!-- Quick Links -->
-            <div class="footer-links-column">
-              <h3 class="footer-col-title">NAVIGATION</h3>
-              <ul class="footer-nav-list">
-                ${quickLinksHtml}
-              </ul>
-            </div>
-
-            <!-- Contacts & Venue -->
-            <div class="footer-contact-column">
-              <h3 class="footer-col-title">COORDINATION DESK</h3>
-              <p class="footer-contact-line"><strong>EMAIL:</strong> ${emailDisplay}</p>
-              <p class="footer-contact-line"><strong>PHONE:</strong> ${phoneDisplay}</p>
-              <p class="footer-contact-line"><strong>VENUE:</strong> <span>${college.venue || '[VENUE TBA]'}</span></p>
-              ${socialsHtml ? `<div class="footer-social-row">${socialsHtml}</div>` : ''}
-            </div>
-          </div>
-
-          <!-- Bottom Bar -->
-          <div class="footer-bottom-bar">
-            <p class="footer-copyright">
-              © ${brand.edition || '2026'} ${brand.name}. ${college.fullTitle || '[DEPARTMENT, COLLEGE]'}. ALL RIGHTS RESERVED.
-            </p>
-            <a href="#site-header" class="back-to-top" id="btn-back-to-top" aria-label="Back to top of page">
-              <span>TOP</span>
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true">
-                <polyline points="18 15 12 9 6 15"></polyline>
-              </svg>
-            </a>
-          </div>
-        </div>
-      </div>
-    `;
-
-    const backToTop = document.getElementById('btn-back-to-top');
-    if (backToTop) {
-      backToTop.addEventListener('click', (e) => {
-        e.preventDefault();
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-      });
-    }
-  }
-
-  /**
-   * Helper to render common Subpage Hero (~45vh).
-   * Black background, huge display type (solid + outline), breadcrumb, animated red-to-blue hairline sweep.
-   * Respects prefers-reduced-motion.
-   *
-   * @param {string} containerId - Element ID to inject into
-   * @param {object} options - { breadcrumb, titleSolid, titleOutline, subtitle }
-   */
-  function renderSubpageHero(containerId, options = {}) {
-    const el = document.getElementById(containerId);
-    if (!el) return;
-
-    const breadcrumb = options.breadcrumb || 'HOME';
-    const titleSolid = options.titleSolid || '';
-    const titleOutline = options.titleOutline || '';
-    const subtitle = options.subtitle || '';
-
-    el.className = 'subpage-hero-section';
-    el.setAttribute('role', 'region');
-    el.setAttribute('aria-label', `${breadcrumb} Hero`);
-    el.innerHTML = `
-      <div class="subpage-hero-vignette" aria-hidden="true"></div>
-      <div class="section-container subpage-hero-container">
-        <nav class="subpage-breadcrumb" aria-label="Breadcrumb">
-          <a href="index.html" class="breadcrumb-item">HOME</a>
-          <span class="breadcrumb-separator">/</span>
-          <span class="breadcrumb-current" aria-current="page">${breadcrumb.toUpperCase()}</span>
-        </nav>
-
-        <h1 class="subpage-hero-title display-title">
-          <span class="title-solid">${titleSolid}</span>
-          <span class="title-outline">${titleOutline}</span>
-        </h1>
-
-        ${subtitle ? `<p class="subpage-hero-subtitle">${subtitle}</p>` : ''}
-      </div>
-
-      <!-- Animated Red-to-Blue Hairline Sweep (CSS only) -->
-      <div class="hero-hairline-sweep-track" aria-hidden="true">
-        <div class="hero-hairline-sweep-beam"></div>
-      </div>
-    `;
-  }
-
-  // Export to window.ALODANAX_COMPONENTS
-  window.ALODANAX_COMPONENTS = {
-    renderNavigation,
-    renderFooter,
-    renderSubpageHero
-  };
-
-  // Auto-render shared components on DOM ready
-  function initSharedComponents() {
-    renderNavigation();
-    renderFooter();
-  }
-  if (typeof document !== 'undefined') {
-    if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', initSharedComponents);
-    } else {
-      initSharedComponents();
-    }
-  }
-
-})(window);
-/* ==== SHARED:COMPONENTS END ==== */
+    ];
+    window.SITE_DATA = SITE_DATA;
+    window.EVENTS_DATA = EVENTS_DATA;
   </script>
 
-  <!-- Page Application Script -->
+  <!-- WebGL SpecularButton Engine -->
   <script>
-// ===== PAGE: EVENTS.HTML SCRIPT =====
-/**
- * ALODANAX TechFest - Events Portal Interaction Controller
- * Handles live search, category filtering, accessible modal with focus trap,
- * hash deep linking (#event=<slug>), and Google Form registration states.
- */
-
-(function (window) {
-  'use strict';
-
-  let currentCategory = 'all';
-  let searchQuery = '';
-  let activeModalEvent = null;
-  let previouslyFocusedElement = null;
-
-  // DOM Elements
-  const searchInput = document.getElementById('events-search-input');
-  const searchClearBtn = document.getElementById('events-search-clear');
-  const categoryChips = document.querySelectorAll('.category-chip');
-  const statusBar = document.getElementById('events-status-bar');
-  const emptyState = document.getElementById('events-empty-state');
-  const resetFiltersBtn = document.getElementById('btn-reset-filters');
-
-  const modalOverlay = document.getElementById('event-modal');
-  const modalWindow = document.getElementById('modal-window');
-  const modalCloseBtn = document.getElementById('modal-close-btn');
-
-  /**
-   * Initializes page hero, URL parameters, event listeners, and initial render.
-   */
-  function init() {
-    // 1. Render Subpage Hero
-    if (window.ALODANAX_COMPONENTS && window.ALODANAX_COMPONENTS.renderSubpageHero) {
-      window.ALODANAX_COMPONENTS.renderSubpageHero('events-hero', {
-        breadcrumb: 'EVENTS',
-        titleSolid: 'ARENAS OF',
-        titleOutline: 'COMPETITION',
-        subtitle: 'Explore flagship hackathons, speed coding tournaments, venture ideathons, and tactical esports arenas.'
-      });
-    }
-
-    // 2. Parse URL parameters for initial category (?category=...)
-    const params = new URLSearchParams(window.location.search);
-    const catParam = params.get('category');
-    if (catParam && ['technical', 'non-technical', 'gaming', 'all'].includes(catParam.toLowerCase())) {
-      currentCategory = catParam.toLowerCase();
-      updateCategoryChipsUI(currentCategory);
-    }
-
-    // 3. Render Event Grids
-    renderAllCategories();
-
-    // 4. Attach Toolbar Listeners
-    if (searchInput) {
-      searchInput.addEventListener('input', (e) => {
-        searchQuery = e.target.value.trim().toLowerCase();
-        if (searchClearBtn) {
-          searchClearBtn.style.display = searchQuery ? 'inline-block' : 'none';
+    (function(window) {
+      const TAU = Math.PI * 2;
+      const VERTEX = `#version 300 es\nin vec2 aPosition;\nvoid main() { gl_Position = vec4(aPosition, 0.0, 1.0); }`;
+      const FRAGMENT = `#version 300 es\nprecision highp float;\nuniform vec2 uCenter; uniform vec2 uHalf; uniform float uRadius; uniform float uPx; uniform float uSpot; uniform vec2 uEntry; uniform vec3 uLineColor; uniform vec3 uBaseColor; uniform float uIntensity; uniform vec2 uWindow; uniform float uThickness; uniform float uGlow;\nout vec4 outColor;\nfloat roundedBox(vec2 p, vec2 b, float r) {\n vec2 q = abs(p) - b + r;\n return length(max(q, 0.0)) + min(max(q.x, q.y), 0.0) - r;\n}\nfloat loopPosition(vec2 p, vec2 b, float r) {\n vec2 inner = b - r; float arc = 1.5707963 * r; float quarter = inner.x + inner.y + arc; vec2 a = abs(p); vec2 q = a - inner;\n float s = q.x > 0.0 && q.y > 0.0 ? inner.y + atan(q.y, q.x) * r : (q.x > q.y ? min(a.y, inner.y) : inner.y + arc + inner.x - min(a.x, inner.x));\n if (p.x < 0.0) s = p.y >= 0.0 ? 2.0 * quarter - s : 2.0 * quarter + s;\n else if (p.y < 0.0) s = 4.0 * quarter - s;\n return s / max(4.0 * quarter, 0.0001);\n}\nfloat lobe(float position, float center) {\n float gap = abs(fract(position - center + 0.5) - 0.5);\n return 1.0 - smoothstep(uWindow.x, uWindow.x + uWindow.y, gap);\n}\nvoid main() {\n vec2 p = gl_FragCoord.xy - uCenter; float d = roundedBox(p, uHalf, uRadius); float position = loopPosition(p, uHalf, uRadius); float key = lobe(position, uSpot); float back = lobe(position, uSpot + 0.5); float streak = key + back * 0.45; float width = max(uThickness * uPx * mix(1.0, max(key, back), 0.6), 0.35); float band = smoothstep(-width - 0.6, -width + 0.6, d) * (1.0 - smoothstep(-0.6, 0.6, d)); float hair = smoothstep(-uPx - 0.6, -uPx + 0.6, d) * (1.0 - smoothstep(-0.6, 0.6, d)); float inside = 1.0 - smoothstep(-0.6, 0.6, d); vec2 pool = (p - uEntry) / (uHalf.y * vec2(1.6, 1.1)); float glow = streak * 0.2 * exp(-abs(d + width * 0.5) / (5.0 * uPx)) + inside * 0.08 * exp(-dot(pool, pool)); float light = clamp((band * streak + glow * uGlow) * uIntensity, 0.0, 1.0); vec4 base = vec4(uBaseColor, 1.0) * hair * 0.6;\n outColor = vec4(uLineColor, 1.0) * light + base * (1.0 - light);\n}`;
+      const UNIFORMS = ['uCenter','uHalf','uRadius','uPx','uSpot','uEntry','uLineColor','uBaseColor','uIntensity','uWindow','uThickness','uGlow'];
+      const clamp = (v, min, max) => Math.min(max, Math.max(min, v));
+      const wrap = v => v - Math.floor(v);
+      const loopPos = (x, y, hx, hy, r) => {
+        const ix = hx-r, iy = hy-r, arc = (Math.PI/2)*r, q = ix+iy+arc;
+        const ax = Math.abs(x), ay = Math.abs(y), qx = ax-ix, qy = ay-iy;
+        let s;
+        if(qx>0 && qy>0) s = iy + Math.atan2(qy,qx)*r; else if(qx>qy) s = Math.min(ay,iy); else s = iy+arc+ix-Math.min(ax,ix);
+        if(x<0) s = y>=0 ? 2*q-s : 2*q+s; else if(y<0) s = 4*q-s;
+        return wrap(s/Math.max(4*q,0.0001));
+      };
+      const rimPoint = (pos, hx, hy, r) => {
+        const ix = hx-r, iy = hy-r, arc = (Math.PI/2)*r, q = ix+iy+arc;
+        let s = wrap(pos)*4*q, sx = 1, sy = 1;
+        if(s>3*q){ s=4*q-s; sy=-1; } else if(s>2*q){ s-=2*q; sx=-1; sy=-1; } else if(s>q){ s=2*q-s; sx=-1; }
+        let x = ix-(s-iy-arc), y = hy;
+        if(s<=iy){ x=hx; y=s; } else if(s<=iy+arc){ const a = (s-iy)/Math.max(r,0.0001); x=ix+Math.cos(a)*r; y=iy+Math.sin(a)*r; }
+        return [x*sx, y*sy];
+      };
+      const compile = (gl, type, src) => { const s=gl.createShader(type); gl.shaderSource(s,src); gl.compileShader(s); return gl.getShaderParameter(s,gl.COMPILE_STATUS)?s:null; };
+      
+      class SpecularButton {
+        constructor(btn) {
+          if(!btn) return;
+          this.btn = btn;
+          this.canvas = btn.querySelector('canvas');
+          if(!this.canvas) return;
+          try {
+            this.gl = this.canvas.getContext('webgl2', {alpha:true, premultipliedAlpha:true, antialias:false, depth:false, stencil:false});
+          } catch(e) { this.gl = null; }
+          if(!this.gl) return;
+          
+          this.s = {
+            radius: parseFloat(btn.dataset.radius) || 14,
+            lineColor: btn.dataset.tint || '#0A84FF',
+            baseColor: btn.dataset.base || '#525252',
+            intensity: 1, idleIntensity: 0.35, shineSize: 10, shineFade: 34, thickness: 1.2, glow: 1, speed: 0.35, proximity: 250
+          };
+          this.colors = new Map();
+          this.view = {w:1, h:1, ratio:1}; this.pointer = {x:0, y:0, known:false};
+          this.state = {spot:0, level:0, press:0, ready:false};
+          this.raf = 0; this.last = 0; this.visible = true;
+          
+          this.initGL();
+          this.measure();
+          
+          const ro = new ResizeObserver(()=>this.measure()); ro.observe(btn);
+          const io = new IntersectionObserver(e=>{ this.visible=e[0].isIntersecting; if(this.visible){this.last=0; this.wake();} }); io.observe(btn);
+          
+          this.handlers = {
+            move: e => { this.pointer.x=e.clientX; this.pointer.y=e.clientY; this.pointer.known=true; this.wake(); },
+            down: e => { this.pointer.x=e.clientX; this.pointer.y=e.clientY; this.pointer.known=true; this.state.press=1; this.wake(); },
+            up: e => { if(e.pointerType!=='mouse') this.pointer.known=false; this.wake(); },
+            leave: () => { this.pointer.known=false; this.wake(); }
+          };
+          window.addEventListener('pointermove', this.handlers.move, {passive:true});
+          window.addEventListener('pointerup', this.handlers.up, {passive:true});
+          document.documentElement.addEventListener('pointerleave', this.handlers.leave);
+          btn.addEventListener('pointerdown', this.handlers.down);
         }
-        renderAllCategories();
-      });
-    }
-
-    if (searchClearBtn) {
-      searchClearBtn.addEventListener('click', () => {
-        if (searchInput) {
-          searchInput.value = '';
-          searchQuery = '';
-          searchClearBtn.style.display = 'none';
-          searchInput.focus();
+        
+        initGL() {
+          const v = compile(this.gl, this.gl.VERTEX_SHADER, VERTEX), f = compile(this.gl, this.gl.FRAGMENT_SHADER, FRAGMENT);
+          if(!v || !f) return;
+          this.prog = this.gl.createProgram();
+          if(!this.prog) return;
+          this.gl.attachShader(this.prog, v); this.gl.attachShader(this.prog, f);
+          this.gl.bindAttribLocation(this.prog, 0, 'aPosition'); this.gl.linkProgram(this.prog);
+          if(!this.gl.getProgramParameter(this.prog, this.gl.LINK_STATUS)) return;
+          this.locs = {}; UNIFORMS.forEach(n => this.locs[n] = this.gl.getUniformLocation(this.prog, n));
+          const buf = this.gl.createBuffer(); this.vao = this.gl.createVertexArray();
+          this.gl.bindVertexArray(this.vao); this.gl.bindBuffer(this.gl.ARRAY_BUFFER, buf);
+          this.gl.bufferData(this.gl.ARRAY_BUFFER, new Float32Array([-1,-1,3,-1,-1,3]), this.gl.STATIC_DRAW);
+          this.gl.enableVertexAttribArray(0); this.gl.vertexAttribPointer(0,2,this.gl.FLOAT,false,0,0);
+          this.gl.bindVertexArray(null);
+          this.ctx2d = document.createElement('canvas').getContext('2d', {willReadFrequently:true});
         }
-        renderAllCategories();
-      });
-    }
-
-    if (resetFiltersBtn) {
-      resetFiltersBtn.addEventListener('click', () => {
-        currentCategory = 'all';
-        searchQuery = '';
-        if (searchInput) {
-          searchInput.value = '';
-          if (searchClearBtn) searchClearBtn.style.display = 'none';
+        
+        toRgb(v) {
+          if(this.colors.has(v)) return this.colors.get(v);
+          this.ctx2d.clearRect(0,0,1,1); this.ctx2d.fillStyle='#000'; this.ctx2d.fillStyle=v; this.ctx2d.fillRect(0,0,1,1);
+          const [r,g,b] = this.ctx2d.getImageData(0,0,1,1).data; const rgb = [r/255,g/255,b/255];
+          this.colors.set(v, rgb); return rgb;
         }
-        updateCategoryChipsUI('all');
-        renderAllCategories();
-      });
-    }
-
-    categoryChips.forEach(chip => {
-      chip.addEventListener('click', () => {
-        const selectedCat = chip.getAttribute('data-cat') || 'all';
-        currentCategory = selectedCat;
-        updateCategoryChipsUI(selectedCat);
-
-        // Update URL query param without full reload
-        const url = new URL(window.location);
-        if (selectedCat === 'all') {
-          url.searchParams.delete('category');
-        } else {
-          url.searchParams.set('category', selectedCat);
+        
+        cRad() { return Math.min(this.s.radius, this.view.w/2, this.view.h/2); }
+        restSpot() { const r=this.cRad(), i=r*(1-Math.SQRT1_2); return loopPos(i-this.view.w/2, this.view.h/2-i, this.view.w/2, this.view.h/2, r); }
+        
+        aim() {
+          if(!this.pointer.known) return null;
+          const rect = this.btn.getBoundingClientRect(), scale = rect.width/this.view.w||1;
+          const hx = this.view.w/2, hy = this.view.h/2;
+          const x = (this.pointer.x - rect.left - rect.width/2)/scale, y = (rect.top + rect.height/2 - this.pointer.y)/scale;
+          const dist = Math.hypot(Math.max(Math.abs(x)-hx,0), Math.max(Math.abs(y)-hy,0));
+          const t = clamp(1-dist/this.s.proximity,0,1), near = t*t*(3-2*t);
+          const nearest = loopPos(x,y,hx,hy,this.cRad());
+          if(dist>0) return {spot:nearest, near};
+          const depth = clamp(Math.min(hx-Math.abs(x),hy-Math.abs(y))/(hy*0.8),0,1);
+          const sway = this.restSpot() - (x/hx)*0.06 - (y/hy)*0.02, offset = sway-nearest-Math.round(sway-nearest);
+          return {spot: wrap(nearest+offset*depth*depth*(3-2*depth)), near};
         }
-        window.history.replaceState({}, '', url);
-
-        renderAllCategories();
-      });
-    });
-
-    // 5. Modal Close Listeners
-    if (modalCloseBtn) {
-      modalCloseBtn.addEventListener('click', closeModal);
-    }
-
-    if (modalOverlay) {
-      modalOverlay.addEventListener('click', (e) => {
-        if (e.target === modalOverlay) closeModal();
-      });
-    }
-
-    document.addEventListener('keydown', handleGlobalKeydown);
-
-    // 6. Deep Link via Hash (#event=<slug>)
-    checkHashDeepLink();
-    window.addEventListener('hashchange', checkHashDeepLink);
-  }
-
-  /**
-   * Updates category chip visual active state and ARIA attributes.
-   * @param {string} activeCat
-   */
-  function updateCategoryChipsUI(activeCat) {
-    categoryChips.forEach(c => {
-      const isMatch = (c.getAttribute('data-cat') === activeCat);
-      c.classList.toggle('is-active', isMatch);
-      c.setAttribute('aria-selected', isMatch ? 'true' : 'false');
-    });
-  }
-
-  /**
-   * Filters events and renders the 3 category sections.
-   */
-  function renderAllCategories() {
-    if (!window.EVENTS_DATA) return;
-
-    const allEvents = window.EVENTS_DATA;
-    const utils = window.ALODANAX_UTILS || {};
-
-    const categories = [
-      { id: 'technical', label: 'Technical', gridId: 'grid-technical', sectionId: 'section-technical', countId: 'count-technical' },
-      { id: 'non-technical', label: 'Non-Technical', gridId: 'grid-non-technical', sectionId: 'section-non-technical', countId: 'count-non-technical' },
-      { id: 'gaming', label: 'Gaming', gridId: 'grid-gaming', sectionId: 'section-gaming', countId: 'count-gaming' }
-    ];
-
-    let totalVisible = 0;
-
-    categories.forEach(cat => {
-      const sectionEl = document.getElementById(cat.sectionId);
-      const gridEl = document.getElementById(cat.gridId);
-      const countEl = document.getElementById(cat.countId);
-
-      if (!sectionEl || !gridEl) return;
-
-      // Check if this category should be displayed based on chip selection
-      const isCategoryActive = (currentCategory === 'all' || currentCategory === cat.id);
-
-      if (!isCategoryActive) {
-        sectionEl.style.display = 'none';
-        return;
+        
+        draw() {
+          const PAD=24, w=this.view.w, h=this.view.h, sx=this.canvas.width/(w+PAD*2), sy=this.canvas.height/(h+PAD*2);
+          this.gl.viewport(0,0,this.canvas.width,this.canvas.height); this.gl.clearColor(0,0,0,0); this.gl.clear(this.gl.COLOR_BUFFER_BIT);
+          this.gl.useProgram(this.prog);
+          this.gl.uniform2f(this.locs.uCenter, (PAD+w/2)*sx, (PAD+h/2)*sy);
+          this.gl.uniform2f(this.locs.uHalf, (w/2)*sx, (h/2)*sy);
+          this.gl.uniform1f(this.locs.uRadius, this.cRad()*sx);
+          this.gl.uniform1f(this.locs.uPx, this.view.ratio);
+          const [rx,ry] = rimPoint(this.state.spot, w/2, h/2, this.cRad());
+          const pull = 1-Math.min(0.35*(h/2), Math.hypot(rx,ry))/Math.max(Math.hypot(rx,ry),0.0001);
+          this.gl.uniform1f(this.locs.uSpot, this.state.spot);
+          this.gl.uniform2f(this.locs.uEntry, rx*pull*sx, ry*pull*sy);
+          this.gl.uniform3fv(this.locs.uLineColor, this.toRgb(this.s.lineColor));
+          this.gl.uniform3fv(this.locs.uBaseColor, this.toRgb(this.s.baseColor));
+          this.gl.uniform1f(this.locs.uIntensity, this.s.intensity*(this.state.level+this.state.press*0.8));
+          this.gl.uniform2f(this.locs.uWindow, this.s.shineSize/360+this.state.press*0.06, this.s.shineFade/360+0.0001);
+          this.gl.uniform1f(this.locs.uThickness, this.s.thickness);
+          this.gl.uniform1f(this.locs.uGlow, this.s.glow);
+          this.gl.bindVertexArray(this.vao); this.gl.drawArrays(this.gl.TRIANGLES, 0, 3);
+        }
+        
+        frame(now) {
+          this.raf = 0; if(!this.visible) return;
+          const dt = this.last ? Math.min(0.05, (now-this.last)/1000) : 1/60; this.last = now;
+          const target = this.aim(), steer = !!target && target.near>0;
+          if(!this.state.ready){ this.state.spot=this.restSpot(); this.state.level=this.s.idleIntensity; this.state.ready=true; }
+          let diff=0;
+          diff = (steer?target.spot:this.restSpot()) - this.state.spot; diff -= Math.round(diff);
+          this.state.spot = wrap(this.state.spot + diff*(1-Math.exp(-dt*8)));
+          const lvl = this.s.idleIntensity + (1-this.s.idleIntensity)*(target?target.near:0);
+          this.state.level += (lvl - this.state.level)*(1-Math.exp(-dt*7));
+          this.state.press *= Math.exp(-dt*5);
+          this.draw();
+          if(Math.abs(diff)>0.0002 || Math.abs(lvl-this.state.level)>0.001 || this.state.press>0.002) this.raf=requestAnimationFrame(n=>this.frame(n)); else this.last=0;
+        }
+        
+        wake() { if(!this.raf && this.visible) this.raf = requestAnimationFrame(n=>this.frame(n)); }
+        measure() {
+          this.view.w = Math.max(1, this.btn.offsetWidth); this.view.h = Math.max(1, this.btn.offsetHeight);
+          this.view.ratio = Math.min(window.devicePixelRatio||1, 3);
+          this.canvas.width = Math.max(1, Math.round((this.view.w+48)*this.view.ratio));
+          this.canvas.height = Math.max(1, Math.round((this.view.h+48)*this.view.ratio));
+          if(this.state.ready) this.draw();
+          this.wake();
+        }
       }
+      window.SpecularButton = SpecularButton;
+    })(window);
 
-      // Filter matching events in this category
-      const matchingEvents = allEvents.filter(ev => {
-        if (ev.category !== cat.id) return false;
-        if (!searchQuery) return true;
+    function initButtons() { document.querySelectorAll('.specular-btn').forEach(b => { if(!b.dataset.init){ new window.SpecularButton(b); b.dataset.init="1";} }); }
+    document.addEventListener("DOMContentLoaded", initButtons);
+  </script>
 
-        const nameMatch = ev.name && ev.name.toLowerCase().includes(searchQuery);
-        const shortDescMatch = ev.shortDescription && ev.shortDescription.toLowerCase().includes(searchQuery);
-        const fullDescMatch = ev.description && ev.description.toLowerCase().includes(searchQuery);
-        const tagMatch = ev.tag && ev.tag.toLowerCase().includes(searchQuery);
-
-        return nameMatch || shortDescMatch || fullDescMatch || tagMatch;
-      });
-
-      if (matchingEvents.length === 0) {
-        sectionEl.style.display = 'none';
-      } else {
-        sectionEl.style.display = 'block';
-        totalVisible += matchingEvents.length;
-
-        if (countEl) {
-          countEl.textContent = `${matchingEvents.length} ${matchingEvents.length === 1 ? 'ARENA' : 'ARENAS'}`;
+  <!-- CardNav Logic (Spring Physics) -->
+  <script>
+    (function(window){
+      const header = document.getElementById('site-header');
+      const root = document.getElementById('card-nav');
+      if(!root || !header) return;
+      
+      const panel = root.querySelector('.cn-panel');
+      const content = root.querySelector('.cn-content');
+      const btn = root.querySelector('.cn-menu-btn');
+      if(!panel || !content || !btn) return;
+      
+      let isOpen = false, raf = 0, last = 0;
+      let state = { p: 0, v: 0, height: 0, bar: 68 };
+      
+      const render = () => {
+        panel.style.height = `${state.bar + Math.max(0, state.p)*state.height}px`;
+        const cards = Array.from(content.querySelectorAll('.cn-card'));
+        const lag = cards.length > 1 ? Math.min(0.12, 0.7/(cards.length-1)) : 0;
+        const span = 1 - lag*(cards.length-1);
+        
+        cards.forEach((card, i) => {
+          let local = Math.max(0, Math.min(1, (state.p - i*lag)/Math.max(span,0.05)));
+          let e = 1 - Math.pow(1 - local, 3);
+          card.style.transform = `translateY(${(1-e)*26}px) scale(${0.97 + 0.03*e})`;
+          card.style.opacity = e;
+        });
+      };
+      
+      const tick = now => {
+        raf = 0; 
+        const dt = last ? Math.min(0.05, (now-last)/1000) : 1/60; 
+        last = now;
+        const target = isOpen ? 1 : 0;
+        const k = 160, zeta = isOpen ? 1 - 0.68*0.2 : 1;
+        const steps = Math.ceil(dt/(1/240)), h = dt/steps;
+        
+        for(let i=0; i<steps; i++){
+          state.v += (-k*(state.p - target) - 2*zeta*Math.sqrt(k)*state.v)*h;
+          state.p += state.v*h;
         }
+        
+        const done = Math.abs(state.p-target)<0.0005 && Math.abs(state.v)<0.002;
+        if(done){ state.p = target; state.v = 0; }
+        
+        render();
+        
+        if(done && target===0) root.removeAttribute('data-shown');
+        if(!done) raf = requestAnimationFrame(tick);
+      };
+      
+      const setOpen = val => {
+        if(isOpen === val) return;
+        isOpen = val;
+        if(isOpen){ 
+          root.setAttribute('data-open', ''); 
+          root.setAttribute('data-shown', '');
+          content.style.visibility = 'hidden'; 
+          content.style.display = 'flex';
+          state.height = content.offsetHeight;
+          content.style.visibility = ''; 
+          content.style.display = '';
+        } else {
+          root.removeAttribute('data-open'); 
+        }
+        btn.setAttribute('aria-expanded', isOpen);
+        if(!raf){ last = 0; raf = requestAnimationFrame(tick); }
+      };
+      
+      btn.addEventListener('click', () => setOpen(!isOpen));
+      document.addEventListener('keydown', e => { if(e.key === 'Escape' && isOpen) setOpen(false); });
+      document.addEventListener('click', e => { if(isOpen && !root.contains(e.target)) setOpen(false); });
+      content.querySelectorAll('a').forEach(a => { a.addEventListener('click', () => setOpen(false)); });
+      window.addEventListener('scroll', () => { header.classList.toggle('is-scrolled', window.scrollY > 40); }, {passive:true});
+    })(window);
+  </script>
 
-        // Render Cards
-        gridEl.innerHTML = '';
-        matchingEvents.forEach(ev => {
+  <!-- Page Application Script (Filtering & Rendering) -->
+  <script>
+    (function(window) {
+      let currentCategory = 'all', searchQuery = '', activeModalEvent = null;
+      const searchInput = document.getElementById('events-search-input');
+      const searchClearBtn = document.getElementById('events-search-clear');
+      const categoryChips = document.querySelectorAll('.category-chip');
+      const modalOverlay = document.getElementById('event-modal');
+      const resetBtn = document.getElementById('btn-reset-filters');
+      
+      function renderCards() {
+        const events = window.EVENTS_DATA || [];
+        const sections = [
+          { cat: 'technical', grid: document.getElementById('grid-technical'), sec: document.getElementById('section-technical'), cnt: document.getElementById('count-technical') },
+          { cat: 'non-technical', grid: document.getElementById('grid-non-technical'), sec: document.getElementById('section-non-technical'), cnt: document.getElementById('count-non-technical') },
+          { cat: 'gaming', grid: document.getElementById('grid-gaming'), sec: document.getElementById('section-gaming'), cnt: document.getElementById('count-gaming') }
+        ];
+
+        let totalVis = 0;
+        sections.forEach(s => { if(s.grid) s.grid.innerHTML = ''; });
+
+        const filtered = events.filter(e => {
+          if (currentCategory !== 'all' && e.category !== currentCategory) return false;
+          if (searchQuery && !e.name.toLowerCase().includes(searchQuery) && !e.shortDescription.toLowerCase().includes(searchQuery)) return false;
+          return true;
+        });
+
+        filtered.forEach((ev, index) => {
+          const sec = sections.find(s => s.cat === ev.category);
+          if(!sec || !sec.grid) return;
+
           const card = document.createElement('article');
           card.className = `event-card-item category-${ev.category}`;
+          card.style.animationDelay = `${index * 0.1}s`;
 
-          const catBadgeClass = ev.category === 'technical' ? 'cat-technical' : (ev.category === 'gaming' ? 'cat-gaming' : 'cat-non-technical');
-          const dateVenue = `${ev.date || '[DATE TBA]'} · ${ev.venue || '[VENUE TBA]'}`;
-          const regBtnHtml = utils.renderRegistrationButton
-            ? utils.renderRegistrationButton(ev, { className: 'btn-cta' })
-            : '<button type="button" class="btn-cta btn-disabled" aria-disabled="true">Registration Opening Soon</button>';
+          const badgeClass = ev.category === 'technical' ? 'cat-technical' : ev.category === 'gaming' ? 'cat-gaming' : 'cat-non-technical';
+          const tColor = ev.category === 'technical' ? '#0A84FF' : ev.category === 'gaming' ? '#FF1744' : '#FFFFFF';
+          
+          let regHtml = ev.registrationUrl 
+            ? `<a href="${ev.registrationUrl}" target="_blank" class="specular-btn size-sm" data-tint="${tColor}" data-radius="8"><canvas aria-hidden="true"></canvas><span class="specular-text">REGISTER</span></a>` 
+            : `<button class="btn-disabled">TBA</button>`;
 
           card.innerHTML = `
             <div class="event-card-poster-wrap">
-              <img
-                src="${ev.image || 'assets/images/events/' + ev.slug + '.jpg'}"
-                alt="${ev.name} Poster"
-                class="event-card-poster"
-                loading="lazy"
-                decoding="async"
-                onerror="window.ALODANAX_UTILS && window.ALODANAX_UTILS.handleImageError(this, 'event', '${ev.name}')"
-              >
-              <div class="event-card-overlay-badges">
-                <span class="category-badge ${catBadgeClass}">${ev.category.toUpperCase()}</span>
-                ${ev.tag ? `<span class="event-tag-badge">${ev.tag}</span>` : ''}
-              </div>
+              <img src="assets/images/events/${ev.slug}.jpg" alt="${ev.name}" class="event-card-poster" onerror="window.ALODANAX_UTILS && window.ALODANAX_UTILS.handleImageError(this, 'event', '${ev.name}')">
+              <div class="event-card-overlay-badges"><span class="category-badge ${badgeClass}">${ev.category}</span></div>
             </div>
             <div class="event-card-body-content">
               <h3 class="event-card-title">${ev.name}</h3>
               <p class="event-card-short-desc">${ev.shortDescription}</p>
-              <div class="event-card-meta-row">
-                <span class="event-meta-icon" aria-hidden="true">✦</span>
-                <span class="event-meta-text">${dateVenue}</span>
-              </div>
+              <div class="event-card-meta-row">${ev.date || 'TBA'} &nbsp;&bull;&nbsp; ${ev.venue || 'TBA'}</div>
               <div class="event-card-action-bar">
-                <button type="button" class="btn-cta btn-secondary-blue btn-open-modal" data-slug="${ev.slug}" aria-label="View competition details for ${ev.name}">
-                  <span>VIEW DETAILS</span>
+                <button class="specular-btn size-sm" data-tint="${tColor}" data-base="#222" data-radius="8" onclick="openModal('${ev.slug}')">
+                  <canvas aria-hidden="true"></canvas><span class="specular-text">DETAILS</span>
                 </button>
-                ${regBtnHtml}
+                ${regHtml}
               </div>
             </div>
           `;
-
-          const detailBtn = card.querySelector('.btn-open-modal');
-          if (detailBtn) {
-            detailBtn.addEventListener('click', () => {
-              openModalBySlug(ev.slug);
-            });
-          }
-
-          gridEl.appendChild(card);
+          sec.grid.appendChild(card);
+          setTimeout(() => card.classList.add('animate-in'), 10);
         });
+
+        sections.forEach(s => {
+          const count = s.grid.children.length;
+          s.sec.style.display = count > 0 ? 'block' : 'none';
+          if(s.cnt) s.cnt.textContent = `${count} ARENAS`;
+          totalVis += count;
+        });
+
+        const emptyState = document.getElementById('events-empty-state');
+        if(emptyState) emptyState.style.display = totalVis === 0 ? 'block' : 'none';
+        const statusBar = document.getElementById('events-status-bar') || document.getElementById('events-count-text');
+        if(statusBar) statusBar.textContent = totalVis === 0 ? 'No matching records.' : `Showing ${totalVis} competitions.`;
+        
+        if(window.SpecularButton) setTimeout(initButtons, 50);
       }
-    });
 
-    // Update Empty State & Status Text
-    if (emptyState) {
-      emptyState.style.display = (totalVisible === 0) ? 'block' : 'none';
-    }
+      searchInput.addEventListener('input', e => { searchQuery = e.target.value.toLowerCase().trim(); searchClearBtn.style.display = searchQuery ? 'block' : 'none'; renderCards(); });
+      searchClearBtn.addEventListener('click', () => { searchInput.value = ''; searchQuery = ''; searchClearBtn.style.display = 'none'; renderCards(); });
+      resetBtn.addEventListener('click', () => { currentCategory = 'all'; searchInput.value = ''; searchQuery = ''; categoryChips.forEach(c => c.classList.toggle('is-active', c.dataset.cat === 'all')); renderCards(); });
+      categoryChips.forEach(chip => {
+        chip.addEventListener('click', () => {
+          categoryChips.forEach(c => c.classList.remove('is-active'));
+          chip.classList.add('is-active'); currentCategory = chip.dataset.cat; renderCards();
+        });
+      });
 
-    if (statusBar) {
-      if (totalVisible === 0) {
-        statusBar.textContent = 'No matching competitions found.';
-      } else {
-        const catLabel = currentCategory === 'all' ? 'all categories' : `${currentCategory} category`;
-        statusBar.textContent = `Showing ${totalVisible} ${totalVisible === 1 ? 'competition' : 'competitions'} in ${catLabel}${searchQuery ? ` matching "${searchQuery}"` : ''}.`;
-      }
-    }
-  }
+      window.openModal = (slug) => {
+        const ev = window.EVENTS_DATA.find(e => e.slug === slug);
+        if(!ev) return;
+        document.getElementById('modal-event-title').textContent = ev.name;
+        const badge = document.getElementById('modal-category-badge');
+        badge.textContent = ev.category;
+        badge.className = `category-badge ${ev.category === 'technical' ? 'cat-technical' : ev.category === 'gaming' ? 'cat-gaming' : 'cat-non-technical'}`;
+        
+        document.getElementById('modal-poster-img').src = ev.image || `assets/images/events/${ev.slug}.jpg`;
+        document.getElementById('modal-datetime').textContent = ev.date || 'TBA';
+        document.getElementById('modal-venue').textContent = ev.venue || 'TBA';
+        document.getElementById('modal-teamsize').textContent = ev.teamSize || 'TBA';
+        
+        document.getElementById('modal-intro').textContent = ev.intro || '';
+        document.getElementById('modal-description').textContent = ev.description || '';
+        document.getElementById('modal-format').textContent = ev.format || '';
+        
+        const wrapList = (id, arr) => {
+           const el = document.getElementById(id);
+           const block = document.getElementById(id.replace('-list', '-block'));
+           if(arr && arr.length>0){ block.style.display='block'; el.innerHTML = arr.map(i=>`<li>${i}</li>`).join(''); } else { block.style.display='none'; }
+        };
+        wrapList('modal-rules-list', ev.rules);
+        wrapList('modal-requirements-list', ev.requirements);
+        wrapList('modal-instructions-list', ev.instructions);
 
-  /**
-   * Opens the accessible modal for a given event slug.
-   * @param {string} slug
-   */
-  function openModalBySlug(slug) {
-    if (!window.EVENTS_DATA) return;
-    const event = window.EVENTS_DATA.find(e => e.slug === slug);
-    if (!event) return;
-
-    activeModalEvent = event;
-    previouslyFocusedElement = document.activeElement;
-
-    // Populate Modal Content
-    populateModalData(event);
-
-    // Open Overlay
-    modalOverlay.classList.add('is-active');
-    modalOverlay.setAttribute('aria-hidden', 'false');
-    document.body.style.overflow = 'hidden';
-
-    // Sync URL Hash
-    window.location.hash = `event=${event.slug}`;
-
-    // Focus close button inside modal
-    if (modalCloseBtn) {
-      modalCloseBtn.focus();
-    }
-  }
-
-  /**
-   * Closes the active modal and restores focus and history state.
-   */
-  function closeModal() {
-    if (!modalOverlay.classList.contains('is-active')) return;
-
-    modalOverlay.classList.remove('is-active');
-    modalOverlay.setAttribute('aria-hidden', 'true');
-    document.body.style.overflow = '';
-    activeModalEvent = null;
-
-    // Clear Hash without adding page jump
-    if (window.location.hash.startsWith('#event=')) {
-      history.replaceState(null, document.title, window.location.pathname + window.location.search);
-    }
-
-    // Restore Focus
-    if (previouslyFocusedElement && typeof previouslyFocusedElement.focus === 'function') {
-      previouslyFocusedElement.focus();
-    }
-  }
-
-  /**
-   * Populates all modal data fields according to schema.
-   * @param {object} ev
-   */
-  function populateModalData(ev) {
-    const utils = window.ALODANAX_UTILS || {};
-
-    const titleEl = document.getElementById('modal-event-title');
-    const badgeEl = document.getElementById('modal-category-badge');
-    const posterImg = document.getElementById('modal-poster-img');
-    const datetimeEl = document.getElementById('modal-datetime');
-    const venueEl = document.getElementById('modal-venue');
-    const teamsizeEl = document.getElementById('modal-teamsize');
-    const introEl = document.getElementById('modal-intro');
-    const descEl = document.getElementById('modal-description');
-    const formatEl = document.getElementById('modal-format');
-    const formatBlock = document.getElementById('modal-format-block');
-    const rulesList = document.getElementById('modal-rules-list');
-    const rulesBlock = document.getElementById('modal-rules-block');
-    const reqList = document.getElementById('modal-requirements-list');
-    const reqBlock = document.getElementById('modal-requirements-block');
-    const instList = document.getElementById('modal-instructions-list');
-    const instBlock = document.getElementById('modal-instructions-block');
-    const coordList = document.getElementById('modal-coordinators-list');
-    const coordBlock = document.getElementById('modal-coordinators-block');
-    const extraLinkWrap = document.getElementById('modal-extra-link-wrap');
-    const registerWrap = document.getElementById('modal-register-wrap');
-
-    if (titleEl) titleEl.textContent = ev.name;
-
-    if (badgeEl) {
-      badgeEl.textContent = ev.category.toUpperCase();
-      badgeEl.className = `category-badge ${ev.category === 'technical' ? 'cat-technical' : (ev.category === 'gaming' ? 'cat-gaming' : 'cat-non-technical')}`;
-    }
-
-    if (posterImg) {
-      posterImg.src = ev.image || `assets/images/events/${ev.slug}.jpg`;
-      posterImg.alt = `${ev.name} Poster`;
-      posterImg.onerror = function () {
-        if (utils.handleImageError) utils.handleImageError(this, 'event', ev.name);
-      };
-    }
-
-    if (datetimeEl) datetimeEl.textContent = ev.date || '[DATE TBA]';
-    if (venueEl) venueEl.textContent = ev.venue || '[VENUE TBA]';
-    if (teamsizeEl) teamsizeEl.textContent = ev.teamSize || '[TEAM TBA]';
-
-    if (introEl) introEl.textContent = ev.intro || ev.shortDescription || '';
-    if (descEl) descEl.textContent = ev.description || '';
-
-    // Event Format
-    if (formatBlock && formatEl) {
-      if (ev.format && !utils.isPlaceholder(ev.format)) {
-        formatBlock.style.display = 'block';
-        formatEl.textContent = ev.format;
-      } else {
-        formatBlock.style.display = 'none';
-      }
-    }
-
-    // Rules List
-    if (rulesBlock && rulesList) {
-      if (Array.isArray(ev.rules) && ev.rules.length > 0) {
-        rulesBlock.style.display = 'block';
-        rulesList.innerHTML = ev.rules.map(r => `<li>${r}</li>`).join('');
-      } else {
-        rulesBlock.style.display = 'none';
-      }
-    }
-
-    // Requirements List
-    if (reqBlock && reqList) {
-      if (Array.isArray(ev.requirements) && ev.requirements.length > 0) {
-        reqBlock.style.display = 'block';
-        reqList.innerHTML = ev.requirements.map(rq => `<li>${rq}</li>`).join('');
-      } else {
-        reqBlock.style.display = 'none';
-      }
-    }
-
-    // Important Instructions List
-    if (instBlock && instList) {
-      if (Array.isArray(ev.instructions) && ev.instructions.length > 0) {
-        instBlock.style.display = 'block';
-        instList.innerHTML = ev.instructions.map(ins => `<li>${ins}</li>`).join('');
-      } else {
-        instBlock.style.display = 'none';
-      }
-    }
-
-    // Coordinators
-    if (coordBlock && coordList) {
-      if (Array.isArray(ev.coordinators) && ev.coordinators.length > 0) {
-        coordBlock.style.display = 'block';
-        coordList.innerHTML = ev.coordinators.map(c => {
-          const phoneSafe = utils.formatSafeLink ? utils.formatSafeLink('tel', c.phone) : null;
-          const emailSafe = utils.formatSafeLink ? utils.formatSafeLink('mailto', c.email) : null;
-
-          const phoneText = phoneSafe ? `<a href="${phoneSafe}" class="coord-link">${c.phone}</a>` : `<span class="badge-tba">TBA</span>`;
-          const emailText = emailSafe ? `<a href="${emailSafe}" class="coord-link">${c.email}</a>` : `<span class="badge-tba">TBA</span>`;
-
-          return `
+        const coordBlock = document.getElementById('modal-coordinators-block');
+        const coordList = document.getElementById('modal-coordinators-list');
+        if (ev.coordinators && ev.coordinators.length > 0) {
+          coordBlock.style.display = 'block';
+          coordList.innerHTML = ev.coordinators.map(c => `
             <div class="modal-coord-card">
               <span class="coord-role">${c.role || 'COORDINATOR'}</span>
-              <h4 class="coord-name">${c.name || '[NAME TBA]'}</h4>
+              <div class="coord-name">${c.name || '[NAME TBA]'}</div>
               <div class="coord-contacts">
-                <div><span>TEL:</span> ${phoneText}</div>
-                <div><span>EMAIL:</span> ${emailText}</div>
+                <div><span>TEL:</span> ${c.phone !== '[PHONE TBA]' ? `<a href="tel:${c.phone}" class="coord-link">${c.phone}</a>` : '<span>TBA</span>'}</div>
+                <div><span>MAIL:</span> ${c.email !== '[EMAIL TBA]' ? `<a href="mailto:${c.email}" class="coord-link">${c.email}</a>` : '<span>TBA</span>'}</div>
               </div>
             </div>
-          `;
-        }).join('');
-      } else {
-        coordBlock.style.display = 'none';
-      }
-    }
+          `).join('');
+        } else { coordBlock.style.display = 'none'; }
+        
+        const tColor = ev.category === 'technical' ? '#0A84FF' : ev.category === 'gaming' ? '#FF1744' : '#FFFFFF';
+        const regWrap = document.getElementById('modal-register-wrap');
+        regWrap.innerHTML = ev.registrationUrl 
+            ? `<a href="${ev.registrationUrl}" target="_blank" class="specular-btn size-md" data-tint="${tColor}" data-radius="12"><canvas aria-hidden="true"></canvas><span class="specular-text">REGISTER NOW</span></a>` 
+            : `<button class="btn-disabled">OPENING SOON</button>`;
+        
+        modalOverlay.classList.add('is-active');
+        document.body.style.overflow = 'hidden';
+        setTimeout(initButtons, 50);
+      };
 
-    // Extra link (e.g. Hackathon "Problem Statements & Rules" linking to hackathon.html)
-    if (extraLinkWrap) {
-      if (ev.slug === 'hackathon' || ev.extraLink) {
-        const linkObj = ev.extraLink || { label: 'Problem Statements & Rules', url: 'hackathon.html' };
-        extraLinkWrap.innerHTML = `
-          <a href="${linkObj.url}" class="btn-cta btn-secondary-blue">
-            <span>${linkObj.label.toUpperCase()}</span>
-            <span aria-hidden="true">→</span>
-          </a>
-        `;
-      } else {
-        extraLinkWrap.innerHTML = '';
-      }
-    }
+      const closeModal = () => { modalOverlay.classList.remove('is-active'); document.body.style.overflow = ''; };
+      document.getElementById('modal-close-btn').addEventListener('click', closeModal);
+      modalOverlay.addEventListener('click', e => { if(e.target === modalOverlay) closeModal(); });
+      document.addEventListener('keydown', e => { if(e.key === 'Escape') closeModal(); });
 
-    // Registration Button
-    if (registerWrap) {
-      registerWrap.innerHTML = utils.renderRegistrationButton
-        ? utils.renderRegistrationButton(ev, { className: 'btn-cta btn-primary-neon', text: 'REGISTER ON GOOGLE FORMS' })
-        : '<button type="button" class="btn-cta btn-disabled" aria-disabled="true">Registration Opening Soon</button>';
-    }
-  }
-
-  /**
-   * Accessible focus trap and ESC dismiss handler.
-   * @param {KeyboardEvent} e
-   */
-  function handleGlobalKeydown(e) {
-    if (!modalOverlay.classList.contains('is-active')) return;
-
-    if (e.key === 'Escape') {
-      e.preventDefault();
-      closeModal();
-      return;
-    }
-
-    if (e.key === 'Tab') {
-      const focusable = modalWindow.querySelectorAll('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])');
-      if (focusable.length === 0) return;
-
-      const first = focusable[0];
-      const last = focusable[focusable.length - 1];
-
-      if (e.shiftKey) {
-        if (document.activeElement === first) {
-          e.preventDefault();
-          last.focus();
-        }
-      } else {
-        if (document.activeElement === last) {
-          e.preventDefault();
-          first.focus();
-        }
-      }
-    }
-  }
-
-  /**
-   * Checks hash deep linking on load and hash change.
-   */
-  function checkHashDeepLink() {
-    const hash = window.location.hash;
-    if (hash && hash.startsWith('#event=')) {
-      const slug = hash.replace('#event=', '').trim();
-      if (slug) {
-        openModalBySlug(slug);
-      }
-    } else if (activeModalEvent) {
-      closeModal();
-    }
-  }
-
-  // Initialize on DOM Ready
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', init);
-  } else {
-    init();
-  }
-
-})(window);
+      document.addEventListener("DOMContentLoaded", () => {
+        document.getElementById("events-hero").innerHTML = `
+          <div class="subpage-hero-section section-container">
+            <div class="subpage-breadcrumb"><span>HOME</span> <span style="color:var(--text-tertiary)">/</span> <span>EVENTS</span></div>
+            <h1 class="display-title" style="justify-content:center;"><span class="title-solid">COMPETITIVE</span><span class="title-outline">ARENAS</span></h1>
+            <p class="subpage-hero-subtitle">Explore flagship hackathons, speed coding tournaments, venture ideathons, and tactical esports arenas.</p>
+          </div>`;
+          renderCards();
+      });
+    })(window);
+    
+    // Inject Footer
+    document.getElementById("site-footer").innerHTML = `
+      <footer class="site-footer">
+        <div class="section-container">
+          <div class="footer-grid">
+            <div>
+              <a href="index.html" class="footer-brand">ALODANAX</a>
+              <p class="footer-department">[DEPARTMENT OF IT/CS]</p>
+              <p style="font-family:var(--font-body); color:var(--text-tertiary); font-size:0.9rem;">Precision Engineering Meets Cyber Evolution</p>
+            </div>
+            <div>
+              <h3 class="footer-col-title">NAVIGATION</h3>
+              <ul class="footer-nav-list">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="events.html">Events</a></li>
+                <li><a href="hackathon.html">Hackathon</a></li>
+                <li><a href="team.html">Our Team</a></li>
+                <li><a href="contact.html">Contact</a></li>
+              </ul>
+            </div>
+            <div>
+              <h3 class="footer-col-title">CONNECT</h3>
+              <p class="footer-contact-line"><strong>EMAIL:</strong> <br>[EMAIL TBA]</p>
+              <p class="footer-contact-line"><strong>PHONE:</strong> <br>[PHONE TBA]</p>
+              <p class="footer-contact-line"><strong>VENUE:</strong> <br>[VENUE TBA]</p>
+            </div>
+          </div>
+          <div class="footer-bottom-bar">
+            <p>© 2026 ALODANAX. ALL RIGHTS RESERVED.</p>
+            <a href="#site-header" class="back-to-top" onclick="window.scrollTo({top:0, behavior:'smooth'}); return false;">BACK TO TOP</a>
+          </div>
+        </div>
+      </footer>
+    `;
   </script>
+
 </body>
 </html>
-

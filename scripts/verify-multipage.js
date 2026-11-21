@@ -74,8 +74,6 @@ async function runTestSuite() {
     eventsLiveSearch: false,
     eventsModalDeepLink: false,
     eventsRegistrationDisabled: false,
-    committeeHodFirst: false,
-    committeeTiersOrder: false,
     facultyDirectorySearch: false,
     hackathonDomainsDeepLink: false,
     hackathonPptCheck: false,
@@ -124,7 +122,7 @@ async function runTestSuite() {
     // -----------------------------------------------------------------
     // TEST 1: HOME PAGE (index.html) at 1440x900
     // -----------------------------------------------------------------
-    console.log('\n[1/7] Testing index.html (Home Page)...');
+    console.log('\n[1/6] Testing index.html (Home Page)...');
     await sendCdp(ws, 'Emulation.setDeviceMetricsOverride', {
       width: 1440,
       height: 900,
@@ -185,7 +183,7 @@ async function runTestSuite() {
     // -----------------------------------------------------------------
     // TEST 2: EVENTS PORTAL (events.html)
     // -----------------------------------------------------------------
-    console.log('\n[2/7] Testing events.html (Discovery & Registration Portal)...');
+    console.log('\n[2/6] Testing events.html (Discovery & Registration Portal)...');
     await sendCdp(ws, 'Page.navigate', { url: 'http://localhost:3000/events.html' });
     await sleep(1500);
 
@@ -252,32 +250,9 @@ async function runTestSuite() {
     console.log('  ✔ ESC key successfully closes modal:', isModalClosed);
 
     // -----------------------------------------------------------------
-    // TEST 3: ORGANIZING COMMITTEE (committee.html)
+    // TEST 3: FACULTY DIRECTORY (faculty.html)
     // -----------------------------------------------------------------
-    console.log('\n[3/7] Testing committee.html (Governance & Leadership)...');
-    await sendCdp(ws, 'Page.navigate', { url: 'http://localhost:3000/committee.html' });
-    await sleep(1500);
-
-    const committeeStructure = await evaluate(ws, `(() => {
-      const hodCard = document.querySelector('.hod-card-full');
-      const tiers = Array.from(document.querySelectorAll('.committee-tier-section .tier-title')).map(t => t.textContent.trim());
-      return {
-        hasHodFirst: !!hodCard,
-        hodName: hodCard ? hodCard.querySelector('.hod-name').textContent : '',
-        tiers
-      };
-    })()`);
-    report.committeeHodFirst = committeeStructure.hasHodFirst;
-    report.committeeTiersOrder = committeeStructure.tiers.includes('CHIEF PATRON') && committeeStructure.tiers.includes('STAFF CONVENORS');
-    console.log('  ✔ HOD large card featured first:', report.committeeHodFirst, committeeStructure.hodName);
-    console.log('  ✔ Committee tiers ordered properly with empty tiers omitted:', report.committeeTiersOrder, committeeStructure.tiers);
-
-    await captureScreenshot(ws, path.join(screenshotsDir, '04_desktop_committee.png'));
-
-    // -----------------------------------------------------------------
-    // TEST 4: FACULTY DIRECTORY (faculty.html)
-    // -----------------------------------------------------------------
-    console.log('\n[4/7] Testing faculty.html (Academic Mentors)...');
+    console.log('\n[3/6] Testing faculty.html (Academic Mentors)...');
     await sendCdp(ws, 'Page.navigate', { url: 'http://localhost:3000/faculty.html' });
     await sleep(1500);
 
@@ -298,9 +273,9 @@ async function runTestSuite() {
     await captureScreenshot(ws, path.join(screenshotsDir, '05_desktop_faculty.png'));
 
     // -----------------------------------------------------------------
-    // TEST 5: HACKATHON PORTAL (hackathon.html)
+    // TEST 4: HACKATHON PORTAL (hackathon.html)
     // -----------------------------------------------------------------
-    console.log('\n[5/7] Testing hackathon.html (24-Hour Flagship Portal)...');
+    console.log('\n[4/6] Testing hackathon.html (24-Hour Flagship Portal)...');
     await sendCdp(ws, 'Page.navigate', { url: 'http://localhost:3000/hackathon.html' });
     await sleep(1500);
 
@@ -332,9 +307,9 @@ async function runTestSuite() {
     await captureScreenshot(ws, path.join(screenshotsDir, '06_desktop_hackathon.png'));
 
     // -----------------------------------------------------------------
-    // TEST 6: TEAM DIRECTORY (team.html)
+    // TEST 5: TEAM DIRECTORY (team.html)
     // -----------------------------------------------------------------
-    console.log('\n[6/7] Testing team.html (40 Student Crew Cards)...');
+    console.log('\n[5/6] Testing team.html (40 Student Crew Cards)...');
     await sendCdp(ws, 'Page.navigate', { url: 'http://localhost:3000/team.html' });
     await sleep(1500);
 
@@ -350,9 +325,9 @@ async function runTestSuite() {
     await captureScreenshot(ws, path.join(screenshotsDir, '07_desktop_team.png'));
 
     // -----------------------------------------------------------------
-    // TEST 7: CONTACT PAGE (contact.html)
+    // TEST 6: CONTACT PAGE (contact.html)
     // -----------------------------------------------------------------
-    console.log('\n[7/7] Testing contact.html (Direct Dispatch & FAQ)...');
+    console.log('\n[6/6] Testing contact.html (Direct Dispatch & FAQ)...');
     await sendCdp(ws, 'Page.navigate', { url: 'http://localhost:3000/contact.html' });
     await sleep(1500);
 

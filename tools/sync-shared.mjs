@@ -3,7 +3,7 @@
  * ALODANAX TechFest - Shared Code Synchronizer
  * 
  * Synchronizes the 4 canonical shared blocks from index.html (Single Source of Truth)
- * across all subpages: events.html, committee.html, faculty.html, hackathon.html,
+ * across all subpages: events.html, faculty.html, hackathon.html,
  * team.html, contact.html.
  * 
  * Shared Blocks:
@@ -26,7 +26,6 @@ const rootDir = path.resolve(__dirname, '..');
 const SOURCE_FILE = path.join(rootDir, 'index.html');
 const TARGET_FILES = [
   'events.html',
-  'committee.html',
   'faculty.html',
   'hackathon.html',
   'team.html',

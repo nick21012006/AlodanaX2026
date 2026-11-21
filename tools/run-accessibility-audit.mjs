@@ -70,7 +70,6 @@ async function run() {
   const pagesToAudit = [
     { name: 'index', path: '/' },
     { name: 'events', path: '/events.html' },
-    { name: 'committee', path: '/committee.html' },
     { name: 'faculty', path: '/faculty.html' },
     { name: 'hackathon', path: '/hackathon.html' },
     { name: 'team', path: '/team.html' },

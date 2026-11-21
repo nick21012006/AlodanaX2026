@@ -11,1429 +11,629 @@
   <meta property="og:description" content="Reach the ALODANAX organizing council, find event coordinators, and view festival FAQs.">
   <meta property="og:type" content="website">
 
-  <!-- Google Fonts: Syne & Inter -->
+  <!-- Fonts: Orbitron (Tech Display) & Outfit (Clean Body) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
   <!-- Stylesheet -->
   <style>
-/* ==== SHARED:BASE-CSS START ==== */
-/* Design Tokens, Reset, Typography Defaults */
-/* ==========================================================================
-   ALODANAX TECHFEST - CINEMATIC PRODUCTION STYLESHEET
-   Strict Palette: Black (#000000 / #05060A), Surface (#0B0D14),
-   Electric Blue (#0A84FF), Neon Red (#FF1744), White (#FFFFFF / rgba(255,255,255,0.7))
-   All vendor prefixes, clip-path glows, form controls, and viewports optimized.
-   ========================================================================== */
-
+/* ==== SHARED BASE CSS ==== */
 :root {
   --black: #000000;
   --page-bg: #05060A;
   --surface: #0B0D14;
-  --surface-alt: #10131E;
-  --surface-border: rgba(10, 132, 255, 0.2);
   --blue: #0A84FF;
-  --blue-bright: #409CFF; /* WCAG AA accessible on black */
+  --blue-bright: #38A6FF;
   --blue-glow: rgba(10, 132, 255, 0.45);
-  --blue-glow: rgba(10, 132, 255, 0.5);
   --neon-red: #FF1744;
-  --neon-red-bright: #FF4D6D; /* WCAG AA accessible on black */
   --neon-red-glow: rgba(255, 23, 68, 0.55);
   --white: #FFFFFF;
-  --text-primary: rgba(255, 255, 255, 0.94);
-  --text-secondary: rgba(255, 255, 255, 0.78);
-  --text-tertiary: #8A94A6;
   --white-muted: rgba(255, 255, 255, 0.78);
-  --white-dim: #8A94A6;
-  --white-blue: #D6ECFF;
-  
-  /* Dynamic accent driven by ScrollTrigger */
-  --accent: #FF1744;
+  --text-primary: rgba(255, 255, 255, 0.95);
+  --text-secondary: rgba(255, 255, 255, 0.75);
+  --text-tertiary: #8A94A6;
 
   /* Typography */
-  --font-display: 'Space Grotesk', 'Inter', system-ui, sans-serif;
-  --font-body: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --font-display: 'Orbitron', sans-serif;
+  --font-body: 'Outfit', sans-serif;
 
-  /* Spacing & Motion */
   --container-max: 1280px;
-  --ease-cinematic: cubic-bezier(0.16, 1, 0.3, 1);
-  --ease-sharp: cubic-bezier(0.25, 1, 0.5, 1);
-}
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
 
-/* Global Typography Defaults */
-body {
-  font-family: var(--font-body);
-  font-size: 1.0625rem; /* 17px desktop */
-  line-height: 1.65;
-  color: var(--text-primary);
-  background-color: var(--black);
-}
-
-@media (max-width: 768px) {
-  body {
-    font-size: 1rem; /* 16px mobile */
-  }
-}
-
-p {
-  max-width: 68ch;
-  line-height: 1.65;
-  color: var(--text-secondary);
-}
-
-/* Base Reset & Box Sizing */
-*, *::before, *::after {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
-
-html {
-  font-family: var(--font-body);
-  background-color: var(--black);
-  color: var(--text-primary);
-  line-height: 1.65;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  scroll-behavior: auto;
-}
-
-/* Lenis Recommended Compatibility Styles */
-html.lenis, html.lenis body {
-  height: auto;
-}
-
-.lenis.lenis-smooth {
-  scroll-behavior: auto !important;
-}
-
-.lenis.lenis-smooth [data-lenis-prevent] {
-  overscroll-behavior: contain;
-}
-
-.lenis.lenis-stopped {
-  overflow: hidden;
+  /* CardNav Dark Theme Variables */
+  --cn-max: 1280px;
+  --cn-bar: 68px;
+  --cn-inset: 8px;
+  --cn-gap: 8px;
+  --cn-radius: 24px;
+  --cn-logo: 32px;
+  --cn-card: 180px;
+  --cn-panel: rgba(38, 35, 46, 0.72);
+  --cn-solid: #26232e;
+  --cn-edge: rgba(255, 255, 255, 0.08);
+  --cn-highlight: rgba(255, 255, 255, 0.07);
+  --cn-shadow: 0 24px 48px -20px rgba(0, 0, 0, 0.8), 0 6px 16px -8px rgba(0, 0, 0, 0.5);
+  --cn-text: #f4f4f5;
+  --cn-muted: rgba(244, 244, 245, 0.56);
+  --cn-hover: rgba(255, 255, 255, 0.06);
+  --cn-ring: rgba(244, 244, 245, 0.55);
+  --cn-tile: linear-gradient(180deg, rgba(52, 48, 61, 0.6) 0%, rgba(39, 36, 47, 0.6) 100%);
+  --cn-tile-rim: inset 0 0 0 1px rgba(255, 255, 255, 0.06), inset 0 1px 0 rgba(255, 255, 255, 0.1), 0 4px 10px -4px rgba(0, 0, 0, 0.6);
+  --cn-blur: blur(20px) saturate(1.6);
 }
 
 body {
+  font-family: var(--font-body);
+  font-size: 1.0625rem; 
+  line-height: 1.6;
+  color: var(--text-primary);
   background-color: var(--page-bg);
   min-height: 100vh;
-  min-height: 100dvh;
+  margin: 0;
   overflow-x: hidden;
-  position: relative;
+  background-image: 
+    linear-gradient(rgba(10, 132, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(10, 132, 255, 0.03) 1px, transparent 1px);
+  background-size: 40px 40px;
+  background-position: center top;
 }
 
-/* Accessibility: Skip to Content */
-.skip-link {
-  position: absolute;
-  top: -60px;
-  left: 20px;
-  background: var(--blue);
-  color: var(--white);
-  padding: 10px 18px;
-  font-family: var(--font-body);
-  font-size: 0.875rem;
-  font-weight: 600;
-  text-decoration: none;
-  z-index: 99999;
-  border-radius: 2px;
-  box-shadow: 0 0 20px var(--blue-glow);
-  transition: top 0.2s ease;
-}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+a { text-decoration: none; color: inherit; }
+a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visible { outline: 2px solid var(--blue); outline-offset: 3px; }
 
-.skip-link:focus {
-  top: 20px;
-  outline: 2px solid var(--white);
-}
+.section-container { width: 90%; max-width: var(--container-max); margin: 0 auto; position: relative; }
 
-/* Focus states */
-a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible {
-  outline: 2px solid var(--blue);
-  outline-offset: 3px;
-}
-
-/* Container Utility */
-.section-container {
-  width: 90%;
-  max-width: var(--container-max);
-  margin: 0 auto;
-  position: relative;
-}
-
-
-/* Navigation Bar & Header */
-/* ==========================================================================
-   NAVIGATION BAR
-   ========================================================================== */
-#site-header {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  z-index: 1000;
-  padding: 1.25rem 2.5rem;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  -webkit-backdrop-filter: blur(16px);
-  backdrop-filter: blur(16px);
-  background: rgba(5, 6, 10, 0.78);
-  border-bottom: 1px solid rgba(10, 132, 255, 0.15);
-  transform: translateY(-100%);
-  opacity: 0;
-  pointer-events: none;
-  transition: transform 0.4s var(--ease-cinematic), opacity 0.4s ease;
-}
-
-#site-header.is-visible {
-  transform: translateY(0);
-  opacity: 1;
-  pointer-events: auto;
-}
-
-.nav-brand {
-  font-family: var(--font-display);
-  font-size: clamp(1rem, 1.8vw, 1.35rem);
-  font-weight: 800;
-  letter-spacing: 0.2em;
-  text-decoration: none;
-  color: var(--white);
-  background: linear-gradient(135deg, #FFFFFF 20%, #A0B2C6 60%, #FFFFFF 100%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-  text-transform: uppercase;
-  flex-shrink: 0;
-}
-
-.nav-menu {
-  display: flex;
-  align-items: center;
-  gap: clamp(0.9rem, 1.4vw, 1.6rem);
-  list-style: none;
-}
-
-.nav-link {
-  font-family: var(--font-display);
-  font-size: 0.875rem; /* 14px */
-  font-weight: 600;
-  letter-spacing: 0.06em;
-  color: var(--text-secondary);
-  transition: color 0.2s ease;
-  position: relative;
-  display: inline-block;
-  padding: 0.4rem 0.2rem;
-}
-
-.nav-link::after {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 0%;
-  height: 1px;
-  background: var(--blue);
-  box-shadow: 0 0 8px var(--blue-glow);
-  transition: width 0.3s var(--ease-cinematic);
-}
-
-.nav-link:hover {
-  color: var(--white);
-}
-
-.nav-link:hover::after {
-  width: 100%;
-}
-
-.nav-cta-btn {
-  font-family: var(--font-display);
-  font-size: 0.875rem; /* 14px */
-  font-weight: 600;
-  letter-spacing: 0.06em;
-  padding: 0.55rem 1.25rem;
-  min-height: 44px;
-}
-
-.nav-cta-btn:hover {
-  background: var(--neon-red);
-  box-shadow: 0 0 24px var(--neon-red-glow);
-  transform: translateY(-1px);
-}
-
-
-/* Post-Hero Cinematic Design System: Buttons, Section Headers, Utilities */
-/* ==========================================================================
-   POST-HERO CINEMATIC DESIGN SYSTEM
-   ========================================================================== */
-.site-main {
-  position: relative;
-  z-index: 20;
-  background-color: var(--page-bg);
-}
-
-.page-section {
-  padding: 8rem 0;
-  position: relative;
-  border-bottom: 1px solid rgba(10, 132, 255, 0.08);
-}
-
-/* Section Header & Huge Display Headings */
-.section-header-wrap {
-  margin-bottom: 4rem;
-}
-
-.section-tag {
-  font-family: var(--font-display);
-  font-size: 0.8125rem; /* 13px */
-  font-weight: 700;
-  letter-spacing: 0.08em;
-  color: var(--blue-bright);
-  text-transform: uppercase;
-  margin-bottom: 0.75rem;
-  display: block;
-}
-
+/* Display Titles */
 .display-title {
   font-family: var(--font-display);
-  font-size: clamp(2rem, 5.5vw, 4.25rem);
-  font-weight: 800;
-  letter-spacing: 0.06em;
-  line-height: 1.05;
-  text-transform: uppercase;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem 1rem;
-  align-items: baseline;
-}
-
-.title-solid {
-  color: var(--white);
-  text-shadow: 0 0 24px rgba(255, 255, 255, 0.25);
-}
-
-.title-outline {
-  color: var(--white);
-  -webkit-text-fill-color: transparent;
-  -webkit-text-stroke: 1.5px rgba(255, 255, 255, 0.85);
-  letter-spacing: 0.08em;
-  transition: -webkit-text-stroke 0.3s ease;
-}
-
-@supports (-webkit-text-stroke: 1px white) {
-  .title-outline {
-    color: transparent;
-  }
-}
-
-.display-title:hover .title-outline {
-  -webkit-text-stroke: 1.5px var(--blue);
-}
-
-.hairline-divider {
-  width: 100%;
-  height: 1px;
-  background: linear-gradient(90deg, var(--blue) 0%, rgba(10, 132, 255, 0.2) 60%, transparent 100%);
-  margin-top: 1.8rem;
-}
-
-/* ScrollTrigger Reveals (Staggered fade/translate ≤0.8s) */
-.reveal-item {
-  opacity: 0;
-  transform: translateY(32px);
-  will-change: opacity, transform;
-  transition: opacity 0.75s var(--ease-cinematic), transform 0.75s var(--ease-cinematic);
-}
-
-.reveal-item.is-revealed {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-
-/* Shared Footer */
-/* ==========================================================================
-   5. FOOTER SECTION
-   ========================================================================== */
-.site-footer {
-  background: #020306;
-  border-top: 1px solid rgba(10, 132, 255, 0.18);
-  padding: 5rem 0 2.5rem;
-  position: relative;
-  z-index: 25;
-}
-
-.footer-grid {
-  display: grid;
-  grid-template-columns: 1.5fr 1fr 1.2fr;
-  gap: 3.5rem;
-  margin-bottom: 4rem;
-}
-
-.footer-brand {
-  font-family: var(--font-display);
-  font-size: 1.6rem;
-  font-weight: 800;
-  letter-spacing: 0.22em;
-  color: var(--white);
-  text-decoration: none;
-  display: inline-block;
-  margin-bottom: 0.8rem;
-  background: linear-gradient(135deg, #FFFFFF 0%, #A0B2C6 100%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
-.footer-department {
-  font-family: var(--font-display);
-  font-size: 0.82rem;
-  font-weight: 700;
-  letter-spacing: 0.18em;
-  color: var(--blue);
-  margin-bottom: 0.4rem;
-  text-transform: none;
-}
-
-.footer-tagline {
-  font-size: 0.88rem;
-  color: var(--white-muted);
-}
-
-.footer-col-title {
-  font-family: var(--font-display);
-  font-size: 0.875rem; /* 14px */
-  font-weight: 700;
-  letter-spacing: 0.08em;
-  color: var(--blue-bright);
-  margin-bottom: 1.25rem;
-  text-transform: none;
-}
-
-.footer-nav-list {
-  list-style: none;
-  display: flex;
-  flex-direction: column;
-  gap: 0.75rem;
-}
-
-.footer-nav-list a {
-  font-size: 0.875rem; /* 14px */
-  color: var(--text-secondary);
-  transition: color 0.2s ease;
-  display: inline-block;
-  padding: 0.25rem 0;
-}
-
-.footer-nav-list a:hover {
-  color: var(--blue);
-}
-
-.footer-contact-line {
-  font-size: 0.85rem;
-  color: var(--white-muted);
-  margin-bottom: 0.75rem;
-  line-height: 1.6;
-}
-
-.footer-contact-line strong {
-  color: var(--blue-bright);
-  font-size: 0.8125rem; /* 13px */
-  letter-spacing: 0.06em;
-}
-
-.social-pill {
-  font-family: var(--font-display);
-  font-size: 0.8125rem; /* 13px */
-  font-weight: 600;
-  letter-spacing: 0.06em;
-  padding: 0.45rem 0.95rem;
-  min-height: 40px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  color: var(--text-secondary);
-  border: 1px solid rgba(255, 255, 255, 0.16);
-  border-radius: 4px;
-  transition: all 0.2s ease;
-}
-
-.footer-bottom-bar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding-top: 2rem;
-  border-top: 1px solid rgba(255, 255, 255, 0.08);
-}
-
-.footer-copyright {
-  font-size: 0.8125rem; /* 13px */
-  color: var(--text-tertiary);
+  font-size: clamp(1.4rem, 6vw, 4.5rem);
+  font-weight: 900;
   letter-spacing: 0.02em;
+  text-transform: uppercase;
+  line-height: 1.1;
+  display: flex; flex-wrap: wrap; gap: 0.5rem 1rem;
+}
+.title-solid { color: var(--white); text-shadow: 0 0 20px rgba(255,255,255,0.2); overflow-wrap: break-word; }
+.title-outline {
+  color: transparent;
+  -webkit-text-stroke: 1.5px rgba(255, 255, 255, 0.6);
+  transition: -webkit-text-stroke 0.3s ease;
+  overflow-wrap: break-word;
+}
+.display-title:hover .title-outline { -webkit-text-stroke: 1.5px var(--blue); }
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
-.back-to-top {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  font-family: var(--font-display);
-  font-size: 0.8125rem; /* 13px */
-  font-weight: 600;
-  letter-spacing: 0.06em;
-  color: var(--text-secondary);
-  min-height: 44px;
-  padding: 0.35rem 0.75rem;
-}
-
-.back-to-top:hover {
-  color: var(--blue);
-  transform: translateY(-2px);
-}
-
-
-/* Multi-Page Navigation Enhancements & Mobile Drawer */
 /* ==========================================================================
-   ALODANAX MULTI-PAGE EXPANSION SUITE
-   Shared Nav, Subpage Hero, Accessible Modal, Categories, Audit HUD
+   CARD NAV (Spring Animated Header)
    ========================================================================== */
+#site-header {
+  position: fixed; top: 0; left: 0; width: 100%; z-index: 1000;
+  padding: 1.5rem 0; pointer-events: none; transition: padding 0.3s;
+}
+#site-header.is-scrolled { padding: 0.75rem 0; }
 
-/* Shared Nav Enhancements */
-.site-header.is-subpage-nav {
-  opacity: 1 !important;
-  pointer-events: auto !important;
-  transform: none !important;
-  background: rgba(5, 6, 10, 0.9);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border-bottom: 1px solid rgba(10, 132, 255, 0.2);
+.cn-root {
+  position: relative; margin: 0 auto; height: var(--cn-bar); width: 90%;
+  max-width: var(--cn-max); text-align: left; pointer-events: auto;
+}
+.cn-panel {
+  position: absolute; inset: 0; top: 0; z-index: 10; height: var(--cn-bar);
+  overflow: hidden; border-radius: var(--cn-radius); background: var(--cn-panel);
+  box-shadow: var(--cn-shadow); backdrop-filter: var(--cn-blur); -webkit-backdrop-filter: var(--cn-blur);
+  will-change: height, clip-path; transition: background 0.3s ease;
+}
+#site-header.is-scrolled .cn-panel { background: rgba(5,6,10,0.9); border: 1px solid rgba(10,132,255,0.2); }
+.cn-rim {
+  pointer-events: none; position: absolute; inset: 0; z-index: 3;
+  border-radius: inherit; box-shadow: inset 0 0 0 1px var(--cn-edge), inset 0 1px 0 var(--cn-highlight);
+}
+.cn-bar {
+  position: relative; z-index: 2; box-sizing: border-box; display: grid;
+  height: var(--cn-bar); grid-template-columns: 1fr auto 1fr; align-items: center;
+  padding: 0 var(--cn-inset);
+}
+.cn-menu-btn {
+  grid-column: 1; grid-row: 1;
+  display: inline-flex; height: calc(var(--cn-bar) - var(--cn-inset)*2); cursor: pointer;
+  align-items: center; gap: 10px; justify-self: start; border-radius: calc(var(--cn-radius) - var(--cn-inset));
+  border: 0; padding: 0 16px; background: none; font-family: var(--font-body);
+  font-size: 15px; font-weight: 600; color: var(--cn-text); outline: none;
+  transition: background-color 0.2s ease; text-transform: uppercase;
+}
+.cn-menu-btn:hover { background: var(--cn-hover); }
+.cn-burger { position: relative; height: 12px; width: 18px; }
+.cn-line {
+  position: absolute; left: 0; height: 1.5px; width: 100%; border-radius: 2px;
+  background: currentColor; transition: top 0.5s var(--ease-spring), transform 0.5s var(--ease-spring);
+}
+.cn-line-top { top: 2px; }
+.cn-line-bottom { top: 8px; }
+.cn-root[data-open] .cn-line-top { top: 5px; transform: rotate(45deg); }
+.cn-root[data-open] .cn-line-bottom { top: 5px; transform: rotate(-45deg); }
+
+.cn-menu-label { position: relative; display: inline-grid; overflow: hidden; height: 18px; line-height: 18px; }
+.cn-word-open, .cn-word-close { grid-area: 1/1; transition: transform 0.5s var(--ease-spring); }
+.cn-word-close { transform: translateY(110%); }
+.cn-root[data-open] .cn-word-open { transform: translateY(-110%); }
+.cn-root[data-open] .cn-word-close { transform: translateY(0); }
+
+.cn-logo {
+  grid-column: 2; grid-row: 1;
+  font-family: var(--font-display); font-size: 1.4rem; font-weight: 900;
+  letter-spacing: 0.1em; color: var(--white); justify-self: center; text-transform: uppercase;
+  text-decoration: none;
+}
+#nav-reg-wrap {
+  grid-column: 3; grid-row: 1; justify-self: end;
 }
 
-.site-header.is-scrolled {
-  background: rgba(5, 6, 10, 0.96) !important;
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border-bottom: 1px solid var(--blue) !important;
-  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.8), 0 0 15px rgba(10, 132, 255, 0.15);
+.cn-content {
+  visibility: hidden; position: absolute; left: 0; right: 0; top: var(--cn-bar);
+  box-sizing: border-box; display: flex; flex-direction: column; gap: var(--cn-gap);
+  padding: 0 var(--cn-inset) var(--cn-inset); perspective: 900px;
 }
-
-.nav-inner-container {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  width: 100%;
-  max-width: var(--max-w);
-  margin: 0 auto;
+.cn-root[data-shown] .cn-content { visibility: visible; }
+.cn-cards { display: flex; gap: var(--cn-gap); }
+.cn-card {
+  position: relative; box-sizing: border-box; display: flex; min-height: var(--cn-card);
+  min-width: 0; flex: 1 1 0; flex-direction: column; gap: 18px; transform-origin: top;
+  border-radius: calc(var(--cn-radius) - var(--cn-inset)); padding: 16px 16px 14px;
+  background: var(--cn-tile); box-shadow: var(--cn-tile-rim); color: var(--cn-text);
+  will-change: transform, opacity; opacity: 0;
 }
-
-.nav-link.is-active {
-  color: var(--white);
-  border-bottom: 2px solid var(--blue);
-  text-shadow: 0 0 8px var(--blue-glow);
-}
-
-/* Mobile Hamburger & Accessible Drawer */
-.nav-hamburger {
-  display: none;
-  background: transparent;
-  border: 1px solid rgba(10, 132, 255, 0.3);
-  padding: 0.55rem 0.65rem;
-  cursor: pointer;
-  flex-direction: column;
-  gap: 5px;
-  border-radius: 2px;
-  transition: border-color 0.2s ease, background 0.2s ease;
-}
-
-.nav-hamburger:hover, .nav-hamburger:focus-visible {
-  border-color: var(--blue);
-  background: rgba(10, 132, 255, 0.1);
-  outline: 2px solid var(--blue);
-}
-
-.hamburger-line {
-  display: block;
-  width: 22px;
-  height: 2px;
-  background: var(--white);
-  transition: transform 0.25s ease, opacity 0.25s ease;
-}
-
-.mobile-drawer {
-  position: fixed;
-  inset: 0;
-  z-index: 9999;
-  visibility: hidden;
-  pointer-events: none;
-  transition: visibility 0.3s ease;
-}
-
-.mobile-drawer.is-open {
-  visibility: visible;
-  pointer-events: auto;
-}
-
-.drawer-backdrop {
-  position: absolute;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.8);
-  backdrop-filter: blur(6px);
-  -webkit-backdrop-filter: blur(6px);
-  opacity: 0;
-  transition: opacity 0.3s ease;
-}
-
-.mobile-drawer.is-open .drawer-backdrop {
-  opacity: 1;
-}
-
-.drawer-panel {
-  position: absolute;
-  top: 0;
-  right: 0;
-  width: 82%;
-  max-width: 340px;
-  height: 100%;
-  background: #0B0D14;
-  border-left: 1px solid var(--blue);
-  box-shadow: -10px 0 40px rgba(0, 0, 0, 0.9), 0 0 20px rgba(10, 132, 255, 0.2);
-  display: flex;
-  flex-direction: column;
-  padding: 1.5rem;
-  transform: translateX(100%);
-  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
-  overflow-y: auto;
-}
-
-.mobile-drawer.is-open .drawer-panel {
-  transform: translateX(0);
-}
-
-.drawer-top-bar {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding-bottom: 1.2rem;
-  border-bottom: 1px solid rgba(10, 132, 255, 0.2);
-  margin-bottom: 1.5rem;
-}
-
-.drawer-brand {
-  font-family: var(--font-display);
-  font-size: 1.2rem;
-  font-weight: 800;
-  letter-spacing: 0.15em;
-  color: var(--white);
-}
-
-.drawer-close-btn {
-  background: transparent;
-  border: 1px solid rgba(255, 23, 68, 0.4);
-  color: var(--neon-red);
-  width: 36px;
-  height: 36px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  border-radius: 2px;
-  transition: background 0.2s ease, border-color 0.2s ease;
-}
-
-.drawer-close-btn:hover, .drawer-close-btn:focus-visible {
-  background: rgba(255, 23, 68, 0.15);
-  border-color: var(--neon-red);
-  outline: 2px solid var(--neon-red);
-}
-
-.drawer-links-list {
-  list-style: none;
-  display: flex;
-  flex-direction: column;
-  gap: 1.1rem;
-}
-
-.drawer-link {
-  font-family: var(--font-display);
-  font-size: 0.95rem;
-  font-weight: 700;
-  letter-spacing: 0.12em;
-  color: var(--white-muted);
-  display: block;
-  padding: 0.4rem 0;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
-  transition: color 0.2s ease, padding-left 0.2s ease;
-}
-
-.drawer-link:hover, .drawer-link:focus-visible {
-  color: var(--blue);
-  padding-left: 0.4rem;
-}
-
-.drawer-link.is-active {
-  color: var(--white);
-  border-left: 3px solid var(--blue);
-  padding-left: 0.6rem;
-}
-
-.drawer-footer-meta {
-  margin-top: auto;
-  padding-top: 2rem;
-  font-size: 0.8125rem; /* 13px */
-  color: var(--white-muted);
-  letter-spacing: 0.08em;
+.cn-card-head { display: flex; flex-direction: column; gap: 4px; }
+.cn-label { font-size: 18px; font-weight: 700; font-family: var(--font-display); letter-spacing: 1px; text-transform: uppercase; color: var(--blue-bright);}
+.cn-desc { margin: 0; font-size: 13px; line-height: 1.45; color: var(--cn-muted); font-family: var(--font-body); }
+.cn-links { margin: auto 0 0; display: flex; list-style: none; flex-direction: column; gap: 2px; padding: 0; }
+.cn-link {
+  display: inline-flex; cursor: pointer; align-items: center; gap: 8px; border-radius: 6px;
+  border: 0; padding: 3px 0; background: none; font-family: var(--font-body); font-size: 15px;
+  font-weight: 600; color: inherit; opacity: 0.82; transition: opacity 0.2s ease, color 0.2s;
   text-transform: uppercase;
 }
+.cn-link:hover { opacity: 1; color: var(--white); }
+.cn-link::before { content: '>'; color: var(--blue); font-family: monospace; font-weight: bold; opacity: 0; transform: translateX(-5px); transition: all 0.2s; }
+.cn-link:hover::before { opacity: 1; transform: translateX(0); }
 
-
-/* Common Subpage Hero (~45vh) */
-/* ==========================================================================
-   COMMON SUBPAGE HERO (~45vh)
-   ========================================================================== */
-.subpage-hero-section {
-  min-height: 44vh;
-  position: relative;
-  background: #000000;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  padding-top: 6rem;
-  padding-bottom: 3.5rem;
-  overflow: hidden;
+@media (max-width: 800px) {
+  .cn-bar { grid-template-columns: auto 1fr auto; }
+  .cn-logo { grid-column: 1; grid-row: 1; justify-self: start; padding-left: 12px; font-size: 1.2rem; }
+  #nav-reg-wrap { grid-column: 2; grid-row: 1; justify-self: center; }
+  .cn-menu-btn { grid-column: 3; grid-row: 1; justify-self: end; }
+  .cn-cards { flex-direction: column; }
+  .cn-card { min-height: 0; flex: none; gap: 10px; padding: 14px 14px 12px; }
+  .cn-links { flex-direction: row; flex-wrap: wrap; gap: 6px 16px; }
+  .cn-panel { max-height: calc(100vh - 1.5rem); overflow-y: auto; -webkit-overflow-scrolling: touch; }
 }
 
-.subpage-hero-vignette {
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(circle at 50% 40%, rgba(10, 132, 255, 0.07) 0%, #000000 80%);
-  pointer-events: none;
-}
-
-.subpage-hero-container {
-  position: relative;
-  z-index: 2;
-}
-
-.subpage-breadcrumb {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  font-family: var(--font-display);
-  font-size: 0.8125rem; /* 13px */
-  font-weight: 600;
-  letter-spacing: 0.06em;
-  color: var(--text-tertiary);
-  margin-bottom: 1.5rem;
-}
-
-.disabled-status-dot {
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: #FF9800;
-  box-shadow: 0 0 6px #FF9800;
-  display: inline-block;
-}
-
-/* Fallback Image Design */
-.is-fallback-image {
-  object-fit: cover;
-  background: #0B0D14;
-  border: 1px solid rgba(10, 132, 255, 0.25);
-}
-
-
-/* Category Color Coding & Badges */
-/* ==========================================================================
-   CATEGORY COLOR CODING & CARDS
-   ========================================================================== */
-.category-technical {
-  --cat-accent: var(--blue);
-  --cat-glow: var(--blue-glow);
-}
-
-.category-non-technical {
-  --cat-accent: #FFFFFF;
-  --cat-glow: rgba(255, 255, 255, 0.2);
-}
-
-.category-gaming {
-  --cat-accent: var(--neon-red);
-  --cat-glow: var(--neon-glow);
-}
-
-/* Category Pill Badges */
-.category-badge {
-  display: inline-block;
-  font-family: var(--font-display);
-  font-size: 0.8125rem; /* 13px */
-  font-weight: 800;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-  padding: 0.25rem 0.65rem;
-  border-radius: 1px;
-}
-
-.category-badge.cat-technical {
-  background: rgba(10, 132, 255, 0.12);
-  border: 1px solid var(--blue);
-  color: var(--blue);
-}
-
-.category-badge.cat-non-technical {
-  background: rgba(255, 255, 255, 0.08);
-  border: 1px solid rgba(255, 255, 255, 0.4);
-  color: var(--white);
-}
-
-.category-badge.cat-gaming {
-  background: rgba(255, 23, 68, 0.12);
-  border: 1px solid var(--neon-red);
-  color: var(--neon-red);
-}
-
-
-/* Accessible Event Modal Dialog */
-/* ==========================================================================
-   ACCESSIBLE EVENT MODAL DIALOG
-   ========================================================================== */
-.modal-overlay {
-  position: fixed;
-  inset: 0;
-  z-index: 10000;
-  background: rgba(0, 0, 0, 0.88);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 1.5rem;
-  opacity: 0;
-  visibility: hidden;
-  transition: opacity 0.3s ease, visibility 0.3s ease;
-}
-
-.modal-overlay.is-active {
-  opacity: 1;
-  visibility: visible;
-}
-
-.modal-window {
-  background: #0B0D14;
-  border: 1px solid var(--blue);
-  box-shadow: 0 0 50px rgba(0, 0, 0, 0.9), 0 0 30px rgba(10, 132, 255, 0.25);
-  max-width: 820px;
-  width: 100%;
-  max-height: 88vh;
-  display: flex;
-  flex-direction: column;
-  position: relative;
-  overflow: hidden;
-  transform: translateY(20px) scale(0.98);
-  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.modal-overlay.is-active .modal-window {
-  transform: translateY(0) scale(1);
-}
-
-.modal-header-bar {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 1.25rem 1.8rem;
-  border-bottom: 1px solid rgba(10, 132, 255, 0.2);
-  background: rgba(5, 6, 10, 0.95);
-}
-
-.modal-close-btn {
-  background: transparent;
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  color: var(--white);
-  width: 36px;
-  height: 36px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  border-radius: 2px;
-  transition: border-color 0.2s ease, background 0.2s ease, color 0.2s ease;
-}
-
-.modal-close-btn:hover, .modal-close-btn:focus-visible {
-  border-color: var(--neon-red);
-  color: var(--neon-red);
-  background: rgba(255, 23, 68, 0.1);
-  outline: 2px solid var(--neon-red);
-}
-
-.modal-body-scroll {
-  padding: 1.8rem;
-  overflow-y: auto;
-  display: flex;
-  flex-direction: column;
-  gap: 1.8rem;
-}
-
-.modal-poster-banner {
-  width: 100%;
-  aspect-ratio: 16 / 9;
-  max-height: 300px;
-  object-fit: cover;
-  border: 1px solid rgba(10, 132, 255, 0.25);
-}
-
-.modal-section-title {
-  font-family: var(--font-display);
-  font-size: 0.85rem;
-  font-weight: 700;
-  letter-spacing: 0.15em;
-  color: var(--blue);
-  text-transform: uppercase;
-  margin-bottom: 0.6rem;
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-}
-
-.modal-section-title::after {
-  content: '';
-  flex: 1;
-  height: 1px;
-  background: rgba(10, 132, 255, 0.2);
-}
-
-.modal-footer-action-bar {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 1.2rem 1.8rem;
-  border-top: 1px solid rgba(10, 132, 255, 0.2);
-  background: rgba(5, 6, 10, 0.98);
-  gap: 1rem;
-}
-
-
-/* Dev Audit HUD (?audit=1) */
-/* ==========================================================================
-   DEV AUDIT HUD (?audit=1)
-   ========================================================================== */
-.audit-hud-panel {
-  position: fixed;
-  bottom: 1.2rem;
-  left: 1.2rem;
-  z-index: 10050;
-  width: 320px;
-  background: #0B0D14;
-  border: 1px solid var(--blue);
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.9), 0 0 15px rgba(10, 132, 255, 0.2);
-  font-family: var(--font-body);
-  font-size: 0.875rem; /* 14px */
-  border-radius: 2px;
-  overflow: hidden;
-}
-
-.audit-hud-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0.65rem 0.9rem;
-  background: rgba(10, 132, 255, 0.15);
-  border-bottom: 1px solid rgba(10, 132, 255, 0.25);
-}
-
-.audit-title-wrap {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  color: var(--white);
-  font-family: var(--font-display);
-  font-size: 0.8125rem; /* 13px */
-  letter-spacing: 0.1em;
-}
-
-.audit-pulse-dot {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: var(--blue);
-  box-shadow: 0 0 8px var(--blue-glow);
-  animation: auditPulse 2s infinite ease-in-out;
-}
-
-@keyframes auditPulse {
-  0%, 100% { opacity: 1; transform: scale(1); }
-  50% { opacity: 0.4; transform: scale(0.85); }
-}
-
-.audit-close-btn {
-  background: transparent;
-  border: none;
-  color: var(--white-muted);
-  font-size: 1rem;
-  cursor: pointer;
-  padding: 0 0.4rem;
-}
-
-.audit-close-btn:hover {
-  color: var(--white);
-}
-
-.audit-hud-body {
-  padding: 0.9rem;
-}
-
-.audit-stat-strip {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 0.6rem;
-  margin-bottom: 0.9rem;
-}
-
-.audit-stat-box {
-  background: rgba(5, 6, 10, 0.8);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  padding: 0.5rem;
-  text-align: center;
-}
-
-.audit-stat-num {
-  display: block;
-  font-family: var(--font-display);
-  font-size: 1.15rem;
-  font-weight: 800;
-  color: var(--neon-red);
-}
-
-.audit-stat-lbl {
-  display: block;
-  font-size: 0.8125rem; /* 13px */
-  color: var(--white-muted);
-  letter-spacing: 0.08em;
-}
-
-.audit-files-list {
-  display: flex;
-  flex-direction: column;
-  gap: 0.4rem;
-  max-height: 160px;
-  overflow-y: auto;
-  margin-bottom: 0.9rem;
-}
-
-.audit-file-row {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0.35rem 0.5rem;
-  background: rgba(255, 255, 255, 0.03);
-  border-left: 2px solid var(--blue);
-}
-
-.audit-file-name {
-  font-family: monospace;
-  font-size: 0.8125rem; /* 13px */
-  color: var(--white);
-}
-
-.audit-file-count.count-pending {
-  color: var(--neon-red);
-  font-weight: 700;
-}
-
-.audit-file-count.count-done {
-  color: #00E676;
-}
-
-.btn-audit-copy {
-  width: 100%;
-  padding: 0.5rem;
-  background: var(--blue);
-  color: var(--white);
-  border: none;
-  font-family: var(--font-display);
-  font-size: 0.8125rem; /* 13px */
-  font-weight: 700;
-  letter-spacing: 0.1em;
-  cursor: pointer;
-  transition: opacity 0.2s ease;
-}
-
-.btn-audit-copy:hover {
-  opacity: 0.85;
-}
-
-/* Media Query overrides for mobile nav toggle */
-@media (max-width: 991px) {
-  .nav-menu-wrapper {
-    display: none !important;
-  }
-
-  .nav-hamburger {
+@media (max-width: 520px) {
+  #site-header { padding: 0.75rem 0 !important; }
+  #site-header.is-scrolled { padding: 0.5rem 0 !important; }
+  .cn-root { width: calc(100% - 1.5rem) !important; margin: 0 auto !important; }
+  #nav-reg-wrap { display: none !important; }
+  .cn-bar {
     display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    padding: 0 10px !important;
+    height: var(--cn-bar) !important;
   }
+  .cn-logo {
+    order: 1 !important;
+    grid-column: auto !important;
+    grid-row: auto !important;
+    justify-self: auto !important;
+    font-size: 1.15rem !important;
+    letter-spacing: 0.08em !important;
+    padding: 0 0 0 6px !important;
+    margin: 0 !important;
+    line-height: 1 !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    white-space: nowrap !important;
+    text-decoration: none !important;
+  }
+  .cn-menu-btn {
+    order: 2 !important;
+    grid-column: auto !important;
+    grid-row: auto !important;
+    justify-self: auto !important;
+    padding: 0 12px !important;
+    margin: 0 !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 8px !important;
+  }
+  .cn-panel {
+    max-height: calc(100dvh - 1.5rem) !important;
+    overflow-y: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+  }
+  .cn-cards { flex-direction: column !important; gap: 8px !important; }
+  .cn-card { padding: 12px !important; min-height: 0 !important; flex: none !important; gap: 8px !important; }
+  .cn-links { flex-direction: column !important; gap: 4px !important; }
+  .cn-link { padding: 6px 0 !important; min-height: 38px !important; }
 }
 
-
-
-/* Shared Responsive Layout & Footer Queries */
-@media (max-width: 1024px) {
-  .footer-grid {
-    grid-template-columns: 1fr 1fr;
-  }
+@media (max-width: 360px) {
+  .cn-logo { font-size: 1rem !important; letter-spacing: 0.05em !important; padding-left: 2px !important; }
+  .cn-menu-btn { padding: 0 8px !important; font-size: 13px !important; }
 }
-@media (max-width: 768px) {
-  .footer-grid {
-    grid-template-columns: 1fr;
-    gap: 2.5rem;
-  }
-  .footer-bottom-bar {
-    flex-direction: column;
-    gap: 1.2rem;
-    text-align: center;
-  }
-}
-/* ==== SHARED:BASE-CSS END ==== */
 
-/* ==== PAGE: CONTACT.HTML SPECIFIC CSS ==== */
+/* ==========================================================================
+   SPECULAR BUTTON (WebGL Hover Effect)
+   ========================================================================== */
+.specular-btn {
+  position: relative; display: inline-flex; align-items: center; justify-content: center;
+  border: 0; font-family: var(--font-display); font-weight: 700; letter-spacing: 0.1em;
+  border-radius: var(--sb-radius, 14px);
+  background: rgba(10, 132, 255, 0.05); /* Fallback */
+  box-shadow: 0 10px 24px -14px rgba(0,0,0,0.45);
+  backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+  cursor: pointer; outline: none; -webkit-tap-highlight-color: transparent;
+  transition: transform 0.25s cubic-bezier(0.2,0.8,0.2,1);
+  color: #ffffff; text-transform: uppercase; margin: 0; padding: 0;
+}
+.specular-btn:active { transform: scale(0.96); }
+.specular-btn canvas {
+  position: absolute; top: -24px; left: -24px; z-index: 1; display: block;
+  width: calc(100% + 48px); height: calc(100% + 48px); pointer-events: none;
+}
+.specular-text { position: relative; z-index: 2; display: inline-flex; align-items: center; gap: 8px; }
+.specular-btn.size-sm { padding: 10px 20px; font-size: 0.85rem; }
+.specular-btn.size-md { padding: 14px 28px; font-size: 1rem; }
+.specular-btn.size-lg { padding: 16px 34px; font-size: 1.1rem; }
+
+/* ==========================================================================
+   SPOTLIGHT CARDS (Mouse-tracking Glowing Borders)
+   ========================================================================== */
+.spotlight-card {
+  background: rgba(11, 13, 20, 0.6);
+  border-radius: 16px;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 24px 48px -24px rgba(0,0,0,0.8);
+}
+.spotlight-card::before {
+  content: ""; position: absolute; inset: 0; border-radius: inherit; padding: 1px;
+  background: radial-gradient(400px circle at var(--mouse-x, 0) var(--mouse-y, 0), rgba(10, 132, 255, 0.8), transparent 40%);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor; mask-composite: exclude; pointer-events: none;
+}
+.spotlight-card::after {
+  content: ""; position: absolute; inset: 0; border-radius: inherit;
+  background: radial-gradient(400px circle at var(--mouse-x, 0) var(--mouse-y, 0), rgba(10, 132, 255, 0.1), transparent 40%);
+  pointer-events: none; z-index: 0; opacity: 0; transition: opacity 0.3s;
+}
+.spotlight-card:hover::after { opacity: 1; }
+.spotlight-card > * { position: relative; z-index: 2; }
+
+/* Subpage Hero */
+.subpage-hero-section {
+  padding: 10rem 0 4rem;
+  background: radial-gradient(circle at 50% 100%, rgba(10, 132, 255, 0.1) 0%, transparent 60%);
+  text-align: center; position: relative;
+}
+.subpage-breadcrumb {
+  font-family: var(--font-display); font-size: 0.85rem; font-weight: 700;
+  letter-spacing: 0.15em; color: var(--blue); margin-bottom: 1rem;
+  display: inline-flex; align-items: center; gap: 0.5rem; text-transform: uppercase;
+}
+.subpage-breadcrumb a {
+  color: var(--blue); text-decoration: none; transition: color 0.2s ease;
+}
+.subpage-breadcrumb a:hover {
+  color: var(--white); text-decoration: underline;
+}
+.subpage-hero-subtitle { margin: 1.5rem auto 0; font-size: 1.15rem; color: var(--text-secondary); font-weight: 400; max-width: 600px; }
+
+.btn-disabled {
+  background: rgba(255,255,255,0.05);
+  border: 1px dashed rgba(255,255,255,0.2);
+  color: var(--text-tertiary);
+  cursor: not-allowed;
+  border-radius: 12px;
+  padding: 14px 28px;
+  font-family: var(--font-display);
+  font-size: 1rem;
+}
+
 /* ==========================================================================
    CONTACT PAGE STYLING (contact.html)
-   Overview Grid, Map Area, Inquiry Form, Coordinators Directory, FAQ
    ========================================================================== */
+.contact-portal-main { padding-bottom: 6rem; }
+.tier-header-bar { margin-bottom: 1.5rem; border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 0.5rem; }
+.tier-tag { font-family: var(--font-display); font-size: 0.8rem; font-weight: 700; letter-spacing: 0.2em; color: var(--blue-bright); text-transform: uppercase; display: block; margin-bottom: 0.5rem; }
+.tier-title { font-family: var(--font-display); font-size: clamp(1.3rem, 5vw, 2.2rem); font-weight: 800; color: var(--white); text-transform: uppercase; margin: 0; overflow-wrap: break-word; }
+.head-group-title { font-family: var(--font-display); font-size: 1.1rem; color: var(--blue-bright); margin-bottom: 1.2rem; letter-spacing: 0.1em; text-transform: uppercase; border-left: 3px solid var(--blue); padding-left: 0.8rem; }
 
-.contact-portal-main {
-  padding-top: 3.5rem;
-  padding-bottom: 6rem;
-  background: #05060A;
-}
+.contact-overview-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2.5rem; margin-bottom: 4.5rem; }
 
-.contact-overview-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 2.5rem;
-  margin-bottom: 4.5rem;
-}
+/* Content within Spotlight Cards */
+.spotlight-card.contact-card-box { padding: 2.5rem; display: flex; flex-direction: column; }
+.contact-box-title { font-family: var(--font-display); font-size: 1.6rem; font-weight: 800; color: var(--white); margin: 0.5rem 0 1rem; text-transform: uppercase;}
+.contact-box-desc { font-family: var(--font-body); font-size: 1rem; color: var(--text-secondary); line-height: 1.6; margin-bottom: 2rem; }
 
-.contact-card-box {
-  background: #0B0D14;
-  border: 1px solid rgba(10, 132, 255, 0.25);
-  padding: 2.5rem;
-  display: flex;
-  flex-direction: column;
-  position: relative;
-}
+.contact-meta-items { display: flex; flex-direction: column; gap: 1.4rem; margin-bottom: 2.5rem; }
+.contact-meta-entry { border-left: 2px solid var(--blue); padding-left: 1.2rem; }
+.contact-meta-entry .meta-label { font-family: var(--font-display); font-size: 0.8rem; font-weight: 700; color: var(--blue-bright); text-transform: uppercase; display: block; margin-bottom: 0.25rem; letter-spacing: 0.1em;}
+.contact-meta-entry .meta-val { font-family: var(--font-body); font-size: 1.05rem; color: var(--white); font-weight: 600; }
+.coord-link { color: var(--white); text-decoration: none; transition: color 0.2s; border-bottom: 1px solid rgba(255,255,255,0.2); }
+.coord-link:hover { color: var(--blue-bright); border-color: var(--blue-bright); }
 
-.card-tag-header {
-  margin-bottom: 1.2rem;
+.contact-social-strip { display: flex; gap: 0.8rem; flex-wrap: wrap; margin-top: auto; padding-top: 1.5rem; border-top: 1px dashed rgba(255, 255, 255, 0.1); }
+.social-pill {
+  font-family: var(--font-display); font-size: 0.85rem; font-weight: 700; padding: 0.5rem 1.2rem;
+  background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 100px;
+  color: var(--text-secondary); transition: all 0.2s ease; cursor: pointer; text-decoration: none;
 }
+.social-pill:hover { background: var(--blue); color: var(--white); border-color: var(--blue); }
 
-.contact-box-title {
-  font-family: var(--font-display);
-  font-size: 1.4rem;
-  font-weight: 800;
-  letter-spacing: 0.06em;
-  color: var(--white);
-  margin-top: 0.3rem;
-}
+.contact-address-block { margin-bottom: 1.5rem; }
+.address-title { font-family: var(--font-display); font-size: 1.2rem; font-weight: 800; color: var(--white); margin-bottom: 0.4rem; text-transform: uppercase; }
+.address-line { font-family: var(--font-body); font-size: 1rem; color: var(--text-secondary); line-height: 1.5; }
 
-.contact-box-desc {
-  font-size: 0.92rem;
-  color: var(--white-muted);
-  line-height: 1.6;
-  margin-bottom: 2rem;
-}
+.map-frame-wrapper { width: 100%; height: 320px; background: #000; border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 12px; overflow: hidden; position: relative; display: flex; align-items: center; justify-content: center; }
+.map-iframe { width: 100%; height: 100%; border: none; filter: invert(90%) hue-rotate(180deg); /* gives google maps a dark tech look */ }
 
-.contact-meta-items {
-  display: flex;
-  flex-direction: column;
-  gap: 1.4rem;
-  margin-bottom: 2rem;
-}
-
-.contact-meta-entry {
-  border-left: 2px solid var(--blue);
-  padding-left: 1.2rem;
-}
-
-.contact-meta-entry .meta-label {
-  font-size: 0.8125rem; /* 13px */
-  font-weight: 700;
-  letter-spacing: 0.12em;
-  color: var(--blue);
-  text-transform: uppercase;
-  display: block;
-  margin-bottom: 0.25rem;
-}
-
-.contact-meta-entry .meta-val {
-  font-size: 0.95rem;
-  color: var(--white);
-  font-weight: 600;
-}
-
-.contact-social-strip {
-  display: flex;
-  gap: 0.65rem;
-  flex-wrap: wrap;
-  margin-top: auto;
-  padding-top: 1.5rem;
-  border-top: 1px solid rgba(255, 255, 255, 0.06);
-}
-
-.contact-address-block {
-  margin-bottom: 1.5rem;
-}
-
-.address-title {
-  font-family: var(--font-display);
-  font-size: 1.05rem;
-  font-weight: 700;
-  color: var(--white);
-  margin-bottom: 0.3rem;
-}
-
-.address-line {
-  font-size: 0.88rem;
-  color: var(--white-muted);
-  line-height: 1.5;
-}
-
-.map-frame-wrapper {
-  width: 100%;
-  height: 260px;
-  background: #05060A;
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  overflow: hidden;
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.map-iframe {
-  width: 100%;
-  height: 100%;
-  border: none;
-}
-
-.map-placeholder-card {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  padding: 1.5rem;
-  background: radial-gradient(circle at center, rgba(10, 132, 255, 0.05) 0%, #05060A 80%);
-}
-
-.map-grid-graphic {
-  color: var(--blue);
-  margin-bottom: 0.8rem;
-}
-
-.map-ph-title {
-  font-family: var(--font-display);
-  font-size: 1rem;
-  font-weight: 800;
-  letter-spacing: 0.1em;
-  color: var(--white);
-  margin-bottom: 0.4rem;
-}
-
-.map-ph-desc {
-  font-size: 0.82rem;
-  color: var(--white-muted);
-  line-height: 1.5;
-  margin-bottom: 1rem;
-  max-width: 320px;
-}
-
-.map-external-link {
-  font-size: 0.8125rem; /* 13px */
-  padding: 0.5rem 1rem;
-}
+.map-placeholder-card { width: 100%; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 1.5rem; background: radial-gradient(circle at center, rgba(10, 132, 255, 0.05) 0%, #05060A 80%); }
+.map-grid-graphic { color: var(--text-tertiary); margin-bottom: 1rem; opacity: 0.5;}
+.map-ph-title { font-family: var(--font-display); font-size: 1.2rem; font-weight: 800; color: var(--white); margin-bottom: 0.5rem; letter-spacing: 0.05em; text-transform: uppercase; }
+.map-ph-desc { font-family: var(--font-body); font-size: 0.95rem; color: var(--text-secondary); line-height: 1.5; margin-bottom: 1.5rem; max-width: 320px; }
+.badge-tba { padding: 4px 10px; background: rgba(255,152,0,0.2); color: #FF9800; border: 1px solid #FF9800; border-radius: 100px; font-family: var(--font-display); font-size: 0.75rem; font-weight: 700; letter-spacing: 0.1em; }
 
 /* Inquiry Form */
-.inquiry-section-block,
-.coordinators-section-block,
-.faq-section-block {
-  margin-bottom: 4.5rem;
-}
+.inquiry-section-block, .coordinators-section-block, .faq-section-block { margin-bottom: 5.5rem; }
 
-.inquiry-form-card {
-  background: #0B0D14;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  padding: 2.5rem;
-  max-width: 820px;
-}
+.spotlight-card.inquiry-form-card { padding: 2.5rem; max-width: 820px; }
+.form-row-2col { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+.form-group { margin-bottom: 1.5rem; }
+.form-label { display: block; font-family: var(--font-display); font-size: 0.85rem; font-weight: 700; color: var(--white); margin-bottom: 0.5rem; letter-spacing: 0.1em; }
+.form-input, .form-textarea { width: 100%; background: rgba(0,0,0,0.5); border: 1px solid rgba(255,255,255,0.1); color: var(--white); font-family: var(--font-body); font-size: 1rem; padding: 0.8rem 1rem; border-radius: 8px; transition: border-color 0.3s; }
+.form-input:focus, .form-textarea:focus { outline: none; border-color: var(--blue); box-shadow: 0 0 15px var(--blue-glow); }
+.form-input.is-invalid, .form-textarea.is-invalid { border-color: var(--neon-red); }
+.form-error-msg { display: block; color: var(--neon-red); font-size: 0.8rem; margin-top: 0.4rem; font-family: var(--font-body); }
+.inquiry-action-row { display: flex; align-items: center; gap: 1.5rem; flex-wrap: wrap; margin-top: 2rem; }
+.inquiry-form-note { font-family: var(--font-body); font-size: 0.9rem; color: var(--text-tertiary); font-style: italic; }
 
-.form-row-2col {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 1.5rem;
-}
+.register-success-panel { text-align: center; padding: 2rem 1rem; }
+.success-icon-wrap { margin-bottom: 1rem; }
+.success-heading { font-family: var(--font-display); font-size: 1.6rem; color: var(--white); margin-bottom: 0.5rem; }
+.success-subtext { font-family: var(--font-body); color: var(--text-secondary); margin-bottom: 2rem; }
 
-.inquiry-action-row {
-  display: flex;
-  align-items: center;
-  gap: 1.5rem;
-  flex-wrap: wrap;
-  margin-top: 1.2rem;
+/* Event Coordinators Grid */
+.events-coordinators-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 1.8rem; margin-bottom: 3rem;}
+.spotlight-card.event-coord-card {
+  padding: 1.6rem; display: flex; flex-direction: column; 
 }
-
-.inquiry-form-note {
-  font-size: 0.875rem; /* 14px */
-  color: var(--white-muted);
-  letter-spacing: 0.04em;
+.coord-card-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1rem; }
+.coord-card-role { font-family: var(--font-display); font-size: 0.75rem; font-weight: 700; letter-spacing: 0.1em; color: var(--blue-bright); text-transform: uppercase; }
+.coord-card-name { font-family: var(--font-display); font-size: 1.25rem; font-weight: 800; color: var(--white); letter-spacing: 0.04em; margin: 0 0 1rem 0; text-transform: uppercase; }
+.coord-card-details { font-family: var(--font-body); font-size: 0.95rem; color: var(--text-secondary); display: flex; flex-direction: column; gap: 0.4rem; }
+.coord-card-details span { font-weight: 600; color: var(--white-muted); }
+.category-badge {
+  font-family: var(--font-display); font-size: 0.75rem; font-weight: 700;
+  letter-spacing: 0.1em; text-transform: uppercase; padding: 0.3rem 0.8rem;
+  border-radius: 100px; backdrop-filter: blur(4px);
+  background: rgba(10, 132, 255, 0.9); color: #fff;
 }
+.cat-gaming { background: rgba(255, 23, 68, 0.9); }
+.cat-non-technical { background: rgba(255, 255, 255, 0.9); color: #000; }
 
-/* Event Coordinators Directory Grid */
-.events-coordinators-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap: 1.8rem;
+/* ==========================================================================
+   CSS 3D FAQ FOLDER (Fanning Document Cards - HORIZONTAL ROW)
+   ========================================================================== */
+.faq-folder-wrapper {
+  perspective: 1200px; width: 100%; max-width: 1000px; height: 260px; margin: 2.5rem auto 3rem; position: relative; z-index: 10;
+  display: flex; justify-content: center; align-items: flex-end; padding-bottom: 20px;
+  transition: height 0.6s var(--ease-spring);
 }
-
-.event-coord-card {
-  background: #0B0D14;
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  padding: 1.6rem;
-  display: flex;
-  flex-direction: column;
-  transition: transform 0.25s ease, border-color 0.25s ease;
+.faq-folder-wrapper.is-open { height: 520px; }
+.faq-folder {
+  width: 280px; height: 180px; position: relative; transform-style: preserve-3d; cursor: pointer; z-index: 20;
 }
-
-.event-coord-card:hover {
-  transform: translateY(-3px);
-  border-color: var(--blue);
+.folder-back {
+  position: absolute; inset: 0; background: linear-gradient(180deg, rgba(38, 35, 46, 0.9), #0B0D14);
+  border-radius: 0 16px 16px 16px; border: 1px solid rgba(255,255,255,0.15); transform: translateZ(-10px); box-shadow: 0 20px 40px rgba(0,0,0,0.8);
 }
-
-.coord-card-top {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 0.8rem;
+.folder-back::before {
+  content: "KNOWLEDGE BASE"; position: absolute; top: -36px; left: -1px; width: 200px; height: 36px;
+  background: rgba(38, 35, 46, 0.9); border-radius: 12px 12px 0 0; border: 1px solid rgba(255,255,255,0.15);
+  border-bottom: none; display: flex; align-items: center; justify-content: center;
+  font-family: var(--font-display); font-size: 0.8rem; font-weight: 700; color: var(--blue-bright); letter-spacing: 0.1em;
 }
-
-.coord-card-role {
-  font-size: 0.8125rem; /* 13px */
-  font-weight: 700;
-  letter-spacing: 0.1em;
-  color: var(--white-muted);
-  text-transform: uppercase;
+.folder-front {
+  position: absolute; inset: 0; background: rgba(10, 132, 255, 0.15); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(10, 132, 255, 0.4); border-radius: 16px; transform-origin: bottom center;
+  transform: translateZ(10px) rotateX(0deg); transition: transform 0.8s var(--ease-spring);
+  display: flex; align-items: center; justify-content: center; box-shadow: inset 0 1px 0 rgba(255,255,255,0.2), 0 -4px 20px rgba(0,0,0,0.3); z-index: 20;
 }
+.folder-front-logo { font-family: var(--font-display); font-size: 1.8rem; color: var(--white); opacity: 0.4; letter-spacing: 0.2em; font-weight: 900;}
+.faq-folder.is-open .folder-front { transform: translateZ(10px) rotateX(-75deg); }
 
-.coord-card-name {
-  font-family: var(--font-display);
-  font-size: 1.15rem;
-  font-weight: 800;
-  color: var(--white);
-  letter-spacing: 0.04em;
-  margin-bottom: 0.9rem;
+.folder-paper-stack { position: absolute; inset: 10px; bottom: 20px; transform-style: preserve-3d; z-index: 15; pointer-events: none;}
+.faq-folder.is-open .folder-paper-stack { pointer-events: auto; }
+.faq-paper {
+  position: absolute; 
+  left: 50%; bottom: 10px; margin-left: -90px;
+  width: 180px; height: 110px; 
+  background: #FFFFFF; border-radius: 12px; padding: 1.25rem;
+  border: 1px solid rgba(10, 132, 255, 0.4);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.5); transform-origin: center center;
+  transition: transform 0.6s var(--ease-spring), box-shadow 0.3s, border-color 0.3s, opacity 0.3s;
+  display: flex; align-items: center; justify-content: center;
+  transform: translate3d(var(--tx, 0px), var(--ty, 0px), var(--tz, 0px)) scale(1);
 }
-
-.coord-card-details {
-  font-size: 0.8rem;
-  color: var(--white-muted);
-  display: flex;
-  flex-direction: column;
-  gap: 0.35rem;
+.faq-folder.is-open .faq-paper { cursor: pointer; }
+.faq-folder.is-open .faq-paper:hover,
+.faq-folder.is-open .faq-paper:focus-visible,
+.faq-folder.is-open .faq-paper:active { 
+  border-color: var(--neon-red); 
+  box-shadow: 0 10px 25px rgba(255, 23, 68, 0.4), inset 0 0 0 1px var(--neon-red); 
+  transform: translate3d(var(--tx, 0px), calc(var(--ty, 0px) - 15px), var(--tz, 0px)) scale(1.05); 
+  z-index: 50 !important;
 }
-
-/* FAQ Accordion */
-.faq-accordion-container {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-}
-
-.faq-accordion-item {
-  background: #0B0D14;
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  transition: border-color 0.25s ease, background 0.25s ease;
-}
-
-.faq-accordion-item.is-active {
-  border-color: var(--blue);
-  background: rgba(10, 132, 255, 0.03);
-}
-
-.faq-question-btn {
+.faq-paper-q { 
+  font-family: var(--font-body); font-size: 0.9rem; font-weight: 600; line-height: 1.4; 
+  text-align: center; color: var(--black); pointer-events: none;
+  display: -webkit-box; -webkit-line-clamp: 4; -webkit-box-orient: vertical; overflow: hidden;
   width: 100%;
-  background: transparent;
-  border: none;
-  padding: 1.3rem 1.6rem;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  text-align: left;
-  cursor: pointer;
-  color: var(--white);
-  font-family: var(--font-display);
-  font-size: 1.05rem;
-  font-weight: 700;
-  letter-spacing: 0.04em;
-  transition: color 0.2s ease;
 }
 
-.faq-question-btn:hover {
-  color: var(--blue);
+/* FAQ Modal */
+.modal-overlay {
+  position: fixed; inset: 0; z-index: 10000; background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(0px); -webkit-backdrop-filter: blur(0px);
+  display: flex; align-items: center; justify-content: center; padding: 1rem;
+  opacity: 0; visibility: hidden; transition: backdrop-filter 0.4s ease, opacity 0.4s ease, visibility 0.4s;
 }
+.modal-overlay.is-active { opacity: 1; visibility: visible; backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); }
+.modal-window {
+  background: var(--surface); border: 1px solid rgba(10, 132, 255, 0.3); border-radius: 20px;
+  box-shadow: 0 25px 50px -12px rgba(0,0,0,0.8), 0 0 30px rgba(10, 132, 255, 0.15);
+  max-width: 800px; width: 100%; max-height: 85vh; display: flex; flex-direction: column; overflow: hidden;
+  opacity: 0; transform: scale(0.95) translateY(20px); transition: all 0.5s var(--ease-spring);
+}
+.modal-overlay.is-active .modal-window { opacity: 1; transform: scale(1) translateY(0); }
+.modal-header-bar { display: flex; justify-content: space-between; align-items: flex-start; padding: 1.5rem; background: rgba(255,255,255,0.02); border-bottom: 1px solid rgba(255,255,255,0.05); gap: 1rem;}
+.modal-title { font-family: var(--font-body); font-size: 1.3rem; font-weight: 700; color: var(--white); margin: 0; line-height: 1.4; }
+.modal-close-btn {
+  background: rgba(255,255,255,0.05); border: none; color: var(--white); font-size: 1.5rem; flex-shrink: 0;
+  width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.2s;
+}
+.modal-close-btn:hover { background: var(--neon-red); transform: rotate(90deg); }
+.modal-body-scroll { padding: 1.5rem; overflow-y: auto; font-family: var(--font-body); font-size: 1.05rem; line-height: 1.7; color: var(--text-secondary); }
 
-.faq-toggle-icon {
-  font-size: 1.4rem;
-  color: var(--blue);
-  font-weight: 400;
-  margin-left: 1rem;
-}
-
-.faq-answer-panel {
-  padding: 0 1.6rem 1.4rem 1.6rem;
-  font-size: 0.92rem;
-  line-height: 1.7;
-  color: var(--white-muted);
-}
+/* Footer */
+.site-footer { background: #020306; padding: 5rem 0 2rem; border-top: 1px solid rgba(255,255,255,0.05); margin-top: auto; }
+.footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 3rem; margin-bottom: 4rem; }
+.footer-brand { font-family: var(--font-display); font-size: 1.8rem; font-weight: 900; color: var(--white); margin-bottom: 1rem; display: block; letter-spacing: 0.1em; }
+.footer-col-title { font-family: var(--font-display); color: var(--white); margin-bottom: 1.2rem; font-size: 1.2rem; font-weight: 700; text-transform: uppercase; }
+.footer-nav-list { list-style: none; display: flex; flex-direction: column; gap: 0.75rem; }
+.footer-nav-list a { font-family: var(--font-body); font-weight: 500; color: var(--text-secondary); transition: color 0.2s; font-size: 1rem; }
+.footer-nav-list a:hover { color: var(--blue); }
+.footer-contact-line { font-family: var(--font-body); font-size: 1rem; color: var(--text-secondary); margin-bottom: 0.5rem; }
+.footer-bottom-bar { display: flex; justify-content: space-between; align-items: center; border-top: 1px solid rgba(255,255,255,0.05); padding-top: 2rem; font-family: var(--font-body); font-size: 0.9rem; color: var(--text-tertiary); }
+.back-to-top { display: inline-flex; align-items: center; gap: 0.5rem; font-family: var(--font-display); font-weight: 700; color: var(--text-secondary); transition: color 0.2s; cursor: pointer;}
+.back-to-top:hover { color: var(--blue); }
 
 @media (max-width: 900px) {
-  .contact-overview-grid {
-    grid-template-columns: 1fr;
-  }
+  .contact-overview-grid { grid-template-columns: 1fr; }
+  .footer-grid { grid-template-columns: 1fr 1fr; }
 }
 
-@media (max-width: 640px) {
-  .form-row-2col {
-    grid-template-columns: 1fr;
-  }
-  .inquiry-form-card {
-    padding: 1.6rem;
-  }
+@media (max-width: 768px) {
+  #site-header { padding: 1rem 0; }
+  .subpage-hero-section { padding: 9rem 0 3rem; }
+  .display-title { font-size: 2.2rem; }
+  .form-row-2col { grid-template-columns: 1fr; }
+  .events-coordinators-grid { grid-template-columns: 1fr; gap: 1.25rem; }
+  
+  .footer-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+  .footer-bottom-bar { flex-direction: column; gap: 1.5rem; text-align: center; }
+  
+  .faq-folder-wrapper { height: 240px; margin-top: 2rem; }
+  .faq-folder-wrapper.is-open { height: 720px; }
+  .faq-paper { width: 140px; height: 100px; margin-left: -70px; padding: 0.75rem; }
+  .faq-paper-q { font-size: 0.75rem; }
+  .modal-window { max-height: 90vh; border-radius: 12px; }
+}
+@media (max-width: 420px) {
+  .faq-folder { width: 250px; height: 160px; }
+  .faq-paper { width: 120px; height: 90px; margin-left: -60px; padding: 0.5rem; }
+  .faq-paper-q { font-size: 0.7rem; }
 }
   </style>
 </head>
 <body class="page-contact">
 
-  <!-- Keyboard Accessibility: Skip Link -->
   <a href="#contact-main" class="skip-link">Skip to main content</a>
 
-  <!-- Shared Global Navigation (Injected by js/components.js) -->
-  <div id="site-nav"></div>
+  <!-- Animated CardNav Navigation -->
+  <header id="site-header">
+    <div class="cn-root" id="card-nav">
+      <nav class="cn-panel">
+        <div class="cn-bar">
+          
+          <button type="button" class="cn-menu-btn" aria-expanded="false">
+            <span class="cn-burger">
+              <span class="cn-line cn-line-top"></span>
+              <span class="cn-line cn-line-bottom"></span>
+            </span>
+            <span class="cn-menu-label">
+              <span class="cn-word-open">MENU</span>
+              <span class="cn-word-close">CLOSE</span>
+            </span>
+          </button>
 
-  <!-- Common Subpage Hero (Injected by js/components.js) -->
-  <section id="contact-hero" class="subpage-hero-section" role="region" aria-label="Contact Page Header">
-    <div class="subpage-hero-vignette" aria-hidden="true"></div>
-    <div class="section-container subpage-hero-container">
-      <nav class="subpage-breadcrumb" aria-label="Breadcrumb">
-        <a href="index.html" class="breadcrumb-item">HOME</a>
-        <span class="breadcrumb-separator">/</span>
-        <span class="breadcrumb-current" aria-current="page">CONTACT</span>
+          <a href="index.html" class="cn-logo">ALODANAX</a>
+
+          <div style="justify-self: end;" id="nav-reg-wrap">
+            <a href="#contact-main" class="specular-btn size-sm" data-tint="#0A84FF" data-radius="8">
+              <canvas aria-hidden="true"></canvas><span class="specular-text">DISPATCH</span>
+            </a>
+          </div>
+        </div>
+
+        <div class="cn-content">
+          <div class="cn-cards">
+            <div class="cn-card">
+              <div class="cn-card-head">
+                <span class="cn-label">Home</span>
+                <p class="cn-desc">Return to the main terminal.</p>
+              </div>
+              <ul class="cn-links">
+                <li><a href="index.html" class="cn-link">Go to Home</a></li>
+                <li><a href="index.html#about" class="cn-link">About TechFest</a></li>
+              </ul>
+            </div>
+            
+            <div class="cn-card">
+              <div class="cn-card-head">
+                <span class="cn-label">Arenas</span>
+                <p class="cn-desc">Competitive events & hackathons.</p>
+              </div>
+              <ul class="cn-links">
+                <li><a href="events.html" class="cn-link">All Events</a></li>
+                <li><a href="hackathon.html" class="cn-link">24H Hackathon</a></li>
+              </ul>
+            </div>
+            
+            <div class="cn-card">
+              <div class="cn-card-head">
+                <span class="cn-label">Connect</span>
+                <p class="cn-desc">Meet the team & faculty.</p>
+              </div>
+              <ul class="cn-links">
+                <li><a href="team.html" class="cn-link">Our Team</a></li>
+                <li><a href="contact.html" class="cn-link">Contact Us</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <span class="cn-rim"></span>
       </nav>
-      <h1 class="subpage-hero-title display-title">
-        <span class="title-solid">GET IN</span>
-        <span class="title-outline">TOUCH</span>
+    </div>
+  </header>
+
+  <!-- Subpage Hero -->
+  <section id="contact-hero" class="subpage-hero-section">
+    <div class="section-container">
+      <nav class="subpage-breadcrumb" aria-label="Breadcrumb">
+        <a href="index.html">HOME</a>
+        <span style="color:var(--text-tertiary)">/</span>
+        <span>CONTACT</span>
+      </nav>
+      <h1 class="display-title" style="justify-content:center;">
+        <span class="title-solid">GET IN</span> <span class="title-outline">TOUCH</span>
       </h1>
-      <p class="subpage-hero-subtitle">Connect with festival coordinators, dispatch official inquiries, explore campus location, and find answers to common questions.</p>
+      <p class="subpage-hero-subtitle">Connect with festival coordinators, dispatch official inquiries, explore campus location, and extract knowledge base files.</p>
     </div>
   </section>
 
@@ -1441,17 +641,14 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
   <main id="contact-main" class="site-main contact-portal-main">
     <div class="section-container">
 
-      <!-- Section 1: Official Contacts & College Location Grid -->
-      <section class="contact-overview-grid" aria-label="Official College and Festival Contacts">
-        <!-- Official Details Card -->
-        <div class="contact-card-box">
+      <!-- Section 1: Contacts & Map -->
+      <section class="contact-overview-grid">
+        <div class="spotlight-card contact-card-box">
           <div class="card-tag-header">
             <span class="tier-tag">DIRECT LIAISON</span>
             <h2 class="contact-box-title">OFFICIAL CONTACTS</h2>
           </div>
-          <p class="contact-box-desc">
-            For institutional collaborations, sponsorship inquiries, press accreditation, and general fest information.
-          </p>
+          <p class="contact-box-desc">For institutional collaborations, sponsorship inquiries, press accreditation, and general fest information.</p>
 
           <div class="contact-meta-items">
             <div class="contact-meta-entry">
@@ -1467,15 +664,10 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
               <div id="official-venue-val" class="meta-val">[VENUE TBA]</div>
             </div>
           </div>
-
-          <!-- Social Links Strip -->
-          <div class="contact-social-strip" id="contact-socials-wrap">
-            <!-- Populated from site.js socials -->
-          </div>
+          <div class="contact-social-strip" id="contact-socials-wrap"></div>
         </div>
 
-        <!-- Campus Location & Map Box -->
-        <div class="contact-card-box" id="map-container-box">
+        <div class="spotlight-card contact-card-box" id="map-container-box">
           <div class="card-tag-header">
             <span class="tier-tag">CAMPUS LOCATION</span>
             <h2 class="contact-box-title">FIND OUR VENUE</h2>
@@ -1484,1657 +676,740 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
             <p id="college-full-title" class="address-title">[DEPARTMENT, COLLEGE]</p>
             <p id="college-address" class="address-line">[CAMPUS ADDRESS, CITY, STATE, PIN]</p>
           </div>
-
-          <!-- Map Render Area: iframe if embedUrl exists, else graceful designed panel -->
-          <div class="map-frame-wrapper" id="map-frame-area">
-            <!-- Populated dynamically via js/contact-page.js -->
-          </div>
+          <div class="map-frame-wrapper" id="map-frame-area"></div>
         </div>
       </section>
 
-      <!-- Section 2: General Inquiry Form (Honeypot + Endpoint Detection) -->
-      <section class="inquiry-section-block" aria-labelledby="heading-inquiry">
+      <!-- Section 2: Inquiry Form -->
+      <section class="inquiry-section-block">
         <div class="tier-header-bar">
           <span class="tier-tag">COMMUNICATIONS</span>
-          <h2 id="heading-inquiry" class="tier-title">TRANSMIT AN INQUIRY</h2>
+          <h2 class="tier-title">TRANSMIT AN INQUIRY</h2>
         </div>
-        <div class="hairline-divider-cat divider-tech" aria-hidden="true"></div>
 
-        <div class="inquiry-form-card">
+        <div class="spotlight-card inquiry-form-card">
           <form id="contact-inquiry-form" novalidate>
-            <!-- Honeypot spam trap -->
             <input type="text" name="website_url_trap" id="inquiry-honeypot" style="display:none !important;" tabindex="-1" autocomplete="off">
-
             <div class="form-row-2col">
               <div class="form-group">
                 <label for="inq-name" class="form-label">FULL NAME *</label>
                 <input type="text" id="inq-name" name="name" class="form-input" placeholder="e.g. Alex Mercer" required autocomplete="name">
                 <span class="form-error-msg" id="err-inq-name" aria-live="polite"></span>
               </div>
-
               <div class="form-group">
                 <label for="inq-email" class="form-label">EMAIL ADDRESS *</label>
                 <input type="email" id="inq-email" name="email" class="form-input" placeholder="e.g. alex@university.edu" required autocomplete="email">
                 <span class="form-error-msg" id="err-inq-email" aria-live="polite"></span>
               </div>
             </div>
-
             <div class="form-group">
               <label for="inq-subject" class="form-label">SUBJECT *</label>
               <input type="text" id="inq-subject" name="subject" class="form-input" placeholder="e.g. Query regarding Hackathon hardware requirements" required>
               <span class="form-error-msg" id="err-inq-subject" aria-live="polite"></span>
             </div>
-
             <div class="form-group">
               <label for="inq-message" class="form-label">MESSAGE *</label>
               <textarea id="inq-message" name="message" class="form-textarea" rows="4" placeholder="Detail your query or communication..." required></textarea>
               <span class="form-error-msg" id="err-inq-message" aria-live="polite"></span>
             </div>
-
             <div class="inquiry-action-row" id="inquiry-action-row">
-              <!-- Dynamically populated button or disabled state if endpoint is placeholder -->
+              <button type="submit" class="specular-btn size-md" data-tint="#0A84FF" data-radius="12">
+                <canvas aria-hidden="true"></canvas><span class="specular-text">TRANSMIT INQUIRY</span>
+              </button>
+              <span class="inquiry-form-note" id="inquiry-mode-note"></span>
             </div>
           </form>
 
-          <!-- Success State Panel -->
-          <div id="inquiry-success-panel" class="register-success-panel" style="display: none;" role="alert">
+          <div id="inquiry-success-panel" class="register-success-panel" style="display: none;">
             <div class="success-icon-wrap">
-              <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#FF1744" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
-                <polyline points="22 4 12 14.01 9 11.01"></polyline>
-              </svg>
+              <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#FF1744" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
             </div>
             <h3 class="success-heading">INQUIRY DISPATCHED</h3>
-            <p class="success-subtext" id="inquiry-success-msg">
-              Your inquiry preview has been recorded locally. The coordination committee will follow up shortly.
-            </p>
-            <button type="button" class="btn-cta btn-secondary-blue" id="btn-reset-inquiry">SUBMIT ANOTHER QUERY</button>
+            <p class="success-subtext" id="inquiry-success-msg">Your inquiry has been recorded locally. The coordination committee will follow up shortly.</p>
+            <button type="button" class="specular-btn size-md" id="btn-reset-inquiry" data-tint="#0A84FF">
+              <canvas aria-hidden="true"></canvas><span class="specular-text">SUBMIT ANOTHER</span>
+            </button>
           </div>
         </div>
       </section>
 
-      <!-- Section 3: Event-Specific Coordinators (Derived from events.js) -->
-      <section class="coordinators-section-block" aria-labelledby="heading-coordinators">
+      <!-- Section 3: Coordinators -->
+      <section class="coordinators-section-block">
         <div class="tier-header-bar">
           <span class="tier-tag">ARENA HEADS</span>
-          <h2 id="heading-coordinators" class="tier-title">EVENT COORDINATORS DIRECTORY</h2>
+          <h2 class="tier-title">EVENT COORDINATORS DIRECTORY</h2>
         </div>
-        <div class="hairline-divider-cat divider-tech" aria-hidden="true"></div>
-
-        <div class="events-coordinators-grid" id="events-coordinators-grid">
-          <!-- Dynamically populated from events.js -->
+        <div id="events-coordinators-container">
+          <!-- Dynamically populated via JS -->
         </div>
       </section>
 
-      <!-- Section 4: FAQ Accordion (From faq.js) -->
-      <section class="faq-section-block" aria-labelledby="heading-faq">
-        <div class="tier-header-bar">
+      <!-- Section 4: 3D FAQ Folder Grid Setup -->
+      <section class="faq-section-block">
+        <div class="tier-header-bar" style="text-align: center; display: block;">
           <span class="tier-tag">KNOWLEDGE BASE</span>
-          <h2 id="heading-faq" class="tier-title">FREQUENTLY ASKED QUESTIONS</h2>
+          <h2 class="tier-title">FREQUENTLY ASKED QUESTIONS</h2>
+          <p style="color:var(--text-tertiary); font-family:var(--font-body); margin-top:0.5rem;">Click the folder to extract documents.</p>
         </div>
-        <div class="hairline-divider-cat divider-tech" aria-hidden="true"></div>
 
-        <div class="faq-accordion-container" id="faq-accordion-container" role="region" aria-label="Frequently Asked Questions Accordion">
-          <!-- Populated from faq.js -->
+        <div class="faq-folder-wrapper" id="faq-folder-wrapper">
+          <div class="faq-folder" id="faq-folder">
+            <div class="folder-back"></div>
+            <div class="folder-paper-stack" id="faq-papers-wrap">
+              <!-- Cards dynamically populated via JS -->
+            </div>
+            <div class="folder-front">
+              <span class="folder-front-logo">ALODANAX</span>
+            </div>
+          </div>
         </div>
       </section>
 
     </div>
   </main>
 
-  <!-- Shared Footer (Injected by js/components.js) -->
+  <!-- FAQ Modal -->
+  <div id="faq-modal" class="modal-overlay">
+    <div class="modal-window">
+      <div class="modal-header-bar">
+        <h2 class="modal-title" id="faq-modal-q">Question</h2>
+        <button class="modal-close-btn" id="faq-modal-close">&times;</button>
+      </div>
+      <div class="modal-body-scroll" id="faq-modal-a">
+        <!-- Answer text -->
+      </div>
+    </div>
+  </div>
+
   <div id="site-footer"></div>
 
-  <!-- Data Layer -->
-
-  <!-- Core Utilities & Shared Components -->
-
-  <!-- Contact Page Controller -->
-  <!-- Global & Page Data -->
-    <!-- Global & Festival Data -->
+  <!-- Global Data -->
   <script>
-/* ==== SHARED:DATA-SITE START ==== */
-/**
- * ALODANAX TechFest - Global Site Data
- * Single Source of Truth for Brand, College Details, Socials, Collaborator
- * DO NOT invent facts. Unfilled details remain bracketed placeholders.
- */
-
-const SITE_DATA = {
-  brand: {
-    name: "ALODANAX",
-    edition: "2026",
-    tagline: "[TAGLINE]",
-    subtagline: "Annual National Level IT/CS TechFest",
-    theme: "Precision Engineering Meets Cyber Evolution"
-  },
-  college: {
-    name: "[COLLEGE NAME]",
-    department: "[DEPARTMENT OF INFORMATION TECHNOLOGY / COMPUTER SCIENCE]",
-    fullTitle: "[DEPARTMENT, COLLEGE]",
-    address: "[CAMPUS ADDRESS, CITY, STATE, PIN]",
-    affiliation: "[AFFILIATED UNIVERSITY / ACCREDITATION]",
-    dates: "[DATE TBA]",
-    venue: "[VENUE TBA]"
-  },
-  contacts: {
-    email: "[EMAIL TBA]",
-    phone: "[PHONE TBA]",
-    inquiryEmail: "[INQUIRY EMAIL TBA]"
-  },
-  socials: {
-    instagram: "[INSTAGRAM TBA]",
-    linkedin: "[LINKEDIN TBA]",
-    github: "[GITHUB TBA]",
-    youtube: "[YOUTUBE TBA]",
-    x: "[X / TWITTER TBA]"
-  },
-  map: {
-    embedUrl: "", // If empty or placeholder, graceful card fallback
-    link: ""      // Google Maps external link
-  },
-  inquiryEndpoint: "[ENDPOINT TBA]", // If placeholder, form submission shows preview note
-  about: {
-    shortIntro: "ALODANAX is the premier annual technical symposium orchestrated by the Department of Information Technology & Computer Science at [COLLEGE NAME]. Built at the intersection of precision engineering and raw creativity, the symposium convenes student developers, algorithmic designers, cybersecurity operatives, and competitive gamers from across the nation.",
-    vision: "To cultivate an elite competitive forum that bridges foundational computer science with production-grade engineering, accelerating student innovation across artificial intelligence, cybersecurity, and distributed systems.",
-    purpose: "Empowering the next generation of technologists through rigorous hackathons, competitive problem-solving arenas, creative digital showcases, and direct industry collaboration.",
-    stats: [
-      { value: "[50+]", label: "UNIVERSITIES & COLLEGES" },
-      { value: "[15+]", label: "FLAGSHIP COMPETITIONS" },
-      { value: "[₹1,00,000+]", label: "TOTAL CASH PRIZE POOL" }
-    ]
-  },
-  collaborator: {
-    name: "[COLLABORATOR COMPANY NAME]",
-    logo: "assets/images/collaborator/logo.png",
-    intro: "[COLLABORATOR INTRO - A LEADING TECHNOLOGY INNOVATOR EMPOWERING ACADEMIC EXCELLENCE, CLOUD ARCHITECTURE, AND STUDENT RESEARCH]",
-    info: [
-      "[INDUSTRY PARTNER IN CLOUD & AI RESEARCH]",
-      "[SPONSOR OF FLAGSHIP 24H HACKATHON ARENA]",
-      "[OFFERING INTERNSHIP PATHWAYS & EXPERT MENTORSHIP]"
-    ],
-    link: "[COLLABORATOR WEBSITE URL]",
-    guests: [
-      {
-        name: "[GUEST NAME 01]",
-        designation: "[KEYNOTE SPEAKER / SENIOR CLOUD ARCHITECT]",
-        photo: "assets/images/collaborator/guest-1.jpg"
-      },
-      {
-        name: "[GUEST NAME 02]",
-        designation: "[INDUSTRY MENTOR / VP ENGINEERING]",
-        photo: "assets/images/collaborator/guest-2.jpg"
-      },
-      {
-        name: "[GUEST NAME 03]",
-        designation: "[HACKATHON JURY CHAIR / PRINCIPAL AI RESEARCHER]",
-        photo: "assets/images/collaborator/guest-3.jpg"
-      }
-    ]
-  },
-  why: [
-    {
-      pillar: "Innovation",
-      title: "GROUNDBREAKING TECH",
-      description: "Push beyond theoretical boundaries with emerging frameworks, neural pipelines, and decentralized systems."
-    },
-    {
-      pillar: "Creativity",
-      title: "UNBOUND DESIGN",
-      description: "Engineering meets aesthetic mastery: intuitive human interfaces, generative media, and fluid motion design."
-    },
-    {
-      pillar: "Collaboration",
-      title: "SYNERGISTIC SQUADS",
-      description: "Unite with cross-functional talent across universities to solve urgent infrastructure and social challenges."
-    },
-    {
-      pillar: "Competition",
-      title: "ELITE BATTLEGROUNDS",
-      description: "Test your mental limits against national-caliber coders, security analysts, and tactical esports champions."
-    }
-  ]
-};
-
-if (typeof window !== 'undefined') {
-  window.SITE_DATA = SITE_DATA;
-}
-/* ==== SHARED:DATA-SITE END ==== */
-
-/* ==== SHARED:DATA-EVENTS START ==== */
-/**
- * ALODANAX TechFest - Events Data
- * Single Source of Truth for all competition arenas and workshops.
- * Schema per event:
- * slug, name, category, shortDescription, image, date, venue, intro, description,
- * format, rules[], requirements[], teamSize, instructions[],
- * coordinators[{name, phone, email}], registrationUrl, extraLink.
- *
- * DO NOT invent facts. Unfilled values remain bracketed placeholders.
- */
-
-const EVENTS_DATA = [
-  // =========================================================================
-  // CATEGORY A: TECHNICAL
-  // =========================================================================
-  {
-    slug: "hackathon",
-    name: "Hackathon",
-    category: "technical",
-    tag: "FLAGSHIP SPRINT",
-    featured: true,
-    image: "assets/images/events/hackathon.jpg",
-    date: "[DATE TBA]",
-    venue: "[MAIN AUDITORIUM & COMPUTER LABS]",
-    shortDescription: "A relentless 24-hour product engineering sprint challenging squads to build distributed, fault-tolerant prototypes under real-world constraints.",
-    intro: "The flagship 24-Hour Hackathon convenes elite student developers, system architects, and creative designers from across the nation to build impactful technology solutions.",
-    description: "Participants will collaborate overnight across three designated domains (AI & Autonomous Systems, Cloud Infrastructure & Web3, and Smart Campus Innovation). Mentors from industry and academia will conduct scheduled review checkpoints throughout the 24 hours before final jury presentations.",
-    format: "24-Hour continuous offline sprint with 2 mandatory mentor review checkpoints, code freeze at hour 24, followed by 7-minute live stage presentations and 3-minute jury Q&A.",
-    rules: [
-      "All code, designs, and documentation must be created exclusively during the official 24-hour hackathon window.",
-      "Open-source libraries, frameworks, and public APIs are permitted provided they are disclosed in the project README.",
-      "Teams must push source code with verifiable commit logs to a newly initialized public repository.",
-      "Hardware components must be brought by the teams and demonstrated live during jury evaluation.",
-      "Plagiarism, pre-built applications, or code violation results in instantaneous squad disqualification."
-    ],
-    requirements: [
-      "Laptops with required SDKs, Docker, and developer environments pre-installed.",
-      "Valid institutional student identity cards for all participants.",
-      "Personal multi-plug extension cords and necessary hardware peripherals."
-    ],
-    teamSize: "[2 TO 4 PARTICIPANTS]",
-    instructions: [
-      "Check-in desk opens 90 minutes prior to keynote kickoff.",
-      "Wi-Fi credentials, workstation power, and rest lounge access will be issued upon badge verification.",
-      "Midnight meals, caffeine stations, and emergency first-aid will be staffed throughout the night."
-    ],
-    coordinators: [
-      {
-        name: "[STUDENT COORDINATOR 01]",
-        role: "Student Lead",
-        phone: "[PHONE TBA]",
-        email: "[EMAIL TBA]"
-      },
-      {
-        name: "[FACULTY COORDINATOR 01]",
-        role: "Faculty Mentor",
-        phone: "[PHONE TBA]",
-        email: "[EMAIL TBA]"
-      }
-    ],
-    registrationUrl: "[GOOGLE FORM URL HACKATHON]",
-    extraLink: {
-      label: "Problem Statements & Rules",
-      url: "hackathon.html"
-    }
-  },
-
-  {
-    slug: "bit-bash-bonanza",
-    name: "Bit Bash Bonanza",
-    category: "technical",
-    tag: "SPEED CODING",
-    featured: true,
-    image: "assets/images/events/bit-bash-bonanza.jpg",
-    date: "[DATE TBA]",
-    venue: "[CENTRAL COMPUTER LAB 101]",
-    shortDescription: "A high-octane competitive programming duel testing algorithmic intuition, memory efficiency, and speed under strict clock limits.",
-    intro: "Bit Bash Bonanza is a multi-stage algorithmic tournament testing algorithmic precision, dynamic programming, and computational geometry under rapid-fire constraints.",
-    description: "Competitors will solve increasingly difficult problem sets hosted on a dedicated competitive platform. Fast execution, clean code, and zero time-limit-exceeded (TLE) submissions determine the leaderboard.",
-    format: "Round 1: 45-minute speed preliminary screening. Round 2: 90-minute advanced algorithmic finals with live leaderboard projection.",
-    rules: [
-      "Permitted languages: C++, Java 17+, Python 3.10+.",
-      "No external IDE auto-completes, LLMs, or unauthorized web browsing.",
-      "Ties broken by earliest accepted submission and lowest cumulative penalty points."
-    ],
-    requirements: [
-      "Institutional student ID card.",
-      "Familiarity with standard I/O competitive judge formats."
-    ],
-    teamSize: "[INDIVIDUAL (1 PARTICIPANT)]",
-    instructions: [
-      "Lab terminals will be configured with standard gcc, openjdk, and python3 runtimes.",
-      "Report to Lab 101 at least 20 minutes before Round 1."
-    ],
-    coordinators: [
-      {
-        name: "[STUDENT COORDINATOR 02]",
-        role: "Technical Lead",
-        phone: "[PHONE TBA]",
-        email: "[EMAIL TBA]"
-      }
-    ],
-    registrationUrl: "[GOOGLE FORM URL BIT BASH]",
-    extraLink: null
-  },
-
-  // =========================================================================
-  // CATEGORY B: NON-TECHNICAL
-  // =========================================================================
-  {
-    slug: "ideathon",
-    name: "Ideathon",
-    category: "non-technical",
-    tag: "VENTURE PITCH",
-    featured: true,
-    image: "assets/images/events/ideathon.jpg",
-    date: "[DATE TBA]",
-    venue: "[SEMINAR HALL A]",
-    shortDescription: "A technology venture pitching competition evaluating architecture viability, market impact, and disruptive product execution.",
-    intro: "The ALODANAX Ideathon provides a stage for student visionaries to pitch groundbreaking product concepts to venture investors and faculty leaders.",
-    description: "Teams present their ideas addressing sustainability, healthcare, fintech, or education technology. Pitches are scrutinized on problem relevance, architectural feasibility, revenue models, and scalability.",
-    format: "7-minute slide presentation followed by 3 minutes of rigorous jury question-and-answer.",
-    rules: [
-      "Presentations must use the standardized slide structure outlined in the handbook.",
-      "Both hardware and software venture concepts are eligible.",
-      "All presented ideas must be original work of the registered team members."
-    ],
-    requirements: [
-      "Pitch deck in PDF or PPTX format submitted 2 hours prior to the event.",
-      "At least one team member present for presentation synchronization."
-    ],
-    teamSize: "[2 TO 3 PARTICIPANTS]",
-    instructions: [
-      "Presentation remotes and wireless lapel mics will be provided.",
-      "Teams must be seated in Seminar Hall A at the scheduled briefing call."
-    ],
-    coordinators: [
-      {
-        name: "[STUDENT COORDINATOR 03]",
-        role: "Pitch Liaison",
-        phone: "[PHONE TBA]",
-        email: "[EMAIL TBA]"
-      }
-    ],
-    registrationUrl: "[GOOGLE FORM URL IDEATHON]",
-    extraLink: null
-  },
-
-  // =========================================================================
-  // CATEGORY C: GAMING
-  // =========================================================================
-  {
-    slug: "bgmi",
-    name: "BGMI",
-    category: "gaming",
-    tag: "TACTICAL BATTLE ROYALE",
-    featured: true,
-    image: "assets/images/events/bgmi.jpg",
-    date: "[DATE TBA]",
-    venue: "[ESPORTS ARENA / AUDIO-VISUAL LAB]",
-    shortDescription: "Squad-based mobile battle royale showdown across Erangel and Miramar testing rotations, clutch utility, and gunplay.",
-    intro: "The official ALODANAX BGMI Championship tests collegiate squads in custom room lobbies managed by dedicated referees.",
-    description: "Squads will battle through qualifier matches to secure points on the official tournament board. Only the top squads advance to the LAN Grand Finals broadcast live on the arena displays.",
-    format: "3 Qualifier Erangel matches, top 16 squads advance to 4-match Grand Finals (Erangel, Miramar, Sanhok, Erangel).",
-    rules: [
-      "Mobile devices only. Strictly no emulators, iPads/tablets, triggers, or modified configs.",
-      "Tournament scoring follows standard esports placement and kill point tables.",
-      "Any player found using third-party scripts or exploiting map glitches faces immediate squad disqualification."
-    ],
-    requirements: [
-      "Personal mobile devices with latest official game client installed.",
-      "Personal wired or wireless headphones/earphones.",
-      "Active high-speed mobile data connection (backup campus Wi-Fi provided)."
-    ],
-    teamSize: "[SQUAD (4 PLAYERS + 1 SUB)]",
-    instructions: [
-      "Room ID and passwords will be distributed in the verified team Discord/WhatsApp channel 15 minutes before match kickoff.",
-      "Squad captains must verify roster nicknames with officials at check-in."
-    ],
-    coordinators: [
-      {
-        name: "[STUDENT COORDINATOR 04]",
-        role: "Esports Referee",
-        phone: "[PHONE TBA]",
-        email: "[EMAIL TBA]"
-      }
-    ],
-    registrationUrl: "[GOOGLE FORM URL BGMI]",
-    extraLink: null
-  },
-
-  {
-    slug: "discovering-derlicts",
-    name: "Discovering Derlicts",
-    category: "gaming",
-    tag: "GEO-CACHED CIPHER HUNT",
-    featured: true,
-    image: "assets/images/events/discovering-derlicts.jpg",
-    date: "[DATE TBA]",
-    venue: "[DEPARTMENT AMPHITHEATRE & CAMPUS GROUNDS]",
-    shortDescription: "A high-intensity campus-wide puzzle quest decoding cryptographic beacons, vintage computing hardware, and cryptic riddles.",
-    intro: "Discovering Derlicts blends alternate reality gaming, hardware repair puzzles, and geo-located riddles scattered across the university campus.",
-    description: "Squads navigate cryptic steganography clues, extract encoded hex strings from retired circuit boards, and locate hidden beacons before rival squads decipher the master key.",
-    format: "Multi-checkpoint time trial. Checkpoints must be cleared sequentially with QR verification.",
-    rules: [
-      "Teams must clear checkpoints in designated order; bypasses forfeit checkpoint points.",
-      "Interfering with checkpoint physical apparatus or other squads results in immediate disqualification.",
-      "Digital clues must be decoded on designated squad devices."
-    ],
-    requirements: [
-      "At least one smartphone per squad with camera scanner and cellular connectivity.",
-      "Comfortable shoes for outdoor campus navigation."
-    ],
-    teamSize: "[3 TO 4 PARTICIPANTS]",
-    instructions: [
-      "The initial briefing and cipher key distribution commences at the Dept Amphitheatre.",
-      "Emergency campus boundaries and out-of-bounds facilities will be explicitly briefed."
-    ],
-    coordinators: [
-      {
-        name: "[STUDENT COORDINATOR 05]",
-        role: "Quest Master",
-        phone: "[PHONE TBA]",
-        email: "[EMAIL TBA]"
-      }
-    ],
-    registrationUrl: "[GOOGLE FORM URL DERLICTS]",
-    extraLink: null
-  }
-];
-
-if (typeof window !== 'undefined') {
-  window.EVENTS_DATA = EVENTS_DATA;
-}
-/* ==== SHARED:DATA-EVENTS END ==== */
-
-// ===== EDIT YOUR CONTENT HERE =====
-/**
- * ALODANAX TechFest - FAQ Data
- * 8 common questions regarding participation, registration, rules, and venue.
- */
-
-const FAQ_DATA = [
-  {
-    q: "Who is eligible to participate in ALODANAX?",
-    a: "Undergraduate and postgraduate students enrolled in recognized universities and colleges pursuing Computer Science, Information Technology, Computer Applications, or related engineering disciplines are eligible. A valid student ID card is mandatory at physical check-in."
-  },
-  {
-    q: "How does the registration process work?",
-    a: "Registration is conducted on a per-event basis via official Google Forms linked on each event's card. If an event registration link is pending announcement, it will display 'Registration Opening Soon'. Once live, complete the form with your squad details to reserve your slot."
-  },
-  {
-    q: "Is there an entry or registration fee?",
-    a: "Participation guidelines and any fee specifics (if applicable) are detailed on each event's Google Form. Most flagship technical arenas, including competitive programming and keynotes, are free for verified students."
-  },
-  {
-    q: "Can I participate in multiple events?",
-    a: "Yes, provided the scheduled event slots do not overlap. The flagship 24-Hour Hackathon runs continuously, so hackathon participants are advised not to enroll in simultaneous day-time arenas."
-  },
-  {
-    q: "What hardware or software should I bring for technical events?",
-    a: "For the Hackathon, Web Design, and CTF challenges, participants must bring their personal laptops, chargers, and any specialized hardware. Workstation labs with compiler environments are provided for Bit Bash Bonanza."
-  },
-  {
-    q: "Will accommodation and meals be arranged for overnight participants?",
-    a: "Registered participants of the 24-Hour Hackathon and outstation attendees will have designated rest lounges, high-speed Wi-Fi, midnight snacks, and breakfast on campus. Detailed hostel accommodation protocols are shared post-registration confirmation."
-  },
-  {
-    q: "When and how are certificates and cash prizes distributed?",
-    a: "Official certificates of participation and merit credentials will be issued digitally to verified attendees. Cash prizes and trophies are awarded on stage during the grand valedictory ceremony on the final evening."
-  },
-  {
-    q: "How do I reach the college campus and venue?",
-    a: "The college campus is well-connected by local metro, suburban transit lines, and cab services. Campus gates, parking zones, and orientation signs will be staffed by the ALODANAX student logistics team."
-  }
-];
-
-if (typeof window !== 'undefined') {
-  window.FAQ_DATA = FAQ_DATA;
-}
-  </script>
-
-  <!-- Shared Component System & Utilities -->
-  <script>
-/* ==== SHARED:COMPONENTS START ==== */
-// --- ALODANAX Utilities & Diagnostics ---
-/**
- * ALODANAX TechFest - Core Utilities & Validation Suite
- * Handles placeholder detection, Google Form validation, safe link formatting,
- * image error fallbacks, and the ?audit=1 diagnostic engine.
- */
-
-(function (window) {
-  'use strict';
-
-  /**
-   * Check if a value is undefined, empty, or a bracketed placeholder like "[TBA]" or "[NAME]".
-   * @param {*} val
-   * @returns {boolean}
-   */
-  function isPlaceholder(val) {
-    if (val === null || val === undefined) return true;
-    if (typeof val !== 'string') return false;
-    const trimmed = val.trim();
-    if (trimmed === '') return true;
-    return trimmed.startsWith('[') || trimmed.includes('[') && trimmed.includes(']');
-  }
-
-  /**
-   * Safe text renderer: Returns subtle TBA badge if value is placeholder or empty.
-   * @param {string} val
-   * @param {string} fallbackLabel
-   * @param {boolean} returnHtml
-   * @returns {string}
-   */
-  function formatSafeText(val, fallbackLabel = 'TBA', returnHtml = true) {
-    if (isPlaceholder(val)) {
-      return returnHtml ? `<span class="badge-tba" aria-label="To be announced">${fallbackLabel}</span>` : fallbackLabel;
-    }
-    return val;
-  }
-
-  /**
-   * Safe link generator: returns null if value is a placeholder.
-   * Otherwise returns tel:, mailto:, or valid url.
-   * @param {'tel'|'mailto'|'url'} type
-   * @param {string} val
-   * @returns {string|null}
-   */
-  function formatSafeLink(type, val) {
-    if (isPlaceholder(val)) return null;
-    const clean = val.trim();
-    if (type === 'tel') return `tel:${clean.replace(/[^\d+]/g, '')}`;
-    if (type === 'mailto') return `mailto:${clean}`;
-    if (type === 'url') return clean.startsWith('http') ? clean : `https://${clean}`;
-    return clean;
-  }
-
-  /**
-   * Validates per-event Google Form URL according to strict festival requirements.
-   * URL must:
-   * 1. Start with https://
-   * 2. Host must be docs.google.com (path /forms), forms.gle, or www.google.com (path /forms)
-   * 3. Not be empty or start with "["
-   *
-   * @param {object} event
-   * @returns {string|null} - Returns valid URL string or null if invalid/placeholder
-   */
-  function getEventRegistrationUrl(event) {
-    if (!event || !event.registrationUrl) return null;
-    const urlStr = event.registrationUrl.trim();
-    if (isPlaceholder(urlStr)) return null;
-
-    try {
-      const parsed = new URL(urlStr);
-      if (parsed.protocol !== 'https:') return null;
-
-      const host = parsed.hostname.toLowerCase();
-      const path = parsed.pathname.toLowerCase();
-
-      if (host === 'forms.gle') return urlStr;
-      if ((host === 'docs.google.com' || host === 'www.google.com') && path.startsWith('/forms')) {
-        return urlStr;
-      }
-      return null;
-    } catch (e) {
-      return null;
-    }
-  }
-
-  /**
-   * Renders registration CTA: active Google Form link or disabled "Registration Opening Soon" button.
-   * @param {object} event
-   * @param {object} options
-   * @returns {string} HTML string
-   */
-  function renderRegistrationButton(event, options = {}) {
-    const validUrl = getEventRegistrationUrl(event);
-    const extraClass = options.className || 'btn-cta';
-    const btnText = options.text || 'REGISTER NOW';
-
-    if (validUrl) {
-      return `<a href="${validUrl}" target="_blank" rel="noopener noreferrer" class="${extraClass} btn-primary-neon" aria-label="Register for ${event.name || 'Event'} via official Google Form">
-        <span>${btnText}</span>
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-          <line x1="7" y1="17" x2="17" y2="7"></line>
-          <polyline points="7 7 17 7 17 17"></polyline>
-        </svg>
-      </a>`;
-    }
-
-    return `<button type="button" class="${extraClass} btn-disabled" aria-disabled="true" tabindex="-1" title="Registration link is being finalized">
-      <span class="disabled-status-dot" aria-hidden="true"></span>
-      <span>Registration Opening Soon</span>
-    </button>`;
-  }
-
-  /**
-   * Verifies that no two different events share the exact same registration URL.
-   * Logs console.error if duplicate URLs are found.
-   * @param {Array} eventsList
-   */
-  function verifyUniqueRegistrationUrls(eventsList) {
-    if (!Array.isArray(eventsList)) return;
-    const seen = new Map();
-
-    eventsList.forEach(ev => {
-      const url = getEventRegistrationUrl(ev);
-      if (url) {
-        if (seen.has(url)) {
-          console.error(
-            `[ALODANAX REGISTRATION SECURITY]: Duplicate Google Form URL detected!\n` +
-            `Event "${ev.name}" shares registration link with "${seen.get(url)}":\n${url}`
-          );
-        } else {
-          seen.set(url, ev.name);
-        }
-      }
-    });
-  }
-
-  /**
-   * Designed SVG silhouette & initial fallback generator.
-   * Produces an inline SVG data-uri with dark styling, electric blue hairline, and typography.
-   * @param {'event'|'profile'|'team'|'logo'} type
-   * @param {string} label
-   * @returns {string}
-   */
-  function createFallbackSvg(type, label = 'ALODANAX') {
-    const safeLabel = (label || 'AX').replace(/[<>&"]/g, '');
-    let w = 800, h = 500, ratio = '16:10'; // Default event
-    let iconSvg = '';
-
-    if (type === 'profile') {
-      w = 400; h = 500; ratio = '4:5';
-      iconSvg = `
-        <circle cx="200" cy="180" r="50" fill="#0E131F" stroke="#0A84FF" stroke-width="2"/>
-        <path d="M120 310 C120 250, 280 250, 280 310 Z" fill="#0E131F" stroke="#0A84FF" stroke-width="2"/>
-      `;
-    } else if (type === 'team') {
-      w = 400; h = 400; ratio = '1:1';
-      iconSvg = `
-        <circle cx="200" cy="150" r="45" fill="#0E131F" stroke="#0A84FF" stroke-width="2"/>
-        <path d="M130 260 C130 210, 270 210, 270 260 Z" fill="#0E131F" stroke="#0A84FF" stroke-width="2"/>
-      `;
-    } else if (type === 'logo') {
-      w = 300; h = 100; ratio = '3:1';
-      iconSvg = `<polygon points="30,20 50,50 30,80" fill="none" stroke="#FF1744" stroke-width="3"/>`;
-    } else {
-      // Event default
-      iconSvg = `
-        <rect x="360" y="210" width="80" height="80" fill="#0B0D14" stroke="#0A84FF" stroke-width="2" transform="rotate(45 400 250)"/>
-        <polyline points="390,250 400,240 410,250" fill="none" stroke="#FF1744" stroke-width="3"/>
-      `;
-    }
-
-    const svg = `
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${w} ${h}" width="${w}" height="${h}">
-        <defs>
-          <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stop-color="#05060A"/>
-            <stop offset="50%" stop-color="#0B0D14"/>
-            <stop offset="100%" stop-color="#020305"/>
-          </linearGradient>
-          <pattern id="grid" width="30" height="30" patternUnits="userSpaceOnUse">
-            <path d="M 30 0 L 0 0 0 30" fill="none" stroke="rgba(10,132,255,0.06)" stroke-width="1"/>
-          </pattern>
-        </defs>
-        <rect width="100%" height="100%" fill="url(#bgGrad)"/>
-        <rect width="100%" height="100%" fill="url(#grid)"/>
-        <rect x="1" y="1" width="${w - 2}" height="${h - 2}" fill="none" stroke="rgba(10,132,255,0.3)" stroke-width="1"/>
-        ${iconSvg}
-        <text x="50%" y="${h - 35}" fill="#8E9AA8" font-family="'Inter', sans-serif" font-size="12" font-weight="600" text-anchor="middle" letter-spacing="2">
-          ${safeLabel.toUpperCase()}
-        </text>
-        <text x="50%" y="${h - 18}" fill="rgba(255,255,255,0.25)" font-family="'Inter', sans-serif" font-size="10" font-weight="500" text-anchor="middle" letter-spacing="1">
-          IMAGE ASSET PENDING [${ratio}]
-        </text>
-      </svg>
-    `.trim().replace(/\s+/g, ' ');
-
-    return `data:image/svg+xml;charset=utf-8,${encodeURIComponent(svg)}`;
-  }
-
-  /**
-   * Image onError handler to prevent broken-image icons anywhere in the application.
-   * @param {HTMLImageElement} img
-   * @param {'event'|'profile'|'team'|'logo'} type
-   * @param {string} label
-   */
-  function handleImageError(img, type = 'event', label = '') {
-    if (!img) return;
-    img.onerror = null; // Prevent infinite loop
-    img.src = createFallbackSvg(type, label || img.alt || 'ALODANAX');
-    img.classList.add('is-fallback-image');
-  }
-
-  /**
-   * Diagnostic dev tool activated via ?audit=1.
-   * Scans all loaded data objects and DOM for unfilled placeholders and missing assets.
-   */
-  function initAuditTool() {
-    const params = new URLSearchParams(window.location.search);
-    if (params.get('audit') !== '1') return;
-
-    const report = {
-      site: [],
-      events: [],
-      committee: [],
-      faculty: [],
-      team: [],
-      hackathon: [],
-      faq: []
+    const SITE_DATA = {
+      brand: { name: "ALODANAX", edition: "2026", tagline: "Precision Engineering Meets Cyber Evolution" },
+      college: { name: "[COLLEGE NAME]", department: "[DEPARTMENT OF IT/CS]", fullTitle: "[DEPARTMENT, COLLEGE]", address: "[CAMPUS ADDRESS, CITY, STATE, PIN]", venue: "[VENUE TBA]" },
+      contacts: { email: "[EMAIL TBA]", phone: "[PHONE TBA]" },
+      socials: { instagram: "[INSTAGRAM TBA]", linkedin: "[LINKEDIN TBA]", github: "[GITHUB TBA]" },
+      map: { embedUrl: "", link: "" },
+      inquiryEndpoint: "[ENDPOINT TBA]"
     };
-
-    let totalPlaceholders = 0;
-    let missingImages = 0;
-
-    // Helper to recursively inspect objects
-    function inspect(obj, fileKey, path = '') {
-      if (!obj) return;
-      if (typeof obj === 'string') {
-        if (isPlaceholder(obj)) {
-          report[fileKey].push({ path, value: obj, type: 'placeholder' });
-          totalPlaceholders++;
-        }
-      } else if (Array.isArray(obj)) {
-        obj.forEach((item, idx) => inspect(item, fileKey, `${path}[${idx}]`));
-      } else if (typeof obj === 'object') {
-        Object.keys(obj).forEach(k => inspect(obj[k], fileKey, path ? `${path}.${k}` : k));
+    
+    // Grouped coordinators by event
+    const EVENTS_DATA = [
+      {
+        slug: "hackathon", name: "Hackathon", category: "technical",
+        coordinators: [
+          { name: "[COORD 01]", role: "Event Head", phone: "[PHONE TBA]" },
+          { name: "[COORD 02]", role: "Event Co-Head", phone: "[PHONE TBA]" }
+        ]
+      },
+      {
+        slug: "bit-bash-bonanza", name: "Bit Bash Bonanza", category: "technical",
+        coordinators: [
+          { name: "[COORD 03]", role: "Event Head", phone: "[PHONE TBA]" },
+          { name: "[COORD 04]", role: "Event Co-Head", phone: "[PHONE TBA]" }
+        ]
+      },
+      {
+        slug: "ideathon", name: "Ideathon", category: "non-technical",
+        coordinators: [
+          { name: "[COORD 05]", role: "Event Head", phone: "[PHONE TBA]" },
+          { name: "[COORD 06]", role: "Event Co-Head", phone: "[PHONE TBA]" }
+        ]
+      },
+      {
+        slug: "discovering-derlicts", name: "Discovering Derlicts", category: "gaming",
+        coordinators: [
+          { name: "[COORD 07]", role: "Event Head", phone: "[PHONE TBA]" },
+          { name: "[COORD 08]", role: "Event Co-Head", phone: "[PHONE TBA]" }
+        ]
+      },
+      {
+        slug: "bgmi", name: "BGMI", category: "gaming",
+        coordinators: [
+          { name: "[COORD 09]", role: "Event Head", phone: "[PHONE TBA]" },
+          { name: "[COORD 10]", role: "Event Co-Head", phone: "[PHONE TBA]" }
+        ]
       }
-    }
-
-    if (window.SITE_DATA) inspect(window.SITE_DATA, 'site');
-    if (window.EVENTS_DATA) inspect(window.EVENTS_DATA, 'events');
-    if (window.COMMITTEE_DATA) inspect(window.COMMITTEE_DATA, 'committee');
-    if (window.FACULTY_DATA) inspect(window.FACULTY_DATA, 'faculty');
-    if (window.TEAM_DATA) inspect(window.TEAM_DATA, 'team');
-    if (window.HACKATHON_DATA) inspect(window.HACKATHON_DATA, 'hackathon');
-    if (window.FAQ_DATA) inspect(window.FAQ_DATA, 'faq');
-
-    // Count missing images on page
-    document.querySelectorAll('img').forEach(img => {
-      if (img.classList.contains('is-fallback-image') || !img.complete || img.naturalWidth === 0) {
-        missingImages++;
-      }
-    });
-
-    // Console output
-    console.group(`%c✦ ALODANAX AUDIT SUITE (?audit=1) ✦`, 'color: #0A84FF; font-size: 14px; font-weight: bold;');
-    console.log(`%cTotal Unfilled Placeholders: ${totalPlaceholders}`, 'color: #FF1744; font-weight: bold;');
-    console.log(`%cPending / Fallback Image Elements: ${missingImages}`, 'color: #0A84FF;');
-
-    Object.keys(report).forEach(fileKey => {
-      const items = report[fileKey];
-      if (items.length > 0) {
-        console.groupCollapsed(`js/data/${fileKey}.js (${items.length} pending items)`);
-        console.table(items);
-        console.groupEnd();
-      }
-    });
-    console.groupEnd();
-
-    // Render floating Audit HUD Panel
-    renderAuditHud(report, totalPlaceholders, missingImages);
-  }
-
-  function renderAuditHud(report, totalPlaceholders, missingImages) {
-    let hud = document.getElementById('audit-hud');
-    if (hud) hud.remove();
-
-    hud = document.createElement('div');
-    hud.id = 'audit-hud';
-    hud.className = 'audit-hud-panel';
-
-    let filesHtml = '';
-    Object.keys(report).forEach(f => {
-      const count = report[f].length;
-      filesHtml += `
-        <div class="audit-file-row">
-          <span class="audit-file-name">js/data/${f}.js</span>
-          <span class="audit-file-count ${count > 0 ? 'count-pending' : 'count-done'}">${count} pending</span>
-        </div>
-      `;
-    });
-
-    hud.innerHTML = `
-      <div class="audit-hud-header">
-        <div class="audit-title-wrap">
-          <span class="audit-pulse-dot"></span>
-          <strong>DEV AUDIT HUD</strong>
-        </div>
-        <button type="button" class="audit-close-btn" aria-label="Minimize Audit HUD" id="audit-toggle-btn">_</button>
-      </div>
-      <div class="audit-hud-body" id="audit-hud-body">
-        <div class="audit-stat-strip">
-          <div class="audit-stat-box">
-            <span class="audit-stat-num">${totalPlaceholders}</span>
-            <span class="audit-stat-lbl">PLACEHOLDERS</span>
-          </div>
-          <div class="audit-stat-box">
-            <span class="audit-stat-num">${missingImages}</span>
-            <span class="audit-stat-lbl">MISSING ASSETS</span>
-          </div>
-        </div>
-        <div class="audit-files-list">
-          ${filesHtml}
-        </div>
-        <div class="audit-footer-actions">
-          <button type="button" class="btn-audit-copy" id="btn-copy-audit">COPY REPORT</button>
-        </div>
-      </div>
-    `;
-
-    document.body.appendChild(hud);
-
-    const toggleBtn = document.getElementById('audit-toggle-btn');
-    const hudBody = document.getElementById('audit-hud-body');
-    if (toggleBtn && hudBody) {
-      toggleBtn.addEventListener('click', () => {
-        const isHidden = hudBody.style.display === 'none';
-        hudBody.style.display = isHidden ? 'block' : 'none';
-        toggleBtn.textContent = isHidden ? '_' : '+';
-      });
-    }
-
-    const copyBtn = document.getElementById('btn-copy-audit');
-    if (copyBtn) {
-      copyBtn.addEventListener('click', () => {
-        const text = JSON.stringify(report, null, 2);
-        navigator.clipboard.writeText(text).then(() => {
-          copyBtn.textContent = 'COPIED TO CLIPBOARD!';
-          setTimeout(() => { copyBtn.textContent = 'COPY REPORT'; }, 2000);
-        });
-      });
-    }
-  }
-
-  // Export to window.ALODANAX_UTILS
-  window.ALODANAX_UTILS = {
-    isPlaceholder,
-    formatSafeText,
-    formatSafeLink,
-    getEventRegistrationUrl,
-    renderRegistrationButton,
-    verifyUniqueRegistrationUrls,
-    createFallbackSvg,
-    handleImageError,
-    initAuditTool
-  };
-
-  // Run audit and duplicate URL verification on load
-  function initSharedUtils() {
-    if (window.EVENTS_DATA) {
-      verifyUniqueRegistrationUrls(window.EVENTS_DATA);
-    }
-    initAuditTool();
-  }
-  if (typeof document !== 'undefined') {
-    if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', initSharedUtils);
-    } else {
-      initSharedUtils();
-    }
-  }
-
-})(window);
-
-
-// --- ALODANAX Shared Navigation & Components ---
-/**
- * ALODANAX TechFest - Shared Components Layer
- * Injects shared navigation, mobile drawer with focus trap, shared footer,
- * and standard subpage heroes across all pages.
- */
-
-(function (window) {
-  'use strict';
-
-  // Navigation Links Definition
-  const NAV_LINKS = [
-    { label: "Home", href: "index.html", pageId: "index" },
-    { label: "About", href: "index.html#about", pageId: "about" },
-    { label: "Events", href: "events.html", pageId: "events" },
-    { label: "Hackathon", href: "hackathon.html", pageId: "hackathon" },
-    { label: "Organizing Committee", href: "committee.html", pageId: "committee" },
-    { label: "Faculty", href: "faculty.html", pageId: "faculty" },
-    { label: "Our Team", href: "team.html", pageId: "team" },
-    { label: "Contact", href: "contact.html", pageId: "contact" }
-  ];
-
-  /**
-   * Determine the current page identifier from window.location.pathname.
-   * @returns {string}
-   */
-  function getCurrentPageId() {
-    const path = window.location.pathname.toLowerCase();
-    const filename = path.substring(path.lastIndexOf('/') + 1) || 'index.html';
-
-    if (filename.startsWith('index') || filename === '') return 'index';
-    if (filename.startsWith('event')) return 'events';
-    if (filename.startsWith('committee')) return 'committee';
-    if (filename.startsWith('faculty')) return 'faculty';
-    if (filename.startsWith('hackathon')) return 'hackathon';
-    if (filename.startsWith('team')) return 'team';
-    if (filename.startsWith('contact')) return 'contact';
-    return '';
-  }
-
-  /**
-   * Injects the shared navigation bar into #site-nav.
-   * Preserves hero scroll choreography on index.html, immediately visible on subpages.
-   */
-  function renderNavigation() {
-    const container = document.getElementById('site-nav');
-    if (!container) return;
-
-    const brandName = (window.SITE_DATA && window.SITE_DATA.brand && window.SITE_DATA.brand.name) || 'ALODANAX';
-    const isHomePage = (getCurrentPageId() === 'index');
-    const currentPage = getCurrentPageId();
-
-    let navListHtml = '';
-    let drawerListHtml = '';
-
-    NAV_LINKS.forEach(link => {
-      const isActive = (currentPage === link.pageId);
-      const activeAttr = isActive ? ' aria-current="page" class="nav-link is-active"' : ' class="nav-link"';
-      const drawerActiveAttr = isActive ? ' aria-current="page" class="drawer-link is-active"' : ' class="drawer-link"';
-
-      navListHtml += `<li><a href="${link.href}"${activeAttr}>${link.label.toUpperCase()}</a></li>`;
-      drawerListHtml += `<li><a href="${link.href}"${drawerActiveAttr}>${link.label.toUpperCase()}</a></li>`;
-    });
-
-    // Subpages start with is-visible; home page waits for hero scrub trigger
-    const initialHeaderClass = isHomePage ? 'site-header site-header-hero' : 'site-header is-visible is-subpage-nav';
-
-    container.innerHTML = `
-      <header id="site-header" class="${initialHeaderClass}" role="banner">
-        <div class="nav-inner-container">
-          <a href="index.html" class="nav-brand" aria-label="${brandName} Home">
-            <span class="brand-text">${brandName}</span>
-          </a>
-
-          <!-- Desktop Navigation Menu -->
-          <nav class="nav-menu-wrapper" aria-label="Primary Navigation">
-            <ul class="nav-menu">
-              ${navListHtml}
-            </ul>
-          </nav>
-
-          <!-- Mobile Hamburger Toggle -->
-          <button
-            type="button"
-            class="nav-hamburger"
-            id="nav-hamburger-btn"
-            aria-label="Open mobile navigation menu"
-            aria-expanded="false"
-            aria-controls="mobile-nav-drawer"
-          >
-            <span class="hamburger-line line-1" aria-hidden="true"></span>
-            <span class="hamburger-line line-2" aria-hidden="true"></span>
-            <span class="hamburger-line line-3" aria-hidden="true"></span>
-          </button>
-        </div>
-
-        <!-- Accessible Mobile Navigation Drawer -->
-        <div
-          id="mobile-nav-drawer"
-          class="mobile-drawer"
-          aria-hidden="true"
-          role="dialog"
-          aria-modal="true"
-          aria-label="Mobile Navigation Menu"
-        >
-          <div class="drawer-backdrop" id="drawer-backdrop" aria-hidden="true"></div>
-          <div class="drawer-panel" id="drawer-panel">
-            <div class="drawer-top-bar">
-              <span class="drawer-brand">${brandName}</span>
-              <button type="button" class="drawer-close-btn" id="drawer-close-btn" aria-label="Close navigation menu">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
-                  <line x1="18" y1="6" x2="6" y2="18"></line>
-                  <line x1="6" y1="6" x2="18" y2="18"></line>
-                </svg>
-              </button>
-            </div>
-            <nav class="drawer-nav" aria-label="Mobile Navigation Links">
-              <ul class="drawer-links-list">
-                ${drawerListHtml}
-              </ul>
-            </nav>
-            <div class="drawer-footer-meta">
-              <span class="drawer-meta-sub">${(window.SITE_DATA && window.SITE_DATA.brand && window.SITE_DATA.brand.subtagline) || ''}</span>
-            </div>
-          </div>
-        </div>
-      </header>
-    `;
-
-    initNavigationInteractions();
-  }
-
-  /**
-   * Initializes mobile drawer focus trap, ESC key dismiss, and scroll styling.
-   */
-  function initNavigationInteractions() {
-    const header = document.getElementById('site-header');
-    const hamburgerBtn = document.getElementById('nav-hamburger-btn');
-    const drawer = document.getElementById('mobile-nav-drawer');
-    const closeBtn = document.getElementById('drawer-close-btn');
-    const backdrop = document.getElementById('drawer-backdrop');
-    const panel = document.getElementById('drawer-panel');
-
-    if (!header || !hamburgerBtn || !drawer) return;
-
-    // Sticky transparent-to-solid on scroll
-    window.addEventListener('scroll', () => {
-      if (window.scrollY > 40) {
-        header.classList.add('is-scrolled');
-      } else {
-        header.classList.remove('is-scrolled');
-      }
-    }, { passive: true });
-
-    let previouslyFocusedElement = null;
-
-    function openDrawer() {
-      previouslyFocusedElement = document.activeElement;
-      drawer.classList.add('is-open');
-      drawer.setAttribute('aria-hidden', 'false');
-      hamburgerBtn.setAttribute('aria-expanded', 'true');
-      hamburgerBtn.setAttribute('aria-label', 'Close mobile navigation menu');
-      document.body.style.overflow = 'hidden';
-
-      // Set focus inside drawer
-      if (closeBtn) closeBtn.focus();
-      document.addEventListener('keydown', handleDrawerKeydown);
-    }
-
-    function closeDrawer() {
-      drawer.classList.remove('is-open');
-      drawer.setAttribute('aria-hidden', 'true');
-      hamburgerBtn.setAttribute('aria-expanded', 'false');
-      hamburgerBtn.setAttribute('aria-label', 'Open mobile navigation menu');
-      document.body.style.overflow = '';
-
-      document.removeEventListener('keydown', handleDrawerKeydown);
-      if (previouslyFocusedElement && typeof previouslyFocusedElement.focus === 'function') {
-        previouslyFocusedElement.focus();
-      }
-    }
-
-    // Accessible Focus Trap inside Drawer
-    function handleDrawerKeydown(e) {
-      if (e.key === 'Escape') {
-        e.preventDefault();
-        closeDrawer();
-        return;
-      }
-
-      if (e.key === 'Tab') {
-        const focusable = panel.querySelectorAll('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])');
-        if (focusable.length === 0) return;
-
-        const first = focusable[0];
-        const last = focusable[focusable.length - 1];
-
-        if (e.shiftKey) {
-          if (document.activeElement === first) {
-            e.preventDefault();
-            last.focus();
-          }
-        } else {
-          if (document.activeElement === last) {
-            e.preventDefault();
-            first.focus();
-          }
-        }
-      }
-    }
-
-    hamburgerBtn.addEventListener('click', () => {
-      const isOpen = drawer.classList.contains('is-open');
-      if (isOpen) closeDrawer();
-      else openDrawer();
-    });
-
-    if (closeBtn) closeBtn.addEventListener('click', closeDrawer);
-    if (backdrop) backdrop.addEventListener('click', closeDrawer);
-
-    // Close on any link click
-    drawer.querySelectorAll('a').forEach(a => {
-      a.addEventListener('click', closeDrawer);
-    });
-  }
-
-  /**
-   * Injects the shared footer into #site-footer.
-   */
-  function renderFooter() {
-    const container = document.getElementById('site-footer');
-    if (!container) return;
-    container.setAttribute('role', 'contentinfo');
-    container.setAttribute('aria-label', 'Site Footer');
-
-    const site = window.SITE_DATA || {};
-    const brand = site.brand || { name: 'ALODANAX', edition: '2026', tagline: '[TAGLINE]' };
-    const college = site.college || {};
-    const contacts = site.contacts || {};
-    const socials = site.socials || {};
-    const utils = window.ALODANAX_UTILS || {};
-
-    // Nav links in footer
-    let quickLinksHtml = '';
-    NAV_LINKS.forEach(l => {
-      quickLinksHtml += `<li><a href="${l.href}">${l.label.toUpperCase()}</a></li>`;
-    });
-
-    // Social pills (rendered only if valid / not placeholder)
-    let socialsHtml = '';
-    const socialKeys = ['instagram', 'linkedin', 'github', 'youtube', 'x'];
-    socialKeys.forEach(k => {
-      const sVal = socials[k];
-      if (sVal && !utils.isPlaceholder(sVal)) {
-        socialsHtml += `<a href="${sVal}" target="_blank" rel="noopener noreferrer" class="social-pill" aria-label="${k.toUpperCase()}">${k.toUpperCase()}</a>`;
-      }
-    });
-
-    // Safe contacts
-    const phoneLink = utils.formatSafeLink ? utils.formatSafeLink('tel', contacts.phone) : null;
-    const emailLink = utils.formatSafeLink ? utils.formatSafeLink('mailto', contacts.email) : null;
-
-    const phoneDisplay = phoneLink
-      ? `<a href="${phoneLink}" class="footer-link-active">${contacts.phone}</a>`
-      : `<span class="footer-val-tba">${contacts.phone || '[PHONE TBA]'}</span>`;
-
-    const emailDisplay = emailLink
-      ? `<a href="${emailLink}" class="footer-link-active">${contacts.email}</a>`
-      : `<span class="footer-val-tba">${contacts.email || '[EMAIL TBA]'}</span>`;
-
-    container.innerHTML = `
-      <div class="site-footer-inner">
-        <div class="section-container">
-          <div class="footer-grid">
-            <!-- Brand & College Column -->
-            <div class="footer-brand-column">
-              <a href="index.html" class="footer-brand" aria-label="${brand.name} Home">${brand.name}</a>
-              <p class="footer-department">${college.department || '[DEPARTMENT OF IT/CS]'}</p>
-              <p class="footer-college-name">${college.name || '[COLLEGE NAME]'}</p>
-              <p class="footer-tagline">${brand.tagline || ''}</p>
-            </div>
-
-            <!-- Quick Links -->
-            <div class="footer-links-column">
-              <h3 class="footer-col-title">NAVIGATION</h3>
-              <ul class="footer-nav-list">
-                ${quickLinksHtml}
-              </ul>
-            </div>
-
-            <!-- Contacts & Venue -->
-            <div class="footer-contact-column">
-              <h3 class="footer-col-title">COORDINATION DESK</h3>
-              <p class="footer-contact-line"><strong>EMAIL:</strong> ${emailDisplay}</p>
-              <p class="footer-contact-line"><strong>PHONE:</strong> ${phoneDisplay}</p>
-              <p class="footer-contact-line"><strong>VENUE:</strong> <span>${college.venue || '[VENUE TBA]'}</span></p>
-              ${socialsHtml ? `<div class="footer-social-row">${socialsHtml}</div>` : ''}
-            </div>
-          </div>
-
-          <!-- Bottom Bar -->
-          <div class="footer-bottom-bar">
-            <p class="footer-copyright">
-              © ${brand.edition || '2026'} ${brand.name}. ${college.fullTitle || '[DEPARTMENT, COLLEGE]'}. ALL RIGHTS RESERVED.
-            </p>
-            <a href="#site-header" class="back-to-top" id="btn-back-to-top" aria-label="Back to top of page">
-              <span>TOP</span>
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true">
-                <polyline points="18 15 12 9 6 15"></polyline>
-              </svg>
-            </a>
-          </div>
-        </div>
-      </div>
-    `;
-
-    const backToTop = document.getElementById('btn-back-to-top');
-    if (backToTop) {
-      backToTop.addEventListener('click', (e) => {
-        e.preventDefault();
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-      });
-    }
-  }
-
-  /**
-   * Helper to render common Subpage Hero (~45vh).
-   * Black background, huge display type (solid + outline), breadcrumb, animated red-to-blue hairline sweep.
-   * Respects prefers-reduced-motion.
-   *
-   * @param {string} containerId - Element ID to inject into
-   * @param {object} options - { breadcrumb, titleSolid, titleOutline, subtitle }
-   */
-  function renderSubpageHero(containerId, options = {}) {
-    const el = document.getElementById(containerId);
-    if (!el) return;
-
-    const breadcrumb = options.breadcrumb || 'HOME';
-    const titleSolid = options.titleSolid || '';
-    const titleOutline = options.titleOutline || '';
-    const subtitle = options.subtitle || '';
-
-    el.className = 'subpage-hero-section';
-    el.setAttribute('role', 'region');
-    el.setAttribute('aria-label', `${breadcrumb} Hero`);
-    el.innerHTML = `
-      <div class="subpage-hero-vignette" aria-hidden="true"></div>
-      <div class="section-container subpage-hero-container">
-        <nav class="subpage-breadcrumb" aria-label="Breadcrumb">
-          <a href="index.html" class="breadcrumb-item">HOME</a>
-          <span class="breadcrumb-separator">/</span>
-          <span class="breadcrumb-current" aria-current="page">${breadcrumb.toUpperCase()}</span>
-        </nav>
-
-        <h1 class="subpage-hero-title display-title">
-          <span class="title-solid">${titleSolid}</span>
-          <span class="title-outline">${titleOutline}</span>
-        </h1>
-
-        ${subtitle ? `<p class="subpage-hero-subtitle">${subtitle}</p>` : ''}
-      </div>
-
-      <!-- Animated Red-to-Blue Hairline Sweep (CSS only) -->
-      <div class="hero-hairline-sweep-track" aria-hidden="true">
-        <div class="hero-hairline-sweep-beam"></div>
-      </div>
-    `;
-  }
-
-  // Export to window.ALODANAX_COMPONENTS
-  window.ALODANAX_COMPONENTS = {
-    renderNavigation,
-    renderFooter,
-    renderSubpageHero
-  };
-
-  // Auto-render shared components on DOM ready
-  function initSharedComponents() {
-    renderNavigation();
-    renderFooter();
-  }
-  if (typeof document !== 'undefined') {
-    if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', initSharedComponents);
-    } else {
-      initSharedComponents();
-    }
-  }
-
-})(window);
-/* ==== SHARED:COMPONENTS END ==== */
+    ];
+
+    const FAQ_DATA = [
+      { q: "Who is eligible to participate in ALODANAX?", a: "Undergraduate and postgraduate students enrolled in recognized universities and colleges pursuing Computer Science, Information Technology, Computer Applications, or related engineering disciplines are eligible. A valid student ID card is mandatory at physical check-in." },
+      { q: "How does the registration process work?", a: "Registration is conducted on a per-event basis via official Google Forms linked on each event's card. If an event registration link is pending announcement, it will display 'Registration Opening Soon'. Once live, complete the form with your squad details to reserve your slot." },
+      { q: "Is there an entry or registration fee?", a: "Participation guidelines and any fee specifics (if applicable) are detailed on each event's Google Form. Most flagship technical arenas, including competitive programming and keynotes, are free for verified students." },
+      { q: "Can I participate in multiple events?", a: "Yes, provided the scheduled event slots do not overlap. The flagship 24-Hour Hackathon runs continuously, so hackathon participants are advised not to enroll in simultaneous day-time arenas." },
+      { q: "What hardware or software should I bring for technical events?", a: "For the Hackathon, Web Design, and CTF challenges, participants must bring their personal laptops, chargers, and any specialized hardware. Workstation labs with compiler environments are provided for Bit Bash Bonanza." },
+      { q: "Will accommodation and meals be arranged for overnight participants?", a: "Registered participants of the 24-Hour Hackathon and outstation attendees will have designated rest lounges, high-speed Wi-Fi, midnight snacks, and breakfast on campus. Detailed hostel accommodation protocols are shared post-registration confirmation." },
+      { q: "When and how are certificates and cash prizes distributed?", a: "Official certificates of participation and merit credentials will be issued digitally to verified attendees. Cash prizes and trophies are awarded on stage during the grand valedictory ceremony on the final evening." },
+      { q: "How do I reach the college campus and venue?", a: "The college campus is well-connected by local metro, suburban transit lines, and cab services. Campus gates, parking zones, and orientation signs will be staffed by the ALODANAX student logistics team." }
+    ];
+
+    window.SITE_DATA = SITE_DATA;
+    window.EVENTS_DATA = EVENTS_DATA;
+    window.FAQ_DATA = FAQ_DATA;
   </script>
 
-  <!-- Page Application Script -->
+  <!-- Shared Utilities -->
   <script>
-// ===== PAGE: CONTACT.HTML SCRIPT =====
-/**
- * ALODANAX TechFest - Contact & Inquiries Interaction Controller
- * Handles map degradation, event coordinators aggregation from events.js,
- * accessible FAQ accordion, and inquiry form validation with honeypot spam protection.
- */
+    (function(window) {
+      function isPlaceholder(val) {
+        if (val === null || val === undefined) return true;
+        if (typeof val !== 'string') return false;
+        const trimmed = val.trim();
+        if (trimmed === '') return true;
+        return trimmed.startsWith('[') || trimmed.includes('[') && trimmed.includes(']');
+      }
+      function formatSafeLink(type, val) {
+        if (isPlaceholder(val)) return null;
+        const clean = val.trim();
+        if (type === 'tel') return `tel:${clean.replace(/[^\d+]/g, '')}`;
+        if (type === 'mailto') return `mailto:${clean}`;
+        if (type === 'url') return clean.startsWith('http') ? clean : `https://${clean}`;
+        return clean;
+      }
+      window.ALODANAX_UTILS = { isPlaceholder, formatSafeLink };
+    })(window);
+  </script>
 
-(function (window) {
-  'use strict';
+  <!-- WebGL SpecularButton Engine -->
+  <script>
+    (function(window) {
+      const TAU = Math.PI * 2;
+      const VERTEX = `#version 300 es\nin vec2 aPosition;\nvoid main() { gl_Position = vec4(aPosition, 0.0, 1.0); }`;
+      const FRAGMENT = `#version 300 es\nprecision highp float;\nuniform vec2 uCenter; uniform vec2 uHalf; uniform float uRadius; uniform float uPx; uniform float uSpot; uniform vec2 uEntry; uniform vec3 uLineColor; uniform vec3 uBaseColor; uniform float uIntensity; uniform vec2 uWindow; uniform float uThickness; uniform float uGlow;\nout vec4 outColor;\nfloat roundedBox(vec2 p, vec2 b, float r) {\n vec2 q = abs(p) - b + r;\n return length(max(q, 0.0)) + min(max(q.x, q.y), 0.0) - r;\n}\nfloat loopPosition(vec2 p, vec2 b, float r) {\n vec2 inner = b - r; float arc = 1.5707963 * r; float quarter = inner.x + inner.y + arc; vec2 a = abs(p); vec2 q = a - inner;\n float s = q.x > 0.0 && q.y > 0.0 ? inner.y + atan(q.y, q.x) * r : (q.x > q.y ? min(a.y, inner.y) : inner.y + arc + inner.x - min(a.x, inner.x));\n if (p.x < 0.0) s = p.y >= 0.0 ? 2.0 * quarter - s : 2.0 * quarter + s;\n else if (p.y < 0.0) s = 4.0 * quarter - s;\n return s / max(4.0 * quarter, 0.0001);\n}\nfloat lobe(float position, float center) {\n float gap = abs(fract(position - center + 0.5) - 0.5);\n return 1.0 - smoothstep(uWindow.x, uWindow.x + uWindow.y, gap);\n}\nvoid main() {\n vec2 p = gl_FragCoord.xy - uCenter; float d = roundedBox(p, uHalf, uRadius); float position = loopPosition(p, uHalf, uRadius); float key = lobe(position, uSpot); float back = lobe(position, uSpot + 0.5); float streak = key + back * 0.45; float width = max(uThickness * uPx * mix(1.0, max(key, back), 0.6), 0.35); float band = smoothstep(-width - 0.6, -width + 0.6, d) * (1.0 - smoothstep(-0.6, 0.6, d)); float hair = smoothstep(-uPx - 0.6, -uPx + 0.6, d) * (1.0 - smoothstep(-0.6, 0.6, d)); float inside = 1.0 - smoothstep(-0.6, 0.6, d); vec2 pool = (p - uEntry) / (uHalf.y * vec2(1.6, 1.1)); float glow = streak * 0.2 * exp(-abs(d + width * 0.5) / (5.0 * uPx)) + inside * 0.08 * exp(-dot(pool, pool)); float light = clamp((band * streak + glow * uGlow) * uIntensity, 0.0, 1.0); vec4 base = vec4(uBaseColor, 1.0) * hair * 0.6;\n outColor = vec4(uLineColor, 1.0) * light + base * (1.0 - light);\n}`;
+      const UNIFORMS = ['uCenter','uHalf','uRadius','uPx','uSpot','uEntry','uLineColor','uBaseColor','uIntensity','uWindow','uThickness','uGlow'];
+      const clamp = (v, min, max) => Math.min(max, Math.max(min, v));
+      const wrap = v => v - Math.floor(v);
+      const loopPos = (x, y, hx, hy, r) => {
+        const ix = hx-r, iy = hy-r, arc = (Math.PI/2)*r, q = ix+iy+arc;
+        const ax = Math.abs(x), ay = Math.abs(y), qx = ax-ix, qy = ay-iy;
+        let s;
+        if(qx>0 && qy>0) s = iy + Math.atan2(qy,qx)*r; else if(qx>qy) s = Math.min(ay,iy); else s = iy+arc+ix-Math.min(ax,ix);
+        if(x<0) s = y>=0 ? 2*q-s : 2*q+s; else if(y<0) s = 4*q-s;
+        return wrap(s/Math.max(4*q,0.0001));
+      };
+      const rimPoint = (pos, hx, hy, r) => {
+        const ix = hx-r, iy = hy-r, arc = (Math.PI/2)*r, q = ix+iy+arc;
+        let s = wrap(pos)*4*q, sx = 1, sy = 1;
+        if(s>3*q){ s=4*q-s; sy=-1; } else if(s>2*q){ s-=2*q; sx=-1; sy=-1; } else if(s>q){ s=2*q-s; sx=-1; }
+        let x = ix-(s-iy-arc), y = hy;
+        if(s<=iy){ x=hx; y=s; } else if(s<=iy+arc){ const a = (s-iy)/Math.max(r,0.0001); x=ix+Math.cos(a)*r; y=iy+Math.sin(a)*r; }
+        return [x*sx, y*sy];
+      };
+      const compile = (gl, type, src) => { const s=gl.createShader(type); gl.shaderSource(s,src); gl.compileShader(s); return gl.getShaderParameter(s,gl.COMPILE_STATUS)?s:null; };
+      
+      class SpecularButton {
+        constructor(btn) {
+          if(!btn) return;
+          this.btn = btn;
+          this.canvas = btn.querySelector('canvas');
+          if(!this.canvas) return;
+          try {
+            this.gl = this.canvas.getContext('webgl2', {alpha:true, premultipliedAlpha:true, antialias:false, depth:false, stencil:false});
+          } catch(e) { this.gl = null; }
+          if(!this.gl) return;
+          
+          this.s = {
+            radius: parseFloat(btn.dataset.radius) || 14,
+            lineColor: btn.dataset.tint || '#0A84FF',
+            baseColor: btn.dataset.base || '#525252',
+            intensity: 1, idleIntensity: 0.35, shineSize: 10, shineFade: 34, thickness: 1.2, glow: 1, speed: 0.35, proximity: 250
+          };
+          this.colors = new Map();
+          this.view = {w:1, h:1, ratio:1}; this.pointer = {x:0, y:0, known:false};
+          this.state = {spot:0, level:0, press:0, ready:false};
+          this.raf = 0; this.last = 0; this.visible = true;
+          
+          this.initGL();
+          this.measure();
+          
+          const ro = new ResizeObserver(()=>this.measure()); ro.observe(btn);
+          const io = new IntersectionObserver(e=>{ this.visible=e[0].isIntersecting; if(this.visible){this.last=0; this.wake();} }); io.observe(btn);
+          
+          this.handlers = {
+            move: e => { this.pointer.x=e.clientX; this.pointer.y=e.clientY; this.pointer.known=true; this.wake(); },
+            down: e => { this.pointer.x=e.clientX; this.pointer.y=e.clientY; this.pointer.known=true; this.state.press=1; this.wake(); },
+            up: e => { if(e.pointerType!=='mouse') this.pointer.known=false; this.wake(); },
+            leave: () => { this.pointer.known=false; this.wake(); }
+          };
+          window.addEventListener('pointermove', this.handlers.move, {passive:true});
+          window.addEventListener('pointerup', this.handlers.up, {passive:true});
+          document.documentElement.addEventListener('pointerleave', this.handlers.leave);
+          btn.addEventListener('pointerdown', this.handlers.down);
+        }
+        
+        initGL() {
+          const v = compile(this.gl, this.gl.VERTEX_SHADER, VERTEX), f = compile(this.gl, this.gl.FRAGMENT_SHADER, FRAGMENT);
+          if(!v || !f) return;
+          this.prog = this.gl.createProgram();
+          if(!this.prog) return;
+          this.gl.attachShader(this.prog, v); this.gl.attachShader(this.prog, f);
+          this.gl.bindAttribLocation(this.prog, 0, 'aPosition'); this.gl.linkProgram(this.prog);
+          this.locs = {}; UNIFORMS.forEach(n => this.locs[n] = this.gl.getUniformLocation(this.prog, n));
+          const buf = this.gl.createBuffer(); this.vao = this.gl.createVertexArray();
+          this.gl.bindVertexArray(this.vao); this.gl.bindBuffer(this.gl.ARRAY_BUFFER, buf);
+          this.gl.bufferData(this.gl.ARRAY_BUFFER, new Float32Array([-1,-1,3,-1,-1,3]), this.gl.STATIC_DRAW);
+          this.gl.enableVertexAttribArray(0); this.gl.vertexAttribPointer(0,2,this.gl.FLOAT,false,0,0);
+          this.gl.bindVertexArray(null);
+          this.ctx2d = document.createElement('canvas').getContext('2d', {willReadFrequently:true});
+        }
+        
+        toRgb(v) {
+          if(this.colors.has(v)) return this.colors.get(v);
+          this.ctx2d.clearRect(0,0,1,1); this.ctx2d.fillStyle='#000'; this.ctx2d.fillStyle=v; this.ctx2d.fillRect(0,0,1,1);
+          const [r,g,b] = this.ctx2d.getImageData(0,0,1,1).data; const rgb = [r/255,g/255,b/255];
+          this.colors.set(v, rgb); return rgb;
+        }
+        
+        cRad() { return Math.min(this.s.radius, this.view.w/2, this.view.h/2); }
+        restSpot() { const r=this.cRad(), i=r*(1-Math.SQRT1_2); return loopPos(i-this.view.w/2, this.view.h/2-i, this.view.w/2, this.view.h/2, r); }
+        
+        aim() {
+          if(!this.pointer.known) return null;
+          const rect = this.btn.getBoundingClientRect(), scale = rect.width/this.view.w||1;
+          const hx = this.view.w/2, hy = this.view.h/2;
+          const x = (this.pointer.x - rect.left - rect.width/2)/scale, y = (rect.top + rect.height/2 - this.pointer.y)/scale;
+          const dist = Math.hypot(Math.max(Math.abs(x)-hx,0), Math.max(Math.abs(y)-hy,0));
+          const t = clamp(1-dist/this.s.proximity,0,1), near = t*t*(3-2*t);
+          const nearest = loopPos(x,y,hx,hy,this.cRad());
+          if(dist>0) return {spot:nearest, near};
+          const depth = clamp(Math.min(hx-Math.abs(x),hy-Math.abs(y))/(hy*0.8),0,1);
+          const sway = this.restSpot() - (x/hx)*0.06 - (y/hy)*0.02, offset = sway-nearest-Math.round(sway-nearest);
+          return {spot: wrap(nearest+offset*depth*depth*(3-2*depth)), near};
+        }
+        
+        draw() {
+          const PAD=24, w=this.view.w, h=this.view.h, sx=this.canvas.width/(w+PAD*2), sy=this.canvas.height/(h+PAD*2);
+          this.gl.viewport(0,0,this.canvas.width,this.canvas.height); this.gl.clearColor(0,0,0,0); this.gl.clear(this.gl.COLOR_BUFFER_BIT);
+          this.gl.useProgram(this.prog);
+          this.gl.uniform2f(this.locs.uCenter, (PAD+w/2)*sx, (PAD+h/2)*sy);
+          this.gl.uniform2f(this.locs.uHalf, (w/2)*sx, (h/2)*sy);
+          this.gl.uniform1f(this.locs.uRadius, this.cRad()*sx);
+          this.gl.uniform1f(this.locs.uPx, this.view.ratio);
+          const [rx,ry] = rimPoint(this.state.spot, w/2, h/2, this.cRad());
+          const pull = 1-Math.min(0.35*(h/2), Math.hypot(rx,ry))/Math.max(Math.hypot(rx,ry),0.0001);
+          this.gl.uniform1f(this.locs.uSpot, this.state.spot);
+          this.gl.uniform2f(this.locs.uEntry, rx*pull*sx, ry*pull*sy);
+          this.gl.uniform3fv(this.locs.uLineColor, this.toRgb(this.s.lineColor));
+          this.gl.uniform3fv(this.locs.uBaseColor, this.toRgb(this.s.baseColor));
+          this.gl.uniform1f(this.locs.uIntensity, this.s.intensity*(this.state.level+this.state.press*0.8));
+          this.gl.uniform2f(this.locs.uWindow, this.s.shineSize/360+this.state.press*0.06, this.s.shineFade/360+0.0001);
+          this.gl.uniform1f(this.locs.uThickness, this.s.thickness);
+          this.gl.uniform1f(this.locs.uGlow, this.s.glow);
+          this.gl.bindVertexArray(this.vao); this.gl.drawArrays(this.gl.TRIANGLES, 0, 3);
+        }
+        
+        frame(now) {
+          this.raf = 0; if(!this.visible) return;
+          const dt = this.last ? Math.min(0.05, (now-this.last)/1000) : 1/60; this.last = now;
+          const target = this.aim(), steer = !!target && target.near>0;
+          if(!this.state.ready){ this.state.spot=this.restSpot(); this.state.level=this.s.idleIntensity; this.state.ready=true; }
+          let diff=0;
+          diff = (steer?target.spot:this.restSpot()) - this.state.spot; diff -= Math.round(diff);
+          this.state.spot = wrap(this.state.spot + diff*(1-Math.exp(-dt*8)));
+          const lvl = this.s.idleIntensity + (1-this.s.idleIntensity)*(target?target.near:0);
+          this.state.level += (lvl - this.state.level)*(1-Math.exp(-dt*7));
+          this.state.press *= Math.exp(-dt*5);
+          this.draw();
+          if(Math.abs(diff)>0.0002 || Math.abs(lvl-this.state.level)>0.001 || this.state.press>0.002) this.raf=requestAnimationFrame(n=>this.frame(n)); else this.last=0;
+        }
+        
+        wake() { if(!this.raf && this.visible) this.raf = requestAnimationFrame(n=>this.frame(n)); }
+        measure() {
+          this.view.w = Math.max(1, this.btn.offsetWidth); this.view.h = Math.max(1, this.btn.offsetHeight);
+          this.view.ratio = Math.min(window.devicePixelRatio||1, 3);
+          this.canvas.width = Math.max(1, Math.round((this.view.w+48)*this.view.ratio));
+          this.canvas.height = Math.max(1, Math.round((this.view.h+48)*this.view.ratio));
+          if(this.state.ready) this.draw();
+          this.wake();
+        }
+      }
+      window.SpecularButton = SpecularButton;
+    })(window);
 
-  function init() {
-    // 1. Render Subpage Hero
-    if (window.ALODANAX_COMPONENTS && window.ALODANAX_COMPONENTS.renderSubpageHero) {
-      window.ALODANAX_COMPONENTS.renderSubpageHero('contact-hero', {
-        breadcrumb: 'CONTACT',
-        titleSolid: 'GET IN',
-        titleOutline: 'TOUCH',
-        subtitle: 'Connect with festival coordinators, dispatch official inquiries, explore campus location, and find answers to common questions.'
+    function initButtons() { document.querySelectorAll('.specular-btn').forEach(b => { if(!b.dataset.init){ new window.SpecularButton(b); b.dataset.init="1";} }); }
+    document.addEventListener("DOMContentLoaded", initButtons);
+  </script>
+
+  <!-- CardNav Logic (Spring Physics) -->
+  <script>
+    (function(window){
+      const header = document.getElementById('site-header');
+      const root = document.getElementById('card-nav');
+      if(!root || !header) return;
+      
+      const panel = root.querySelector('.cn-panel');
+      const content = root.querySelector('.cn-content');
+      const btn = root.querySelector('.cn-menu-btn');
+      
+      let isOpen = false, raf = 0, last = 0;
+      let state = { p: 0, v: 0, height: 0, bar: 68 };
+      
+      const render = () => {
+        panel.style.height = `${state.bar + Math.max(0, state.p)*state.height}px`;
+        const cards = Array.from(content.querySelectorAll('.cn-card'));
+        const lag = cards.length > 1 ? Math.min(0.12, 0.7/(cards.length-1)) : 0;
+        const span = 1 - lag*(cards.length-1);
+        
+        cards.forEach((card, i) => {
+          let local = Math.max(0, Math.min(1, (state.p - i*lag)/Math.max(span,0.05)));
+          let e = 1 - Math.pow(1 - local, 3);
+          card.style.transform = `translateY(${(1-e)*26}px) scale(${0.97 + 0.03*e})`;
+          card.style.opacity = e;
+        });
+      };
+      
+      const tick = now => {
+        raf = 0; 
+        const dt = last ? Math.min(0.05, (now-last)/1000) : 1/60; 
+        last = now;
+        const target = isOpen ? 1 : 0;
+        const k = 160, zeta = isOpen ? 1 - 0.68*0.2 : 1;
+        const steps = Math.ceil(dt/(1/240)), h = dt/steps;
+        
+        for(let i=0; i<steps; i++){
+          state.v += (-k*(state.p - target) - 2*zeta*Math.sqrt(k)*state.v)*h;
+          state.p += state.v*h;
+        }
+        
+        const done = Math.abs(state.p-target)<0.0005 && Math.abs(state.v)<0.002;
+        if(done){ state.p = target; state.v = 0; }
+        
+        render();
+        
+        if(done && target===0) root.removeAttribute('data-shown');
+        if(!done) raf = requestAnimationFrame(tick);
+      };
+      
+      const setOpen = val => {
+        if(isOpen === val) return;
+        isOpen = val;
+        if(isOpen){ 
+          root.setAttribute('data-open', ''); 
+          root.setAttribute('data-shown', '');
+          content.style.visibility = 'hidden'; 
+          content.style.display = 'flex';
+          state.height = content.offsetHeight;
+          content.style.visibility = ''; 
+          content.style.display = '';
+        } else {
+          root.removeAttribute('data-open'); 
+        }
+        btn.setAttribute('aria-expanded', isOpen);
+        if(!raf){ last = 0; raf = requestAnimationFrame(tick); }
+      };
+      
+      if(btn){ btn.addEventListener('click', () => setOpen(!isOpen)); }
+      document.addEventListener('keydown', (e) => {
+        if(e.key === 'Escape' && isOpen) setOpen(false);
       });
-    }
+      document.addEventListener('click', (e) => {
+        if(isOpen && !root.contains(e.target)) setOpen(false);
+      });
+      root.querySelectorAll('.cn-links a, .cn-link').forEach(a => {
+        a.addEventListener('click', () => setOpen(false));
+      });
+      window.addEventListener('scroll', () => { header.classList.toggle('is-scrolled', window.scrollY > 40); }, {passive:true});
+    })(window);
+  </script>
 
-    const site = window.SITE_DATA || {};
-    const utils = window.ALODANAX_UTILS || {};
+  <!-- Contact Portal Application Script -->
+  <script>
+    (function(window) {
+      function init() {
+        if (!window.SITE_DATA) return;
+        const site = window.SITE_DATA;
+        const utils = window.ALODANAX_UTILS || {};
 
-    // 2. Hydrate Official Contacts & Campus Address
-    hydrateOfficialContacts(site, utils);
+        // 1. Hydrate Contacts
+        document.getElementById('college-full-title').textContent = site.college.fullTitle;
+        document.getElementById('college-address').textContent = site.college.address;
+        document.getElementById('official-venue-val').textContent = site.college.venue;
+        
+        const em = utils.formatSafeLink('mailto', site.contacts.email);
+        document.getElementById('official-email-val').innerHTML = em ? `<a href="${em}" class="coord-link">${site.contacts.email}</a>` : `<span class="badge-tba">TBA</span>`;
+        
+        const ph = utils.formatSafeLink('tel', site.contacts.phone);
+        document.getElementById('official-phone-val').innerHTML = ph ? `<a href="${ph}" class="coord-link">${site.contacts.phone}</a>` : `<span class="badge-tba">TBA</span>`;
 
-    // 3. Render Map or Graceful Designed Placeholder
-    renderMapArea(site.map, site.college, utils);
+        const sWrap = document.getElementById('contact-socials-wrap');
+        ['instagram','linkedin','github','youtube','x'].forEach(k => {
+          if(site.socials[k] && !utils.isPlaceholder(site.socials[k])) {
+            sWrap.innerHTML += `<a href="${site.socials[k]}" target="_blank" rel="noopener noreferrer" class="social-pill">${k.toUpperCase()}</a>`;
+          }
+        });
 
-    // 4. Aggregate Event Coordinators from events.js (Single Source of Truth)
-    renderEventCoordinators(window.EVENTS_DATA, utils);
-
-    // 5. Render FAQ Accordion from faq.js
-    renderFaqAccordion(window.FAQ_DATA);
-
-    // 6. Setup Inquiry Form Controller
-    setupInquiryForm(site.inquiryEndpoint, utils);
-  }
-
-  /**
-   * Hydrates college address, direct contacts, and verified social links.
-   * @param {object} site
-   * @param {object} utils
-   */
-  function hydrateOfficialContacts(site, utils) {
-    const college = site.college || {};
-    const contacts = site.contacts || {};
-    const socials = site.socials || {};
-
-    const fullTitleEl = document.getElementById('college-full-title');
-    const addressEl = document.getElementById('college-address');
-    const emailEl = document.getElementById('official-email-val');
-    const phoneEl = document.getElementById('official-phone-val');
-    const venueEl = document.getElementById('official-venue-val');
-    const socialsWrap = document.getElementById('contact-socials-wrap');
-
-    if (fullTitleEl) fullTitleEl.textContent = college.fullTitle || '[DEPARTMENT, COLLEGE]';
-    if (addressEl) addressEl.textContent = college.address || '[CAMPUS ADDRESS, CITY, STATE, PIN]';
-    if (venueEl) venueEl.textContent = college.venue || '[VENUE TBA]';
-
-    if (emailEl) {
-      const emailLink = utils.formatSafeLink ? utils.formatSafeLink('mailto', contacts.email) : null;
-      emailEl.innerHTML = emailLink
-        ? `<a href="${emailLink}" class="coord-link">${contacts.email}</a>`
-        : `<span class="badge-tba">TBA</span>`;
-    }
-
-    if (phoneEl) {
-      const phoneLink = utils.formatSafeLink ? utils.formatSafeLink('tel', contacts.phone) : null;
-      phoneEl.innerHTML = phoneLink
-        ? `<a href="${phoneLink}" class="coord-link">${contacts.phone}</a>`
-        : `<span class="badge-tba">TBA</span>`;
-    }
-
-    if (socialsWrap) {
-      let socialsHtml = '';
-      const socialKeys = ['instagram', 'linkedin', 'github', 'youtube', 'x'];
-      socialKeys.forEach(k => {
-        const url = socials[k];
-        if (url && !utils.isPlaceholder(url)) {
-          socialsHtml += `
-            <a href="${url}" target="_blank" rel="noopener noreferrer" class="social-pill" aria-label="${k.toUpperCase()}">
-              ${k.toUpperCase()}
-            </a>
+        // 3. Map
+        const mapArea = document.getElementById('map-frame-area');
+        if (site.map.embedUrl && !utils.isPlaceholder(site.map.embedUrl)) {
+          mapArea.innerHTML = `<iframe src="${site.map.embedUrl}" class="map-iframe" loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe>`;
+        } else {
+          const lHtml = site.map.link && !utils.isPlaceholder(site.map.link) ? `<a href="${site.map.link}" target="_blank" rel="noopener noreferrer" class="specular-btn size-sm" data-tint="#0A84FF"><canvas aria-hidden="true"></canvas><span class="specular-text">OPEN IN GOOGLE MAPS</span></a>` : `<span class="badge-tba">COORDINATES PENDING</span>`;
+          mapArea.innerHTML = `
+            <div class="map-placeholder-card">
+              <div class="map-grid-graphic"><svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg></div>
+              <h3 class="map-ph-title">CAMPUS VENUE MAP</h3>
+              <p class="map-ph-desc">${site.college.address}</p>
+              ${lHtml}
+            </div>
           `;
         }
-      });
-      socialsWrap.innerHTML = socialsHtml;
-    }
-  }
 
-  /**
-   * Renders map iframe if embedUrl exists; otherwise renders a designed dark card.
-   * Never guesses or geocodes an unknown address.
-   * @param {object} map
-   * @param {object} college
-   * @param {object} utils
-   */
-  function renderMapArea(map, college, utils) {
-    const mapArea = document.getElementById('map-frame-area');
-    if (!mapArea) return;
+        // 4. Coordinators Grid
+        const evContainer = document.getElementById('events-coordinators-container');
+        if (window.EVENTS_DATA && evContainer) {
+          let html = '';
+          window.EVENTS_DATA.forEach((ev, i) => {
+            if (ev.coordinators && ev.coordinators.length > 0) {
+              const mt = i > 0 ? 'margin-top: 3rem;' : '';
+              html += `<h3 class="head-group-title" style="${mt}">${ev.name} HEADS</h3>`;
+              html += `<div class="events-coordinators-grid">`;
+              
+              ev.coordinators.forEach(coord => {
+                const ps = utils.formatSafeLink('tel', coord.phone);
+                html += `
+                  <article class="spotlight-card event-coord-card">
+                    <div class="coord-card-top">
+                      <span class="category-badge ${ev.category === 'gaming' ? 'cat-gaming' : (ev.category === 'non-technical' ? 'cat-non-technical' : '')}">${ev.category}</span>
+                      <span class="coord-card-role">${coord.role}</span>
+                    </div>
+                    <h3 class="coord-card-name">${coord.name}</h3>
+                    <div class="coord-card-details">
+                      <div><span>TEL:</span> ${ps ? `<a href="${ps}" class="coord-link">${coord.phone}</a>` : `<span class="badge-tba">TBA</span>`}</div>
+                    </div>
+                  </article>
+                `;
+              });
+              html += `</div>`;
+            }
+          });
+          evContainer.innerHTML = html;
+        }
 
-    map = map || {};
-    const embedUrl = map.embedUrl;
-    const mapLink = map.link;
-
-    // Check if embedUrl is a real, non-placeholder URL
-    if (embedUrl && !utils.isPlaceholder(embedUrl) && embedUrl.startsWith('https://')) {
-      mapArea.innerHTML = `
-        <iframe
-          src="${embedUrl}"
-          class="map-iframe"
-          title="Google Map of Campus Venue"
-          loading="lazy"
-          referrerpolicy="no-referrer-when-downgrade"
-          allowfullscreen
-        ></iframe>
-      `;
-    } else {
-      // Graceful Designed Dark Placeholder Card
-      const linkHtml = (mapLink && !utils.isPlaceholder(mapLink))
-        ? `<a href="${mapLink}" target="_blank" rel="noopener noreferrer" class="btn-cta btn-secondary-blue map-external-link">
-            <span>OPEN IN GOOGLE MAPS</span>
-            <span aria-hidden="true">↗</span>
-          </a>`
-        : `<span class="badge-tba">MAP COORDINATES TBA</span>`;
-
-      mapArea.innerHTML = `
-        <div class="map-placeholder-card">
-          <div class="map-grid-graphic" aria-hidden="true">
-            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
-              <circle cx="12" cy="10" r="3"></circle>
-            </svg>
-          </div>
-          <h3 class="map-ph-title">CAMPUS VENUE MAP</h4>
-          <p class="map-ph-desc">
-            ${college && college.address ? college.address : '[CAMPUS ADDRESS PENDING ANNOUNCEMENT]'}
-          </p>
-          <div class="map-ph-action">
-            ${linkHtml}
-          </div>
-        </div>
-      `;
-    }
-  }
-
-  /**
-   * Aggregates event-specific coordinators directly from events.js.
-   * Single source of truth.
-   * @param {Array} events
-   * @param {object} utils
-   */
-  function renderEventCoordinators(events, utils) {
-    const grid = document.getElementById('events-coordinators-grid');
-    if (!grid || !Array.isArray(events)) return;
-
-    grid.innerHTML = '';
-    let totalCards = 0;
-
-    events.forEach(ev => {
-      if (Array.isArray(ev.coordinators) && ev.coordinators.length > 0) {
-        ev.coordinators.forEach(coord => {
-          totalCards++;
-          const card = document.createElement('article');
-          card.className = `event-coord-card category-${ev.category}`;
-
-          const catBadgeClass = ev.category === 'technical' ? 'cat-technical' : (ev.category === 'gaming' ? 'cat-gaming' : 'cat-non-technical');
-          const phoneSafe = utils.formatSafeLink ? utils.formatSafeLink('tel', coord.phone) : null;
-          const emailSafe = utils.formatSafeLink ? utils.formatSafeLink('mailto', coord.email) : null;
-
-          const phoneText = phoneSafe ? `<a href="${phoneSafe}" class="coord-link">${coord.phone}</a>` : `<span class="badge-tba">TBA</span>`;
-          const emailText = emailSafe ? `<a href="${emailSafe}" class="coord-link">${coord.email}</a>` : `<span class="badge-tba">TBA</span>`;
-
-          card.innerHTML = `
-            <div class="coord-card-top">
-              <span class="category-badge ${catBadgeClass}">${ev.name}</span>
-              <span class="coord-card-role">${coord.role || 'COORDINATOR'}</span>
-            </div>
-            <h3 class="coord-card-name">${coord.name || '[NAME TBA]'}</h4>
-            <div class="coord-card-details">
-              <div><span>TEL:</span> ${phoneText}</div>
-              <div><span>EMAIL:</span> ${emailText}</div>
-            </div>
-          `;
-
-          grid.appendChild(card);
+        // 5. Setup Spotlight Mouse Tracking
+        document.querySelectorAll('.spotlight-card').forEach(card => {
+            card.addEventListener('mousemove', e => {
+                const rect = card.getBoundingClientRect();
+                card.style.setProperty('--mouse-x', `${e.clientX - rect.left}px`);
+                card.style.setProperty('--mouse-y', `${e.clientY - rect.top}px`);
+            });
         });
+
+        // 6. FAQ Folder Integration (Dynamic Grid Spread)
+        const faqPapersWrap = document.getElementById('faq-papers-wrap');
+        const folder = document.getElementById('faq-folder');
+        const folderWrap = document.getElementById('faq-folder-wrapper');
+        const modal = document.getElementById('faq-modal');
+        const mQ = document.getElementById('faq-modal-q');
+        const mA = document.getElementById('faq-modal-a');
+
+        if (window.FAQ_DATA) {
+          // Render papers
+          window.FAQ_DATA.forEach((faq, i) => {
+            faqPapersWrap.innerHTML += `
+              <div class="faq-paper" data-index="${i}" tabindex="0" role="button" aria-label="${faq.q}">
+                <div class="faq-paper-q">${faq.q}</div>
+              </div>
+            `;
+          });
+
+          const papers = document.querySelectorAll('.faq-paper');
+          
+          folder.addEventListener('click', (e) => {
+              const paperClick = e.target.closest('.faq-paper');
+              const isOpen = folder.classList.contains('is-open');
+
+              // If clicking a paper while folder is open, show modal
+              if(paperClick && isOpen) {
+                  e.stopPropagation();
+                  const idx = paperClick.getAttribute('data-index');
+                  mQ.textContent = window.FAQ_DATA[idx].q;
+                  mA.innerHTML = `<p>${window.FAQ_DATA[idx].a}</p>`;
+                  modal.classList.add('is-active');
+                  document.body.style.overflow = 'hidden';
+                  return;
+              }
+
+              // Toggle Folder
+              folder.classList.toggle('is-open');
+              const nowOpen = folder.classList.contains('is-open');
+              folderWrap.classList.toggle('is-open', nowOpen);
+              
+              const wrapW = folderWrap.offsetWidth;
+              const total = papers.length;
+              
+              // Responsive card sizing matches the CSS media query values
+              const vw = window.innerWidth;
+              const isSmall = vw < 420;
+              const isMobile = vw < 768;
+              const cardW = isSmall ? 120 : (isMobile ? 140 : 180);
+              const cardH = isSmall ? 90 : (isMobile ? 100 : 110);
+              const gap = isSmall ? 10 : 16;
+              
+              // Calculate Columns clamped to fit within available width
+              const maxSpreadW = Math.min(wrapW, vw - 32);
+              let cols = Math.floor((maxSpreadW + gap) / (cardW + gap));
+              cols = Math.max(2, Math.min(cols, 4));
+              
+              const rows = Math.ceil(total / cols);
+
+              papers.forEach((p, i) => {
+                  p.style.transitionDelay = nowOpen ? `${i * 0.04}s` : '0s';
+
+                  if(nowOpen) {
+                      const row = Math.floor(i / cols);
+                      const col = i % cols;
+                      
+                      // Perfect centering math
+                      const x = (col - (cols - 1) / 2) * (cardW + gap);
+                      
+                      // Stack upwards from the folder
+                      const y = - ((rows - row) * (cardH + gap)) - (isMobile ? 20 : 40);
+                      
+                      // Push coordinates to CSS Variables for hover to hook into
+                      p.style.setProperty('--tx', `${x}px`);
+                      p.style.setProperty('--ty', `${y}px`);
+                      p.style.setProperty('--tz', `${i}px`);
+                  } else {
+                      // Return to folder center
+                      p.style.setProperty('--tx', `0px`);
+                      p.style.setProperty('--ty', `0px`);
+                      p.style.setProperty('--tz', `${i}px`);
+                  }
+              });
+          });
+
+          // Re-calculate paper spread on viewport resize if folder is open
+          let resizeTimer;
+          window.addEventListener('resize', () => {
+            clearTimeout(resizeTimer);
+            resizeTimer = setTimeout(() => {
+              if (folder.classList.contains('is-open')) {
+                const wrapW = folderWrap.offsetWidth;
+                const total = papers.length;
+                const vw = window.innerWidth;
+                const isSmall = vw < 420;
+                const isMobile = vw < 768;
+                const cardW = isSmall ? 120 : (isMobile ? 140 : 180);
+                const cardH = isSmall ? 90 : (isMobile ? 100 : 110);
+                const gap = isSmall ? 10 : 16;
+                const maxSpreadW = Math.min(wrapW, vw - 32);
+                let cols = Math.floor((maxSpreadW + gap) / (cardW + gap));
+                cols = Math.max(2, Math.min(cols, 4));
+                const rows = Math.ceil(total / cols);
+
+                papers.forEach((p, i) => {
+                  const row = Math.floor(i / cols);
+                  const col = i % cols;
+                  const x = (col - (cols - 1) / 2) * (cardW + gap);
+                  const y = - ((rows - row) * (cardH + gap)) - (isMobile ? 20 : 40);
+                  p.style.setProperty('--tx', `${x}px`);
+                  p.style.setProperty('--ty', `${y}px`);
+                });
+              }
+            }, 100);
+          }, { passive: true });
+
+          folder.addEventListener('keydown', (e) => {
+            if ((e.key === 'Enter' || e.key === ' ') && e.target.classList.contains('faq-paper')) {
+              e.preventDefault();
+              e.target.click();
+            }
+          });
+        }
+
+        // Close Modal
+        const closeMod = () => { modal.classList.remove('is-active'); document.body.style.overflow = ''; };
+        document.getElementById('faq-modal-close').addEventListener('click', closeMod);
+        modal.addEventListener('click', e => { if(e.target === modal) closeMod(); });
+        document.addEventListener('keydown', e => { if(e.key === 'Escape') closeMod(); });
+
+        // 7. Inquiry Form
+        const form = document.getElementById('contact-inquiry-form');
+        const succ = document.getElementById('inquiry-success-panel');
+        const modeNote = document.getElementById('inquiry-mode-note');
+        if (modeNote && (!site.inquiryEndpoint || utils.isPlaceholder(site.inquiryEndpoint))) {
+          modeNote.textContent = '(Preview mode: inquiries are logged locally)';
+        }
+
+        form.addEventListener('submit', e => {
+          e.preventDefault();
+          const hp = document.getElementById('inquiry-honeypot');
+          if (hp && hp.value.trim() !== '') return;
+          
+          let isValid = true;
+          ['inq-name','inq-email','inq-subject','inq-message'].forEach(id => {
+            const el = document.getElementById(id);
+            el.classList.remove('is-invalid');
+            const errEl = document.getElementById('err-'+id);
+            if (errEl) errEl.textContent = '';
+            if(!el.value.trim()){
+              el.classList.add('is-invalid');
+              if (errEl) errEl.textContent = 'Required field.';
+              isValid = false;
+            }
+          });
+
+          const emailEl = document.getElementById('inq-email');
+          if (emailEl && emailEl.value.trim() && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailEl.value.trim())) {
+            emailEl.classList.add('is-invalid');
+            const errEmail = document.getElementById('err-inq-email');
+            if (errEmail) errEmail.textContent = 'Please enter a valid email address.';
+            isValid = false;
+          }
+          
+          if(!isValid) return;
+          form.style.display = 'none';
+          succ.style.display = 'block';
+        });
+
+        document.getElementById('btn-reset-inquiry').addEventListener('click', () => {
+          form.reset(); form.style.display = 'block'; succ.style.display = 'none';
+        });
+
+        setTimeout(initButtons, 100);
       }
-    });
 
-    if (totalCards === 0) {
-      grid.innerHTML = `<p class="lead-text">Event coordinator details are currently being finalized.</p>`;
-    }
-  }
+      document.addEventListener("DOMContentLoaded", init);
+    })(window);
 
-  /**
-   * Renders the accessible FAQ accordion from faq.js.
-   * @param {Array} faqList
-   */
-  function renderFaqAccordion(faqList) {
-    const container = document.getElementById('faq-accordion-container');
-    if (!container || !Array.isArray(faqList)) return;
-
-    container.innerHTML = '';
-
-    faqList.forEach((faq, index) => {
-      const item = document.createElement('div');
-      item.className = 'faq-accordion-item';
-
-      const qId = `faq-btn-${index}`;
-      const aId = `faq-ans-${index}`;
-
-      item.innerHTML = `
-        <button
-          type="button"
-          class="faq-question-btn"
-          id="${qId}"
-          aria-expanded="false"
-          aria-controls="${aId}"
-        >
-          <span class="faq-question-text">${faq.q}</span>
-          <span class="faq-toggle-icon" aria-hidden="true">+</span>
-        </button>
-        <div
-          id="${aId}"
-          class="faq-answer-panel"
-          role="region"
-          aria-labelledby="${qId}"
-          hidden
-        >
-          <div class="faq-answer-inner">
-            <p>${faq.a}</p>
+    // Inject Footer
+    document.addEventListener("DOMContentLoaded", () => {
+      document.getElementById("site-footer").innerHTML = `
+        <footer class="site-footer">
+          <div class="section-container">
+            <div class="footer-grid">
+              <div>
+                <a href="index.html" class="footer-brand">ALODANAX</a>
+                <p class="footer-department">[DEPARTMENT OF IT/CS]</p>
+                <p style="font-family:var(--font-body); color:var(--text-tertiary); font-size:0.9rem;">Precision Engineering Meets Cyber Evolution</p>
+              </div>
+              <div>
+                <h3 class="footer-col-title">NAVIGATION</h3>
+                <ul class="footer-nav-list">
+                  <li><a href="index.html">Home</a></li>
+                  <li><a href="events.html">Events</a></li>
+                  <li><a href="hackathon.html">Hackathon</a></li>
+                  <li><a href="team.html">Our Team</a></li>
+                  <li><a href="contact.html">Contact</a></li>
+                </ul>
+              </div>
+              <div>
+                <h3 class="footer-col-title">CONNECT</h3>
+                <p class="footer-contact-line"><strong>EMAIL:</strong> <br>[EMAIL TBA]</p>
+                <p class="footer-contact-line"><strong>PHONE:</strong> <br>[PHONE TBA]</p>
+                <p class="footer-contact-line"><strong>VENUE:</strong> <br>[VENUE TBA]</p>
+              </div>
+            </div>
+            <div class="footer-bottom-bar">
+              <p>© 2026 ALODANAX. ALL RIGHTS RESERVED.</p>
+              <a href="#site-header" class="back-to-top" onclick="window.scrollTo({top:0, behavior:'smooth'}); return false;">BACK TO TOP</a>
+            </div>
           </div>
-        </div>
+        </footer>
       `;
-
-      const btn = item.querySelector('.faq-question-btn');
-      const panel = item.querySelector('.faq-answer-panel');
-      const icon = item.querySelector('.faq-toggle-icon');
-
-      btn.addEventListener('click', () => {
-        const isExpanded = btn.getAttribute('aria-expanded') === 'true';
-        btn.setAttribute('aria-expanded', isExpanded ? 'false' : 'true');
-        panel.hidden = isExpanded;
-        icon.textContent = isExpanded ? '+' : '−';
-        item.classList.toggle('is-active', !isExpanded);
-      });
-
-      container.appendChild(item);
     });
-  }
-
-  /**
-   * Configures client-side validation, honeypot spam protection,
-   * and endpoint detection for the general inquiry form.
-   * @param {string} endpoint
-   * @param {object} utils
-   */
-  function setupInquiryForm(endpoint, utils) {
-    const form = document.getElementById('contact-inquiry-form');
-    const actionRow = document.getElementById('inquiry-action-row');
-    const successPanel = document.getElementById('inquiry-success-panel');
-    const resetBtn = document.getElementById('btn-reset-inquiry');
-
-    if (!form || !actionRow) return;
-
-    const isEndpointValid = (endpoint && !utils.isPlaceholder(endpoint) && endpoint.startsWith('https://'));
-
-    // If endpoint is placeholder or not configured: disable submit button with specific note
-    if (!isEndpointValid) {
-      actionRow.innerHTML = `
-        <button type="button" class="btn-cta btn-disabled" aria-disabled="true" title="Live email dispatch is pending configuration">
-          <span class="disabled-status-dot"></span>
-          <span>Inquiry form will be activated soon</span>
-        </button>
-        <span class="inquiry-form-note">Inquiry submissions are currently in preview mode.</span>
-      `;
-    } else {
-      actionRow.innerHTML = `
-        <button type="submit" class="btn-cta btn-primary-neon" id="btn-submit-inquiry">
-          <span>TRANSMIT INQUIRY</span>
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <line x1="22" y1="2" x2="11" y2="13"></line>
-            <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
-          </svg>
-        </button>
-      `;
-    }
-
-    form.addEventListener('submit', (e) => {
-      e.preventDefault();
-
-      // Check honeypot spam trap
-      const honeypot = document.getElementById('inquiry-honeypot');
-      if (honeypot && honeypot.value.trim() !== '') {
-        console.warn('Spam submission suppressed by honeypot.');
-        return;
-      }
-
-      let isValid = true;
-      const nameInput = document.getElementById('inq-name');
-      const emailInput = document.getElementById('inq-email');
-      const subjectInput = document.getElementById('inq-subject');
-      const messageInput = document.getElementById('inq-message');
-
-      const errName = document.getElementById('err-inq-name');
-      const errEmail = document.getElementById('err-inq-email');
-      const errSubject = document.getElementById('err-inq-subject');
-      const errMessage = document.getElementById('err-inq-message');
-
-      [nameInput, emailInput, subjectInput, messageInput].forEach(el => el && el.classList.remove('is-invalid'));
-      [errName, errEmail, errSubject, errMessage].forEach(el => el && (el.textContent = ''));
-
-      // Validate Name
-      if (!nameInput.value.trim()) {
-        nameInput.classList.add('is-invalid');
-        errName.textContent = 'Please provide your full name.';
-        isValid = false;
-      }
-
-      // Validate Email
-      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-      if (!emailInput.value.trim() || !emailRegex.test(emailInput.value.trim())) {
-        emailInput.classList.add('is-invalid');
-        errEmail.textContent = 'Please provide a valid email address.';
-        isValid = false;
-      }
-
-      // Validate Subject
-      if (!subjectInput.value.trim()) {
-        subjectInput.classList.add('is-invalid');
-        errSubject.textContent = 'Please state an inquiry subject.';
-        isValid = false;
-      }
-
-      // Validate Message
-      if (!messageInput.value.trim() || messageInput.value.trim().length < 10) {
-        messageInput.classList.add('is-invalid');
-        errMessage.textContent = 'Please enter a message of at least 10 characters.';
-        isValid = false;
-      }
-
-      if (!isValid) return;
-
-      // Handle successful client-side validation
-      form.style.display = 'none';
-      if (successPanel) successPanel.style.display = 'block';
-    });
-
-    if (resetBtn) {
-      resetBtn.addEventListener('click', () => {
-        form.reset();
-        form.style.display = 'block';
-        if (successPanel) successPanel.style.display = 'none';
-      });
-    }
-  }
-
-  // Initialize on DOM Ready
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', init);
-  } else {
-    init();
-  }
-
-})(window);
   </script>
+
 </body>
 </html>
-

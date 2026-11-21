@@ -1,6 +1,6 @@
 import fs from 'node:fs';
 
-const pages = ['index.html', 'events.html', 'committee.html', 'faculty.html', 'hackathon.html', 'team.html', 'contact.html'];
+const pages = ['index.html', 'events.html', 'faculty.html', 'hackathon.html', 'team.html', 'contact.html'];
 
 console.log('=== AUDITING TYPOGRAPHY & READABILITY ISSUES ===\n');
 
