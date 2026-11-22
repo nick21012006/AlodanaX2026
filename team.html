@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Our Team | ALODANAX 2026</title>
-  <meta name="description" content="Meet the 40-member student organizing crew behind ALODANAX 2026 across technical systems, web infrastructure, design, logistics, and esports.">
+  <meta name="description" content="Meet the 40-member student organizing crew behind ALODANAX 2026.">
 
   <!-- Open Graph -->
   <meta property="og:title" content="Our Team | ALODANAX 2026">
@@ -327,27 +327,7 @@ a:focus-visible, button:focus-visible, input:focus-visible { outline: 2px solid 
 .events-search-input { background: transparent; border: none; color: var(--white); font-family: var(--font-body); font-size: 1rem; width: 100%; outline: none; }
 .search-clear-btn { background: none; border: none; color: var(--text-tertiary); font-size: 1.5rem; cursor: pointer; line-height: 1; }
 
-/* Horizontal Filter Chips (Forced horizontal scroll) */
-.category-chips-bar { 
-  display: flex; gap: 0.6rem; margin-bottom: 0;
-  flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; -webkit-overflow-scrolling: touch; padding-bottom: 0.5rem; align-items: center;
-}
-.category-chips-bar::-webkit-scrollbar { display: none; }
-.category-chip {
-  background: transparent; border: 1px solid rgba(255,255,255,0.15);
-  color: var(--white-muted); font-family: var(--font-display);
-  font-size: 0.85rem; font-weight: 700; letter-spacing: 0.1em;
-  padding: 0.6rem 1.4rem; border-radius: 100px; cursor: pointer;
-  display: inline-flex; align-items: center; gap: 0.5rem;
-  transition: all 0.3s ease; text-transform: uppercase; white-space: nowrap; flex-shrink: 0;
-}
-.chip-dot { width: 6px; height: 6px; border-radius: 50%; background: currentColor; }
-.chip-tech { --chip-col: var(--blue); }
-.chip-non-tech { --chip-col: #FFFFFF; }
-.chip-gaming { --chip-col: var(--neon-red); }
 
-.category-chip:hover { border-color: rgba(255,255,255,0.4); color: var(--white); }
-.category-chip.is-active { background: var(--white); color: var(--black); border-color: var(--white); box-shadow: 0 0 15px rgba(255,255,255,0.3); }
 
 .team-status-bar { font-family: var(--font-body); font-weight: 500; font-size: 0.9rem; color: var(--text-tertiary); margin-bottom: 2.5rem; border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 1rem; }
 
@@ -377,17 +357,7 @@ a:focus-visible, button:focus-visible, input:focus-visible { outline: 2px solid 
 .team-photo-img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s ease, filter 0.6s ease; filter: brightness(0.9) grayscale(20%); }
 .team-profile-card:hover .team-photo-img { transform: scale(1.05); filter: brightness(1) grayscale(0%); }
 
-.team-dept-badge {
-  position: absolute; bottom: 0.8rem; left: 0.8rem;
-  font-family: var(--font-display); font-size: 0.75rem; font-weight: 700;
-  letter-spacing: 0.1em; text-transform: uppercase; padding: 0.3rem 0.8rem;
-  border-radius: 100px; backdrop-filter: blur(4px);
-  background: rgba(0, 0, 0, 0.8); color: var(--white);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-}
-.dept-tech { color: var(--blue-bright); border-color: var(--blue); }
-.dept-gaming { color: var(--neon-red-bright); border-color: var(--neon-red); }
-.dept-non-tech { color: var(--white); border-color: rgba(255, 255, 255, 0.4); }
+
 
 .team-card-content { padding: 1.5rem; display: flex; flex-direction: column; flex: 1; z-index: 2; }
 .team-role-title { font-family: var(--font-display); font-size: 0.75rem; font-weight: 700; color: var(--blue-bright); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 0.4rem; }
@@ -427,9 +397,7 @@ a:focus-visible, button:focus-visible, input:focus-visible { outline: 2px solid 
   .display-title { font-size: clamp(1.4rem, 6vw, 2.2rem); }
   .events-toolbar-wrap { flex-direction: column; align-items: stretch; padding: 1.25rem; min-width: 0; max-width: 100%; overflow: hidden; }
   .events-search-box { max-width: 100%; min-width: 0; }
-  .category-chips-bar { flex-wrap: nowrap; overflow-x: auto; padding-bottom: 0.5rem; scrollbar-width: none; min-width: 0; max-width: 100%; width: 100%; -webkit-overflow-scrolling: touch; }
-  .category-chips-bar::-webkit-scrollbar { display: none; }
-  .category-chip { flex-shrink: 0; }
+
   
   .team-cards-grid { grid-template-columns: 1fr; gap: 1.5rem; }
   
@@ -533,7 +501,7 @@ a:focus-visible, button:focus-visible, input:focus-visible { outline: 2px solid 
       <h2 class="sr-only" style="display:none;">Student Organizing Team Directory</h2>
 
       <!-- Interactive Toolbar -->
-      <div class="events-toolbar-wrap" role="region" aria-label="Search and filter team members">
+      <div class="events-toolbar-wrap" role="region" aria-label="Search team members">
         <div class="events-search-box">
           <svg class="search-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
             <circle cx="11" cy="11" r="8"></circle>
@@ -542,14 +510,9 @@ a:focus-visible, button:focus-visible, input:focus-visible { outline: 2px solid 
           <input type="search" id="team-search-input" class="events-search-input" placeholder="Search by name or role..." autocomplete="off">
           <button type="button" id="team-search-clear" class="search-clear-btn" style="display: none;">&times;</button>
         </div>
-
-        <!-- Horizontal scrollable filter chips -->
-        <div class="category-chips-bar" id="team-department-chips" role="tablist">
-          <!-- Dynamically populated via JS -->
-        </div>
       </div>
 
-      <div class="team-status-bar" id="team-status-bar" aria-live="polite">Showing all 40 student crew members</div>
+      <div class="team-status-bar" id="team-status-bar" aria-live="polite">Showing all 40 crew members.</div>
 
       <div class="team-cards-grid" id="team-cards-grid">
         <!-- Cards populated via JS -->
@@ -558,9 +521,9 @@ a:focus-visible, button:focus-visible, input:focus-visible { outline: 2px solid 
       <div id="team-empty-state" class="events-empty-state" style="display: none;">
         <div class="empty-icon-box">&empty;</div>
         <h3 class="empty-heading">NO CREW FOUND</h3>
-        <p class="empty-subtext">No team members match your active search or department filter.</p>
+        <p class="empty-subtext">No team members match your search.</p>
         <button type="button" class="specular-btn size-md" id="btn-reset-team-filters" data-tint="#ffffff" data-base="#525252" data-radius="12">
-          <canvas aria-hidden="true"></canvas><span class="specular-text">RESET FILTERS</span>
+          <canvas aria-hidden="true"></canvas><span class="specular-text">CLEAR SEARCH</span>
         </button>
       </div>
 
@@ -578,46 +541,46 @@ a:focus-visible, button:focus-visible, input:focus-visible { outline: 2px solid 
     };
     
     const TEAM_DATA = [
-      { id: 1, name: "[NAME 01]", role: "[TECHNICAL LEAD]", department: "Technical", photo: "assets/images/team/member-01.jpg", social: { linkedin: "[LINKEDIN TBA]", instagram: "[INSTAGRAM TBA]", github: "[GITHUB TBA]" } },
-      { id: 2, name: "[NAME 02]", role: "[SYSTEMS ARCHITECT]", department: "Technical", photo: "assets/images/team/member-02.jpg", social: { linkedin: "[LINKEDIN TBA]", instagram: "[INSTAGRAM TBA]", github: "[GITHUB TBA]" } },
-      { id: 3, name: "[NAME 03]", role: "[CYBERSEC SPECIALIST]", department: "Technical", photo: "assets/images/team/member-03.jpg", social: { linkedin: "[LINKEDIN TBA]", instagram: "[INSTAGRAM TBA]", github: "[GITHUB TBA]" } },
-      { id: 4, name: "[NAME 04]", role: "[COMPETITIVE CODE LEAD]", department: "Technical", photo: "assets/images/team/member-04.jpg", social: { linkedin: "[LINKEDIN TBA]", instagram: "[INSTAGRAM TBA]", github: "[GITHUB TBA]" } },
-      { id: 5, name: "[NAME 05]", role: "[HACKATHON TRACK LEAD]", department: "Technical", photo: "assets/images/team/member-05.jpg", social: { linkedin: "[LINKEDIN TBA]", instagram: "[INSTAGRAM TBA]", github: "[GITHUB TBA]" } },
-      { id: 6, name: "[NAME 06]", role: "[HARDWARE/IOT SPECIALIST]", department: "Technical", photo: "assets/images/team/member-06.jpg", social: { linkedin: "[LINKEDIN TBA]", instagram: "[INSTAGRAM TBA]", github: "[GITHUB TBA]" } },
-      { id: 7, name: "[NAME 07]", role: "[LEAD FULL-STACK DEV]", department: "Web", photo: "assets/images/team/member-07.jpg", social: { linkedin: "[LINKEDIN TBA]", instagram: "[INSTAGRAM TBA]", github: "[GITHUB TBA]" } },
-      { id: 8, name: "[NAME 08]", role: "[FRONT-END ENGINEER]", department: "Web", photo: "assets/images/team/member-08.jpg", social: { linkedin: "[LINKEDIN TBA]", instagram: "[INSTAGRAM TBA]", github: "[GITHUB TBA]" } },
-      { id: 9, name: "[NAME 09]", role: "[BACK-END DEVELOPER]", department: "Web", photo: "assets/images/team/member-09.jpg", social: { linkedin: "[LINKEDIN TBA]", instagram: "[INSTAGRAM TBA]", github: "[GITHUB TBA]" } },
-      { id: 10, name: "[NAME 10]", role: "[DEVOPS & CLOUD ARCHITECT]", department: "Web", photo: "assets/images/team/member-10.jpg", social: { linkedin: "[LINKEDIN TBA]", instagram: "[INSTAGRAM TBA]", github: "[GITHUB TBA]" } },
-      { id: 11, name: "[NAME 11]", role: "[QA & TEST AUTOMATION]", department: "Web", photo: "assets/images/team/member-11.jpg", social: { linkedin: "[LINKEDIN TBA]", instagram: "[INSTAGRAM TBA]", github: "[GITHUB TBA]" } },
-      { id: 12, name: "[NAME 12]", role: "[DATABASE ADMINISTRATOR]", department: "Web", photo: "assets/images/team/member-12.jpg", social: { linkedin: "[LINKEDIN TBA]", instagram: "[INSTAGRAM TBA]", github: "[GITHUB TBA]" } },
-      { id: 13, name: "[NAME 13]", role: "[CREATIVE DIRECTOR]", department: "Design", photo: "assets/images/team/member-13.jpg", social: { linkedin: "[LINKEDIN TBA]", instagram: "[INSTAGRAM TBA]", github: "[GITHUB TBA]" } },
-      { id: 14, name: "[NAME 14]", role: "[LEAD UI/UX DESIGNER]", department: "Design", photo: "assets/images/team/member-14.jpg", social: { linkedin: "[LINKEDIN TBA]", instagram: "[INSTAGRAM TBA]", github: "[GITHUB TBA]" } },
-      { id: 15, name: "[NAME 15]", role: "[3D & MOTION DESIGNER]", department: "Design", photo: "assets/images/team/member-15.jpg", social: { linkedin: "[LINKEDIN TBA]", instagram: "[INSTAGRAM TBA]", github: "[GITHUB TBA]" } },
-      { id: 16, name: "[NAME 16]", role: "[BRAND & GRAPHIC DESIGNER]", department: "Design", photo: "assets/images/team/member-16.jpg", social: { linkedin: "[LINKEDIN TBA]", instagram: "[INSTAGRAM TBA]", github: "[GITHUB TBA]" } },
-      { id: 17, name: "[NAME 17]", role: "[CINEMATOGRAPHER & VIDEO LEAD]", department: "Media", photo: "assets/images/team/member-17.jpg", social: { linkedin: "[LINKEDIN TBA]", instagram: "[INSTAGRAM TBA]", github: "[GITHUB TBA]" } },
-      { id: 18, name: "[NAME 18]", role: "[AUDIO & SFX ENGINEER]", department: "Media", photo: "assets/images/team/member-18.jpg", social: { linkedin: "[LINKEDIN TBA]", instagram: "[INSTAGRAM TBA]", github: "[GITHUB TBA]" } },
-      { id: 19, name: "[NAME 19]", role: "[LIVE STREAM PRODUCER]", department: "Media", photo: "assets/images/team/member-19.jpg", social: { linkedin: "[LINKEDIN TBA]", instagram: "[INSTAGRAM TBA]", github: "[GITHUB TBA]" } },
-      { id: 20, name: "[NAME 20]", role: "[PHOTOGRAPHY LEAD]", department: "Media", photo: "assets/images/team/member-20.jpg", social: { linkedin: "[LINKEDIN TBA]", instagram: "[INSTAGRAM TBA]", github: "[GITHUB TBA]" } },
-      { id: 21, name: "[NAME 21]", role: "[CHIEF OPERATIONS OFFICER]", department: "Operations", photo: "assets/images/team/member-21.jpg", social: { linkedin: "[LINKEDIN TBA]", instagram: "[INSTAGRAM TBA]", github: "[GITHUB TBA]" } },
-      { id: 22, name: "[NAME 22]", role: "[VENUE & LAB COORDINATOR]", department: "Operations", photo: "assets/images/team/member-22.jpg", social: { linkedin: "[LINKEDIN TBA]", instagram: "[INSTAGRAM TBA]", github: "[GITHUB TBA]" } },
-      { id: 23, name: "[NAME 23]", role: "[HOSPITALITY LEAD]", department: "Operations", photo: "assets/images/team/member-23.jpg", social: { linkedin: "[LINKEDIN TBA]", instagram: "[INSTAGRAM TBA]", github: "[GITHUB TBA]" } },
-      { id: 24, name: "[NAME 24]", role: "[STAGE & AUDIO-VISUAL TECH]", department: "Operations", photo: "assets/images/team/member-24.jpg", social: { linkedin: "[LINKEDIN TBA]", instagram: "[INSTAGRAM TBA]", github: "[GITHUB TBA]" } },
-      { id: 25, name: "[NAME 25]", role: "[SECURITY & PROTOCOL HEAD]", department: "Operations", photo: "assets/images/team/member-25.jpg", social: { linkedin: "[LINKEDIN TBA]", instagram: "[INSTAGRAM TBA]", github: "[GITHUB TBA]" } },
-      { id: 26, name: "[NAME 26]", role: "[REGISTRATION DESK LEAD]", department: "Operations", photo: "assets/images/team/member-26.jpg", social: { linkedin: "[LINKEDIN TBA]", instagram: "[INSTAGRAM TBA]", github: "[GITHUB TBA]" } },
-      { id: 27, name: "[NAME 27]", role: "[EQUIPMENT INVENTORY MGR]", department: "Operations", photo: "assets/images/team/member-27.jpg", social: { linkedin: "[LINKEDIN TBA]", instagram: "[INSTAGRAM TBA]", github: "[GITHUB TBA]" } },
-      { id: 28, name: "[NAME 28]", role: "[EMERGENCY & FIRST-AID REP]", department: "Operations", photo: "assets/images/team/member-28.jpg", social: { linkedin: "[LINKEDIN TBA]", instagram: "[INSTAGRAM TBA]", github: "[GITHUB TBA]" } },
-      { id: 29, name: "[NAME 29]", role: "[HEAD OF CORPORATE RELATIONS]", department: "Public Relations", photo: "assets/images/team/member-29.jpg", social: { linkedin: "[LINKEDIN TBA]", instagram: "[INSTAGRAM TBA]", github: "[GITHUB TBA]" } },
-      { id: 30, name: "[NAME 30]", role: "[INDUSTRY PARTNERSHIP LEAD]", department: "Public Relations", photo: "assets/images/team/member-30.jpg", social: { linkedin: "[LINKEDIN TBA]", instagram: "[INSTAGRAM TBA]", github: "[GITHUB TBA]" } },
-      { id: 31, name: "[NAME 31]", role: "[CAMPUS AMBASSADOR MGR]", department: "Public Relations", photo: "assets/images/team/member-31.jpg", social: { linkedin: "[LINKEDIN TBA]", instagram: "[INSTAGRAM TBA]", github: "[GITHUB TBA]" } },
-      { id: 32, name: "[NAME 32]", role: "[PUBLIC RELATIONS OFFICER]", department: "Public Relations", photo: "assets/images/team/member-32.jpg", social: { linkedin: "[LINKEDIN TBA]", instagram: "[INSTAGRAM TBA]", github: "[GITHUB TBA]" } },
-      { id: 33, name: "[NAME 33]", role: "[SOCIAL MEDIA STRATEGIST]", department: "Public Relations", photo: "assets/images/team/member-33.jpg", social: { linkedin: "[LINKEDIN TBA]", instagram: "[INSTAGRAM TBA]", github: "[GITHUB TBA]" } },
-      { id: 34, name: "[NAME 34]", role: "[CONTENT & COPY LEAD]", department: "Public Relations", photo: "assets/images/team/member-34.jpg", social: { linkedin: "[LINKEDIN TBA]", instagram: "[INSTAGRAM TBA]", github: "[GITHUB TBA]" } },
-      { id: 35, name: "[NAME 35]", role: "[ESPORTS ARENA DIRECTOR]", department: "Gaming", photo: "assets/images/team/member-35.jpg", social: { linkedin: "[LINKEDIN TBA]", instagram: "[INSTAGRAM TBA]", github: "[GITHUB TBA]" } },
-      { id: 36, name: "[NAME 36]", role: "[BGMI TOURNAMENT ADMIN]", department: "Gaming", photo: "assets/images/team/member-36.jpg", social: { linkedin: "[LINKEDIN TBA]", instagram: "[INSTAGRAM TBA]", github: "[GITHUB TBA]" } },
-      { id: 37, name: "[NAME 37]", role: "[PC GAMING & LAN SPECIALIST]", department: "Gaming", photo: "assets/images/team/member-37.jpg", social: { linkedin: "[LINKEDIN TBA]", instagram: "[INSTAGRAM TBA]", github: "[GITHUB TBA]" } },
-      { id: 38, name: "[NAME 38]", role: "[ESPORTS LIVE COMMENTATOR]", department: "Gaming", photo: "assets/images/team/member-38.jpg", social: { linkedin: "[LINKEDIN TBA]", instagram: "[INSTAGRAM TBA]", github: "[GITHUB TBA]" } },
-      { id: 39, name: "[NAME 39]", role: "[FAIR PLAY & ANTI-CHEAT JURY]", department: "Gaming", photo: "assets/images/team/member-39.jpg", social: { linkedin: "[LINKEDIN TBA]", instagram: "[INSTAGRAM TBA]", github: "[GITHUB TBA]" } },
-      { id: 40, name: "[NAME 40]", role: "[BRACKET & SCORING MANAGER]", department: "Gaming", photo: "assets/images/team/member-40.jpg", social: { linkedin: "[LINKEDIN TBA]", instagram: "[INSTAGRAM TBA]", github: "[GITHUB TBA]" } }
+      { id: 1, name: "[NAME 01]", role: "[TECHNICAL LEAD]", photo: "assets/images/team/member-01.jpg", social: { linkedin: "[LINKEDIN TBA]", instagram: "[INSTAGRAM TBA]", github: "[GITHUB TBA]" } },
+      { id: 2, name: "[NAME 02]", role: "[SYSTEMS ARCHITECT]", photo: "assets/images/team/member-02.jpg", social: { linkedin: "[LINKEDIN TBA]", instagram: "[INSTAGRAM TBA]", github: "[GITHUB TBA]" } },
+      { id: 3, name: "[NAME 03]", role: "[CYBERSEC SPECIALIST]", photo: "assets/images/team/member-03.jpg", social: { linkedin: "[LINKEDIN TBA]", instagram: "[INSTAGRAM TBA]", github: "[GITHUB TBA]" } },
+      { id: 4, name: "[NAME 04]", role: "[COMPETITIVE CODE LEAD]", photo: "assets/images/team/member-04.jpg", social: { linkedin: "[LINKEDIN TBA]", instagram: "[INSTAGRAM TBA]", github: "[GITHUB TBA]" } },
+      { id: 5, name: "[NAME 05]", role: "[HACKATHON TRACK LEAD]", photo: "assets/images/team/member-05.jpg", social: { linkedin: "[LINKEDIN TBA]", instagram: "[INSTAGRAM TBA]", github: "[GITHUB TBA]" } },
+      { id: 6, name: "[NAME 06]", role: "[HARDWARE/IOT SPECIALIST]", photo: "assets/images/team/member-06.jpg", social: { linkedin: "[LINKEDIN TBA]", instagram: "[INSTAGRAM TBA]", github: "[GITHUB TBA]" } },
+      { id: 7, name: "[NAME 07]", role: "[LEAD FULL-STACK DEV]", photo: "assets/images/team/member-07.jpg", social: { linkedin: "[LINKEDIN TBA]", instagram: "[INSTAGRAM TBA]", github: "[GITHUB TBA]" } },
+      { id: 8, name: "[NAME 08]", role: "[FRONT-END ENGINEER]", photo: "assets/images/team/member-08.jpg", social: { linkedin: "[LINKEDIN TBA]", instagram: "[INSTAGRAM TBA]", github: "[GITHUB TBA]" } },
+      { id: 9, name: "[NAME 09]", role: "[BACK-END DEVELOPER]", photo: "assets/images/team/member-09.jpg", social: { linkedin: "[LINKEDIN TBA]", instagram: "[INSTAGRAM TBA]", github: "[GITHUB TBA]" } },
+      { id: 10, name: "[NAME 10]", role: "[DEVOPS & CLOUD ARCHITECT]", photo: "assets/images/team/member-10.jpg", social: { linkedin: "[LINKEDIN TBA]", instagram: "[INSTAGRAM TBA]", github: "[GITHUB TBA]" } },
+      { id: 11, name: "[NAME 11]", role: "[QA & TEST AUTOMATION]", photo: "assets/images/team/member-11.jpg", social: { linkedin: "[LINKEDIN TBA]", instagram: "[INSTAGRAM TBA]", github: "[GITHUB TBA]" } },
+      { id: 12, name: "[NAME 12]", role: "[DATABASE ADMINISTRATOR]", photo: "assets/images/team/member-12.jpg", social: { linkedin: "[LINKEDIN TBA]", instagram: "[INSTAGRAM TBA]", github: "[GITHUB TBA]" } },
+      { id: 13, name: "[NAME 13]", role: "[CREATIVE DIRECTOR]", photo: "assets/images/team/member-13.jpg", social: { linkedin: "[LINKEDIN TBA]", instagram: "[INSTAGRAM TBA]", github: "[GITHUB TBA]" } },
+      { id: 14, name: "[NAME 14]", role: "[LEAD UI/UX DESIGNER]", photo: "assets/images/team/member-14.jpg", social: { linkedin: "[LINKEDIN TBA]", instagram: "[INSTAGRAM TBA]", github: "[GITHUB TBA]" } },
+      { id: 15, name: "[NAME 15]", role: "[3D & MOTION DESIGNER]", photo: "assets/images/team/member-15.jpg", social: { linkedin: "[LINKEDIN TBA]", instagram: "[INSTAGRAM TBA]", github: "[GITHUB TBA]" } },
+      { id: 16, name: "[NAME 16]", role: "[BRAND & GRAPHIC DESIGNER]", photo: "assets/images/team/member-16.jpg", social: { linkedin: "[LINKEDIN TBA]", instagram: "[INSTAGRAM TBA]", github: "[GITHUB TBA]" } },
+      { id: 17, name: "[NAME 17]", role: "[CINEMATOGRAPHER & VIDEO LEAD]", photo: "assets/images/team/member-17.jpg", social: { linkedin: "[LINKEDIN TBA]", instagram: "[INSTAGRAM TBA]", github: "[GITHUB TBA]" } },
+      { id: 18, name: "[NAME 18]", role: "[AUDIO & SFX ENGINEER]", photo: "assets/images/team/member-18.jpg", social: { linkedin: "[LINKEDIN TBA]", instagram: "[INSTAGRAM TBA]", github: "[GITHUB TBA]" } },
+      { id: 19, name: "[NAME 19]", role: "[LIVE STREAM PRODUCER]", photo: "assets/images/team/member-19.jpg", social: { linkedin: "[LINKEDIN TBA]", instagram: "[INSTAGRAM TBA]", github: "[GITHUB TBA]" } },
+      { id: 20, name: "[NAME 20]", role: "[PHOTOGRAPHY LEAD]", photo: "assets/images/team/member-20.jpg", social: { linkedin: "[LINKEDIN TBA]", instagram: "[INSTAGRAM TBA]", github: "[GITHUB TBA]" } },
+      { id: 21, name: "[NAME 21]", role: "[CHIEF OPERATIONS OFFICER]", photo: "assets/images/team/member-21.jpg", social: { linkedin: "[LINKEDIN TBA]", instagram: "[INSTAGRAM TBA]", github: "[GITHUB TBA]" } },
+      { id: 22, name: "[NAME 22]", role: "[VENUE & LAB COORDINATOR]", photo: "assets/images/team/member-22.jpg", social: { linkedin: "[LINKEDIN TBA]", instagram: "[INSTAGRAM TBA]", github: "[GITHUB TBA]" } },
+      { id: 23, name: "[NAME 23]", role: "[HOSPITALITY LEAD]", photo: "assets/images/team/member-23.jpg", social: { linkedin: "[LINKEDIN TBA]", instagram: "[INSTAGRAM TBA]", github: "[GITHUB TBA]" } },
+      { id: 24, name: "[NAME 24]", role: "[STAGE & AUDIO-VISUAL TECH]", photo: "assets/images/team/member-24.jpg", social: { linkedin: "[LINKEDIN TBA]", instagram: "[INSTAGRAM TBA]", github: "[GITHUB TBA]" } },
+      { id: 25, name: "[NAME 25]", role: "[SECURITY & PROTOCOL HEAD]", photo: "assets/images/team/member-25.jpg", social: { linkedin: "[LINKEDIN TBA]", instagram: "[INSTAGRAM TBA]", github: "[GITHUB TBA]" } },
+      { id: 26, name: "[NAME 26]", role: "[REGISTRATION DESK LEAD]", photo: "assets/images/team/member-26.jpg", social: { linkedin: "[LINKEDIN TBA]", instagram: "[INSTAGRAM TBA]", github: "[GITHUB TBA]" } },
+      { id: 27, name: "[NAME 27]", role: "[EQUIPMENT INVENTORY MGR]", photo: "assets/images/team/member-27.jpg", social: { linkedin: "[LINKEDIN TBA]", instagram: "[INSTAGRAM TBA]", github: "[GITHUB TBA]" } },
+      { id: 28, name: "[NAME 28]", role: "[EMERGENCY & FIRST-AID REP]", photo: "assets/images/team/member-28.jpg", social: { linkedin: "[LINKEDIN TBA]", instagram: "[INSTAGRAM TBA]", github: "[GITHUB TBA]" } },
+      { id: 29, name: "[NAME 29]", role: "[HEAD OF CORPORATE RELATIONS]", photo: "assets/images/team/member-29.jpg", social: { linkedin: "[LINKEDIN TBA]", instagram: "[INSTAGRAM TBA]", github: "[GITHUB TBA]" } },
+      { id: 30, name: "[NAME 30]", role: "[INDUSTRY PARTNERSHIP LEAD]", photo: "assets/images/team/member-30.jpg", social: { linkedin: "[LINKEDIN TBA]", instagram: "[INSTAGRAM TBA]", github: "[GITHUB TBA]" } },
+      { id: 31, name: "[NAME 31]", role: "[CAMPUS AMBASSADOR MGR]", photo: "assets/images/team/member-31.jpg", social: { linkedin: "[LINKEDIN TBA]", instagram: "[INSTAGRAM TBA]", github: "[GITHUB TBA]" } },
+      { id: 32, name: "[NAME 32]", role: "[PUBLIC RELATIONS OFFICER]", photo: "assets/images/team/member-32.jpg", social: { linkedin: "[LINKEDIN TBA]", instagram: "[INSTAGRAM TBA]", github: "[GITHUB TBA]" } },
+      { id: 33, name: "[NAME 33]", role: "[SOCIAL MEDIA STRATEGIST]", photo: "assets/images/team/member-33.jpg", social: { linkedin: "[LINKEDIN TBA]", instagram: "[INSTAGRAM TBA]", github: "[GITHUB TBA]" } },
+      { id: 34, name: "[NAME 34]", role: "[CONTENT & COPY LEAD]", photo: "assets/images/team/member-34.jpg", social: { linkedin: "[LINKEDIN TBA]", instagram: "[INSTAGRAM TBA]", github: "[GITHUB TBA]" } },
+      { id: 35, name: "[NAME 35]", role: "[ESPORTS ARENA DIRECTOR]", photo: "assets/images/team/member-35.jpg", social: { linkedin: "[LINKEDIN TBA]", instagram: "[INSTAGRAM TBA]", github: "[GITHUB TBA]" } },
+      { id: 36, name: "[NAME 36]", role: "[BGMI TOURNAMENT ADMIN]", photo: "assets/images/team/member-36.jpg", social: { linkedin: "[LINKEDIN TBA]", instagram: "[INSTAGRAM TBA]", github: "[GITHUB TBA]" } },
+      { id: 37, name: "[NAME 37]", role: "[PC GAMING & LAN SPECIALIST]", photo: "assets/images/team/member-37.jpg", social: { linkedin: "[LINKEDIN TBA]", instagram: "[INSTAGRAM TBA]", github: "[GITHUB TBA]" } },
+      { id: 38, name: "[NAME 38]", role: "[ESPORTS LIVE COMMENTATOR]", photo: "assets/images/team/member-38.jpg", social: { linkedin: "[LINKEDIN TBA]", instagram: "[INSTAGRAM TBA]", github: "[GITHUB TBA]" } },
+      { id: 39, name: "[NAME 39]", role: "[FAIR PLAY & ANTI-CHEAT JURY]", photo: "assets/images/team/member-39.jpg", social: { linkedin: "[LINKEDIN TBA]", instagram: "[INSTAGRAM TBA]", github: "[GITHUB TBA]" } },
+      { id: 40, name: "[NAME 40]", role: "[BRACKET & SCORING MANAGER]", photo: "assets/images/team/member-40.jpg", social: { linkedin: "[LINKEDIN TBA]", instagram: "[INSTAGRAM TBA]", github: "[GITHUB TBA]" } }
     ];
     window.SITE_DATA = SITE_DATA;
     window.TEAM_DATA = TEAM_DATA;
@@ -911,11 +874,10 @@ a:focus-visible, button:focus-visible, input:focus-visible { outline: 2px solid 
   <script>
     (function(window) {
       const API_BASE = 'http://localhost:5000'; // Set to '' for same-origin production deployment
-      let currentDept = 'all', searchQuery = '';
+      let searchQuery = '';
       
       const searchInput = document.getElementById('team-search-input');
       const searchClearBtn = document.getElementById('team-search-clear');
-      const chipsContainer = document.getElementById('team-department-chips');
       const cardsGrid = document.getElementById('team-cards-grid');
       const emptyState = document.getElementById('team-empty-state');
       const resetBtn = document.getElementById('btn-reset-team-filters');
@@ -954,7 +916,6 @@ a:focus-visible, button:focus-visible, input:focus-visible { outline: 2px solid 
 
         if (!window.TEAM_DATA) return;
 
-        buildChips();
         renderCards();
 
         // Listeners
@@ -974,56 +935,11 @@ a:focus-visible, button:focus-visible, input:focus-visible { outline: 2px solid 
         }
         if (resetBtn) {
           resetBtn.addEventListener('click', () => { 
-            currentDept = 'all'; searchInput.value = ''; searchQuery = ''; 
+            searchInput.value = ''; searchQuery = ''; 
             if (searchClearBtn) searchClearBtn.style.display = 'none';
-            updateChipsUI('all'); renderCards(); 
+            renderCards(); 
           });
         }
-      }
-
-      function buildChips() {
-        const utils = window.ALODANAX_UTILS || {};
-        const members = window.TEAM_DATA;
-        const rawDepts = members.map(m => m.department).filter(d => d && typeof d === 'string' && !utils.isPlaceholder(d));
-        const uniqueDepts = Array.from(new Set(rawDepts));
-
-        let chipsHtml = `<button type="button" class="category-chip is-active" data-dept="all"><span>ALL CREW (${members.length})</span></button>`;
-        
-        uniqueDepts.forEach(dept => {
-          const count = members.filter(m => m.department === dept).length;
-          // Apply dynamic colors based on deptStyle or fallback to department name
-          let chipClass = '';
-          const sample = members.find(m => m.department === dept);
-          if (sample && sample.deptStyle) {
-            if (sample.deptStyle === 'tech') chipClass = 'chip-tech';
-            else if (sample.deptStyle === 'gaming') chipClass = 'chip-gaming';
-            else chipClass = 'chip-non-tech';
-          } else {
-            if (['Technical', 'Web', 'Operations'].includes(dept)) chipClass = 'chip-tech';
-            else if (['Gaming'].includes(dept)) chipClass = 'chip-gaming';
-            else chipClass = 'chip-non-tech';
-          }
-
-          const escDept = escapeHtml(dept);
-          chipsHtml += `<button type="button" class="category-chip ${chipClass}" data-dept="${escDept}">
-            ${chipClass !== 'chip-non-tech' ? '<span class="chip-dot"></span>' : ''}<span>${escDept} (${count})</span>
-          </button>`;
-        });
-
-        chipsContainer.innerHTML = chipsHtml;
-        chipsContainer.querySelectorAll('.category-chip').forEach(btn => {
-          btn.addEventListener('click', () => {
-            currentDept = btn.getAttribute('data-dept') || 'all';
-            updateChipsUI(currentDept);
-            renderCards();
-          });
-        });
-      }
-
-      function updateChipsUI(selectedDept) {
-        chipsContainer.querySelectorAll('.category-chip').forEach(btn => {
-          btn.classList.toggle('is-active', btn.getAttribute('data-dept') === selectedDept);
-        });
       }
 
       function renderCards() {
@@ -1031,11 +947,9 @@ a:focus-visible, button:focus-visible, input:focus-visible { outline: 2px solid 
         const utils = window.ALODANAX_UTILS || {};
 
         const filtered = members.filter(m => {
-          if (currentDept !== 'all' && m.department !== currentDept) return false;
           if (!searchQuery) return true;
           return (m.name && m.name.toLowerCase().includes(searchQuery)) || 
-                 (m.role && m.role.toLowerCase().includes(searchQuery)) || 
-                 (m.department && m.department.toLowerCase().includes(searchQuery));
+                 (m.role && m.role.toLowerCase().includes(searchQuery));
         });
 
         cardsGrid.innerHTML = '';
@@ -1047,26 +961,19 @@ a:focus-visible, button:focus-visible, input:focus-visible { outline: 2px solid 
         }
 
         emptyState.style.display = 'none';
-        statusBar.textContent = `Showing ${filtered.length} of ${members.length} crew members${currentDept !== 'all' ? ` in ${currentDept}` : ''}.`;
+        if (searchQuery) {
+          statusBar.textContent = `Showing ${filtered.length} of ${members.length} crew members.`;
+        } else {
+          statusBar.textContent = `Showing all ${members.length} crew members.`;
+        }
 
         filtered.forEach((m, index) => {
           const card = document.createElement('article');
           card.className = 'team-profile-card';
           card.style.animationDelay = `${index * 0.05}s`;
 
-          let badgeClass = 'dept-non-tech';
-          if (m.deptStyle) {
-            if (m.deptStyle === 'tech') badgeClass = 'dept-tech';
-            else if (m.deptStyle === 'gaming') badgeClass = 'dept-gaming';
-            else badgeClass = 'dept-non-tech';
-          } else {
-            if (['Technical', 'Web', 'Operations'].includes(m.department)) badgeClass = 'dept-tech';
-            else if (['Gaming'].includes(m.department)) badgeClass = 'dept-gaming';
-          }
-
           const escName = escapeHtml(m.name);
           const escRole = escapeHtml(m.role);
-          const escDept = escapeHtml(m.department || 'CREW');
           const photoUrl = m.photo ? escapeHtml(m.photo) : 'assets/images/team/member.jpg';
 
           let socialsHtml = '';
@@ -1085,7 +992,6 @@ a:focus-visible, button:focus-visible, input:focus-visible { outline: 2px solid 
           card.innerHTML = `
             <div class="team-photo-wrap">
               <img src="${photoUrl}" alt="${escName}" class="team-photo-img" loading="lazy">
-              <span class="team-dept-badge ${badgeClass}">${escDept}</span>
             </div>
             <div class="team-card-content">
               <span class="team-role-title">${escRole}</span>

@@ -62,7 +62,7 @@ Every page houses its editable content inside an inline `<script>` block under t
 | **`events.html`** | `SHARED:DATA-EVENTS` | Competition names, categories (`technical`, `non-technical`, `gaming`), descriptions, dates, rules, team sizes, and registration links. |
 | **`faculty.html`** | `FACULTY_DATA` | Faculty mentor directory (names, roles, departments, areas of expertise, photos, and biographies). |
 | **`hackathon.html`** | `HACKATHON_DATA` | 24-Hour hackathon metadata, 3 problem statement domains (`domains[]`), round timelines, and official PPT deck link. |
-| **`team.html`** | `TEAM_DATA` | 40 student organizing team members (`name`, `role`, `department`, `photo`, `social`). |
+| **`team.html`** | `TEAM_DATA` | 40 student organizing team members (`name`, `role`, `photo`, `social`). |
 | **`contact.html`** | `FAQ_DATA` | 8 festival FAQ questions and detailed answers. |
 
 > **Placeholder Safety Rule**: Never invent facts, dates, phone numbers, or names. Unfilled details remain marked with brackets (e.g. `"[DATE TBA]"`). The utility helper `ALODANAX_UTILS.isPlaceholder()` ensures unverified phone and email values never render as clickable `tel:` or `mailto:` links, displaying a subtle `"TBA"` badge instead.
