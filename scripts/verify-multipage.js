@@ -148,7 +148,7 @@ async function runTestSuite() {
       return sectionIds;
     })()`);
     console.log('  Post-hero sections in order:', sectionsOrder);
-    const expectedOrder = ['about', 'collaborator', 'categories', 'featured-events', 'why', 'cta'];
+    const expectedOrder = ['about', 'get-ready', 'categories', 'featured-events', 'why', 'cta'];
     report.homeSectionsOrder = (JSON.stringify(sectionsOrder) === JSON.stringify(expectedOrder));
     console.log('  ✔ Sections in exact required order:', report.homeSectionsOrder);
 
@@ -169,10 +169,6 @@ async function runTestSuite() {
     // Verify Featured Events (5 cards)
     const featuredCount = await evaluate(ws, `document.querySelectorAll('.featured-event-card').length`);
     console.log('  ✔ Featured event cards count:', featuredCount, '(expected 5)');
-
-    // Verify Collaborator & 3 Guest Cards
-    const guestsCount = await evaluate(ws, `document.querySelectorAll('.guest-card').length`);
-    console.log('  ✔ Collaborator guest cards count:', guestsCount, '(expected 3)');
 
     await captureScreenshot(ws, path.join(screenshotsDir, '01_desktop_home_hero.png'));
 
@@ -224,7 +220,7 @@ async function runTestSuite() {
     const modalState = await evaluate(ws, `(() => {
       const modal = document.getElementById('event-modal');
       const title = document.getElementById('modal-event-title').textContent;
-      const regBtn = document.querySelector('#modal-register-wrap .btn-disabled');
+      const regBtn = document.querySelector('#modal-register-wrap .reg-btn-wrap') || document.querySelector('#modal-register-wrap .btn-disabled');
       const extraLink = document.querySelector('#modal-extra-link-wrap a');
       const bodyScrollLocked = document.body.style.overflow === 'hidden';
       return {

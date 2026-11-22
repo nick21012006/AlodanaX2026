@@ -394,9 +394,10 @@ a:focus-visible, button:focus-visible, input:focus-visible { outline: 2px solid 
 .event-card-meta-row { font-family: var(--font-body); font-size: 0.85rem; color: var(--text-tertiary); margin-bottom: 1.5rem; font-weight: 600; display: flex; align-items: center; gap: 0.5rem; text-transform: uppercase; }
 .event-card-meta-row::before { content: ''; width: 4px; height: 4px; border-radius: 50%; background: var(--blue); }
 
-.event-card-action-bar { display: flex; gap: 0.75rem; }
-/* Disable button styling fallback if SpecularButton isn't used */
-.btn-disabled { background: rgba(255,255,255,0.05); border: 1px dashed rgba(255,255,255,0.2); color: var(--text-tertiary); cursor: not-allowed; border-radius: 8px; padding: 10px 20px; font-family: var(--font-display); font-size: 0.85rem;}
+.event-card-action-bar { display: flex; gap: 0.75rem; align-items: center; flex-wrap: wrap; }
+.reg-btn-wrap { display: inline-flex; align-items: center; position: relative; flex-wrap: wrap; gap: 0.5rem; }
+.reg-toast-msg { font-family: var(--font-display); font-size: 0.75rem; font-weight: 700; letter-spacing: 0.08em; color: var(--neon-red-bright); text-transform: uppercase; display: none; }
+.reg-toast-msg.is-visible { display: inline-block; }
 
 /* MODAL - Pop Up Animations & Transitions */
 .modal-overlay {
@@ -508,8 +509,6 @@ a:focus-visible, button:focus-visible, input:focus-visible { outline: 2px solid 
   </style>
 </head>
 <body class="page-events">
-
-  <a href="#events-main" class="skip-link">Skip to main content</a>
 
   <!-- Animated CardNav Navigation -->
   <header id="site-header">
@@ -708,6 +707,9 @@ a:focus-visible, button:focus-visible, input:focus-visible { outline: 2px solid 
 
   <!-- Global & Festival Data -->
   <script>
+    // Paste your Google Form link here (used by every event that has no link of its own).
+    const DEFAULT_REGISTRATION_URL = "";
+
     const SITE_DATA = {
       brand: { name: "ALODANAX", edition: "2026", tagline: "Precision Engineering Meets Cyber Evolution" },
       college: { name: "[COLLEGE NAME]", department: "[DEPARTMENT OF IT/CS]", venue: "[VENUE TBA]" },
@@ -729,31 +731,31 @@ a:focus-visible, button:focus-visible, input:focus-visible { outline: 2px solid 
         requirements: ["Laptops with required SDKs pre-installed.", "Valid student ID cards."],
         instructions: ["Check-in opens 90 mins prior.", "Wi-Fi credentials issued upon verification."],
         teamSize: "2 TO 4 PARTICIPANTS", coordinators: [{name:"[COORD 1]", role:"Student Lead", phone:"[PHONE]", email:"[EMAIL]"}],
-        registrationUrl: "https://forms.gle/demo", extraLink: {label:"Problem Statements", url:"#"}
+        registrationUrl: "", extraLink: {label:"Problem Statements", url:"#"}
       },
       {
         slug: "bit-bash-bonanza", name: "Bit Bash Bonanza", category: "technical", date: "[DATE TBA]", venue: "Computer Lab 101",
         shortDescription: "A high-octane competitive programming duel testing algorithmic intuition.",
         rules: ["Permitted languages: C++, Java 17+, Python 3.10+."], requirements: ["Student ID card."],
-        teamSize: "INDIVIDUAL"
+        teamSize: "INDIVIDUAL", registrationUrl: ""
       },
       {
         slug: "ideathon", name: "Ideathon", category: "non-technical", date: "[DATE TBA]", venue: "Seminar Hall",
         shortDescription: "A technology venture pitching competition evaluating architecture viability and market impact.",
         rules: ["Must use standardized slide structure."], requirements: ["Pitch deck in PDF."],
-        teamSize: "2 TO 3 PARTICIPANTS"
+        teamSize: "2 TO 3 PARTICIPANTS", registrationUrl: ""
       },
       {
         slug: "bgmi", name: "BGMI", category: "gaming", date: "[DATE TBA]", venue: "Esports Arena",
         shortDescription: "Squad-based mobile battle royale showdown across Erangel and Miramar.",
         rules: ["Mobile devices only. No emulators."], requirements: ["Personal mobile devices.", "Headphones."],
-        teamSize: "SQUAD (4 + 1 SUB)"
+        teamSize: "SQUAD (4 + 1 SUB)", registrationUrl: ""
       },
       {
         slug: "discovering-derlicts", name: "Discovering Derlicts", category: "gaming", date: "[DATE TBA]", venue: "Campus Grounds",
         shortDescription: "A high-intensity campus-wide puzzle quest decoding cryptographic beacons.",
         rules: ["Teams must clear checkpoints in order."], requirements: ["Smartphone with camera."],
-        teamSize: "3 TO 4 PARTICIPANTS"
+        teamSize: "3 TO 4 PARTICIPANTS", registrationUrl: ""
       }
     ];
     window.SITE_DATA = SITE_DATA;
@@ -917,6 +919,45 @@ a:focus-visible, button:focus-visible, input:focus-visible { outline: 2px solid 
       window.SpecularButton = SpecularButton;
     })(window);
 
+    function escapeHtml(str) {
+      return String(str || '').replace(/[&<>"']/g, m => ({
+        '&': '&amp;',
+        '<': '&lt;',
+        '>': '&gt;',
+        '"': '&quot;',
+        "'": '&#39;'
+      })[m]);
+    }
+
+    function getCleanUrl(url) {
+      const defaultUrl = (typeof window !== 'undefined' && window.DEFAULT_REGISTRATION_URL !== undefined)
+        ? window.DEFAULT_REGISTRATION_URL
+        : (typeof DEFAULT_REGISTRATION_URL !== 'undefined' ? DEFAULT_REGISTRATION_URL : '');
+      const effective = ((url && url.trim()) || (defaultUrl && defaultUrl.trim()) || '');
+      return /^https:\/\//i.test(effective) ? effective : '';
+    }
+
+    function showRegToast(btn) {
+      const wrap = btn.closest('.reg-btn-wrap') || btn.parentElement;
+      let toast = wrap.querySelector('.reg-toast-msg');
+      if (!toast) {
+        toast = document.createElement('span');
+        toast.className = 'reg-toast-msg';
+        toast.setAttribute('aria-live', 'polite');
+        wrap.appendChild(toast);
+      }
+      toast.textContent = 'REGISTRATION OPENING SOON';
+      toast.classList.add('is-visible');
+      clearTimeout(btn._toastTimer);
+      btn._toastTimer = setTimeout(() => {
+        toast.classList.remove('is-visible');
+        toast.textContent = '';
+      }, 4000);
+    }
+    window.escapeHtml = escapeHtml;
+    window.getCleanUrl = getCleanUrl;
+    window.showRegToast = showRegToast;
+
     function initButtons() { document.querySelectorAll('.specular-btn').forEach(b => { if(!b.dataset.init){ new window.SpecularButton(b); b.dataset.init="1";} }); }
     document.addEventListener("DOMContentLoaded", initButtons);
   </script>
@@ -1036,9 +1077,10 @@ a:focus-visible, button:focus-visible, input:focus-visible { outline: 2px solid 
           const badgeClass = ev.category === 'technical' ? 'cat-technical' : ev.category === 'gaming' ? 'cat-gaming' : 'cat-non-technical';
           const tColor = ev.category === 'technical' ? '#0A84FF' : ev.category === 'gaming' ? '#FF1744' : '#FFFFFF';
           
-          let regHtml = ev.registrationUrl 
-            ? `<a href="${ev.registrationUrl}" target="_blank" class="specular-btn size-sm" data-tint="${tColor}" data-radius="8"><canvas aria-hidden="true"></canvas><span class="specular-text">REGISTER</span></a>` 
-            : `<button class="btn-disabled">TBA</button>`;
+          const cleanUrl = getCleanUrl(ev.registrationUrl);
+          const regHtml = cleanUrl 
+            ? `<a href="${cleanUrl}" target="_blank" rel="noopener noreferrer" class="specular-btn size-sm" data-tint="${tColor}" data-radius="8" aria-label="Register for ${escapeHtml(ev.name)}"><canvas aria-hidden="true"></canvas><span class="specular-text">REGISTER</span></a>` 
+            : `<div class="reg-btn-wrap"><button type="button" class="specular-btn size-sm" data-tint="${tColor}" data-radius="8" aria-label="Register for ${escapeHtml(ev.name)}" onclick="showRegToast(this)"><canvas aria-hidden="true"></canvas><span class="specular-text">REGISTER</span></button><span class="reg-toast-msg" aria-live="polite"></span></div>`;
 
           card.innerHTML = `
             <div class="event-card-poster-wrap">
@@ -1075,6 +1117,7 @@ a:focus-visible, button:focus-visible, input:focus-visible { outline: 2px solid 
         
         if(window.SpecularButton) setTimeout(initButtons, 50);
       }
+      window.renderCards = renderCards;
 
       searchInput.addEventListener('input', e => { searchQuery = e.target.value.toLowerCase().trim(); searchClearBtn.style.display = searchQuery ? 'block' : 'none'; renderCards(); });
       searchClearBtn.addEventListener('click', () => { searchInput.value = ''; searchQuery = ''; searchClearBtn.style.display = 'none'; renderCards(); });
@@ -1129,10 +1172,11 @@ a:focus-visible, button:focus-visible, input:focus-visible { outline: 2px solid 
         } else { coordBlock.style.display = 'none'; }
         
         const tColor = ev.category === 'technical' ? '#0A84FF' : ev.category === 'gaming' ? '#FF1744' : '#FFFFFF';
+        const cleanUrl = getCleanUrl(ev.registrationUrl);
         const regWrap = document.getElementById('modal-register-wrap');
-        regWrap.innerHTML = ev.registrationUrl 
-            ? `<a href="${ev.registrationUrl}" target="_blank" class="specular-btn size-md" data-tint="${tColor}" data-radius="12"><canvas aria-hidden="true"></canvas><span class="specular-text">REGISTER NOW</span></a>` 
-            : `<button class="btn-disabled">OPENING SOON</button>`;
+        regWrap.innerHTML = cleanUrl 
+            ? `<a href="${cleanUrl}" target="_blank" rel="noopener noreferrer" class="specular-btn size-md" data-tint="${tColor}" data-radius="12" aria-label="Register for ${escapeHtml(ev.name)}"><canvas aria-hidden="true"></canvas><span class="specular-text">REGISTER NOW</span></a>` 
+            : `<div class="reg-btn-wrap"><button type="button" class="specular-btn size-md" data-tint="${tColor}" data-radius="12" aria-label="Register for ${escapeHtml(ev.name)}" onclick="showRegToast(this)"><canvas aria-hidden="true"></canvas><span class="specular-text">REGISTER NOW</span></button><span class="reg-toast-msg" aria-live="polite"></span></div>`;
         
         modalOverlay.classList.add('is-active');
         document.body.style.overflow = 'hidden';

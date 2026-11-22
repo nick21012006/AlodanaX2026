@@ -308,7 +308,25 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 .specular-btn.size-sm { padding: 10px 20px; font-size: 0.85rem; }
 .specular-btn.size-md { padding: 14px 28px; font-size: 1rem; }
 .specular-btn.size-lg { padding: 16px 34px; font-size: 1.1rem; }
-.btn-disabled { background: rgba(255,255,255,0.05); border: 1px dashed rgba(255,255,255,0.2); color: var(--text-tertiary); cursor: not-allowed; border-radius: 12px; padding: 14px 28px; font-family: var(--font-display); font-size: 1rem; }
+.reg-btn-wrap {
+  display: inline-flex;
+  align-items: center;
+  position: relative;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+.reg-toast-msg {
+  font-family: var(--font-display);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: var(--neon-red-bright);
+  text-transform: uppercase;
+  display: none;
+}
+.reg-toast-msg.is-visible {
+  display: inline-block;
+}
 
 
 /* Loading Screen */
@@ -389,34 +407,68 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 .featured-stat .stat-number { color: var(--neon-red); text-shadow: 0 0 18px var(--neon-red-glow); }
 
 /* ==========================================================================
-   2. COLLABORATOR SECTION
+   2. GET READY FOR THE ARENA (FEST MARKETING)
    ========================================================================== */
-.collaborator-card-main {
-  background: rgba(11, 13, 20, 0.6); border: 1px solid rgba(10, 132, 255, 0.25);
-  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6); padding: 2.5rem; margin-bottom: 3.5rem;
-  position: relative; overflow: hidden; border-radius: 16px; backdrop-filter: blur(10px);
-}
-.collaborator-card-main::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 2px; background: linear-gradient(90deg, var(--blue) 0%, rgba(10, 132, 255, 0.2) 60%, transparent 100%); }
-.collaborator-top-row { display: grid; grid-template-columns: auto 1fr; gap: 2.5rem; align-items: center; margin-bottom: 2rem; }
-.collaborator-logo-wrap { width: 220px; height: 80px; background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.08); display: flex; align-items: center; justify-content: center; padding: 0.8rem; border-radius: 8px;}
-.collaborator-logo-img { max-width: 100%; max-height: 100%; object-fit: contain; }
-.collaborator-company-name { font-family: var(--font-display); font-size: 1.6rem; font-weight: 800; letter-spacing: 0.06em; color: var(--white); margin-bottom: 0.5rem; }
-.collaborator-intro-text { color: var(--white-muted); font-size: 1.05rem; line-height: 1.65; margin: 0; }
-.collaborator-info-list { list-style: none; display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1rem; border-top: 1px dashed rgba(255, 255, 255, 0.1); padding-top: 1.8rem; margin:0;}
-.collaborator-info-item { display: flex; align-items: center; gap: 0.75rem; font-size: 0.9rem; color: var(--white); letter-spacing: 0.02em; font-family: var(--font-body); }
-.collaborator-info-bullet { color: var(--blue); font-size: 1.1rem; }
+.section-get-ready { position: relative; }
 
-.collaborator-guests-title { font-family: var(--font-display); font-size: 1rem; font-weight: 700; letter-spacing: 0.15em; color: var(--white); text-transform: uppercase; margin-bottom: 1.5rem; display: flex; align-items: center; gap: 0.8rem; }
-.collaborator-guests-title::after { content: ''; flex: 1; height: 1px; background: rgba(10, 132, 255, 0.2); }
-.guests-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.8rem; }
-.guest-card { background: rgba(11, 13, 20, 0.6); border: 1px solid rgba(255, 255, 255, 0.08); overflow: hidden; transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease; position: relative; border-radius: 12px; }
-.guest-card:hover { transform: translateY(-4px); border-color: var(--blue); box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8), 0 0 15px rgba(10, 132, 255, 0.15); }
-.guest-photo-wrap { width: 100%; aspect-ratio: 4 / 5; background: #05060A; overflow: hidden; position: relative; }
-.guest-photo-img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; filter: brightness(0.9) grayscale(20%);}
-.guest-card:hover .guest-photo-img { transform: scale(1.03); filter: brightness(1) grayscale(0%);}
-.guest-meta-box { padding: 1.4rem; }
-.guest-name { font-family: var(--font-display); font-size: 1.1rem; font-weight: 700; letter-spacing: 0.06em; color: var(--white); margin: 0 0 0.3rem 0; text-transform: uppercase;}
-.guest-designation { font-family: var(--font-body); font-size: 0.85rem; color: var(--blue-bright); letter-spacing: 0.06em; text-transform: uppercase; }
+/* Component 1: Countdown Timer HUD */
+.countdown-hud-wrap { margin-bottom: 2.5rem; }
+.countdown-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5rem; }
+.countdown-card {
+  background: rgba(11, 13, 20, 0.6); border: 1px solid rgba(10, 132, 255, 0.25);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6); padding: 1.8rem 1rem; border-radius: 14px;
+  text-align: center; position: relative; overflow: hidden; backdrop-filter: blur(10px);
+  transition: border-color 0.3s ease, transform 0.3s ease;
+}
+.countdown-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, rgba(255,255,255,0.2) 0%, rgba(10,132,255,0.6) 50%, rgba(255,255,255,0.2) 100%); }
+.countdown-card:hover { border-color: var(--blue); transform: translateY(-2px); }
+.countdown-num { font-family: var(--font-display); font-size: clamp(2.4rem, 4.5vw, 3.4rem); font-weight: 900; color: var(--white); text-shadow: 0 0 18px rgba(10, 132, 255, 0.4); line-height: 1; letter-spacing: 0.02em; }
+.countdown-lbl { font-family: var(--font-display); font-size: 0.75rem; font-weight: 700; letter-spacing: 0.2em; color: var(--blue-bright); text-transform: uppercase; margin-top: 0.6rem; }
+
+.countdown-fallback-card {
+  background: rgba(11, 13, 20, 0.6); border: 1px solid rgba(10, 132, 255, 0.25);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6); padding: 2.5rem 2rem; border-radius: 14px;
+  text-align: center; position: relative; overflow: hidden; backdrop-filter: blur(10px);
+}
+.countdown-fallback-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, rgba(255,255,255,0.2) 0%, rgba(10,132,255,0.6) 50%, rgba(255,255,255,0.2) 100%); }
+.fallback-badge { display: inline-block; font-family: var(--font-display); font-size: 0.75rem; font-weight: 800; letter-spacing: 0.2em; color: var(--blue-bright); background: rgba(10, 132, 255, 0.1); border: 1px solid rgba(10, 132, 255, 0.3); border-radius: 4px; padding: 4px 12px; margin-bottom: 0.8rem; text-transform: uppercase; }
+.fallback-title { font-family: var(--font-display); font-size: clamp(1.8rem, 3.5vw, 2.5rem); font-weight: 900; letter-spacing: 0.08em; color: var(--white); margin: 0 0 0.5rem 0; text-transform: uppercase; }
+.fallback-subtext { font-family: var(--font-body); font-size: 1rem; color: var(--white-muted); letter-spacing: 0.05em; margin: 0; text-transform: uppercase; }
+
+/* Component 2: Fest Ticker / Marquee */
+.fest-ticker-wrap {
+  overflow: hidden; width: 100%; border-top: 1px solid rgba(255, 255, 255, 0.08); border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(10, 132, 255, 0.03); margin: 2.5rem 0 3.5rem 0; padding: 0.9rem 0; position: relative; user-select: none;
+}
+.fest-ticker-wrap:hover .fest-ticker-track { animation-play-state: paused; }
+.fest-ticker-track { display: flex; width: max-content; animation: tickerScroll 28s linear infinite; }
+@keyframes tickerScroll { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+@media (prefers-reduced-motion: reduce) { .fest-ticker-track { animation: none; } }
+.fest-ticker-group { display: flex; align-items: center; gap: 1.8rem; padding-right: 1.8rem; white-space: nowrap; }
+.ticker-item { font-family: var(--font-display); font-size: 0.85rem; font-weight: 700; letter-spacing: 0.15em; color: var(--white); text-transform: uppercase; }
+.ticker-sep { color: var(--blue); font-size: 0.9rem; }
+
+/* Component 3: Punchlines / Value Prop */
+.get-ready-pillars { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.8rem; margin-bottom: 3rem; }
+.punchline-card {
+  background: rgba(11, 13, 20, 0.6); border: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 2rem 1.8rem; border-radius: 14px; position: relative; overflow: hidden;
+  transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+.punchline-card::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 2px; background: linear-gradient(90deg, var(--blue) 0%, rgba(10, 132, 255, 0.2) 70%, transparent 100%); }
+.punchline-card:hover { transform: translateY(-4px); border-color: var(--blue); box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8), 0 0 15px rgba(10, 132, 255, 0.15); }
+.punchline-header { margin-bottom: 0.75rem; }
+.punchline-tag { font-family: var(--font-display); font-size: 1.35rem; font-weight: 900; letter-spacing: 0.12em; color: var(--blue-bright); text-transform: uppercase; }
+.punchline-text { font-family: var(--font-body); font-size: 0.95rem; color: var(--white-muted); line-height: 1.6; margin: 0; }
+
+/* Component 4: Action row */
+.get-ready-actions { display: flex; align-items: center; justify-content: center; gap: 1.5rem; flex-wrap: wrap; margin-top: 1rem; }
+.share-btn-wrap { display: inline-flex; align-items: center; position: relative; }
+.share-feedback {
+  font-family: var(--font-display); font-size: 0.8rem; font-weight: 700; letter-spacing: 0.12em;
+  color: var(--neon-red-bright); text-transform: uppercase; display: none; margin-left: 0.8rem;
+}
+.share-feedback.is-visible { display: inline-block; }
 
 /* ==========================================================================
    3. EVENT CATEGORIES SECTION
@@ -515,7 +567,6 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 @media (max-width: 1024px) {
   .about-grid { grid-template-columns: 1fr; gap: 3rem; }
   .categories-grid { grid-template-columns: 1fr; }
-  .guests-grid { grid-template-columns: repeat(2, 1fr); }
   .why-pillars-grid { grid-template-columns: repeat(2, 1fr); }
   .footer-grid { grid-template-columns: 1fr 1fr; }
 }
@@ -528,16 +579,16 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
   .hero-cta-group { flex-direction: column; width: 85%; max-width: 260px; gap: 0.8rem; bottom: 2rem; }
   .specular-btn { width: 100%; }
   
-  .collaborator-top-row { grid-template-columns: 1fr; gap: 1.5rem; }
-  .collaborator-card-main { padding: 1.8rem 1.4rem; }
-  .collaborator-info-list { grid-template-columns: 1fr; }
-  .guests-grid { grid-template-columns: 1fr; }
+  .countdown-grid { grid-template-columns: repeat(2, 1fr); gap: 1rem; }
+  .get-ready-pillars { grid-template-columns: 1fr; gap: 1.2rem; }
+  .get-ready-actions { flex-direction: column; width: 100%; }
+  .get-ready-actions .specular-btn, .share-btn-wrap { width: 100%; }
   .why-pillars-grid { grid-template-columns: 1fr; }
   .featured-events-grid { grid-template-columns: 1fr; }
   
   .footer-grid { grid-template-columns: 1fr; gap: 2.5rem; }
   .footer-bottom-bar { flex-direction: column; gap: 1.5rem; text-align: center; }
-  #debug-hud { bottom: 0.5rem; left: 0.5rem; font-size: 0.8125rem; padding: 0.4rem 0.6rem; }
+
 }
 @media (max-width: 480px) {
   .featured-actions-row { flex-direction: column; }
@@ -546,8 +597,6 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
   </style>
 </head>
 <body class="page-index">
-
-  <a href="#about" class="skip-link">Skip to main content</a>
 
   <div id="loader" role="status" aria-live="polite" aria-label="Loading ALODANAX Experience">
     <div class="loader-brand">ALODANAX</div>
@@ -696,34 +745,66 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
       </div>
     </section>
 
-    <!-- COLLABORATOR SECTION -->
-    <section id="collaborator" class="page-section section-collaborator">
+    <!-- GET READY FOR THE ARENA (FEST MARKETING) -->
+    <section id="get-ready" class="page-section section-get-ready">
       <div class="section-container">
         <div class="section-header-wrap reveal-item">
-          <span class="section-tag">INDUSTRY ALLIANCE</span>
-          <h2 id="collaborator-heading" class="display-title">
-            <span class="title-solid">OUR VALUED</span>
-            <span class="title-outline">COLLABORATOR</span>
+          <span class="section-tag">THE COUNTDOWN</span>
+          <h2 id="get-ready-heading" class="display-title">
+            <span class="title-solid">GET READY FOR</span>
+            <span class="title-outline">THE ARENA</span>
           </h2>
           <div class="hairline-divider"></div>
         </div>
 
-        <div class="collaborator-card-main reveal-item" id="collaborator-main-card">
-          <div class="collaborator-top-row">
-            <div class="collaborator-logo-wrap">
-              <img src="assets/images/collaborator/logo.png" alt="Collaborator Logo" class="collaborator-logo-img" id="collab-logo" loading="lazy" decoding="async" onerror="window.ALODANAX_UTILS && window.ALODANAX_UTILS.handleImageError(this, 'logo', 'PARTNER')">
-            </div>
-            <div class="collaborator-text-wrap">
-              <h3 class="collaborator-company-name" id="collab-name">[COLLABORATOR NAME]</h3>
-              <p class="collaborator-intro-text" id="collab-intro">[COLLABORATOR INTRO]</p>
-            </div>
+        <!-- Component 1: Countdown Timer HUD -->
+        <div class="countdown-hud-wrap reveal-item" id="countdown-hud" role="region" aria-label="Fest Countdown Timer">
+          <div id="countdown-sr-summary" class="sr-only" aria-live="polite"></div>
+          <div id="countdown-display-container">
+            <!-- Dynamically populated: 4 time cards or SAVE THE DATE fallback -->
           </div>
-          <ul class="collaborator-info-list" id="collab-info-list"></ul>
         </div>
 
-        <div class="collaborator-guests-wrap reveal-item">
-          <h4 class="collaborator-guests-title">HONORED INDUSTRY GUESTS</h4>
-          <div class="guests-grid" id="collab-guests-grid"></div>
+        <!-- Component 2: Fest Ticker / Marquee -->
+        <div class="fest-ticker-wrap reveal-item" aria-hidden="true">
+          <div class="fest-ticker-track" id="fest-ticker-track">
+            <!-- Dynamically populated via JS -->
+          </div>
+        </div>
+
+        <!-- Component 3: Punchlines / Value Prop -->
+        <div class="get-ready-pillars">
+          <div class="punchline-card reveal-item">
+            <div class="punchline-header">
+              <span class="punchline-tag">COMPETE</span>
+            </div>
+            <p class="punchline-text">Against top engineering talent nationwide in battle-tested technical and gaming crucibles.</p>
+          </div>
+          <div class="punchline-card reveal-item">
+            <div class="punchline-header">
+              <span class="punchline-tag">BUILD</span>
+            </div>
+            <p class="punchline-text">Production-grade distributed prototypes, AI systems, and security tools within 24 hours.</p>
+          </div>
+          <div class="punchline-card reveal-item">
+            <div class="punchline-header">
+              <span class="punchline-tag">WIN</span>
+            </div>
+            <p class="punchline-text">&#8377;1,00,000+ total cash prize pool, national merit certificates, and lifetime bragging rights.</p>
+          </div>
+        </div>
+
+        <!-- Component 4: Action row -->
+        <div class="get-ready-actions reveal-item">
+          <a href="events.html" class="specular-btn size-md" data-tint="#0A84FF" data-radius="12" aria-label="Register for Events">
+            <canvas aria-hidden="true"></canvas><span class="specular-text">REGISTER NOW</span>
+          </a>
+          <div class="share-btn-wrap" style="display:inline-flex; align-items:center;">
+            <button type="button" id="btn-share-fest" class="specular-btn size-md" data-tint="#FFFFFF" data-base="#222" data-radius="12" aria-label="Share ALODANAX TechFest">
+              <canvas aria-hidden="true"></canvas><span class="specular-text">SHARE THE FEST</span>
+            </button>
+            <span class="share-feedback" id="share-feedback" aria-live="polite"></span>
+          </div>
         </div>
       </div>
     </section>
@@ -811,11 +892,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 
   <div id="site-footer"></div>
 
-  <div id="debug-hud" aria-hidden="true">
-    <div>PROGRESS: <span id="dbg-progress">0.00%</span></div>
-    <div>TIME: <span id="dbg-time">0.00s</span> / <span id="dbg-dur">0.00s</span></div>
-    <div>FPS: <span id="dbg-fps">0</span></div>
-  </div>
+
 
   <!-- CDN Dependencies -->
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
@@ -824,9 +901,13 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 
   <!-- Global Data -->
   <script>
+    // Paste your Google Form link here (used by every event that has no link of its own).
+    // Leave as "" to show the "REGISTRATION OPENING SOON" message on click.
+    const DEFAULT_REGISTRATION_URL = "";
+
     const SITE_DATA = {
       brand: { name: "ALODANAX", edition: "2026", tagline: "Precision Engineering Meets Cyber Evolution" },
-      college: { name: "[COLLEGE NAME]", department: "[DEPARTMENT OF IT/CS]", fullTitle: "[DEPARTMENT, COLLEGE]", address: "[CAMPUS ADDRESS, CITY, STATE, PIN]", venue: "[VENUE TBA]", dates: "[DATE TBA]" },
+      college: { name: "[COLLEGE NAME]", department: "[DEPARTMENT OF IT/CS]", fullTitle: "[DEPARTMENT, COLLEGE]", address: "[CAMPUS ADDRESS, CITY, STATE, PIN]", venue: "[VENUE TBA]", dates: "[DATE TBA]", startDateISO: "" },
       contacts: { email: "[EMAIL TBA]", phone: "[PHONE TBA]" },
       socials: { instagram: "[INSTAGRAM TBA]", linkedin: "[LINKEDIN TBA]", github: "[GITHUB TBA]" },
       about: {
@@ -839,16 +920,6 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
           { value: "[₹1,00,000+]", label: "TOTAL CASH PRIZE POOL" }
         ]
       },
-      collaborator: {
-        name: "[COLLABORATOR COMPANY NAME]", logo: "assets/images/collaborator/logo.png",
-        intro: "[COLLABORATOR INTRO - A LEADING TECHNOLOGY INNOVATOR EMPOWERING ACADEMIC EXCELLENCE, CLOUD ARCHITECTURE, AND STUDENT RESEARCH]",
-        info: ["[INDUSTRY PARTNER IN CLOUD & AI RESEARCH]", "[SPONSOR OF FLAGSHIP 24H HACKATHON ARENA]", "[OFFERING INTERNSHIP PATHWAYS & EXPERT MENTORSHIP]"],
-        guests: [
-          { name: "[GUEST NAME 01]", designation: "[KEYNOTE SPEAKER / SENIOR CLOUD ARCHITECT]", photo: "assets/images/collaborator/guest-1.jpg" },
-          { name: "[GUEST NAME 02]", designation: "[INDUSTRY MENTOR / VP ENGINEERING]", photo: "assets/images/collaborator/guest-2.jpg" },
-          { name: "[GUEST NAME 03]", designation: "[HACKATHON JURY CHAIR / PRINCIPAL AI RESEARCHER]", photo: "assets/images/collaborator/guest-3.jpg" }
-        ]
-      },
       why: [
         { pillar: "Innovation", title: "GROUNDBREAKING TECH", description: "Push beyond theoretical boundaries with emerging frameworks, neural pipelines, and decentralized systems." },
         { pillar: "Creativity", title: "UNBOUND DESIGN", description: "Engineering meets aesthetic mastery: intuitive human interfaces, generative media, and fluid motion design." },
@@ -858,11 +929,11 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
     };
     
     const EVENTS_DATA = [
-      { slug: "hackathon", name: "Hackathon", category: "technical", tag: "FLAGSHIP SPRINT", shortDescription: "A relentless 24-hour product engineering sprint challenging squads to build distributed, fault-tolerant prototypes under real-world constraints.", date: "[DATE TBA]", venue: "Main Auditorium", registrationUrl: "[GOOGLE FORM URL]" },
-      { slug: "bit-bash-bonanza", name: "Bit Bash Bonanza", category: "technical", tag: "SPEED CODING", shortDescription: "A high-octane competitive programming duel testing algorithmic intuition, memory efficiency, and speed under strict clock limits.", date: "[DATE TBA]", venue: "Lab 101", registrationUrl: "[GOOGLE FORM URL]" },
-      { slug: "ideathon", name: "Ideathon", category: "non-technical", tag: "VENTURE PITCH", shortDescription: "A technology venture pitching competition evaluating architecture viability, market impact, and disruptive product execution.", date: "[DATE TBA]", venue: "Seminar Hall", registrationUrl: "[GOOGLE FORM URL]" },
-      { slug: "bgmi", name: "BGMI", category: "gaming", tag: "TACTICAL BATTLE ROYALE", shortDescription: "Squad-based mobile battle royale showdown across Erangel and Miramar testing rotations, clutch utility, and gunplay.", date: "[DATE TBA]", venue: "Esports Arena", registrationUrl: "[GOOGLE FORM URL]" },
-      { slug: "discovering-derlicts", name: "Discovering Derlicts", category: "gaming", tag: "GEO-CACHED CIPHER HUNT", shortDescription: "A high-intensity campus-wide puzzle quest decoding cryptographic beacons, vintage computing hardware, and cryptic riddles.", date: "[DATE TBA]", venue: "Campus Grounds", registrationUrl: "[GOOGLE FORM URL]" }
+      { slug: "hackathon", name: "Hackathon", category: "technical", tag: "FLAGSHIP SPRINT", shortDescription: "A relentless 24-hour product engineering sprint challenging squads to build distributed, fault-tolerant prototypes under real-world constraints.", date: "[DATE TBA]", venue: "Main Auditorium", registrationUrl: "" },
+      { slug: "bit-bash-bonanza", name: "Bit Bash Bonanza", category: "technical", tag: "SPEED CODING", shortDescription: "A high-octane competitive programming duel testing algorithmic intuition, memory efficiency, and speed under strict clock limits.", date: "[DATE TBA]", venue: "Lab 101", registrationUrl: "" },
+      { slug: "ideathon", name: "Ideathon", category: "non-technical", tag: "VENTURE PITCH", shortDescription: "A technology venture pitching competition evaluating architecture viability, market impact, and disruptive product execution.", date: "[DATE TBA]", venue: "Seminar Hall", registrationUrl: "" },
+      { slug: "bgmi", name: "BGMI", category: "gaming", tag: "TACTICAL BATTLE ROYALE", shortDescription: "Squad-based mobile battle royale showdown across Erangel and Miramar testing rotations, clutch utility, and gunplay.", date: "[DATE TBA]", venue: "Esports Arena", registrationUrl: "" },
+      { slug: "discovering-derlicts", name: "Discovering Derlicts", category: "gaming", tag: "GEO-CACHED CIPHER HUNT", shortDescription: "A high-intensity campus-wide puzzle quest decoding cryptographic beacons, vintage computing hardware, and cryptic riddles.", date: "[DATE TBA]", venue: "Campus Grounds", registrationUrl: "" }
     ];
 
     window.SITE_DATA = SITE_DATA;
@@ -1071,6 +1142,45 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
       window.SpecularButton = SpecularButton;
     })(window);
 
+    function escapeHtml(str) {
+      return String(str || '').replace(/[&<>"']/g, m => ({
+        '&': '&amp;',
+        '<': '&lt;',
+        '>': '&gt;',
+        '"': '&quot;',
+        "'": '&#39;'
+      })[m]);
+    }
+
+    function getCleanUrl(url) {
+      const defaultUrl = (typeof window !== 'undefined' && window.DEFAULT_REGISTRATION_URL !== undefined)
+        ? window.DEFAULT_REGISTRATION_URL
+        : (typeof DEFAULT_REGISTRATION_URL !== 'undefined' ? DEFAULT_REGISTRATION_URL : '');
+      const effective = ((url && url.trim()) || (defaultUrl && defaultUrl.trim()) || '');
+      return /^https:\/\//i.test(effective) ? effective : '';
+    }
+
+    function showRegToast(btn) {
+      const wrap = btn.closest('.reg-btn-wrap') || btn.parentElement;
+      let toast = wrap.querySelector('.reg-toast-msg');
+      if (!toast) {
+        toast = document.createElement('span');
+        toast.className = 'reg-toast-msg';
+        toast.setAttribute('aria-live', 'polite');
+        wrap.appendChild(toast);
+      }
+      toast.textContent = 'REGISTRATION OPENING SOON';
+      toast.classList.add('is-visible');
+      clearTimeout(btn._toastTimer);
+      btn._toastTimer = setTimeout(() => {
+        toast.classList.remove('is-visible');
+        toast.textContent = '';
+      }, 4000);
+    }
+    window.escapeHtml = escapeHtml;
+    window.getCleanUrl = getCleanUrl;
+    window.showRegToast = showRegToast;
+
     function initButtons() { document.querySelectorAll('.specular-btn').forEach(b => { if(!b.dataset.init){ new window.SpecularButton(b); b.dataset.init="1";} }); }
     document.addEventListener("DOMContentLoaded", initButtons);
   </script>
@@ -1201,11 +1311,171 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
           });
         }
         
-        // Collaborator
-        document.getElementById('collab-name').textContent = site.collaborator.name;
-        document.getElementById('collab-intro').textContent = site.collaborator.intro;
-        document.getElementById('collab-info-list').innerHTML = site.collaborator.info.map(i => `<li class="collaborator-info-item"><span class="collaborator-info-bullet">✦</span><span>${i}</span></li>`).join('');
-        document.getElementById('collab-guests-grid').innerHTML = site.collaborator.guests.map(g => `<div class="guest-card reveal-item"><div class="guest-photo-wrap"><img src="${g.photo}" alt="${g.name}" class="guest-photo-img" onerror="window.ALODANAX_UTILS && window.ALODANAX_UTILS.handleImageError(this, 'profile')"></div><div class="guest-meta-box"><h4 class="guest-name">${g.name}</h4><span class="guest-designation">${g.designation}</span></div></div>`).join('');
+        // Fest Marketing: Countdown HUD
+        (function initCountdown() {
+          const container = document.getElementById('countdown-display-container');
+          const srSummary = document.getElementById('countdown-sr-summary');
+          if (!container) return;
+
+          const iso = site.college && site.college.startDateISO ? site.college.startDateISO.trim() : '';
+          const targetMs = iso ? Date.parse(iso) : NaN;
+
+          function renderFallback() {
+            const datesText = (site.college && site.college.dates && !site.college.dates.includes('['))
+              ? escapeHtml(site.college.dates)
+              : 'DATE TO BE ANNOUNCED. STAY TUNED.';
+            container.innerHTML = `
+              <div class="countdown-fallback-card">
+                <span class="fallback-badge">ANNOUNCEMENT</span>
+                <h3 class="fallback-title">SAVE THE DATE</h3>
+                <p class="fallback-subtext">${datesText}</p>
+              </div>
+            `;
+            if (srSummary) srSummary.textContent = `Event date: ${datesText}`;
+          }
+
+          if (isNaN(targetMs) || targetMs <= Date.now()) {
+            renderFallback();
+            return;
+          }
+
+          container.innerHTML = `
+            <div class="countdown-grid">
+              <div class="countdown-card">
+                <div class="countdown-num" id="cd-days" aria-hidden="true">00</div>
+                <div class="countdown-lbl">DAYS</div>
+              </div>
+              <div class="countdown-card">
+                <div class="countdown-num" id="cd-hours" aria-hidden="true">00</div>
+                <div class="countdown-lbl">HOURS</div>
+              </div>
+              <div class="countdown-card">
+                <div class="countdown-num" id="cd-minutes" aria-hidden="true">00</div>
+                <div class="countdown-lbl">MINUTES</div>
+              </div>
+              <div class="countdown-card">
+                <div class="countdown-num" id="cd-seconds" aria-hidden="true">00</div>
+                <div class="countdown-lbl">SECONDS</div>
+              </div>
+            </div>
+          `;
+
+          const elDays = document.getElementById('cd-days');
+          const elHours = document.getElementById('cd-hours');
+          const elMinutes = document.getElementById('cd-minutes');
+          const elSeconds = document.getElementById('cd-seconds');
+          let lastAnnouncedMinute = -1;
+          let timerId = null;
+
+          function updateTick() {
+            const remaining = targetMs - Date.now();
+            if (remaining <= 0) {
+              if (timerId) clearInterval(timerId);
+              renderFallback();
+              return;
+            }
+            const d = Math.floor(remaining / (1000 * 60 * 60 * 24));
+            const h = Math.floor((remaining / (1000 * 60 * 60)) % 24);
+            const m = Math.floor((remaining / (1000 * 60)) % 60);
+            const s = Math.floor((remaining / 1000) % 60);
+
+            if (elDays) elDays.textContent = String(d).padStart(2, '0');
+            if (elHours) elHours.textContent = String(h).padStart(2, '0');
+            if (elMinutes) elMinutes.textContent = String(m).padStart(2, '0');
+            if (elSeconds) elSeconds.textContent = String(s).padStart(2, '0');
+
+            if (srSummary && m !== lastAnnouncedMinute) {
+              srSummary.textContent = `${d} days, ${h} hours, and ${m} minutes remaining until ALODANAX`;
+              lastAnnouncedMinute = m;
+            }
+          }
+
+          updateTick();
+          timerId = setInterval(updateTick, 1000);
+
+          document.addEventListener('visibilitychange', () => {
+            if (document.hidden) {
+              if (timerId) clearInterval(timerId);
+              timerId = null;
+            } else {
+              updateTick();
+              if (!timerId) timerId = setInterval(updateTick, 1000);
+            }
+          });
+        })();
+
+        // Fest Marketing: Ticker
+        (function initTicker() {
+          const track = document.getElementById('fest-ticker-track');
+          if (!track) return;
+          const tagMap = {
+            'hackathon': '24H HACKATHON',
+            'bit-bash-bonanza': 'SPEED CODING',
+            'ideathon': 'VENTURE IDEATHON',
+            'bgmi': 'TACTICAL BGMI',
+            'discovering-derlicts': 'CIPHER HUNT'
+          };
+          const prizeStat = (site.about.stats.find(s => s.label.includes('PRIZE')) || {}).value || '₹1,00,000+';
+          const cleanPrize = prizeStat.replace(/[\[\]]/g, '');
+          const items = [
+            ...(window.EVENTS_DATA || []).map(e => tagMap[e.slug] || e.name.toUpperCase()),
+            `${cleanPrize} PRIZE POOL`,
+            'NATIONAL TEAMS'
+          ];
+          const groupHtml = `<div class="fest-ticker-group">` + items.map(item => `<span class="ticker-item">${escapeHtml(item)}</span><span class="ticker-sep" aria-hidden="true">✦</span>`).join('') + `</div>`;
+          track.innerHTML = groupHtml + `<div class="fest-ticker-group" aria-hidden="true">` + items.map(item => `<span class="ticker-item">${escapeHtml(item)}</span><span class="ticker-sep" aria-hidden="true">✦</span>`).join('') + `</div>`;
+        })();
+
+        // Fest Marketing: Share Button
+        (function initShare() {
+          const shareBtn = document.getElementById('btn-share-fest');
+          const shareFeedback = document.getElementById('share-feedback');
+          if (!shareBtn || !shareFeedback) return;
+          let shareTimer = null;
+          function notifyShare(msg) {
+            shareFeedback.textContent = msg;
+            shareFeedback.classList.add('is-visible');
+            clearTimeout(shareTimer);
+            shareTimer = setTimeout(() => {
+              shareFeedback.classList.remove('is-visible');
+              shareFeedback.textContent = '';
+            }, 4000);
+          }
+          shareBtn.addEventListener('click', async () => {
+            const shareUrl = window.location.href.split('#')[0];
+            const shareData = {
+              title: 'ALODANAX 2026',
+              text: 'ALODANAX 2026 - Precision Engineering Meets Cyber Evolution',
+              url: shareUrl
+            };
+            if (navigator.share && /mobile|android|iphone|ipad/i.test(navigator.userAgent)) {
+              try {
+                await navigator.share(shareData);
+                return;
+              } catch (e) {
+                // fallback to clipboard
+              }
+            }
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+              try {
+                await navigator.clipboard.writeText(shareUrl);
+                notifyShare('LINK COPIED!');
+                return;
+              } catch (e) {}
+            }
+            try {
+              const temp = document.createElement('input');
+              temp.value = shareUrl;
+              document.body.appendChild(temp);
+              temp.select();
+              document.execCommand('copy');
+              document.body.removeChild(temp);
+              notifyShare('LINK COPIED!');
+            } catch (e) {
+              notifyShare('COPY FAILED');
+            }
+          });
+        })();
 
         // Featured Events
         const fSlugs = ['hackathon', 'bit-bash-bonanza', 'ideathon', 'bgmi', 'discovering-derlicts'];
@@ -1213,20 +1483,22 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
         fSlugs.forEach(slug => {
           const ev = window.EVENTS_DATA.find(e => e.slug === slug);
           if(!ev) return;
-          const regHtml = ev.registrationUrl && !ev.registrationUrl.includes('[') 
-            ? `<a href="${ev.registrationUrl}" target="_blank" class="specular-btn size-md" data-tint="${ev.category === 'technical'?'#0A84FF':(ev.category==='gaming'?'#FF1744':'#FFF')}" data-radius="8"><canvas aria-hidden="true"></canvas><span class="specular-text">REGISTER</span></a>`
-            : `<button class="specular-btn size-md btn-disabled" data-tint="#555" data-radius="8"><canvas aria-hidden="true"></canvas><span class="specular-text">TBA</span></button>`;
+          const cleanUrl = getCleanUrl(ev.registrationUrl);
+          const tColor = ev.category === 'technical' ? '#0A84FF' : (ev.category === 'gaming' ? '#FF1744' : '#FFF');
+          const regHtml = cleanUrl 
+            ? `<a href="${cleanUrl}" target="_blank" rel="noopener noreferrer" class="specular-btn size-md" data-tint="${tColor}" data-radius="8" aria-label="Register for ${escapeHtml(ev.name)}"><canvas aria-hidden="true"></canvas><span class="specular-text">REGISTER</span></a>` 
+            : `<div class="reg-btn-wrap"><button type="button" class="specular-btn size-md" data-tint="${tColor}" data-radius="8" aria-label="Register for ${escapeHtml(ev.name)}" onclick="showRegToast(this)"><canvas aria-hidden="true"></canvas><span class="specular-text">REGISTER</span></button><span class="reg-toast-msg" aria-live="polite"></span></div>`;
             
           fContainer.innerHTML += `
             <article class="featured-event-card reveal-item category-${ev.category}">
               <div class="featured-poster-wrap">
-                <img src="${ev.image}" alt="${ev.name}" class="featured-poster-img" onerror="window.ALODANAX_UTILS && window.ALODANAX_UTILS.handleImageError(this, 'event')">
+                <img src="${ev.image || `assets/images/events/${ev.slug}.jpg`}" alt="${escapeHtml(ev.name)}" class="featured-poster-img" onerror="window.ALODANAX_UTILS && window.ALODANAX_UTILS.handleImageError(this, 'event')">
                 <div class="featured-badge-overlay"><span class="category-badge ${ev.category==='technical'?'cat-technical':(ev.category==='gaming'?'cat-gaming':'cat-non-technical')}">${ev.category}</span><span class="event-tag-badge">${ev.tag}</span></div>
               </div>
               <div class="featured-card-body">
-                <h3 class="featured-event-name">${ev.name}</h3>
-                <p class="featured-event-desc">${ev.shortDescription}</p>
-                <div class="featured-meta-bar"><span>${ev.date} &nbsp;&bull;&nbsp; ${ev.venue}</span></div>
+                <h3 class="featured-event-name">${escapeHtml(ev.name)}</h3>
+                <p class="featured-event-desc">${escapeHtml(ev.shortDescription)}</p>
+                <div class="featured-meta-bar"><span>${escapeHtml(ev.date)} &nbsp;&bull;&nbsp; ${escapeHtml(ev.venue)}</span></div>
                 <div class="featured-actions-row">
                   <a href="events.html#event=${ev.slug}" class="specular-btn size-md" data-tint="#525252" data-base="#222" data-radius="8"><canvas aria-hidden="true"></canvas><span class="specular-text">DETAILS</span></a>
                   ${regHtml}

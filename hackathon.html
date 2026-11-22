@@ -470,8 +470,6 @@ a:focus-visible, button:focus-visible, input:focus-visible { outline: 2px solid 
 </head>
 <body class="page-hackathon">
 
-  <a href="#hackathon-main" class="skip-link">Skip to main content</a>
-
   <!-- Animated CardNav Navigation -->
   <header id="site-header">
     <div class="cn-root" id="card-nav">
@@ -1011,10 +1009,6 @@ a:focus-visible, button:focus-visible, input:focus-visible { outline: 2px solid 
   <!-- Hackathon Controller Script -->
   <script>
     (function(window) {
-      // API base URL for fetching published hackathon data.
-      // In production behind a reverse proxy, set to same-origin ''
-      const API_BASE = 'http://localhost:5000';
-
       let currentDomainSlug = '';
 
       function escapeHtml(str) {
@@ -1027,22 +1021,49 @@ a:focus-visible, button:focus-visible, input:focus-visible { outline: 2px solid 
           .replace(/'/g, '&#39;');
       }
 
+      function isValidPayload(payload) {
+        if (!payload || typeof payload !== 'object' || Array.isArray(payload)) return false;
+        if (payload.schemaVersion !== 1) return false;
+        if (!Array.isArray(payload.domains)) return false;
+        const allowedDiff = new Set(['EASY', 'MEDIUM', 'HARD', 'EXTREME']);
+        for (const dom of payload.domains) {
+          if (!dom || typeof dom !== 'object' || Array.isArray(dom)) return false;
+          if (typeof dom.slug !== 'string' || !/^[a-z0-9-]+$/.test(dom.slug)) return false;
+          if (typeof dom.name !== 'string' || typeof dom.tag !== 'string' || typeof dom.shortDescription !== 'string') return false;
+          if (!Array.isArray(dom.problemStatements)) return false;
+          for (const ps of dom.problemStatements) {
+            if (!ps || typeof ps !== 'object' || Array.isArray(ps)) return false;
+            if (typeof ps.id !== 'string' || typeof ps.title !== 'string') return false;
+            if (typeof ps.description !== 'string' || typeof ps.expectedOutcome !== 'string') return false;
+            if (typeof ps.difficulty !== 'string' || !allowedDiff.has(ps.difficulty.toUpperCase())) return false;
+          }
+        }
+        return true;
+      }
+
       async function init() {
         if (!window.HACKATHON_DATA) return;
 
-        // Fetch published domains from API with 3-second timeout
+        let zeroDomainsPublished = false;
+
+        // Fetch published domains from local static JSON export with 5-second timeout
         const controller = new AbortController();
-        const timeoutId = setTimeout(() => controller.abort(), 3000);
+        const timeoutId = setTimeout(() => controller.abort(), 5000);
         try {
-          const res = await fetch(`${API_BASE}/api/public/hackathon/domains`, {
-            signal: controller.signal,
-            headers: { 'Accept': 'application/json' }
+          const res = await fetch('data/hackathon-domains.json', {
+            cache: 'no-cache',
+            signal: controller.signal
           });
           clearTimeout(timeoutId);
           if (res.ok) {
             const json = await res.json();
-            if (json && Array.isArray(json.domains) && json.domains.length > 0) {
-              window.HACKATHON_DATA.domains = json.domains;
+            if (isValidPayload(json)) {
+              if (json.domains.length === 0) {
+                zeroDomainsPublished = true;
+                window.HACKATHON_DATA.domains = [];
+              } else {
+                window.HACKATHON_DATA.domains = json.domains;
+              }
             }
           }
         } catch (err) {
@@ -1076,8 +1097,20 @@ a:focus-visible, button:focus-visible, input:focus-visible { outline: 2px solid 
 
         // 3. Setup Domains
         const tabsWrap = document.getElementById('domain-tabs-wrap');
+        const descBox = document.getElementById('domain-desc-box');
+        const grid = document.getElementById('problem-statements-grid');
         tabsWrap.innerHTML = '';
-        if (data.domains && data.domains.length > 0) {
+
+        if (zeroDomainsPublished) {
+          if (descBox) descBox.style.display = 'none';
+          if (grid) {
+            grid.innerHTML = `
+              <div class="hackathon-empty-state" style="grid-column: 1 / -1; padding: 3.5rem 1.5rem; text-align: center; background: var(--surface); border: 1px solid rgba(10, 132, 255, 0.2); border-radius: 16px; margin: 1rem 0;">
+                <p style="font-family: var(--font-body); font-size: 1.15rem; color: var(--text-secondary); margin: 0;">Problem statements will be announced soon.</p>
+              </div>`;
+          }
+        } else if (data.domains && data.domains.length > 0) {
+          if (descBox) descBox.style.display = '';
           data.domains.forEach((dom, index) => {
             const btn = document.createElement('button');
             btn.type = 'button';

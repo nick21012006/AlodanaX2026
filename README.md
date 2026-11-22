@@ -27,7 +27,7 @@ To prevent code duplication drift across the 7 HTML pages, standardized comment 
 1. `/* ==== SHARED:BASE-CSS START ==== */` ... `/* ==== SHARED:BASE-CSS END ==== */`
    (Design tokens, reset, typography scale, buttons, navigation header & mobile drawer, footer, subpage hero, accessible modal, category badges, dev audit HUD styles)
 2. `/* ==== SHARED:DATA-SITE START ==== */` ... `/* ==== SHARED:DATA-SITE END ==== */`
-   (Single Source of Truth for Brand Name, college details, contacts, socials, map, and industry collaborator)
+   (Single Source of Truth for Brand Name, college details, contacts, socials, and map)
 3. `/* ==== SHARED:DATA-EVENTS START ==== */` ... `/* ==== SHARED:DATA-EVENTS END ==== */`
    (Festival-wide competition database, registration links, rules, and coordinator contacts — included on `index`, `events`, `hackathon`, and `contact`)
 4. `/* ==== SHARED:COMPONENTS START ==== */` ... `/* ==== SHARED:COMPONENTS END ==== */`
