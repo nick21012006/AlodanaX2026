@@ -2955,7 +2955,7 @@
           fContainer.innerHTML += `
             <article class="featured-event-card reveal-item category-${ev.category}">
               <div class="featured-poster-wrap">
-                <img src="${ev.image || `assets/images/events/${ev.slug}.jpg`}" alt="${escapeHtml(ev.name)}" class="featured-poster-img" onerror="window.ALODANAX_UTILS && window.ALODANAX_UTILS.handleImageError(this, 'event')">
+                <img src="${ev.image || `assets/images/events/${ev.slug}.jpg`}" alt="${escapeHtml(ev.name)}" class="featured-poster-img" onerror="window.ALODANAX_UTILS && window.ALODANAX_UTILS.handleImageError(this, 'event')" width="1600" height="900" loading="lazy">
                 <div class="featured-badge-overlay"><span class="category-badge ${ev.category === 'technical' ? 'cat-technical' : (ev.category === 'gaming' ? 'cat-gaming' : 'cat-non-technical')}">${ev.category}</span><span class="event-tag-badge">${ev.tag}</span></div>
               </div>
               <div class="featured-card-body">
