@@ -638,9 +638,10 @@ a:focus-visible, button:focus-visible, input:focus-visible { outline: 2px solid 
             </p>
           </div>
           <div class="ppt-action-wrap" id="ppt-download-wrap">
-            <button type="button" class="btn-disabled" aria-disabled="true">
-              <span>CHECKING TEMPLATE...</span>
-            </button>
+            <a href="https://canva.link/jwifsdvwtvgphhy" target="_blank" rel="noopener noreferrer" class="specular-btn size-md" data-tint="#0A84FF" data-radius="12" aria-label="Open Standardized Pitch Template on Canva">
+              <canvas aria-hidden="true"></canvas>
+              <span class="specular-text">VIEW TEMPLATE</span>
+            </a>
           </div>
         </div>
       </section>
@@ -704,7 +705,7 @@ a:focus-visible, button:focus-visible, input:focus-visible { outline: 2px solid 
         title: "24-HOUR FLAGSHIP HACKATHON", subtitle: "SYNAPSE // PROTOCOL",
         date: "[DATE TBA]", venue: "[MAIN TECH AUDITORIUM & COMPUTING SUITES]",
         duration: "24 Hours Non-Stop", mode: "Offline / On-Campus",
-        samplePptUrl: "assets/downloads/hackathon-sample.pptx", eventSlug: "hackathon"
+        samplePptUrl: "https://canva.link/jwifsdvwtvgphhy", eventSlug: "hackathon"
       },
       domains: [
         {
@@ -1167,13 +1168,24 @@ a:focus-visible, button:focus-visible, input:focus-visible { outline: 2px solid 
 
         // 4. Check PPT
         const pptWrap = document.getElementById('ppt-download-wrap');
-        fetch(data.meta.samplePptUrl, { method: 'HEAD' })
-          .then(res => {
-            if(res.ok) {
-              pptWrap.innerHTML = `<a href="${escapeHtml(data.meta.samplePptUrl)}" download class="specular-btn size-md" data-tint="#0A84FF" data-radius="12"><canvas aria-hidden="true"></canvas><span class="specular-text">DOWNLOAD PPT</span></a>`;
-              setTimeout(initButtons, 50);
-            } else { pptWrap.innerHTML = `<button class="btn-disabled">COMING SOON</button>`; }
-          }).catch(() => { pptWrap.innerHTML = `<button class="btn-disabled">COMING SOON</button>`; });
+        const pptUrl = data.meta && data.meta.samplePptUrl;
+        if (pptUrl && !(window.ALODANAX_UTILS && window.ALODANAX_UTILS.isPlaceholder(pptUrl))) {
+          const isExternal = pptUrl.startsWith('http://') || pptUrl.startsWith('https://');
+          if (isExternal) {
+            pptWrap.innerHTML = `<a href="${escapeHtml(pptUrl)}" target="_blank" rel="noopener noreferrer" class="specular-btn size-md" data-tint="#0A84FF" data-radius="12" aria-label="Open Standardized Pitch Template on Canva"><canvas aria-hidden="true"></canvas><span class="specular-text">VIEW TEMPLATE</span></a>`;
+            setTimeout(initButtons, 50);
+          } else {
+            fetch(pptUrl, { method: 'HEAD' })
+              .then(res => {
+                if(res.ok) {
+                  pptWrap.innerHTML = `<a href="${escapeHtml(pptUrl)}" download class="specular-btn size-md" data-tint="#0A84FF" data-radius="12"><canvas aria-hidden="true"></canvas><span class="specular-text">DOWNLOAD PPT</span></a>`;
+                  setTimeout(initButtons, 50);
+                } else { pptWrap.innerHTML = `<button class="btn-disabled">COMING SOON</button>`; }
+              }).catch(() => { pptWrap.innerHTML = `<button class="btn-disabled">COMING SOON</button>`; });
+          }
+        } else {
+          pptWrap.innerHTML = `<button class="btn-disabled">COMING SOON</button>`;
+        }
 
         // 5. Rules
         const rulesList = document.getElementById('hackathon-rules-list');
