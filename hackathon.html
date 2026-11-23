@@ -1286,7 +1286,10 @@ a:focus-visible, button:focus-visible, input:focus-visible { outline: 2px solid 
       window.addEventListener('keydown', (e) => {
         if ((e.ctrlKey || e.metaKey) && e.shiftKey && (e.key === 'A' || e.key === 'a')) {
           e.preventDefault();
-          window.location.href = 'http://localhost:5000/admin/';
+          const adminUrl = (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')
+            ? 'http://localhost:5000/admin/'
+            : 'https://alodanax-backend.up.railway.app/admin/';
+          window.location.href = adminUrl;
         }
       });
 
@@ -1321,7 +1324,7 @@ a:focus-visible, button:focus-visible, input:focus-visible { outline: 2px solid 
               </div>
             </div>
             <div class="footer-bottom-bar">
-              <p>© 2026 ALODANAX. ALL RIGHTS RESERVED. <a href="http://localhost:5000/admin/" class="admin-stealth-link" title="Admin Portal" style="opacity:0.25; color:var(--text-tertiary); text-decoration:none; font-size:0.85rem; margin-left:0.75rem; transition:opacity 0.2s ease, color 0.2s ease;" onmouseover="this.style.opacity='1';this.style.color='var(--blue)'" onmouseout="this.style.opacity='0.25';this.style.color='var(--text-tertiary)'">⌁</a></p>
+              <p>© 2026 ALODANAX. ALL RIGHTS RESERVED. <a href="https://alodanax-backend.up.railway.app/admin/" class="admin-stealth-link" title="Admin Portal" style="opacity:0.25; color:var(--text-tertiary); text-decoration:none; font-size:0.85rem; margin-left:0.75rem; transition:opacity 0.2s ease, color 0.2s ease;" onmouseover="this.style.opacity='1';this.style.color='var(--blue)'" onmouseout="this.style.opacity='0.25';this.style.color='var(--text-tertiary)'">⌁</a></p>
               <a href="#site-header" class="back-to-top" onclick="window.scrollTo({top:0, behavior:'smooth'}); return false;">BACK TO TOP</a>
             </div>
           </div>

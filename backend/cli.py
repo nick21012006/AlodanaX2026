@@ -16,10 +16,15 @@ def register_cli_commands(app):
     """Register custom CLI commands for the Flask application."""
 
     @app.cli.command("create-admin")
-    def create_admin_command():
-        """Create a new administrative user via secure CLI prompt."""
+    @click.option("--username", "-u", default=None, help="Admin username (3-32 chars, a-z 0-9 . _ -)")
+    @click.option("--password", "-p", default=None, help="Admin password (min 12 chars)")
+    def create_admin_command(username, password):
+        """Create a new administrative user via secure CLI prompt or flags."""
         click.echo("=== ALODANAX: Create Administrative Account ===")
-        username = click.prompt("Username (3-32 chars, a-z 0-9 . _ -)", type=str).strip().lower()
+        if not username:
+            username = click.prompt("Username (3-32 chars, a-z 0-9 . _ -)", type=str).strip().lower()
+        else:
+            username = username.strip().lower()
 
         if not USERNAME_PATTERN.match(username):
             click.secho(
@@ -33,15 +38,16 @@ def register_cli_commands(app):
             click.secho(f"Error: Admin user '{username}' already exists.", fg="red")
             return
 
-        password = getpass.getpass("Password (min 12 chars): ")
+        if not password:
+            password = getpass.getpass("Password (min 12 chars): ")
+            confirm = getpass.getpass("Confirm Password: ")
+            if password != confirm:
+                click.secho("Error: Passwords do not match.", fg="red")
+                return
+
         valid, error_msg = validate_password_strength(password, username)
         if not valid:
             click.secho(f"Error: {error_msg}", fg="red")
-            return
-
-        confirm = getpass.getpass("Confirm Password: ")
-        if password != confirm:
-            click.secho("Error: Passwords do not match.", fg="red")
             return
 
         pwd_hash = hash_password(password)
@@ -54,6 +60,39 @@ def register_cli_commands(app):
         db.session.commit()
 
         click.secho(f"Success: Admin '{username}' created successfully.", fg="green")
+
+    @app.cli.command("init-admin")
+    def init_admin_command():
+        """Ensure an initial administrator exists if ADMIN_USERNAME and ADMIN_PASSWORD are set."""
+        import os
+        admin_user = os.getenv("ADMIN_USERNAME")
+        admin_pass = os.getenv("ADMIN_PASSWORD")
+        if not admin_user or not admin_pass:
+            return
+
+        username = admin_user.strip().lower()
+        if not USERNAME_PATTERN.match(username):
+            click.secho("init-admin: Invalid ADMIN_USERNAME format.", fg="red")
+            return
+
+        existing = Admin.query.filter_by(username=username).first()
+        if existing:
+            return
+
+        valid, error_msg = validate_password_strength(admin_pass, username)
+        if not valid:
+            click.secho(f"init-admin: {error_msg}", fg="red")
+            return
+
+        pwd_hash = hash_password(admin_pass)
+        admin = Admin(username=username, password_hash=pwd_hash)
+        db.session.add(admin)
+        db.session.commit()
+
+        log = AuditLog(admin_id=admin.id, action="admin_init_env", entity_type="Admin", entity_id=admin.id, ip="SYSTEM")
+        db.session.add(log)
+        db.session.commit()
+        click.secho(f"init-admin: Created initial admin '{username}'.", fg="green")
 
     @app.cli.command("reset-password")
     def reset_password_command():

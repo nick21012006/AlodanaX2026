@@ -67,6 +67,15 @@ def create_app(config_name=None):
     # Register CLI commands
     register_cli_commands(app)
 
+    # Base routing
+    @app.route("/")
+    def root():
+        return redirect(url_for("admin.dashboard"))
+
+    @app.route("/health")
+    def health():
+        return jsonify({"status": "ok"}), 200
+
     # Security Headers Hook
     @app.after_request
     def apply_security_headers(response):
