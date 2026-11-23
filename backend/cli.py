@@ -75,16 +75,21 @@ def register_cli_commands(app):
             click.secho("init-admin: Invalid ADMIN_USERNAME format.", fg="red")
             return
 
-        existing = Admin.query.filter_by(username=username).first()
-        if existing:
-            return
-
         valid, error_msg = validate_password_strength(admin_pass, username)
         if not valid:
             click.secho(f"init-admin: {error_msg}", fg="red")
             return
 
         pwd_hash = hash_password(admin_pass)
+        existing = Admin.query.filter_by(username=username).first()
+        if existing:
+            existing.password_hash = pwd_hash
+            existing.failed_logins = 0
+            existing.locked_until = None
+            db.session.commit()
+            click.secho(f"init-admin: Synchronized credentials for admin '{username}'.", fg="green")
+            return
+
         admin = Admin(username=username, password_hash=pwd_hash)
         db.session.add(admin)
         db.session.commit()

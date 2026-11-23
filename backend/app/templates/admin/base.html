@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>{% block title %}Admin Panel{% endblock %} | ALODANAX</title>
+  <title>{% block title %}Console{% endblock %} | ALODANAX</title>
   <meta name="csrf-token" content="{{ csrf_token() }}">
   
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -19,7 +19,6 @@
     <div class="header-container">
       <a href="{{ url_for('admin.dashboard') }}" class="brand-badge">
         <span class="brand-logo-text">ALODANAX</span>
-        <span class="brand-pill">ADMIN</span>
       </a>
 
       <nav class="admin-nav" aria-label="Admin Navigation">
