@@ -283,6 +283,26 @@ a:focus-visible, button:focus-visible, input:focus-visible { outline: 2px solid 
   position: absolute; top: -24px; left: -24px; z-index: 1; display: block;
   width: calc(100% + 48px); height: calc(100% + 48px); pointer-events: none;
 }
+@media (hover: none), (max-width: 768px) {
+  .specular-btn canvas {
+    display: none !important;
+  }
+  .specular-btn {
+    background: rgba(15, 20, 32, 0.85);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.12);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+  }
+  .specular-btn[data-tint="#FF1744"] {
+    border-color: rgba(255, 23, 68, 0.55);
+    box-shadow: 0 0 16px rgba(255, 23, 68, 0.3), inset 0 1px 0 rgba(255, 100, 130, 0.35);
+  }
+  .specular-btn[data-tint="#0A84FF"] {
+    border-color: rgba(10, 132, 255, 0.55);
+    box-shadow: 0 0 16px rgba(10, 132, 255, 0.3), inset 0 1px 0 rgba(100, 180, 255, 0.35);
+  }
+}
 .specular-text { position: relative; z-index: 2; display: inline-flex; align-items: center; gap: 8px; }
 .specular-btn.size-sm { padding: 10px 20px; font-size: 0.85rem; }
 .specular-btn.size-md { padding: 14px 28px; font-size: 1rem; }
@@ -805,7 +825,14 @@ a:focus-visible, button:focus-visible, input:focus-visible { outline: 2px solid 
           try {
             this.gl = this.canvas.getContext('webgl2', {alpha:true, premultipliedAlpha:true, antialias:false, depth:false, stencil:false});
           } catch(e) { this.gl = null; }
-          if(!this.gl) return;
+          if(!this.gl) {
+            this.canvas.style.display = 'none';
+            return;
+          }
+          this.canvas.addEventListener('webglcontextlost', (e) => {
+            e.preventDefault();
+            this.canvas.style.display = 'none';
+          });
           
           this.s = {
             radius: parseFloat(btn.dataset.radius) || 14,
@@ -838,7 +865,10 @@ a:focus-visible, button:focus-visible, input:focus-visible { outline: 2px solid 
         
         initGL() {
           const v = compile(this.gl, this.gl.VERTEX_SHADER, VERTEX), f = compile(this.gl, this.gl.FRAGMENT_SHADER, FRAGMENT);
-          if(!v || !f) return;
+          if(!v || !f) {
+            this.canvas.style.display = 'none';
+            return;
+          }
           this.prog = this.gl.createProgram();
           if(!this.prog) return;
           this.gl.attachShader(this.prog, v); this.gl.attachShader(this.prog, f);
@@ -926,7 +956,14 @@ a:focus-visible, button:focus-visible, input:focus-visible { outline: 2px solid 
       window.SpecularButton = SpecularButton;
     })(window);
 
-    function initButtons() { document.querySelectorAll('.specular-btn').forEach(b => { if(!b.dataset.init){ new window.SpecularButton(b); b.dataset.init="1";} }); }
+    function initButtons() {
+      const isTouch = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0) || (window.innerWidth < 768);
+      if (isTouch) {
+        document.querySelectorAll('.specular-btn canvas').forEach(c => { c.style.display = 'none'; });
+        return;
+      }
+      document.querySelectorAll('.specular-btn').forEach(b => { if(!b.dataset.init){ new window.SpecularButton(b); b.dataset.init="1";} });
+    }
   </script>
 
   <!-- CardNav Logic (Spring Physics) -->
