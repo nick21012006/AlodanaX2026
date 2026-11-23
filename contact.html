@@ -1707,16 +1707,12 @@
 
           <div class="contact-meta-items">
             <div class="contact-meta-entry">
-              <span class="meta-label">EMAIL DISPATCH</span>
-              <div id="official-email-val" class="meta-val">[EMAIL TBA]</div>
-            </div>
-            <div class="contact-meta-entry">
-              <span class="meta-label">HELPLINE TELEPHONE</span>
-              <div id="official-phone-val" class="meta-val">[PHONE TBA]</div>
-            </div>
-            <div class="contact-meta-entry">
               <span class="meta-label">VENUE ARENA</span>
-              <div id="official-venue-val" class="meta-val">[VENUE TBA]</div>
+              <div id="official-venue-val" class="meta-val">KSD's Model College, Dombivli East - 421201</div>
+            </div>
+            <div class="contact-meta-entry">
+              <span class="meta-label">OFFICIAL INSTAGRAM</span>
+              <div class="meta-val"><a href="https://instagram.com/alodanax2026" target="_blank" rel="noopener noreferrer" class="coord-link">@alodanax2026</a></div>
             </div>
           </div>
           <div class="contact-social-strip" id="contact-socials-wrap"></div>
@@ -1859,13 +1855,13 @@
       brand: { name: "ALODANAX", edition: "2026", tagline: "FROM INSIGHT TO INNOVATION" },
       college: {
         name: "Model College",
-        department: "IT/CS Department",
-        fullTitle: "MODEL COLLEGE IT/CS DEPARTMENT - TECHFEST",
+        department: "Department of Information Technology & Computer Science",
+        fullTitle: "KSD'S MODEL COLLEGE - TECHFEST",
         address: "Kanchangaon Village, Khambalpada, Near RBT School, Thakurli (East), Dombivli, Thane - 421201, Maharashtra",
-        venue: "Model College Campus, Dombivli (East)"
+        venue: "KSD's Model College, Dombivli East - 421201"
       },
-      contacts: { email: "contact@model-college.edu.in", phone: "+91 70456 82157" },
-      socials: { instagram: "[INSTAGRAM TBA]", linkedin: "[LINKEDIN TBA]", github: "[GITHUB TBA]" },
+      contacts: {},
+      socials: { instagram: "https://instagram.com/alodanax2026" },
       map: {
         embedUrl: "https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d15069.435153812969!2d73.108037!3d19.223189!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x36d96397bde202c!2sModel+College!5e0!3m2!1sen!2sin!4v1519819516943",
         link: "https://maps.google.com/?q=Model+College,+Khambalpada,+Thakurli+East,+Dombivli,+Maharashtra+421201"
@@ -2228,20 +2224,18 @@
         // 1. Hydrate Contacts
         document.getElementById('college-full-title').textContent = site.college.fullTitle;
         document.getElementById('college-address').textContent = site.college.address;
-        document.getElementById('official-venue-val').textContent = site.college.venue;
-
-        const em = utils.formatSafeLink('mailto', site.contacts.email);
-        document.getElementById('official-email-val').innerHTML = em ? `<a href="${em}" class="coord-link">${site.contacts.email}</a>` : `<span class="badge-tba">TBA</span>`;
-
-        const ph = utils.formatSafeLink('tel', site.contacts.phone);
-        document.getElementById('official-phone-val').innerHTML = ph ? `<a href="${ph}" class="coord-link">${site.contacts.phone}</a>` : `<span class="badge-tba">TBA</span>`;
+        const venueEl = document.getElementById('official-venue-val');
+        if (venueEl) venueEl.textContent = site.college.venue;
 
         const sWrap = document.getElementById('contact-socials-wrap');
-        ['instagram', 'linkedin', 'github', 'youtube', 'x'].forEach(k => {
-          if (site.socials[k] && !utils.isPlaceholder(site.socials[k])) {
-            sWrap.innerHTML += `<a href="${site.socials[k]}" target="_blank" rel="noopener noreferrer" class="social-pill">${k.toUpperCase()}</a>`;
-          }
-        });
+        if (sWrap && site.socials) {
+          sWrap.innerHTML = '';
+          ['instagram', 'linkedin', 'github', 'youtube', 'x'].forEach(k => {
+            if (site.socials[k] && !utils.isPlaceholder(site.socials[k])) {
+              sWrap.innerHTML += `<a href="${site.socials[k]}" target="_blank" rel="noopener noreferrer" class="social-pill">${k.toUpperCase()}</a>`;
+            }
+          });
+        }
 
         // 3. Map
         const mapArea = document.getElementById('map-frame-area');
@@ -2569,7 +2563,7 @@
             <div class="footer-grid">
               <div>
                 <a href="index.html" class="footer-brand">ALODANAX</a>
-                <p class="footer-department">[DEPARTMENT OF IT/CS]</p>
+                <p class="footer-department">Department of Information Technology &amp; Computer Science</p>
                 <p style="font-family:var(--font-body); color:var(--text-tertiary); font-size:0.9rem;">From Insight to Innovation</p>
               </div>
               <div>
@@ -2584,8 +2578,8 @@
               </div>
               <div>
                 <h3 class="footer-col-title">CONNECT</h3>
-                <p class="footer-contact-line"><strong>EMAIL:</strong> <br>[EMAIL TBA]</p>
-                <p class="footer-contact-line"><strong>VENUE:</strong> <br>[VENUE TBA]</p>
+                <p class="footer-contact-line"><strong>VENUE:</strong> <br>KSD's Model College, Dombivli East - 421201</p>
+                <p class="footer-contact-line"><strong>INSTAGRAM:</strong> <br><a href="https://instagram.com/alodanax2026" target="_blank" rel="noopener noreferrer" style="color:var(--blue-bright); text-decoration:none;">@alodanax2026</a></p>
               </div>
             </div>
             <div class="footer-bottom-bar">
