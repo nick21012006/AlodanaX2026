@@ -2,7 +2,8 @@ const http = require('http');
 const fs = require('fs');
 const path = require('path');
 
-const PORT = 3000;
+const PORT = parseInt(process.env.PORT, 10) || 3000;
+const HOST = process.env.HOST || (process.env.PORT || process.env.RAILWAY_ENVIRONMENT ? '0.0.0.0' : '127.0.0.1');
 const MIME_TYPES = {
   '.html': 'text/html; charset=utf-8',
   '.css': 'text/css; charset=utf-8',
@@ -114,7 +115,7 @@ const server = http.createServer((req, res) => {
   });
 });
 
-server.listen(PORT, '127.0.0.1', () => {
-  console.log(`ALODANAX local server running at http://127.0.0.1:${PORT}/`);
+server.listen(PORT, HOST, () => {
+  console.log(`ALODANAX server running at http://${HOST}:${PORT}/`);
 });
 

@@ -1,0 +1,12 @@
+{
+  "name": "alodanax-frontend",
+  "version": "1.0.0",
+  "description": "ALODANAX 2026 — Annual IT/CS TechFest Platform",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}
