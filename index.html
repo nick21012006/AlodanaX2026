@@ -2221,7 +2221,7 @@
                 <line x1="18" y1="13" x2="18.01" y2="13"></line>
               </svg></div>
             <h3 class="category-card-title">GAMING EVENTS</h3>
-            <p class="category-card-desc">Tactical esports tournaments including BGMI mobile battle royales and
+            <p class="category-card-desc">Tactical esports tournaments including the BattleStorm squad battle royale and
               campus-wide cryptographic mystery quests.</p>
             <div class="category-card-link-text"><span>EXPLORE ARENA</span><span aria-hidden="true">→</span></div>
           </a>
@@ -2313,10 +2313,10 @@
 
     const EVENTS_DATA = [
       { slug: "hackathon", name: "Hackathon", category: "technical", tag: "FLAGSHIP SPRINT", shortDescription: "A relentless 24-hour product engineering sprint challenging squads to build distributed, fault-tolerant prototypes under real-world constraints.", date: "[DATE TBA]", venue: "Main Auditorium" },
-      { slug: "bit-bash-bonanza", name: "Bit Bash Bonanza", category: "technical", tag: "SPEED CODING", shortDescription: "A high-octane competitive programming duel testing algorithmic intuition, memory efficiency, and speed under strict clock limits.", date: "[DATE TBA]", venue: "Lab 101" },
+      { slug: "bitbash-bonanza", name: "BitBash Bonanza", category: "technical", tag: "SPEED CODING", shortDescription: "A high-octane competitive programming duel testing algorithmic intuition, memory efficiency, and speed under strict clock limits.", date: "[DATE TBA]", venue: "Lab 101" },
       { slug: "ideathon", name: "Ideathon", category: "non-technical", tag: "VENTURE PITCH", shortDescription: "A technology venture pitching competition evaluating architecture viability, market impact, and disruptive product execution.", date: "[DATE TBA]", venue: "Seminar Hall" },
-      { slug: "bgmi", name: "BGMI", category: "gaming", tag: "TACTICAL BATTLE ROYALE", shortDescription: "Squad-based mobile battle royale showdown across Erangel and Miramar testing rotations, clutch utility, and gunplay.", date: "[DATE TBA]", venue: "Esports Arena" },
-      { slug: "discovering-derlicts", name: "Discovering Derlicts", category: "gaming", tag: "GEO-CACHED CIPHER HUNT", shortDescription: "A high-intensity campus-wide puzzle quest decoding cryptographic beacons, vintage computing hardware, and cryptic riddles.", date: "[DATE TBA]", venue: "Campus Grounds" }
+      { slug: "battlestorm", name: "BattleStorm", category: "gaming", tag: "TACTICAL BATTLESTORM", shortDescription: "Squad-based mobile battle royale showdown testing rotations, clutch utility, and gunplay.", date: "[DATE TBA]", venue: "Esports Arena" },
+      { slug: "discovering-derelicts", name: "Discovering Derelicts", category: "gaming", tag: "GEO-CACHED CIPHER HUNT", shortDescription: "A high-intensity campus-wide puzzle quest decoding cryptographic beacons, vintage computing hardware, and cryptic riddles.", date: "[DATE TBA]", venue: "Campus Grounds" }
     ];
 
     window.SITE_DATA = SITE_DATA;
@@ -2803,10 +2803,10 @@
           if (!track) return;
           const tagMap = {
             'hackathon': '24H HACKATHON',
-            'bit-bash-bonanza': 'SPEED CODING',
+            'bitbash-bonanza': 'SPEED CODING',
             'ideathon': 'VENTURE IDEATHON',
-            'bgmi': 'TACTICAL BGMI',
-            'discovering-derlicts': 'CIPHER HUNT'
+            'battlestorm': 'TACTICAL BATTLESTORM',
+            'discovering-derelicts': 'CIPHER HUNT'
           };
           const items = [
             ...(window.EVENTS_DATA || []).map(e => tagMap[e.slug] || e.name.toUpperCase()),
@@ -2869,7 +2869,7 @@
         })();
 
         // Featured Events
-        const fSlugs = ['hackathon', 'bit-bash-bonanza', 'ideathon', 'bgmi', 'discovering-derlicts'];
+        const fSlugs = ['hackathon', 'bitbash-bonanza', 'ideathon', 'battlestorm', 'discovering-derelicts'];
         const fContainer = document.getElementById('featured-events-container');
         fSlugs.forEach(slug => {
           const ev = window.EVENTS_DATA.find(e => e.slug === slug);

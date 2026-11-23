@@ -733,31 +733,31 @@ a:focus-visible, button:focus-visible, input:focus-visible { outline: 2px solid 
         requirements: ["Laptops with required SDKs pre-installed.", "Valid student ID cards."],
         instructions: ["Check-in opens 90 mins prior.", "Wi-Fi credentials issued upon verification."],
         teamSize: "2 TO 4 PARTICIPANTS", coordinators: [{name:"[COORD 1]", role:"Student Lead", phone:"[PHONE]", email:"[EMAIL]"}],
-        registrationUrl: "", extraLink: {label:"Problem Statements", url:"#"}
+        registrationUrl: "https://forms.gle/iTh2dt56ueLDLSLK8", extraLink: {label:"Problem Statements", url:"hackathon.html"}
       },
       {
-        slug: "bit-bash-bonanza", name: "Bit Bash Bonanza", category: "technical", date: "[DATE TBA]", venue: "Computer Lab 101",
+        slug: "bitbash-bonanza", name: "BitBash Bonanza", category: "technical", date: "[DATE TBA]", venue: "Computer Lab 101",
         shortDescription: "A high-octane competitive programming duel testing algorithmic intuition.",
         rules: ["Permitted languages: C++, Java 17+, Python 3.10+."], requirements: ["Student ID card."],
-        teamSize: "INDIVIDUAL", registrationUrl: ""
+        teamSize: "INDIVIDUAL", registrationUrl: "https://forms.gle/ZWLtwwXLf3e11X2u8"
       },
       {
         slug: "ideathon", name: "Ideathon", category: "non-technical", date: "[DATE TBA]", venue: "Seminar Hall",
         shortDescription: "A technology venture pitching competition evaluating architecture viability and market impact.",
         rules: ["Must use standardized slide structure."], requirements: ["Pitch deck in PDF."],
-        teamSize: "2 TO 3 PARTICIPANTS", registrationUrl: ""
+        teamSize: "2 TO 3 PARTICIPANTS", registrationUrl: "https://forms.gle/hQ9cBX9iVSTTyhk69"
       },
       {
-        slug: "bgmi", name: "BGMI", category: "gaming", date: "[DATE TBA]", venue: "Esports Arena",
-        shortDescription: "Squad-based mobile battle royale showdown across Erangel and Miramar.",
+        slug: "battlestorm", name: "BattleStorm", category: "gaming", date: "[DATE TBA]", venue: "Esports Arena",
+        shortDescription: "Squad-based mobile battle royale showdown.",
         rules: ["Mobile devices only. No emulators."], requirements: ["Personal mobile devices.", "Headphones."],
-        teamSize: "SQUAD (4 + 1 SUB)", registrationUrl: ""
+        teamSize: "SQUAD (4 + 1 SUB)", registrationUrl: "https://forms.gle/69gYf1w9RuPxXQun9"
       },
       {
-        slug: "discovering-derlicts", name: "Discovering Derlicts", category: "gaming", date: "[DATE TBA]", venue: "Campus Grounds",
+        slug: "discovering-derelicts", name: "Discovering Derelicts", category: "gaming", date: "[DATE TBA]", venue: "Campus Grounds",
         shortDescription: "A high-intensity campus-wide puzzle quest decoding cryptographic beacons.",
         rules: ["Teams must clear checkpoints in order."], requirements: ["Smartphone with camera."],
-        teamSize: "3 TO 4 PARTICIPANTS", registrationUrl: ""
+        teamSize: "3 TO 4 PARTICIPANTS", registrationUrl: "https://forms.gle/5JSqoxvNhS6BVeRb6"
       }
     ];
     window.SITE_DATA = SITE_DATA;
@@ -931,11 +931,23 @@ a:focus-visible, button:focus-visible, input:focus-visible { outline: 2px solid 
       })[m]);
     }
 
+    function getRegUrl(ev) {
+      if (!ev) return '';
+      const url = ev.registrationUrl;
+      if (url && typeof url === 'string' && /^https:\/\//i.test(url.trim())) {
+        return url.trim();
+      }
+      const pageFallback = (typeof window !== 'undefined' && (window.REGISTRATION_URL || window.DEFAULT_REGISTRATION_URL))
+        || (typeof REGISTRATION_URL !== 'undefined' ? REGISTRATION_URL : '');
+      if (pageFallback && typeof pageFallback === 'string' && /^https:\/\//i.test(pageFallback.trim())) {
+        return pageFallback.trim();
+      }
+      return '';
+    }
+
     function getCleanUrl(url) {
-      const defaultUrl = (typeof window !== 'undefined' && (window.REGISTRATION_URL !== undefined ? window.REGISTRATION_URL : window.DEFAULT_REGISTRATION_URL))
-        || (typeof REGISTRATION_URL !== 'undefined' ? REGISTRATION_URL : (typeof DEFAULT_REGISTRATION_URL !== 'undefined' ? DEFAULT_REGISTRATION_URL : ''));
-      const effective = ((url && url.trim()) || (defaultUrl && defaultUrl.trim()) || '');
-      return /^https:\/\//i.test(effective) ? effective : '';
+      if (!url) return '';
+      return /^https:\/\//i.test(String(url).trim()) ? String(url).trim() : '';
     }
 
     function showRegToast(btn) {
@@ -957,6 +969,7 @@ a:focus-visible, button:focus-visible, input:focus-visible { outline: 2px solid 
     }
     window.escapeHtml = escapeHtml;
     window.getCleanUrl = getCleanUrl;
+    window.getRegUrl = getRegUrl;
     window.showRegToast = showRegToast;
 
     function initButtons() { document.querySelectorAll('.specular-btn').forEach(b => { if(!b.dataset.init){ new window.SpecularButton(b); b.dataset.init="1";} }); }
@@ -1078,10 +1091,8 @@ a:focus-visible, button:focus-visible, input:focus-visible { outline: 2px solid 
           const badgeClass = ev.category === 'technical' ? 'cat-technical' : ev.category === 'gaming' ? 'cat-gaming' : 'cat-non-technical';
           const tColor = ev.category === 'technical' ? '#0A84FF' : ev.category === 'gaming' ? '#FF1744' : '#FFFFFF';
           
-          const cleanUrl = getCleanUrl(ev.registrationUrl);
-          const regHtml = cleanUrl 
-            ? `<a href="${cleanUrl}" target="_blank" rel="noopener noreferrer" class="specular-btn size-sm" data-tint="${tColor}" data-radius="8" aria-label="Register for ${escapeHtml(ev.name)}"><canvas aria-hidden="true"></canvas><span class="specular-text">REGISTER</span></a>` 
-            : `<div class="reg-btn-wrap"><button type="button" class="specular-btn size-sm" data-tint="${tColor}" data-radius="8" aria-label="Register for ${escapeHtml(ev.name)}" onclick="showRegToast(this)"><canvas aria-hidden="true"></canvas><span class="specular-text">REGISTER</span></button><span class="reg-toast-msg" aria-live="polite"></span></div>`;
+          const regUrl = getRegUrl(ev);
+          const regHtml = `<div class="reg-btn-wrap"><a href="${escapeHtml(regUrl)}" ${regUrl ? 'target="_blank" rel="noopener noreferrer"' : 'target="_self"'} class="specular-btn size-sm" data-tint="${tColor}" data-radius="8" aria-label="Register for ${escapeHtml(ev.name)}" onclick="if(!this.getAttribute('href')){event.preventDefault(); showRegToast(this);}"><canvas aria-hidden="true"></canvas><span class="specular-text">REGISTER</span></a><span class="reg-toast-msg" aria-live="polite"></span></div>`;
 
           card.innerHTML = `
             <div class="event-card-poster-wrap">
@@ -1208,11 +1219,24 @@ a:focus-visible, button:focus-visible, input:focus-visible { outline: 2px solid 
         }
         
         const tColor = ev.category === 'technical' ? '#0A84FF' : ev.category === 'gaming' ? '#FF1744' : '#FFFFFF';
-        const cleanUrl = getCleanUrl(ev.registrationUrl);
+        const regUrl = getRegUrl(ev);
         const regWrap = document.getElementById('modal-register-wrap');
-        regWrap.innerHTML = cleanUrl 
-            ? `<a href="${cleanUrl}" target="_blank" rel="noopener noreferrer" class="specular-btn size-md" data-tint="${tColor}" data-radius="12" aria-label="Register for ${escapeHtml(ev.name)}"><canvas aria-hidden="true"></canvas><span class="specular-text">REGISTER NOW</span></a>` 
-            : `<div class="reg-btn-wrap"><button type="button" class="specular-btn size-md" data-tint="${tColor}" data-radius="12" aria-label="Register for ${escapeHtml(ev.name)}" onclick="showRegToast(this)"><canvas aria-hidden="true"></canvas><span class="specular-text">REGISTER NOW</span></button><span class="reg-toast-msg" aria-live="polite"></span></div>`;
+        if (regWrap) {
+          if (regUrl) {
+            regWrap.innerHTML = `<a href="${escapeHtml(regUrl)}" target="_blank" rel="noopener noreferrer" class="specular-btn size-md" data-tint="${tColor}" data-radius="12" aria-label="Register for ${escapeHtml(ev.name)}"><canvas aria-hidden="true"></canvas><span class="specular-text">REGISTER NOW</span></a>`;
+          } else {
+            regWrap.innerHTML = `<div class="reg-btn-wrap" style="display:inline-block;"><a href="javascript:void(0)" target="_self" class="specular-btn size-md" data-tint="${tColor}" data-radius="12" aria-label="Register for ${escapeHtml(ev.name)}" onclick="showRegToast(this)"><canvas aria-hidden="true"></canvas><span class="specular-text">REGISTER NOW</span></a><span class="reg-toast-msg" aria-live="polite"></span></div>`;
+          }
+        }
+
+        const extraWrap = document.getElementById('modal-extra-link-wrap');
+        if (extraWrap) {
+          if (ev.extraLink && ev.extraLink.url && ev.extraLink.url !== '#') {
+            extraWrap.innerHTML = `<a href="${escapeHtml(ev.extraLink.url)}" class="specular-btn size-md" data-tint="#525252" data-base="#222" data-radius="12"><canvas aria-hidden="true"></canvas><span class="specular-text">${escapeHtml(ev.extraLink.label || 'DETAILS')}</span></a>`;
+          } else {
+            extraWrap.innerHTML = '';
+          }
+        }
         
         modalOverlay.classList.add('is-active');
         document.body.style.overflow = 'hidden';
