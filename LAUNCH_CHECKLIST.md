@@ -41,12 +41,13 @@ The following bracketed placeholders are intentionally left for organizer data e
    - `[DATE TBA]` in event cards, modal metadata, and hero HUD.
    - `startDateISO` in `SITE_DATA` (triggers the live countdown HUD once populated with an ISO 8601 timestamp like `2026-03-15T09:00:00+05:30`).
 2. **College & Department Branding**:
-   - `[COLLEGE NAME]` -> Model College
-   - `[DEPARTMENT OF IT/CS]` -> Model College IT/CS Department
-   - `[VENUE TBA]` -> Campus location / address
+   - College Name: `Model College` (Configured)
+   - Department: `IT/CS Department` (Configured)
+   - Venue: `Model College Campus, Dombivli (East)` (Configured)
+   - Address & Interactive Map: Verified from `model-college.edu.in` and embedded with Google Maps navigation link.
 3. **Contact Information**:
-   - `[EMAIL TBA]` -> Official festival email
-   - `[PHONE TBA]` -> Helpline / lead coordinator phone
+   - Email: `contact@model-college.edu.in` (Configured)
+   - Phone: `+91 70456 82157` (Configured)
 4. **Student Coordinators**:
    - Coordinator names and phone numbers in `events.html`, `contact.html`, and `hackathon.html` (`[COORD 1]`, `[PHONE TBA]`).
 5. **Hackathon Problem Statements**:
