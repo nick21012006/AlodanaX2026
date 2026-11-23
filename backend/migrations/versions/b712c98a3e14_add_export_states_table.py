@@ -17,15 +17,23 @@ depends_on = None
 
 
 def upgrade():
-    op.create_table(
-        'export_states',
-        sa.Column('id', sa.Integer(), nullable=False),
-        sa.Column('last_exported_hash', sa.String(length=64), nullable=True),
-        sa.Column('last_exported_at', sa.DateTime(), nullable=True),
-        sa.Column('updated_at', sa.DateTime(), nullable=False),
-        sa.PrimaryKeyConstraint('id')
-    )
+    conn = op.get_bind()
+    insp = sa.inspect(conn)
+    tables = insp.get_table_names()
+    if 'export_states' not in tables:
+        op.create_table(
+            'export_states',
+            sa.Column('id', sa.Integer(), nullable=False),
+            sa.Column('last_exported_hash', sa.String(length=64), nullable=True),
+            sa.Column('last_exported_at', sa.DateTime(), nullable=True),
+            sa.Column('updated_at', sa.DateTime(), nullable=False),
+            sa.PrimaryKeyConstraint('id')
+        )
 
 
 def downgrade():
-    op.drop_table('export_states')
+    conn = op.get_bind()
+    insp = sa.inspect(conn)
+    tables = insp.get_table_names()
+    if 'export_states' in tables:
+        op.drop_table('export_states')
