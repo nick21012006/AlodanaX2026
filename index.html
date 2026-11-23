@@ -69,6 +69,24 @@
       --cn-blur: blur(20px) saturate(1.6);
     }
 
+    /* Lenis Smooth Scroll Engine Base */
+    html.lenis,
+    html.lenis body {
+      height: auto;
+    }
+
+    .lenis.lenis-smooth {
+      scroll-behavior: auto !important;
+    }
+
+    .lenis.lenis-smooth [data-lenis-prevent] {
+      overscroll-behavior: contain;
+    }
+
+    .lenis.lenis-stopped {
+      overflow: hidden;
+    }
+
     body {
       font-family: var(--font-body);
       font-size: 1.0625rem;
@@ -195,13 +213,13 @@
       left: 0;
       width: 100%;
       z-index: 1000;
-      padding: 1.5rem 0;
+      padding: 1rem 0;
       pointer-events: none;
-      transition: padding 0.3s;
+      transition: opacity 0.4s ease;
     }
 
     #site-header.is-scrolled {
-      padding: 0.75rem 0;
+      padding: 1rem 0;
     }
 
     .cn-root {
@@ -633,8 +651,6 @@
       background: rgba(10, 132, 255, 0.05);
       /* Fallback */
       box-shadow: 0 10px 24px -14px rgba(0, 0, 0, 0.45);
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
       cursor: pointer;
       outline: none;
       -webkit-tap-highlight-color: transparent;
@@ -2304,10 +2320,15 @@
 
 
 
-  <!-- CDN Dependencies -->
-  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.18/dist/lenis.min.js"></script>
+  <!-- Smooth Scroll Engine (Local Vendor + CDN Fallback) -->
+  <script src="assets/vendor/gsap.min.js"></script>
+  <script src="assets/vendor/ScrollTrigger.min.js"></script>
+  <script src="assets/vendor/lenis.min.js"></script>
+  <script>
+    if (typeof gsap === 'undefined') document.write('<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"><\/script>');
+    if (typeof ScrollTrigger === 'undefined') document.write('<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"><\/script>');
+    if (typeof Lenis === 'undefined') document.write('<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.18/dist/lenis.min.js"><\/script>');
+  </script>
 
   <!-- Global Data -->
   <script>
@@ -2506,6 +2527,7 @@
           const hx = this.view.w / 2, hy = this.view.h / 2;
           const x = (this.pointer.x - rect.left - rect.width / 2) / scale, y = (rect.top + rect.height / 2 - this.pointer.y) / scale;
           const dist = Math.hypot(Math.max(Math.abs(x) - hx, 0), Math.max(Math.abs(y) - hy, 0));
+          if (dist > this.s.proximity) return null;
           const t = clamp(1 - dist / this.s.proximity, 0, 1), near = t * t * (3 - 2 * t);
           const nearest = loopPos(x, y, hx, hy, this.cRad());
           if (dist > 0) return { spot: nearest, near };
@@ -2974,13 +2996,40 @@
         }
       }
 
+      let pendingSeekTime = null;
+
+      function renderVideoScrub(t) {
+        if (!video || !isVideoReady) return;
+        const target = Math.max(0, Math.min(videoDuration - 0.02, t));
+        if (Math.abs(target - video.currentTime) < 0.025) return;
+
+        if (video.seeking || isSeeking) {
+          pendingSeekTime = target;
+          return;
+        }
+
+        isSeeking = true;
+        try {
+          video.currentTime = target;
+        } catch (err) {
+          isSeeking = false;
+        }
+      }
+
       function setupVideoSource() {
         video = document.getElementById('hero-video');
         if (!video) return;
         video.src = window.innerWidth < 768 ? 'assets/introvideo_m.mp4' : 'assets/introvideo.mp4';
         video.load();
-        video.addEventListener('seeking', () => isSeeking = true);
-        video.addEventListener('seeked', () => isSeeking = false);
+        video.addEventListener('seeking', () => { isSeeking = true; });
+        video.addEventListener('seeked', () => {
+          isSeeking = false;
+          if (pendingSeekTime !== null) {
+            const next = pendingSeekTime;
+            pendingSeekTime = null;
+            renderVideoScrub(next);
+          }
+        });
         video.addEventListener('loadedmetadata', () => { videoDuration = video.duration || 9.96; try { video.currentTime = 0; } catch (e) { } });
         video.addEventListener('canplaythrough', () => { if (!isVideoReady) { isVideoReady = true; document.getElementById('loader').classList.add('is-hidden'); } });
         video.addEventListener('error', enableFallbackMode);
@@ -2997,6 +3046,7 @@
 
       function initSmoothScrub() {
         if (isReducedMotion) { enableFallbackMode(); return; }
+        if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') return;
         gsap.registerPlugin(ScrollTrigger);
 
         const fillEl = document.getElementById('scroll-progress-fill');
@@ -3011,6 +3061,7 @@
           onUpdate: (self) => {
             const p = self.progress;
             targetTime = p * videoDuration;
+            renderVideoScrub(targetTime);
 
             if (fillEl) fillEl.style.transform = `scaleY(${p})`;
 
@@ -3045,48 +3096,48 @@
             }
           }
         });
-
-        let lastSeekTime = 0;
-        gsap.ticker.add(() => {
-          if (!video || !isVideoReady) return;
-          if (scrollTriggerInstance && scrollTriggerInstance.progress >= 1 && video.currentTime >= videoDuration - 0.05) return;
-          if (scrollTriggerInstance && scrollTriggerInstance.progress <= 0 && video.currentTime <= 0.02) return;
-
-          const diff = targetTime - video.currentTime;
-          if (Math.abs(diff) < 0.015) return;
-
-          const now = performance.now();
-          if (isSeeking && now - lastSeekTime < 50) return;
-          lastSeekTime = now;
-
-          const nextTime = Math.max(0, Math.min(videoDuration - 0.02, video.currentTime + diff * LERP));
-          try {
-            if (typeof video.fastSeek === 'function') {
-              video.fastSeek(nextTime);
-            } else {
-              video.currentTime = nextTime;
-            }
-          } catch (err) { }
-        });
       }
 
       function initLenis() {
+        if (typeof Lenis === 'undefined') return;
         lenis = new Lenis({
-          duration: 1.0,
+          duration: 1.1,
           easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
           smoothWheel: true,
+          syncTouch: false,
+          touchMultiplier: 1.5,
+          wheelMultiplier: 1.0,
           orientation: 'vertical'
         });
-        lenis.on('scroll', ScrollTrigger.update);
-        gsap.ticker.add((time) => lenis.raf(time * 1000));
-        gsap.ticker.lagSmoothing(500, 33);
+        window.lenis = lenis;
+
+        if (typeof ScrollTrigger !== 'undefined') {
+          lenis.on('scroll', ScrollTrigger.update);
+        }
+
+        if (typeof gsap !== 'undefined') {
+          gsap.ticker.add((time) => {
+            lenis.raf(time * 1000);
+          });
+          gsap.ticker.lagSmoothing(0);
+        } else {
+          function raf(time) {
+            lenis.raf(time);
+            requestAnimationFrame(raf);
+          }
+          requestAnimationFrame(raf);
+        }
+
         document.querySelectorAll('a[href^="#"]').forEach(a => {
           a.addEventListener('click', (e) => {
             const href = a.getAttribute('href');
             if (!href || href === '#' || href === '#!') return;
             try {
               const tgt = document.querySelector(href);
-              if (tgt && lenis) { e.preventDefault(); lenis.scrollTo(tgt, { offset: -60, duration: 1.0 }); }
+              if (tgt && lenis) {
+                e.preventDefault();
+                lenis.scrollTo(tgt, { offset: -60, duration: 1.0 });
+              }
             } catch (err) { }
           });
         });
@@ -3131,7 +3182,7 @@
             </div>
             <div class="footer-bottom-bar">
               <p>© 2026 ALODANAX. ALL RIGHTS RESERVED.</p>
-              <a href="#site-header" class="back-to-top" onclick="if(window.lenis){ window.lenis.scrollTo(0) } else { window.scrollTo({top:0, behavior:'smooth'}); } return false;">BACK TO TOP</a>
+              <a href="#site-header" class="back-to-top" onclick="if(window.lenis){ window.lenis.scrollTo(0, {duration: 1.2}); return false; } else { window.scrollTo({top:0, behavior:'smooth'}); return false; }">BACK TO TOP</a>
             </div>
           </div>
         </footer>
