@@ -1437,16 +1437,14 @@ a:focus-visible, button:focus-visible, input:focus-visible { outline: 2px solid 
             const cRole = escapeHtml(c.role || 'COORDINATOR');
             const hasPhone = c.phone && c.phone !== '[PHONE TBA]' && !(window.ALODANAX_UTILS && window.ALODANAX_UTILS.isPlaceholder(c.phone));
             const hasEmail = c.email && c.email !== '[EMAIL TBA]' && !(window.ALODANAX_UTILS && window.ALODANAX_UTILS.isPlaceholder(c.email));
-            const phoneHtml = hasPhone ? `<a href="tel:${escapeHtml(c.phone)}" class="coord-link">${escapeHtml(c.phone)}</a>` : '<span>TBA</span>';
-            const emailHtml = hasEmail ? `<a href="mailto:${escapeHtml(c.email)}" class="coord-link">${escapeHtml(c.email)}</a>` : '<span>TBA</span>';
+            const phoneHtml = hasPhone ? `<div><span>TEL:</span> <a href="tel:${escapeHtml(c.phone)}" class="coord-link">${escapeHtml(c.phone)}</a></div>` : '';
+            const emailHtml = hasEmail ? `<div><span>MAIL:</span> <a href="mailto:${escapeHtml(c.email)}" class="coord-link">${escapeHtml(c.email)}</a></div>` : '';
+            const contactsWrap = (phoneHtml || emailHtml) ? `<div class="coord-contacts">${phoneHtml}${emailHtml}</div>` : '';
             return `
               <div class="modal-coord-card">
                 <span class="coord-role">${cRole}</span>
                 <div class="coord-name">${cName}</div>
-                <div class="coord-contacts">
-                  <div><span>TEL:</span> ${phoneHtml}</div>
-                  <div><span>MAIL:</span> ${emailHtml}</div>
-                </div>
+                ${contactsWrap}
               </div>
             `;
           }).join('');

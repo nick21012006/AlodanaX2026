@@ -760,11 +760,11 @@ a:focus-visible, button:focus-visible, input:focus-visible { outline: 2px solid 
         "7:30 PM – 8:00 PM: Judges' Final Evaluation & Scoring"
       ],
       heads: [
-        { name: "Riya Patkar", role: "Student Lead", type: "student", phone: "+91 92214 45654", email: "[EMAIL TBA]" },
-        { name: "Stavan Wadekar", role: "Operations Lead", type: "student", phone: "+91 86929 48825", email: "[EMAIL TBA]" },
-        { name: "[HACKATHON FACULTY HEAD]", role: "Faculty Convenor", type: "faculty", phone: "[PHONE TBA]", email: "[EMAIL TBA]" },
-        { name: "[HACKATHON FACULTY HEAD 2]", role: "Faculty Advisor", type: "faculty", phone: "[PHONE TBA]", email: "[EMAIL TBA]" },
-        { name: "[HACKATHON FACULTY HEAD 3]", role: "Faculty Coordinator", type: "faculty", phone: "[PHONE TBA]", email: "[EMAIL TBA]" }
+        { name: "Riya Patkar", role: "Student Lead", type: "student", phone: "+91 92214 45654" },
+        { name: "Stavan Wadekar", role: "Operations Lead", type: "student", phone: "+91 86929 48825" },
+        { name: "Prof Pranali Patil", role: "Faculty Convenor", type: "faculty" },
+        { name: "Prof Needhumol Pillai", role: "Faculty Advisor", type: "faculty" },
+        { name: "Prof Sonal Patil", role: "Faculty Coordinator", type: "faculty" }
       ]
     };
     window.SITE_DATA = SITE_DATA;
@@ -1232,20 +1232,26 @@ a:focus-visible, button:focus-visible, input:focus-visible { outline: 2px solid 
         
         if (data.heads) {
           const createCard = (h) => {
-            // Determine if phone should be hidden (for faculty)
             const isFaculty = h.type === 'faculty';
-            const phoneHtml = isFaculty 
-              ? '' 
-              : `<div class="head-contact-row"><strong>TEL:</strong> ${h.phone !== '[PHONE TBA]' ? `<a href="tel:${escapeHtml(h.phone)}" class="head-contact-link">${escapeHtml(h.phone)}</a>` : '<span>TBA</span>'}</div>`;
+            const hasPhone = !isFaculty && h.phone && h.phone !== '[PHONE TBA]' && !(window.ALODANAX_UTILS && window.ALODANAX_UTILS.isPlaceholder(h.phone));
+            const phoneHtml = hasPhone 
+              ? `<div class="head-contact-row"><strong>TEL:</strong> <a href="tel:${escapeHtml(h.phone)}" class="head-contact-link">${escapeHtml(h.phone)}</a></div>` 
+              : '';
               
+            const hasEmail = h.email && h.email !== '[EMAIL TBA]' && !(window.ALODANAX_UTILS && window.ALODANAX_UTILS.isPlaceholder(h.email));
+            const emailHtml = hasEmail
+              ? `<div class="head-contact-row"><strong>MAIL:</strong> <a href="mailto:${escapeHtml(h.email)}" class="head-contact-link">${escapeHtml(h.email)}</a></div>`
+              : '';
+
+            const contactsBlock = (phoneHtml || emailHtml)
+              ? `<div class="head-contacts-list">${phoneHtml}${emailHtml}</div>`
+              : '';
+
             return `
               <div class="hackathon-head-card">
                 <span class="head-role-badge">${escapeHtml(h.role)}</span>
                 <h3 class="head-name">${escapeHtml(h.name)}</h3>
-                <div class="head-contacts-list">
-                  ${phoneHtml}
-                  <div class="head-contact-row"><strong>MAIL:</strong> ${h.email !== '[EMAIL TBA]' ? `<a href="mailto:${escapeHtml(h.email)}" class="head-contact-link">${escapeHtml(h.email)}</a>` : '<span>TBA</span>'}</div>
-                </div>
+                ${contactsBlock}
               </div>
             `;
           };
