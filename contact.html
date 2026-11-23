@@ -1707,9 +1707,13 @@
             <h2 class="contact-box-title">FIND OUR VENUE</h2>
           </div>
           <div class="contact-address-block">
-            <p id="college-full-title" class="address-title">IT/CS DEPARTMENT,MODEL COLLEGE</p>
-            <p id="college-address" class="address-line">Khambalpada Rd, Thakurli, Dombivli East, Kanchangaon, Kalyan,
-              Maharashtra 421201</p>
+            <p id="college-full-title" class="address-title">MODEL COLLEGE IT/CS DEPARTMENT - TECHFEST</p>
+            <p id="college-address" class="address-line">Kanchangaon Village, Khambalpada, Near RBT School, Thakurli (East), Dombivli, Thane - 421201, Maharashtra</p>
+            <div style="margin-top: 0.85rem;">
+              <a id="btn-open-maps" href="https://maps.google.com/?q=Model+College,+Khambalpada,+Thakurli+East,+Dombivli,+Maharashtra+421201" target="_blank" rel="noopener noreferrer" class="specular-btn size-sm" data-tint="#0A84FF" data-radius="8">
+                <canvas aria-hidden="true"></canvas><span class="specular-text">OPEN IN GOOGLE MAPS ↗</span>
+              </a>
+            </div>
           </div>
           <div class="map-frame-wrapper" id="map-frame-area"></div>
         </div>
@@ -1832,10 +1836,19 @@
   <script>
     const SITE_DATA = {
       brand: { name: "ALODANAX", edition: "2026", tagline: "Precision Engineering Meets Cyber Evolution" },
-      college: { name: "[COLLEGE NAME]", department: "[DEPARTMENT OF IT/CS]", fullTitle: "IT/CS DEPARTMENT,MODEL COLLEGE", address: "[CAMPUS ADDRESS, CITY, STATE, PIN]", venue: "[VENUE TBA]" },
-      contacts: { email: "[EMAIL TBA]", phone: "[PHONE TBA]" },
+      college: {
+        name: "Model College",
+        department: "IT/CS Department",
+        fullTitle: "MODEL COLLEGE IT/CS DEPARTMENT - TECHFEST",
+        address: "Kanchangaon Village, Khambalpada, Near RBT School, Thakurli (East), Dombivli, Thane - 421201, Maharashtra",
+        venue: "Model College Campus, Dombivli (East)"
+      },
+      contacts: { email: "contact@model-college.edu.in", phone: "+91 70456 82157" },
       socials: { instagram: "[INSTAGRAM TBA]", linkedin: "[LINKEDIN TBA]", github: "[GITHUB TBA]" },
-      map: { embedUrl: "", link: "" },
+      map: {
+        embedUrl: "https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d15069.435153812969!2d73.108037!3d19.223189!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x36d96397bde202c!2sModel+College!5e0!3m2!1sen!2sin!4v1519819516943",
+        link: "https://maps.google.com/?q=Model+College,+Khambalpada,+Thakurli+East,+Dombivli,+Maharashtra+421201"
+      },
       inquiryEndpoint: "[ENDPOINT TBA]"
     };
 
@@ -2187,7 +2200,7 @@
         // 3. Map
         const mapArea = document.getElementById('map-frame-area');
         if (site.map.embedUrl && !utils.isPlaceholder(site.map.embedUrl)) {
-          mapArea.innerHTML = `<iframe src="${site.map.embedUrl}" class="map-iframe" loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe>`;
+          mapArea.innerHTML = `<iframe src="${site.map.embedUrl}" class="map-iframe" title="Model College Campus Map" loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe>`;
         } else {
           const lHtml = site.map.link && !utils.isPlaceholder(site.map.link) ? `<a href="${site.map.link}" target="_blank" rel="noopener noreferrer" class="specular-btn size-sm" data-tint="#0A84FF"><canvas aria-hidden="true"></canvas><span class="specular-text">OPEN IN GOOGLE MAPS</span></a>` : `<span class="badge-tba">COORDINATES PENDING</span>`;
           mapArea.innerHTML = `
