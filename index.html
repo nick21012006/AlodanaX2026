@@ -3014,7 +3014,6 @@
 
       let pendingSeekTime = null;
       let seekSafetyTimer = null;
-      let smoothedTime = 0;
 
       function renderVideoScrub(t) {
         if (!video || !isVideoReady) return;
@@ -3034,12 +3033,12 @@
         clearTimeout(seekSafetyTimer);
         seekSafetyTimer = setTimeout(() => {
           isSeeking = false;
-          if (pendingSeekTime !== null) {
-            const next = pendingSeekTime;
-            pendingSeekTime = null;
+          const next = pendingSeekTime !== null ? pendingSeekTime : targetTime;
+          pendingSeekTime = null;
+          if (Math.abs(next - video.currentTime) > 0.02) {
             renderVideoScrub(next);
           }
-        }, 140);
+        }, 120);
 
         try {
           if (typeof video.fastSeek === 'function') {
@@ -3069,9 +3068,9 @@
         video.addEventListener('seeked', () => {
           isSeeking = false;
           clearTimeout(seekSafetyTimer);
-          if (pendingSeekTime !== null) {
-            const next = pendingSeekTime;
-            pendingSeekTime = null;
+          const next = pendingSeekTime !== null ? pendingSeekTime : targetTime;
+          pendingSeekTime = null;
+          if (Math.abs(next - video.currentTime) > 0.02) {
             renderVideoScrub(next);
           }
         });
@@ -3134,6 +3133,7 @@
           onUpdate: (self) => {
             const p = self.progress;
             targetTime = p * videoDuration;
+            renderVideoScrub(targetTime);
 
             if (fillEl) fillEl.style.transform = `scaleY(${p})`;
 
@@ -3169,13 +3169,15 @@
           }
         });
 
-        // Continuous LERP smoothing loop for fluid 60fps video scrub on wheel & touch
+        // Continuous synchronization ticker ensuring video catches up and never deadlocks
         gsap.ticker.add(() => {
           if (!video || !isVideoReady) return;
-          const delta = targetTime - smoothedTime;
-          if (Math.abs(delta) > 0.003) {
-            smoothedTime += delta * 0.22;
-            renderVideoScrub(smoothedTime);
+          if (Math.abs(targetTime - video.currentTime) > 0.025) {
+            if (!video.seeking && !isSeeking) {
+              renderVideoScrub(targetTime);
+            } else {
+              pendingSeekTime = targetTime;
+            }
           }
         });
       }
