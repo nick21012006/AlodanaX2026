@@ -1090,7 +1090,7 @@ a:focus-visible, button:focus-visible, input:focus-visible { outline: 2px solid 
         const regWrap = document.getElementById('hack-reg-cta-wrap');
         const regUrl = window.ALODANAX_UTILS.getEventRegistrationUrl(hackEvent);
         if (regUrl) {
-          regWrap.innerHTML = `<a href="${escapeHtml(regUrl)}" target="_blank" class="specular-btn size-lg" data-tint="#0A84FF" data-radius="16"><canvas aria-hidden="true"></canvas><span class="specular-text">REGISTER NOW</span></a>`;
+          regWrap.innerHTML = `<a href="${escapeHtml(regUrl)}" target="_blank" rel="noopener noreferrer" class="specular-btn size-lg" data-tint="#0A84FF" data-radius="16"><canvas aria-hidden="true"></canvas><span class="specular-text">REGISTER NOW</span></a>`;
         } else {
           regWrap.innerHTML = `<button class="specular-btn size-lg btn-disabled" data-tint="#555" data-radius="16"><canvas aria-hidden="true"></canvas><span class="specular-text">REGISTRATION TBA</span></button>`;
         }

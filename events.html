@@ -708,7 +708,9 @@ a:focus-visible, button:focus-visible, input:focus-visible { outline: 2px solid 
   <!-- Global & Festival Data -->
   <script>
     // Paste your Google Form link here (used by every event that has no link of its own).
-    const DEFAULT_REGISTRATION_URL = "";
+    // Leave as "" to show the "REGISTRATION OPENING SOON" message on click.
+    const REGISTRATION_URL = "";
+    const DEFAULT_REGISTRATION_URL = REGISTRATION_URL;
 
     const SITE_DATA = {
       brand: { name: "ALODANAX", edition: "2026", tagline: "Precision Engineering Meets Cyber Evolution" },
@@ -930,9 +932,8 @@ a:focus-visible, button:focus-visible, input:focus-visible { outline: 2px solid 
     }
 
     function getCleanUrl(url) {
-      const defaultUrl = (typeof window !== 'undefined' && window.DEFAULT_REGISTRATION_URL !== undefined)
-        ? window.DEFAULT_REGISTRATION_URL
-        : (typeof DEFAULT_REGISTRATION_URL !== 'undefined' ? DEFAULT_REGISTRATION_URL : '');
+      const defaultUrl = (typeof window !== 'undefined' && (window.REGISTRATION_URL !== undefined ? window.REGISTRATION_URL : window.DEFAULT_REGISTRATION_URL))
+        || (typeof REGISTRATION_URL !== 'undefined' ? REGISTRATION_URL : (typeof DEFAULT_REGISTRATION_URL !== 'undefined' ? DEFAULT_REGISTRATION_URL : ''));
       const effective = ((url && url.trim()) || (defaultUrl && defaultUrl.trim()) || '');
       return /^https:\/\//i.test(effective) ? effective : '';
     }
@@ -1084,21 +1085,30 @@ a:focus-visible, button:focus-visible, input:focus-visible { outline: 2px solid 
 
           card.innerHTML = `
             <div class="event-card-poster-wrap">
-              <img src="assets/images/events/${ev.slug}.jpg" alt="${ev.name}" class="event-card-poster" onerror="window.ALODANAX_UTILS && window.ALODANAX_UTILS.handleImageError(this, 'event', '${ev.name}')">
-              <div class="event-card-overlay-badges"><span class="category-badge ${badgeClass}">${ev.category}</span></div>
+              <img src="assets/images/events/${escapeHtml(ev.slug)}.jpg" alt="${escapeHtml(ev.name)}" class="event-card-poster" loading="lazy">
+              <div class="event-card-overlay-badges"><span class="category-badge ${badgeClass}">${escapeHtml(ev.category)}</span></div>
             </div>
             <div class="event-card-body-content">
-              <h3 class="event-card-title">${ev.name}</h3>
-              <p class="event-card-short-desc">${ev.shortDescription}</p>
-              <div class="event-card-meta-row">${ev.date || 'TBA'} &nbsp;&bull;&nbsp; ${ev.venue || 'TBA'}</div>
+              <h3 class="event-card-title">${escapeHtml(ev.name)}</h3>
+              <p class="event-card-short-desc">${escapeHtml(ev.shortDescription)}</p>
+              <div class="event-card-meta-row">${escapeHtml(ev.date || 'TBA')} &nbsp;&bull;&nbsp; ${escapeHtml(ev.venue || 'TBA')}</div>
               <div class="event-card-action-bar">
-                <button class="specular-btn size-sm" data-tint="${tColor}" data-base="#222" data-radius="8" onclick="openModal('${ev.slug}')">
+                <button class="specular-btn size-sm" data-tint="${tColor}" data-base="#222" data-radius="8" onclick="openModal('${escapeHtml(ev.slug)}')">
                   <canvas aria-hidden="true"></canvas><span class="specular-text">DETAILS</span>
                 </button>
                 ${regHtml}
               </div>
             </div>
           `;
+
+          const poster = card.querySelector('.event-card-poster');
+          if (poster) {
+            poster.addEventListener('error', function () {
+              if (window.ALODANAX_UTILS && typeof window.ALODANAX_UTILS.handleImageError === 'function') {
+                window.ALODANAX_UTILS.handleImageError(poster, 'event', ev.name);
+              }
+            });
+          }
           sec.grid.appendChild(card);
           setTimeout(() => card.classList.add('animate-in'), 10);
         });
@@ -1137,7 +1147,17 @@ a:focus-visible, button:focus-visible, input:focus-visible { outline: 2px solid 
         badge.textContent = ev.category;
         badge.className = `category-badge ${ev.category === 'technical' ? 'cat-technical' : ev.category === 'gaming' ? 'cat-gaming' : 'cat-non-technical'}`;
         
-        document.getElementById('modal-poster-img').src = ev.image || `assets/images/events/${ev.slug}.jpg`;
+        const modalPoster = document.getElementById('modal-poster-img');
+        if (modalPoster) {
+          modalPoster.alt = ev.name;
+          modalPoster.onerror = function () {
+            if (window.ALODANAX_UTILS && typeof window.ALODANAX_UTILS.handleImageError === 'function') {
+              window.ALODANAX_UTILS.handleImageError(modalPoster, 'event', ev.name);
+            }
+          };
+          modalPoster.src = ev.image || `assets/images/events/${ev.slug}.jpg`;
+        }
+
         document.getElementById('modal-datetime').textContent = ev.date || 'TBA';
         document.getElementById('modal-venue').textContent = ev.venue || 'TBA';
         document.getElementById('modal-teamsize').textContent = ev.teamSize || 'TBA';
@@ -1149,7 +1169,13 @@ a:focus-visible, button:focus-visible, input:focus-visible { outline: 2px solid 
         const wrapList = (id, arr) => {
            const el = document.getElementById(id);
            const block = document.getElementById(id.replace('-list', '-block'));
-           if(arr && arr.length>0){ block.style.display='block'; el.innerHTML = arr.map(i=>`<li>${i}</li>`).join(''); } else { block.style.display='none'; }
+           if(!el || !block) return;
+           if(arr && Array.isArray(arr) && arr.length > 0){ 
+             block.style.display = 'block'; 
+             el.innerHTML = arr.map(i => `<li>${escapeHtml(i)}</li>`).join(''); 
+           } else { 
+             block.style.display = 'none'; 
+           }
         };
         wrapList('modal-rules-list', ev.rules);
         wrapList('modal-requirements-list', ev.requirements);
@@ -1157,19 +1183,29 @@ a:focus-visible, button:focus-visible, input:focus-visible { outline: 2px solid 
 
         const coordBlock = document.getElementById('modal-coordinators-block');
         const coordList = document.getElementById('modal-coordinators-list');
-        if (ev.coordinators && ev.coordinators.length > 0) {
+        if (ev.coordinators && Array.isArray(ev.coordinators) && ev.coordinators.length > 0) {
           coordBlock.style.display = 'block';
-          coordList.innerHTML = ev.coordinators.map(c => `
-            <div class="modal-coord-card">
-              <span class="coord-role">${c.role || 'COORDINATOR'}</span>
-              <div class="coord-name">${c.name || '[NAME TBA]'}</div>
-              <div class="coord-contacts">
-                <div><span>TEL:</span> ${c.phone !== '[PHONE TBA]' ? `<a href="tel:${c.phone}" class="coord-link">${c.phone}</a>` : '<span>TBA</span>'}</div>
-                <div><span>MAIL:</span> ${c.email !== '[EMAIL TBA]' ? `<a href="mailto:${c.email}" class="coord-link">${c.email}</a>` : '<span>TBA</span>'}</div>
+          coordList.innerHTML = ev.coordinators.map(c => {
+            const cName = escapeHtml(c.name || '[NAME TBA]');
+            const cRole = escapeHtml(c.role || 'COORDINATOR');
+            const hasPhone = c.phone && c.phone !== '[PHONE TBA]' && !(window.ALODANAX_UTILS && window.ALODANAX_UTILS.isPlaceholder(c.phone));
+            const hasEmail = c.email && c.email !== '[EMAIL TBA]' && !(window.ALODANAX_UTILS && window.ALODANAX_UTILS.isPlaceholder(c.email));
+            const phoneHtml = hasPhone ? `<a href="tel:${escapeHtml(c.phone)}" class="coord-link">${escapeHtml(c.phone)}</a>` : '<span>TBA</span>';
+            const emailHtml = hasEmail ? `<a href="mailto:${escapeHtml(c.email)}" class="coord-link">${escapeHtml(c.email)}</a>` : '<span>TBA</span>';
+            return `
+              <div class="modal-coord-card">
+                <span class="coord-role">${cRole}</span>
+                <div class="coord-name">${cName}</div>
+                <div class="coord-contacts">
+                  <div><span>TEL:</span> ${phoneHtml}</div>
+                  <div><span>MAIL:</span> ${emailHtml}</div>
+                </div>
               </div>
-            </div>
-          `).join('');
-        } else { coordBlock.style.display = 'none'; }
+            `;
+          }).join('');
+        } else {
+          coordBlock.style.display = 'none';
+        }
         
         const tColor = ev.category === 'technical' ? '#0A84FF' : ev.category === 'gaming' ? '#FF1744' : '#FFFFFF';
         const cleanUrl = getCleanUrl(ev.registrationUrl);
@@ -1183,10 +1219,37 @@ a:focus-visible, button:focus-visible, input:focus-visible { outline: 2px solid 
         setTimeout(initButtons, 50);
       };
 
-      const closeModal = () => { modalOverlay.classList.remove('is-active'); document.body.style.overflow = ''; };
+      const closeModal = () => {
+        modalOverlay.classList.remove('is-active');
+        document.body.style.overflow = '';
+        if (window.location.hash) {
+          try {
+            history.replaceState(null, '', window.location.pathname + window.location.search);
+          } catch (e) {}
+        }
+      };
       document.getElementById('modal-close-btn').addEventListener('click', closeModal);
       modalOverlay.addEventListener('click', e => { if(e.target === modalOverlay) closeModal(); });
       document.addEventListener('keydown', e => { if(e.key === 'Escape') closeModal(); });
+
+      function handleDeepLink() {
+        const params = new URLSearchParams(window.location.search);
+        const cat = params.get('category');
+        if (cat && ['technical', 'non-technical', 'gaming'].includes(cat)) {
+          currentCategory = cat;
+          categoryChips.forEach(c => c.classList.toggle('is-active', c.dataset.cat === cat));
+          renderCards();
+        }
+        const hash = window.location.hash;
+        if (hash) {
+          const match = hash.match(/#(?:event=)?([a-z0-9-]+)/i);
+          if (match && match[1]) {
+            const ev = (window.EVENTS_DATA || []).find(e => e.slug === match[1]);
+            if (ev) openModal(match[1]);
+          }
+        }
+      }
+      window.addEventListener('hashchange', handleDeepLink);
 
       document.addEventListener("DOMContentLoaded", () => {
         document.getElementById("events-hero").innerHTML = `
@@ -1196,6 +1259,7 @@ a:focus-visible, button:focus-visible, input:focus-visible { outline: 2px solid 
             <p class="subpage-hero-subtitle">Explore flagship hackathons, speed coding tournaments, venture ideathons, and tactical esports arenas.</p>
           </div>`;
           renderCards();
+          handleDeepLink();
       });
     })(window);
     

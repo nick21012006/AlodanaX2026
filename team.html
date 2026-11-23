@@ -1596,9 +1596,9 @@
           card.className = 'team-profile-card';
           card.style.animationDelay = `${index * 0.05}s`;
 
-          const escName = escapeHtml(m.name);
-          const escRole = escapeHtml(m.role);
-          const photoUrl = m.photo ? escapeHtml(m.photo) : 'assets/images/team/member.jpg';
+          const escName = escapeHtml(m.name || '');
+          const escRole = escapeHtml(m.role || '');
+          const photoUrl = m.photo ? escapeHtml(m.photo) : 'assets/images/team/member-01.jpg';
 
           let socialsHtml = '';
           if (m.social) {
@@ -1618,7 +1618,7 @@
               <img src="${photoUrl}" alt="${escName}" class="team-photo-img" loading="lazy">
             </div>
             <div class="team-card-content">
-              <span class="team-role-title">${escRole}</span>
+              ${escRole ? `<span class="team-role-title">${escRole}</span>` : ''}
               <h3 class="team-member-name">${escName}</h3>
               ${socialsHtml ? `<div class="team-socials-row">${socialsHtml}</div>` : ''}
             </div>

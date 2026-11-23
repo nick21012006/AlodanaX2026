@@ -1768,9 +1768,8 @@
                 <polyline points="22 4 12 14.01 9 11.01"></polyline>
               </svg>
             </div>
-            <h3 class="success-heading">INQUIRY DISPATCHED</h3>
-            <p class="success-subtext" id="inquiry-success-msg">Your inquiry has been recorded locally. The coordination
-              committee will follow up shortly.</p>
+            <h3 class="success-heading" id="inquiry-success-heading">INQUIRY INITIATED</h3>
+            <p class="success-subtext" id="inquiry-success-msg"></p>
             <button type="button" class="specular-btn size-md" id="btn-reset-inquiry" data-tint="#0A84FF">
               <canvas aria-hidden="true"></canvas><span class="specular-text">SUBMIT ANOTHER</span>
             </button>
@@ -2374,8 +2373,8 @@
         const form = document.getElementById('contact-inquiry-form');
         const succ = document.getElementById('inquiry-success-panel');
         const modeNote = document.getElementById('inquiry-mode-note');
-        if (modeNote && (!site.inquiryEndpoint || utils.isPlaceholder(site.inquiryEndpoint))) {
-          modeNote.textContent = '(Preview mode: inquiries are logged locally)';
+        if (modeNote) {
+          modeNote.textContent = '';
         }
 
         form.addEventListener('submit', e => {
@@ -2405,12 +2404,47 @@
           }
 
           if (!isValid) return;
+
+          const targetEmail = site.contacts && site.contacts.email ? site.contacts.email.trim() : '';
+          const isEmailPlaceholder = utils.isPlaceholder(targetEmail);
+          const succHeading = document.getElementById('inquiry-success-heading') || succ.querySelector('.success-heading');
+          const succMsg = document.getElementById('inquiry-success-msg');
+
+          if (!isEmailPlaceholder && targetEmail) {
+            const subjectVal = (document.getElementById('inq-subject').value || '').trim().slice(0, 100);
+            const nameVal = (document.getElementById('inq-name').value || '').trim();
+            const senderEmail = (emailEl.value || '').trim();
+            const messageVal = (document.getElementById('inq-message').value || '').trim().slice(0, 1000);
+            const fullBody = `Name: ${nameVal}\nEmail: ${senderEmail}\n\nMessage:\n${messageVal}`;
+
+            const mailtoUrl = `mailto:${encodeURIComponent(targetEmail)}?subject=${encodeURIComponent(subjectVal)}&body=${encodeURIComponent(fullBody)}`;
+            window.location.href = mailtoUrl;
+
+            if (succHeading) succHeading.textContent = 'INQUIRY INITIATED';
+            if (succMsg) {
+              succMsg.innerHTML = `Your email app should open. If it doesn&#39;t, write directly to <a href="mailto:${escapeHtml(targetEmail)}" style="color:var(--blue);text-decoration:underline;">${escapeHtml(targetEmail)}</a>.`;
+            }
+          } else {
+            if (succHeading) succHeading.textContent = 'COMMUNICATION NOTICE';
+            if (succMsg) {
+              succMsg.textContent = 'Messaging is not active yet. Please check back soon.';
+            }
+          }
+
           form.style.display = 'none';
           succ.style.display = 'block';
         });
 
         document.getElementById('btn-reset-inquiry').addEventListener('click', () => {
-          form.reset(); form.style.display = 'block'; succ.style.display = 'none';
+          form.reset();
+          ['inq-name', 'inq-email', 'inq-subject', 'inq-message'].forEach(id => {
+            const el = document.getElementById(id);
+            if (el) el.classList.remove('is-invalid');
+            const errEl = document.getElementById('err-' + id);
+            if (errEl) errEl.textContent = '';
+          });
+          form.style.display = 'block';
+          succ.style.display = 'none';
         });
 
         setTimeout(initButtons, 100);
