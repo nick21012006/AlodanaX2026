@@ -3,12 +3,12 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>24-Hour Flagship Hackathon | ALODANAX 2026</title>
-  <meta name="description" content="Official portal for the ALODANAX 24-Hour Flagship Hackathon. Explore problem statements across 3 domains, rules, rounds timeline, and sample deck.">
+  <title>12-Hour Flagship Hackathon | ALODANAX 2026</title>
+  <meta name="description" content="Official portal for the ALODANAX 12-Hour Flagship Hackathon. Explore problem statements across 3 domains, rules, rounds timeline, and sample deck.">
 
   <!-- Open Graph -->
-  <meta property="og:title" content="24-Hour Flagship Hackathon | ALODANAX 2026">
-  <meta property="og:description" content="The premier 24-Hour continuous software engineering sprint at ALODANAX 2026.">
+  <meta property="og:title" content="12-Hour Flagship Hackathon | ALODANAX 2026">
+  <meta property="og:description" content="The premier 12-Hour continuous software engineering sprint at ALODANAX 2026.">
   <meta property="og:type" content="website">
 
   <!-- Fonts: Orbitron (Tech Display) & Outfit (Clean Body) -->
@@ -536,7 +536,7 @@ a:focus-visible, button:focus-visible, input:focus-visible { outline: 2px solid 
               </div>
               <ul class="cn-links">
                 <li><a href="events.html" class="cn-link">All Events</a></li>
-                <li><a href="hackathon.html" class="cn-link">24H Hackathon</a></li>
+                <li><a href="hackathon.html" class="cn-link">12H Hackathon</a></li>
               </ul>
             </div>
             
@@ -660,7 +660,21 @@ a:focus-visible, button:focus-visible, input:focus-visible { outline: 2px solid 
         </div>
       </section>
 
-      <!-- Section 5: Heads Contact -->
+      <!-- Section 5: Timeline & Schedule -->
+      <section id="schedule" class="hackathon-section-block">
+        <div class="tier-header-bar">
+          <span class="tier-tag">EVENT TIMELINE</span>
+          <h2 class="tier-title">DAY SCHEDULE (DECEMBER 5, 2026)</h2>
+        </div>
+
+        <div class="hackathon-rules-card" style="padding: 2rem;">
+          <ul class="hackathon-numbered-rules" id="hackathon-schedule-list" style="list-style: none; padding: 0; margin: 0;">
+            <!-- Populated via JS -->
+          </ul>
+        </div>
+      </section>
+
+      <!-- Section 6: Heads Contact -->
       <section id="heads-contact" class="hackathon-section-block">
         <div class="tier-header-bar">
           <span class="tier-tag">DISPATCH &amp; SUPPORT</span>
@@ -702,44 +716,47 @@ a:focus-visible, button:focus-visible, input:focus-visible { outline: 2px solid 
 
     const HACKATHON_DATA = {
       meta: {
-        title: "24-HOUR FLAGSHIP HACKATHON", subtitle: "SYNAPSE // PROTOCOL",
-        date: "[DATE TBA]", venue: "[MAIN TECH AUDITORIUM & COMPUTING SUITES]",
-        duration: "24 Hours Non-Stop", mode: "Offline / On-Campus",
+        title: "12-HOUR FLAGSHIP HACKATHON", subtitle: "FROM INSIGHT TO INNOVATION",
+        date: "Saturday, Dec 5, 2026", venue: "Lab 5 & CoE (6th Floor)",
+        duration: "12 Hours Non-Stop (8:00 AM – 8:00 PM)", mode: "Offline / On-Campus",
+        fee: "₹1,000/- per Team (Post-Selection)", prizes: "1st Prize: ₹15,000/- · 2nd Prize: ₹10,000/-",
         samplePptUrl: "https://canva.link/jwifsdvwtvgphhy", eventSlug: "hackathon"
       },
       domains: [
         {
-          slug: "domain-1", name: "[DOMAIN 1: AI & AUTONOMOUS SYSTEMS]", tag: "DOMAIN 01",
-          shortDescription: "[EMBEDDED INTELLIGENCE, NEURAL PIPELINES, AND PREDICTIVE DECISION ENGINES]",
-          problemStatements: [
-            { id: "[PS-01]", title: "[PROBLEM STATEMENT 01 TITLE]", difficulty: "HARD", description: "[ARCHITECT A RESILIENT, REAL-TIME SYSTEM SOLVING COMPLEX LOGISTICAL OR SENSORY BOTTLENECKS UNDER SUB-OPTIMAL NETWORK CONDITIONS.]", expectedOutcome: "[A FUNCTIONING HIGH-THROUGHPUT PROTOTYPE WITH DOCUMENTED INFERENCE BENCHMARKS, LOCAL REPOSITORY, AND DEPLOYED DEMO INTERFACE.]" },
-            { id: "[PS-02]", title: "[PROBLEM STATEMENT 02 TITLE]", difficulty: "EXTREME", description: "[IMPLEMENT AN AUTONOMOUS PIPELINE CAPABLE OF AUTOMATED ANOMALY DETECTION AND ADAPTIVE MITIGATION IN DISTRIBUTED STREAM DATA.]", expectedOutcome: "[AN OPEN-SOURCE SERVICE WITH LIVE SIMULATION HARNESS, TELEMETRY DASHBOARD, AND REPRODUCIBLE EVALUATION METRICS.]" }
-          ]
+          slug: "ai-data-science", name: "AI and Data Science", tag: "TRACK 01",
+          shortDescription: "Develop machine learning models, neural pipelines, predictive analytics, and intelligent automation systems solving real-world challenges.",
+          problemStatements: []
         },
         {
-          slug: "domain-2", name: "[DOMAIN 2: CLOUD INFRASTRUCTURE & DECENTRALIZED SYSTEMS]", tag: "DOMAIN 02",
-          shortDescription: "[FAULT-TOLERANT ARCHITECTURES, HIGH-CONCURRENCY MICROSERVICES, AND CRYPTOGRAPHIC REGISTRIES]",
-          problemStatements: [
-            { id: "[PS-03]", title: "[PROBLEM STATEMENT 03 TITLE]", difficulty: "MEDIUM", description: "[BUILD A LOW-LATENCY VERIFIABLE DATA REGISTRY DELIVERING HIGH THROUGHPUT WITHOUT SINGLE POINTS OF FAILURE.]", expectedOutcome: "[DEPLOYED SMART CONTRACTS OR CONSENSUS NODES WITH INTERACTIVE VERIFIER WEB APP AND BENCHMARK REPORT.]" },
-            { id: "[PS-04]", title: "[PROBLEM STATEMENT 04 TITLE]", difficulty: "HARD", description: "[DESIGN A SELF-HEALING SERVICE MESH WITH AUTONOMOUS FAILOVER PROTOCOLS FOR CLOUD-NATIVE DEPLOYMENTS.]", expectedOutcome: "[CONTAINERIZED DAEMON WITH COMPREHENSIVE CHAOS TESTING SUITE AND CONFIGURABLE ROUTING RULES.]" }
-          ]
+          slug: "sustainable-infrastructure", name: "Sustainable Infrastructure and Development", tag: "TRACK 02",
+          shortDescription: "Build resilient, eco-friendly technological solutions, smart city/campus resource optimizers, green compute pipelines, and sustainable development tools.",
+          problemStatements: []
         },
         {
-          slug: "domain-3", name: "[DOMAIN 3: SMART CAMPUS & OPEN INNOVATION]", tag: "DOMAIN 03",
-          shortDescription: "[SUSTAINABLE CAMPUS INFRASTRUCTURE, DIGITAL ACCESSIBILITY, AND CITIZEN TECH TOOLS]",
-          problemStatements: [
-            { id: "[PS-05]", title: "[PROBLEM STATEMENT 05 TITLE]", difficulty: "MEDIUM", description: "[CREATE AN ACCESSIBLE CAMPUS RESOURCE ORCHESTRATOR OPTIMIZING PHYSICAL SPACES AND UTILITY CONSUMPTION.]", expectedOutcome: "[RESPONSIVE CROSS-PLATFORM APPLICATION WITH ROLE-BASED ACCESS CONTROL AND REAL-TIME TELEMETRY CHARTS.]" },
-            { id: "[PS-06]", title: "[PROBLEM STATEMENT 06 TITLE]", difficulty: "HARD", description: "[DEVELOP AN ASSISTIVE WAYFINDING AND SAFETY SYSTEM FOR DIVERSE CAMPUS ENVIRONMENTS WITHOUT REQUIRING SPECIALIZED BEACONS.]", expectedOutcome: "[ACCESSIBLE MOBILE/WEB CLIENT WITH SPATIAL GUIDANCE, WCAG AAA CONTRAST COMPLIANCE, AND VOICE PROMPTS.]" }
-          ]
+          slug: "cyber-security-iot", name: "Cyber Security and IoT", tag: "TRACK 03",
+          shortDescription: "Architect secure embedded hardware systems, threat detection mechanisms, cryptographic validation protocols, and IoT network security solutions.",
+          problemStatements: []
         }
       ],
       rules: [
-        "Maximum team size is 2 to 4 members. Inter-college teams are permitted and encouraged.",
-        "All code, designs, and digital assets must be authored during the 24-hour hackathon period.",
-        "Teams must commit source code regularly to a newly initialized public repository with verifiable commit timestamps.",
-        "Open-source libraries and public cloud APIs are permitted if documented in the submission repository.",
-        "Hardware prototypes must be demonstrated live during the jury round.",
-        "Any form of plagiarism, harassment, or code of conduct violation leads to immediate team disqualification."
+        "Team Composition: 3–4 members per team; no additions, replacements, or multi-team participation allowed after registration.",
+        "PPT Selection Round: Problem statements release 10 days before the event. Teams must submit a PPT (solution, approach, design, implementation plan) by December 1, 2026, strictly following the sample PPT format (5–9 slides).",
+        "Fee Payment: ₹1,000/- per team payable ONLY after selection. Non-selected students who pay will not be refunded.",
+        "Development & GitHub: Advance research, design, and prototyping are allowed, but major development and evaluation must happen during the 12 hours. All code must be pushed to the official GitHub repository with a transparent commit history.",
+        "Working Software & Originality: Final submissions must be functional working software (wireframes or Figma-only designs do not qualify). Plagiarism or pre-built solutions will lead to disqualification; all generative AI tools, APIs, open-source libraries, packages, and datasets must be disclosed and credited.",
+        "Equipment & Mandatory Demo: Bring your own laptops, chargers, power cables, mobile devices, and current-year valid college ID. Every team must present and demo live during its assigned final evaluation slot."
+      ],
+      daySchedule: [
+        "7:00 AM – 7:30 AM: Registration Kit & Breakfast",
+        "7:30 AM – 8:00 AM: Opening Remarks & Instructions",
+        "8:00 AM – 12:30 PM: Hackathon Starts (Core Sprint)",
+        "12:30 PM – 2:30 PM: Round 1 – Solution Presentation & Demo Review",
+        "2:30 PM – 3:00 PM: Lunch Break",
+        "3:00 PM – 5:00 PM: Round 2 – Live Feature Implementation",
+        "5:00 PM – 5:30 PM: Snacks Break",
+        "5:30 PM – 7:30 PM: Round 3 – Final Project Showcase & Q&A",
+        "7:30 PM – 8:00 PM: Judges' Final Evaluation & Scoring"
       ],
       heads: [
         { name: "Riya Patkar", role: "Student Lead", type: "student", phone: "+91 92214 45654", email: "[EMAIL TBA]" },
@@ -1114,8 +1131,8 @@ a:focus-visible, button:focus-visible, input:focus-visible { outline: 2px solid 
         document.getElementById("hackathon-hero").innerHTML = `
           <div class="subpage-hero-section section-container">
             <div class="subpage-breadcrumb"><span>HOME</span> <span style="color:var(--text-tertiary)">/</span> <span>HACKATHON</span></div>
-            <h1 class="display-title" style="justify-content:center;"><span class="title-solid">24-HOUR</span><span class="title-outline">HACKATHON</span></h1>
-            <p class="subpage-hero-subtitle">${escapeHtml(data.meta.subtitle)} : Build the next frontier of distributed, production-grade solutions in a relentless overnight sprint.</p>
+            <h1 class="display-title" style="justify-content:center;"><span class="title-solid">12-HOUR</span><span class="title-outline">HACKATHON</span></h1>
+            <p class="subpage-hero-subtitle">${escapeHtml(data.meta.subtitle)} : Solve real-world problem statements and build functional software solutions in an intensive 12-hour challenge.</p>
           </div>`;
 
         // 2. Hydrate Banner
@@ -1191,6 +1208,21 @@ a:focus-visible, button:focus-visible, input:focus-visible { outline: 2px solid 
         const rulesList = document.getElementById('hackathon-rules-list');
         if(data.rules) {
           rulesList.innerHTML = data.rules.map(r => `<li class="hack-rule-item">${escapeHtml(r)}</li>`).join('');
+        }
+
+        // 5b. Schedule
+        const scheduleList = document.getElementById('hackathon-schedule-list');
+        if (scheduleList && data.daySchedule) {
+          scheduleList.innerHTML = data.daySchedule.map(s => {
+            const parts = s.split(': ');
+            const timePart = parts[0];
+            const descPart = parts.slice(1).join(': ');
+            return `
+              <li style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(255,255,255,0.06); padding: 0.85rem 0; gap: 1rem;">
+                <span style="font-family: var(--font-body); font-size: 1rem; color: var(--white); font-weight: 500;">${escapeHtml(descPart || timePart)}</span>
+                <span style="font-family: var(--font-display); font-size: 0.95rem; font-weight: 700; color: var(--blue-bright); white-space: nowrap;">${escapeHtml(descPart ? timePart : '')}</span>
+              </li>`;
+          }).join('');
         }
 
         // 6. Split Heads into Faculty and Students
@@ -1269,27 +1301,35 @@ a:focus-visible, button:focus-visible, input:focus-visible { outline: 2px solid 
 
         const grid = document.getElementById('problem-statements-grid');
         grid.innerHTML = '';
-        (domain.problemStatements || []).forEach((ps, index) => {
-          const card = document.createElement('article');
-          card.className = 'problem-statement-card';
-          card.style.animationDelay = `${index * 0.15}s`;
-          const diffClass = (ps.difficulty === 'EXTREME' || ps.difficulty === 'HARD') ? 'badge-hard' : 'badge-medium';
-          
-          card.innerHTML = `
-            <div class="ps-card-header">
-              <span class="ps-id-badge">${escapeHtml(ps.id)}</span>
-              <span class="ps-diff-badge ${escapeHtml(diffClass)}">${escapeHtml(ps.difficulty)}</span>
-            </div>
-            <h4 class="ps-title">${escapeHtml(ps.title)}</h4>
-            <p class="ps-desc">${escapeHtml(ps.description)}</p>
-            <div class="ps-outcome-box">
-              <span class="ps-outcome-lbl">EXPECTED OUTCOME</span>
-              <p class="ps-outcome-text">${escapeHtml(ps.expectedOutcome)}</p>
-            </div>
-          `;
-          grid.appendChild(card);
-          setTimeout(() => card.classList.add('animate-in'), 50);
-        });
+        if (!domain.problemStatements || domain.problemStatements.length === 0) {
+          grid.innerHTML = `
+            <div class="hackathon-empty-state" style="grid-column: 1 / -1; padding: 3rem 1.5rem; text-align: center; background: rgba(10, 132, 255, 0.05); border: 1px dashed rgba(10, 132, 255, 0.3); border-radius: 16px; margin: 1rem 0;">
+              <p style="font-family: var(--font-display); font-size: 1.15rem; color: var(--blue-bright); margin-bottom: 0.5rem; font-weight: 700;">PROBLEM STATEMENTS RELEASING SOON</p>
+              <p style="font-family: var(--font-body); font-size: 0.95rem; color: var(--text-secondary); margin: 0;">Problem statements for this track will be released 10 days before the event (by Nov 25, 2026). Selected teams must submit their PPT by December 1, 2026.</p>
+            </div>`;
+        } else {
+          (domain.problemStatements || []).forEach((ps, index) => {
+            const card = document.createElement('article');
+            card.className = 'problem-statement-card';
+            card.style.animationDelay = `${index * 0.15}s`;
+            const diffClass = (ps.difficulty === 'EXTREME' || ps.difficulty === 'HARD') ? 'badge-hard' : 'badge-medium';
+            
+            card.innerHTML = `
+              <div class="ps-card-header">
+                <span class="ps-id-badge">${escapeHtml(ps.id)}</span>
+                <span class="ps-diff-badge ${escapeHtml(diffClass)}">${escapeHtml(ps.difficulty)}</span>
+              </div>
+              <h4 class="ps-title">${escapeHtml(ps.title)}</h4>
+              <p class="ps-desc">${escapeHtml(ps.description)}</p>
+              <div class="ps-outcome-box">
+                <span class="ps-outcome-lbl">EXPECTED OUTCOME</span>
+                <p class="ps-outcome-text">${escapeHtml(ps.expectedOutcome)}</p>
+              </div>
+            `;
+            grid.appendChild(card);
+            setTimeout(() => card.classList.add('animate-in'), 50);
+          });
+        }
 
         if (window.location.hash !== `#domain=${slug}`) window.location.hash = `domain=${slug}`;
       }

@@ -577,7 +577,7 @@ a:focus-visible, button:focus-visible, input:focus-visible { outline: 2px solid 
               </div>
               <ul class="cn-links">
                 <li><a href="events.html" class="cn-link">All Events</a></li>
-                <li><a href="hackathon.html" class="cn-link">24H Hackathon</a></li>
+                <li><a href="hackathon.html" class="cn-link">12H Hackathon</a></li>
               </ul>
             </div>
             
@@ -652,6 +652,47 @@ a:focus-visible, button:focus-visible, input:focus-visible { outline: 2px solid 
           <div class="events-category-grid" id="grid-gaming"></div>
         </section>
 
+        <!-- Special Sessions & Official Banking Details -->
+        <section class="festival-info-section" style="margin-top: 4rem; display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 2rem;">
+          <div class="festival-info-card" style="background: rgba(11,13,20,0.6); border: 1px solid rgba(10,132,255,0.25); border-radius: 16px; padding: 2rem;">
+            <div style="display: flex; align-items: center; gap: 0.8rem; margin-bottom: 1.2rem;">
+              <span style="display:inline-block; width:10px; height:10px; border-radius:50%; background:var(--blue-bright);"></span>
+              <h3 style="font-family:var(--font-display); font-size:1.3rem; font-weight:800; color:var(--white); margin:0; letter-spacing:0.05em; text-transform:uppercase;">SPECIAL SESSIONS SCHEDULE</h3>
+            </div>
+            <ul style="list-style:none; padding:0; margin:0; display:flex; flex-direction:column; gap:1rem; font-family:var(--font-body); font-size:0.95rem; color:var(--text-secondary);">
+              <li style="display:flex; justify-content:space-between; border-bottom:1px solid rgba(255,255,255,0.06); padding-bottom:0.75rem;">
+                <span style="color:var(--white); font-weight:600;">Inauguration Ceremony</span>
+                <span style="color:var(--blue-bright); font-family:var(--font-display); font-weight:700;">10:00 AM</span>
+              </li>
+              <li style="display:flex; justify-content:space-between; border-bottom:1px solid rgba(255,255,255,0.06); padding-bottom:0.75rem;">
+                <span style="color:var(--white); font-weight:600;">Expert Chair Keynote Session</span>
+                <span style="color:var(--blue-bright); font-family:var(--font-display); font-weight:700;">11:30 AM – 12:30 PM</span>
+              </li>
+              <li style="display:flex; justify-content:space-between; padding-bottom:0.25rem;">
+                <span style="color:var(--white); font-weight:600;">Valedictory &amp; Prize Distribution</span>
+                <span style="color:var(--blue-bright); font-family:var(--font-display); font-weight:700;">7:00 PM – 8:00 PM</span>
+              </li>
+            </ul>
+          </div>
+
+          <div class="festival-info-card" style="background: rgba(11,13,20,0.6); border: 1px solid rgba(10,132,255,0.25); border-radius: 16px; padding: 2rem;">
+            <div style="display: flex; align-items: center; gap: 0.8rem; margin-bottom: 1.2rem;">
+              <span style="display:inline-block; width:10px; height:10px; border-radius:50%; background:#00E676;"></span>
+              <h3 style="font-family:var(--font-display); font-size:1.3rem; font-weight:800; color:var(--white); margin:0; letter-spacing:0.05em; text-transform:uppercase;">OFFICIAL PAYMENT ACCOUNT</h3>
+            </div>
+            <p style="font-family:var(--font-body); font-size:0.9rem; color:var(--text-secondary); margin-bottom:1rem; line-height:1.5;">
+              Participants entering multiple events must make a separate payment per event and upload each transaction receipt in its respective registration form.
+            </p>
+            <div style="background:rgba(0,0,0,0.4); border:1px dashed rgba(255,255,255,0.1); border-radius:8px; padding:1rem; font-family:var(--font-body); font-size:0.88rem; display:grid; gap:0.4rem; color:var(--text-secondary);">
+              <div><strong style="color:var(--white);">Bank:</strong> Dhanlaxmi Bank Ltd.</div>
+              <div><strong style="color:var(--white);">A/C Name:</strong> KERALEEYA SAMAJAM MDL CLG SF</div>
+              <div><strong style="color:var(--white);">A/C No.:</strong> <span style="font-family:monospace; color:var(--blue-bright); font-weight:700;">020903900000040</span></div>
+              <div><strong style="color:var(--white);">IFSC:</strong> <span style="font-family:monospace; color:var(--blue-bright); font-weight:700;">DLXB0000209</span></div>
+              <div><strong style="color:var(--white);">Branch:</strong> Mirage Arcade Estate, Dombivli East (421201)</div>
+            </div>
+          </div>
+        </section>
+
         <div id="events-empty-state" class="events-empty-state" style="display: none;">
           <div class="empty-icon-box">&empty;</div>
           <h3 class="empty-heading">NO MATCHES FOUND</h3>
@@ -682,6 +723,8 @@ a:focus-visible, button:focus-visible, input:focus-visible { outline: 2px solid 
           <div><span class="meta-label">DATE &amp; TIME</span><span class="meta-val" id="modal-datetime"></span></div>
           <div><span class="meta-label">LOCATION</span><span class="meta-val" id="modal-venue"></span></div>
           <div><span class="meta-label">TEAM SIZE</span><span class="meta-val" id="modal-teamsize"></span></div>
+          <div><span class="meta-label">ENTRY FEE</span><span class="meta-val" id="modal-fee"></span></div>
+          <div><span class="meta-label">PRIZE POOL</span><span class="meta-val" id="modal-prizes"></span></div>
         </div>
 
         <div>
@@ -740,40 +783,118 @@ a:focus-visible, button:focus-visible, input:focus-visible { outline: 2px solid 
     
     const EVENTS_DATA = [
       {
-        slug: "hackathon", name: "Hackathon", category: "technical", date: "[DATE TBA]", venue: "Main Auditorium",
-        shortDescription: "A relentless 24-hour product engineering sprint challenging squads to build distributed prototypes.",
-        intro: "The flagship 24-Hour Hackathon convenes elite student developers from across Mumbai.",
-        description: "Participants collaborate overnight across designated domains. Mentors conduct scheduled review checkpoints throughout the 24 hours.",
-        format: "24-Hour continuous offline sprint with mentor reviews, followed by 7-minute presentations.",
+        slug: "hackathon",
+        name: "Hackathon",
+        category: "technical",
+        date: "Saturday, Dec 5, 2026",
+        time: "8:00 AM onwards (Check-in 7:00 AM – 8:00 AM)",
+        venue: "Lab 5 & CoE (6th Floor)",
+        teamSize: "3 TO 4 PARTICIPANTS",
+        fee: "₹1,000/- per Team (Post-Selection)",
+        prizes: "1st Prize: ₹15,000/- · 2nd Prize: ₹10,000/-",
+        shortDescription: "A premier 12-hour coding and innovation challenge where squads solve real-world problem statements and deploy functional software prototypes.",
+        intro: "A 12-hour coding and innovation challenge where teams solve a real-world problem statement and build a functional technological solution.",
+        description: "Teams develop solutions across 3 flagship tracks: AI & Data Science, Sustainable Infrastructure & Development, and Cyber Security & IoT. Selection is based on an initial PPT round submitted by December 1, 2026. Selected squads engage in a 12-hour intensive sprint featuring live reviews, demo showcases, and jury evaluations.",
+        format: "12-Hour continuous sprint across 3 stages: Round 1 (Solution Presentation & Demo Review), Round 2 (Live Feature Implementation), and Round 3 (Final Project Showcase & Q&A).",
         rules: [
-          "All code must be created during the 24-hour window.",
-          "Open-source libraries are permitted if disclosed.",
-          "Plagiarism results in instantaneous disqualification."
+          "Team Composition: 3–4 members per team; no additions, replacements, or multi-team participation allowed after registration.",
+          "PPT Selection Round: Problem statements release 10 days before the event. Teams must submit a PPT (solution, approach, design, implementation plan) by December 1, 2026, strictly following the sample PPT format (5–9 slides).",
+          "Fee Payment: ₹1,000/- per team payable ONLY after selection. Non-selected students who pay will not be refunded.",
+          "Development & GitHub: Advance research, design, and prototyping are allowed, but major development and evaluation must happen during the 12 hours. All code must be pushed to the official GitHub repository with a transparent commit history.",
+          "Working Software & Originality: Final submissions must be functional working software (wireframes or Figma-only designs do not qualify). Plagiarism or pre-built solutions will lead to disqualification; all generative AI tools, APIs, open-source libraries, packages, and datasets must be disclosed and credited.",
+          "Equipment & Mandatory Demo: Bring your own laptops, chargers, power cables, mobile devices, and current-year valid college ID. Every team must present and demo live during its assigned final evaluation slot."
         ],
-        requirements: ["Laptops with required SDKs pre-installed.", "Valid student ID cards."],
-        instructions: ["Check-in opens 90 mins prior.", "Wi-Fi credentials issued upon verification."],
-        teamSize: "2 TO 4 PARTICIPANTS", coordinators: [
+        requirements: [
+          "Current-year valid college ID card for all team members.",
+          "Personal laptops, chargers, power extensions, and mobile hotspot backup.",
+          "Pre-configured development environments, SDKs, and Git CLI.",
+          "GitHub account with repo permissions for jury review."
+        ],
+        instructions: [
+          "7:00 AM – 7:30 AM: Registration Kit & Breakfast",
+          "7:30 AM – 8:00 AM: Opening Remarks & Instructions",
+          "8:00 AM – 12:30 PM: Hackathon Starts (Core Sprint)",
+          "12:30 PM – 2:30 PM: Round 1 – Solution Presentation & Demo Review",
+          "2:30 PM – 3:00 PM: Lunch Break",
+          "3:00 PM – 5:00 PM: Round 2 – Live Feature Implementation",
+          "5:00 PM – 5:30 PM: Snacks Break",
+          "5:30 PM – 7:30 PM: Round 3 – Final Project Showcase & Q&A",
+          "7:30 PM – 8:00 PM: Judges' Final Evaluation & Scoring"
+        ],
+        coordinators: [
           { name: "Riya Patkar", role: "Event Head", phone: "+91 92214 45654" },
           { name: "Stavan Wadekar", role: "Event Co-Head", phone: "+91 86929 48825" }
         ],
-        registrationUrl: "https://forms.gle/iTh2dt56ueLDLSLK8", extraLink: {label:"Problem Statements", url:"hackathon.html"}
+        registrationUrl: "https://forms.gle/iTh2dt56ueLDLSLK8",
+        extraLink: { label: "Problem Statements & PPT", url: "hackathon.html" }
       },
       {
-        slug: "bitbash-bonanza", name: "BitBash Bonanza", category: "technical", date: "[DATE TBA]", venue: "Computer Lab 101",
-        shortDescription: "A high-octane competitive programming duel testing algorithmic intuition.",
-        rules: ["Permitted languages: C++, Java 17+, Python 3.10+."], requirements: ["Student ID card."],
+        slug: "bitbash-bonanza",
+        name: "BitBash Bonanza",
+        category: "technical",
+        date: "Saturday, Dec 5, 2026",
+        time: "9:45 AM onwards (Check-in 8:30 AM – 9:30 AM)",
+        venue: "Lab 3",
         teamSize: "INDIVIDUAL",
+        fee: "₹50/- per participant",
+        prizes: "1st Prize (Python): ₹1,000/- · 1st Prize (C): ₹1,000/-",
+        shortDescription: "A timed competitive coding, debugging, and logical problem-solving duel in C and Python.",
+        intro: "A fast-paced individual coding, debugging, and algorithmic problem-solving competition testing syntactic mastery and logical deduction.",
+        description: "Participants choose either C or Python at the start (switching languages mid-event is strictly prohibited). The competition consists of two grueling elimination rounds: Code Scramble (topic chosen via spinning wheel) and Logic Maze.",
+        format: "2 Sequential Rounds: Round 1 – Code Scramble (30 mins) + Round 2 – Logic Maze (30 mins).",
+        rules: [
+          "Language Selection: Individual participation only. Choose either C or Python at the start; no switching languages mid-event.",
+          "Round 1 – Code Scramble: 3 questions (10 minutes each) with topics assigned via a spinning wheel. Each question carries 100 marks (50 for code rearrangement + 50 for debugging; max 300 marks). Ranked by total score and completion speed.",
+          "Round 2 – Logic Maze: 10 logical coding challenges in 30 minutes using the same language from Round 1. Each maze has 4 endpoints (only 1 is correct; a wrong endpoint restarts the maze). 10 points per solved maze (max 100 points).",
+          "Environment & Fair Play: Standard compiler lab environments provided. No external assistance, opening additional browser tabs, or refreshing code runner pages allowed during digital rounds."
+        ],
+        requirements: [
+          "Current-year valid college ID card.",
+          "Registration confirmation and payment receipt (₹50/-).",
+          "Fundamental proficiency in C or Python syntax, debugging, and algorithms."
+        ],
+        instructions: [
+          "8:30 AM – 9:30 AM: Physical check-in and seat allocation at Lab 3.",
+          "9:45 AM: Competition commencement and language commitment.",
+          "Judges' decision regarding scoring and time benchmarks is final."
+        ],
         coordinators: [
-          { name: "Dhruv Pathare", role: "Event Head", phone: "+91 96533 32987" },
-          { name: "Pratikshya Das", role: "Event Co-Head", phone: "+91 77100 84399" }
+          { name: "Pratikshya Das", role: "Event Head", phone: "+91 77100 84399" },
+          { name: "Dhruv Pathare", role: "Event Co-Head", phone: "+91 96533 32987" }
         ],
         registrationUrl: "https://forms.gle/ZWLtwwXLf3e11X2u8"
       },
       {
-        slug: "ideathon", name: "Ideathon", category: "non-technical", date: "[DATE TBA]", venue: "Seminar Hall",
-        shortDescription: "A technology venture pitching competition evaluating architecture viability and market impact.",
-        rules: ["Must use standardized slide structure."], requirements: ["Pitch deck in PDF."],
-        teamSize: "2 TO 3 PARTICIPANTS",
+        slug: "ideathon",
+        name: "Ideathon",
+        category: "non-technical",
+        date: "Saturday, Dec 5, 2026",
+        time: "1:00 PM – 3:00 PM (Check-in 12:00 PM – 1:00 PM)",
+        venue: "7th Floor Auditorium",
+        teamSize: "2 TO 4 PARTICIPANTS",
+        fee: "₹100/- per Team",
+        prizes: "1st Prize: ₹3,000/- · 2nd Prize: ₹1,000/-",
+        shortDescription: "A fast-paced startup brainstorming and venture pitching competition solving real-world business challenges.",
+        intro: "A fast-paced brainstorming and startup-pitch competition focused on framing real-world problems and pitching feasible business solutions.",
+        description: "Ideathon invites innovative student minds to identify pressing socio-economic or technological problems and pitch viable, scalable startup solutions before an esteemed jury panel of industry leaders.",
+        format: "Venture Pitch format: Strictly 8 minutes presentation deck + 2 minutes mandatory Q&A with judges.",
+        rules: [
+          "Team Composition: 2 to 4 members per team.",
+          "Presentation Format: Maximum 6 PPT slides (including title slide), covering Startup Idea, Problem Identification, Proposed Solution, Business Potential (target audience, market opportunity, growth/revenue), and Conclusion.",
+          "Strict Time Limit: Exactly 8 minutes for presentation + 2 minutes Q&A with judges. Exceeding the allocated 8 minutes will incur negative marking.",
+          "Strict Anonymity Rule: Participants must not reveal their names or college names anywhere during the presentation speech or in the slides.",
+          "Dress Code: Formal business attire is mandatory for all presenting team members."
+        ],
+        requirements: [
+          "Current-year valid college ID card for all squad members.",
+          "Presentation deck (maximum 6 slides) in PDF/PPT format loaded on a USB drive.",
+          "Payment receipt of ₹100/-."
+        ],
+        instructions: [
+          "12:00 PM – 1:00 PM: Check-in and slide verification at 7th Floor Auditorium.",
+          "1:00 PM: Pitching sessions commence sequentially.",
+          "Teams must be present inside the auditorium for their designated pitch slot."
+        ],
         coordinators: [
           { name: "Atharva Jadhav", role: "Event Head", phone: "+91 99673 82664" },
           { name: "Aaryan Sawant", role: "Event Co-Head", phone: "+91 98191 15849" }
@@ -781,10 +902,37 @@ a:focus-visible, button:focus-visible, input:focus-visible { outline: 2px solid 
         registrationUrl: "https://forms.gle/hQ9cBX9iVSTTyhk69"
       },
       {
-        slug: "battlestorm", name: "BattleStorm", category: "gaming", date: "[DATE TBA]", venue: "Esports Arena",
-        shortDescription: "Squad-based mobile battle royale showdown.",
-        rules: ["Mobile devices only. No emulators."], requirements: ["Personal mobile devices.", "Headphones."],
-        teamSize: "SQUAD (4 + 1 SUB)",
+        slug: "battlestorm",
+        name: "BattleStorm",
+        category: "gaming",
+        date: "Saturday, Dec 5, 2026",
+        time: "10:45 AM – 1:30 PM (Check-in 9:30 AM – 10:30 AM)",
+        venue: "5th Floor",
+        teamSize: "SQUAD (4 PARTICIPANTS)",
+        fee: "₹240/- per Team",
+        prizes: "1st Prize: ₹1,000/- · 2nd Prize: ₹800/-",
+        shortDescription: "Competitive BGMI squad tournament testing tactical rotations, zone management, and gunplay.",
+        intro: "Competitive BGMI squad tournament testing strategy, communication, situational awareness, and combat coordination.",
+        description: "Squads drop into custom lobbies to battle for survival across custom Erangel, Livik, and TDM lobbies. Qualification and final rankings are determined by cumulative placement and elimination points.",
+        format: "Tournament rounds spanning Erangel, Livik, and Team Deathmatch (TDM) custom lobbies.",
+        rules: [
+          "Maps & Assets: All players must have Erangel, Livik, and TDM maps downloaded and updated prior to check-in.",
+          "Hardware & Accessories: Mobile smartphones only. Emulators, iPads, and tablets are strictly prohibited. Only wired/wireless headphones and thumb sleeves are permitted. Triggers or physical add-ons are prohibited.",
+          "Squad Identity: Squad names and player IGNs must be appropriate (no offensive, abusive, or vulgar words/symbols).",
+          "Power & Network: Bring your own charger, power bank, and a reliable high-speed data connection (organizers are not responsible for cellular carrier failure).",
+          "Fair Play & Anti-Cheat: Third-party scripts, mods, hacks, or stream sniping lead to immediate squad disqualification. Suspected hacking appeals require concrete proof (death replays or screen recording)."
+        ],
+        requirements: [
+          "Updated BGMI game client on personal smartphone.",
+          "Valid college ID card for all 4 team members.",
+          "Personal headphones, power banks, and cellular connection.",
+          "Registration receipt of ₹240/- per squad."
+        ],
+        instructions: [
+          "9:30 AM – 10:30 AM: Check-in, squad verification, and room code briefing at 5th Floor.",
+          "10:45 AM: Custom room creation and match deployment.",
+          "Room credentials will be shared directly in the official squad captain group."
+        ],
         coordinators: [
           { name: "Atharva Patil", role: "Event Head", phone: "+91 80802 87545" },
           { name: "Shantanu Jadhav", role: "Event Co-Head", phone: "+91 89282 07237" }
@@ -792,10 +940,35 @@ a:focus-visible, button:focus-visible, input:focus-visible { outline: 2px solid 
         registrationUrl: "https://forms.gle/69gYf1w9RuPxXQun9"
       },
       {
-        slug: "discovering-derelicts", name: "Discovering Derelicts", category: "gaming", date: "[DATE TBA]", venue: "Campus Grounds",
-        shortDescription: "A high-intensity campus-wide puzzle quest decoding cryptographic beacons.",
-        rules: ["Teams must clear checkpoints in order."], requirements: ["Smartphone with camera."],
-        teamSize: "3 TO 4 PARTICIPANTS",
+        slug: "discovering-derelicts",
+        name: "Discovering Derelicts",
+        category: "gaming",
+        date: "Saturday, Dec 5, 2026",
+        time: "1:30 PM – 6:00 PM (Check-in 12:30 PM – 1:30 PM)",
+        venue: "Lab 4",
+        teamSize: "INDIVIDUAL",
+        fee: "₹50/- per participant",
+        prizes: "Winner Prize: ₹1,000/-",
+        shortDescription: "A PC-based narrative adventure quest solving chapter-by-chapter cryptographic puzzles to unlock the storyline.",
+        intro: "A PC-based treasure-hunt adventure game where players uncover an enigmatic story and clear unique chapter-by-chapter puzzles to unlock the next stage.",
+        description: "Step into an immersive desktop-based mystery quest. Players investigate forgotten tech archives, decipher cryptic riddles, and unlock successive chapters. The first participant to crack all puzzles and uncover the final archive claims victory.",
+        format: "Solo chapter-based puzzle progression on lab computer workstations.",
+        rules: [
+          "Individual Challenge: Solve puzzles and uncover clues chapter by chapter to unlock the final stage.",
+          "Winning Condition: The first participant to complete all chapters/puzzles wins the grand prize.",
+          "Strict Anti-Collaboration: Helping other players or sharing solution keys is strictly prohibited and results in immediate disqualification.",
+          "System Integrity: No modifying local system settings, installing unauthorized utilities, or tampering with workstation hardware."
+        ],
+        requirements: [
+          "Valid college ID card.",
+          "Registration confirmation and payment receipt (₹50/-).",
+          "Logical reasoning, lateral thinking, and puzzle-solving skills."
+        ],
+        instructions: [
+          "12:30 PM – 1:30 PM: Check-in and workstation assignment at Lab 4.",
+          "1:30 PM: Quest begins simultaneously across all workstations.",
+          "Completion timestamp verified by event marshals upon final chapter completion."
+        ],
         coordinators: [
           { name: "Aaryan Singh", role: "Event Head", phone: "+91 72081 03454" },
           { name: "Omkar Jadhav", role: "Event Co-Head", phone: "+91 99676 67999" }
@@ -1162,7 +1335,7 @@ a:focus-visible, button:focus-visible, input:focus-visible { outline: 2px solid 
             <div class="event-card-body-content">
               <h3 class="event-card-title">${escapeHtml(ev.name)}</h3>
               <p class="event-card-short-desc">${escapeHtml(ev.shortDescription)}</p>
-              <div class="event-card-meta-row">${escapeHtml(ev.date || 'TBA')} &nbsp;&bull;&nbsp; ${escapeHtml(ev.venue || 'TBA')}</div>
+              <div class="event-card-meta-row">${escapeHtml(ev.time || ev.date || 'Saturday, Dec 5, 2026')} &nbsp;&bull;&nbsp; ${escapeHtml(ev.venue || 'TBA')} &nbsp;&bull;&nbsp; <span style="color:var(--blue-bright); font-weight:700;">${escapeHtml(ev.fee || 'Free')}</span></div>
               <div class="event-card-action-bar">
                 <button class="specular-btn size-sm" data-tint="${tColor}" data-base="#222" data-radius="8" onclick="openModal('${escapeHtml(ev.slug)}')">
                   <canvas aria-hidden="true"></canvas><span class="specular-text">DETAILS</span>
@@ -1229,9 +1402,11 @@ a:focus-visible, button:focus-visible, input:focus-visible { outline: 2px solid 
           modalPoster.src = ev.image || `assets/images/events/${ev.slug}.jpg`;
         }
 
-        document.getElementById('modal-datetime').textContent = ev.date || 'TBA';
+        document.getElementById('modal-datetime').textContent = ev.time ? `${ev.date} · ${ev.time}` : (ev.date || 'Saturday, Dec 5, 2026');
         document.getElementById('modal-venue').textContent = ev.venue || 'TBA';
         document.getElementById('modal-teamsize').textContent = ev.teamSize || 'TBA';
+        document.getElementById('modal-fee').textContent = ev.fee || 'Free';
+        document.getElementById('modal-prizes').textContent = ev.prizes || 'Trophies & Certificates';
         
         document.getElementById('modal-intro').textContent = ev.intro || '';
         document.getElementById('modal-description').textContent = ev.description || '';

@@ -1,5 +1,27 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-01-01T00:00:00Z",
-  "domains": []
+  "updatedAt": "2026-12-05T08:00:00Z",
+  "domains": [
+    {
+      "slug": "ai-data-science",
+      "name": "AI and Data Science",
+      "tag": "TRACK 01",
+      "shortDescription": "Develop machine learning models, neural pipelines, predictive analytics, and intelligent automation systems solving real-world challenges.",
+      "problemStatements": []
+    },
+    {
+      "slug": "sustainable-infrastructure",
+      "name": "Sustainable Infrastructure and Development",
+      "tag": "TRACK 02",
+      "shortDescription": "Build resilient, eco-friendly technological solutions, smart city/campus resource optimizers, green compute pipelines, and sustainable development tools.",
+      "problemStatements": []
+    },
+    {
+      "slug": "cyber-security-iot",
+      "name": "Cyber Security and IoT",
+      "tag": "TRACK 03",
+      "shortDescription": "Architect secure embedded hardware systems, threat detection mechanisms, cryptographic validation protocols, and IoT network security solutions.",
+      "problemStatements": []
+    }
+  ]
 }
