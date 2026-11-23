@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>404 — Page Not Found | ALODANAX Admin</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;800&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='admin/admin.css') }}">
+</head>
+<body class="error-page-body">
+  <main class="error-card">
+    <div class="error-code">404</div>
+    <h1 class="error-title">RESOURCE NOT FOUND</h1>
+    <p class="error-desc">{{ error_message or "The requested protocol or administrative resource does not exist or has been relocated." }}</p>
+    <div class="error-actions">
+      <a href="{{ url_for('admin.dashboard') }}" class="btn btn-primary">RETURN TO DASHBOARD</a>
+    </div>
+  </main>
+</body>
+</html>

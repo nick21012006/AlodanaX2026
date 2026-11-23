@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %}Admin Panel{% endblock %} | ALODANAX</title>
+  <meta name="csrf-token" content="{{ csrf_token() }}">
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;800&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="{{ url_for('static', filename='admin/admin.css') }}">
+  {% block extra_head %}{% endblock %}
+</head>
+<body>
+  {% if current_user.is_authenticated %}
+  <header class="admin-header">
+    <div class="header-container">
+      <a href="{{ url_for('admin.dashboard') }}" class="brand-badge">
+        <span class="brand-logo-text">ALODANAX</span>
+        <span class="brand-pill">ADMIN</span>
+      </a>
+
+      <nav class="admin-nav" aria-label="Admin Navigation">
+        <a href="{{ url_for('admin.dashboard') }}" class="nav-link {% if request.endpoint == 'admin.dashboard' %}is-active{% endif %}">DASHBOARD</a>
+        <a href="{{ url_for('admin.domains_list') }}" class="nav-link {% if 'domain' in request.endpoint or 'ps_' in request.endpoint %}is-active{% endif %}">DOMAINS &amp; STATEMENTS</a>
+        <a href="{{ url_for('auth.account') }}" class="nav-link {% if request.endpoint == 'auth.account' %}is-active{% endif %}">ACCOUNT</a>
+        <a href="http://localhost:3000/hackathon.html" target="_blank" rel="noopener noreferrer" class="nav-link" title="Open public hackathon page in new tab">VIEW LIVE SITE &nearr;</a>
+        
+        <form action="{{ url_for('auth.logout') }}" method="POST" style="display:inline; margin: 0;">
+          <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+          <button type="submit" class="btn btn-secondary btn-sm" style="margin-left: 0.5rem;">LOGOUT</button>
+        </form>
+      </nav>
+    </div>
+  </header>
+  {% endif %}
+
+  <main class="admin-main">
+    {% if current_user.is_authenticated and export_status is defined and export_status %}
+      {% if export_status.pending_changes %}
+        <div class="pending-changes-banner" id="global-pending-banner">
+          <span class="status-dot dot-pending" aria-hidden="true"></span>
+          <span style="flex-grow: 1;">You have unpublished changes. Click <strong>Publish to website</strong>, then upload <code>data/hackathon-domains.json</code> to your site.</span>
+          <button type="button" class="btn btn-primary btn-sm btn-publish-trigger" style="white-space: nowrap;">PUBLISH TO WEBSITE</button>
+        </div>
+      {% else %}
+        <div class="pending-changes-banner banner-uptodate" id="global-pending-banner">
+          <span class="status-dot dot-uptodate" aria-hidden="true"></span>
+          <span>Website file is up to date (last exported: {{ export_status.last_exported_at_iso or 'Never' }}).</span>
+        </div>
+      {% endif %}
+    {% endif %}
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        <div id="flash-messages" style="margin-bottom: 1.5rem;">
+          {% for category, message in messages %}
+            <div class="hud-card" style="margin-bottom: 0.75rem; border-left: 4px solid {% if category == 'error' %}var(--neon-red){% else %}var(--blue){% endif %}; padding: 1rem;">
+              {{ message }}
+            </div>
+          {% endfor %}
+        </div>
+      {% endif %}
+    {% endwith %}
+
+    {% block content %}{% endblock %}
+  </main>
+
+  <script src="{{ url_for('static', filename='admin/admin.js') }}"></script>
+  {% block extra_scripts %}{% endblock %}
+</body>
+</html>

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Login | ALODANAX</title>
+  <meta name="csrf-token" content="{{ csrf_token() }}">
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;800&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="{{ url_for('static', filename='admin/admin.css') }}">
+</head>
+<body class="login-body">
+  <main class="login-card">
+    <div class="login-header">
+      <div class="brand-pill" style="display:inline-block; margin-bottom:0.75rem;">SECURE ACCESS PORTAL</div>
+      <h1 class="login-title">ALODANAX ADMIN</h1>
+      <p style="color:var(--text-tertiary); font-size:0.9rem;">Sign in to manage hackathon tracks &amp; problem statements</p>
+    </div>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        <div style="margin-bottom: 1.5rem;">
+          {% for category, msg in messages %}
+            <div class="hud-card" style="border-color: var(--border-accent); background: rgba(10, 132, 255, 0.1); padding: 0.85rem 1rem; margin-bottom: 0.5rem;">
+              <span style="color: var(--blue-text); font-size: 0.9rem;">{{ msg }}</span>
+            </div>
+          {% endfor %}
+        </div>
+      {% endif %}
+    {% endwith %}
+
+    {% if error_message %}
+      <div class="hud-card" style="margin-bottom: 1.5rem; border-color: var(--border-red); background: rgba(255, 23, 68, 0.1); padding: 0.85rem 1rem;">
+        <span style="color: var(--neon-red-text); font-size: 0.9rem;">{{ error_message }}</span>
+      </div>
+    {% endif %}
+
+    <form method="POST" action="{{ url_for('auth.login') }}" novalidate>
+      <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+      <input type="hidden" name="next" value="{{ next or '' }}">
+
+      <div class="form-group">
+        <label for="username" class="form-label">USERNAME</label>
+        <input
+          type="text"
+          id="username"
+          name="username"
+          class="form-control"
+          required
+          autofocus
+          autocomplete="username"
+          placeholder="admin username"
+        >
+      </div>
+
+      <div class="form-group">
+        <label for="password" class="form-label">PASSWORD</label>
+        <div class="pwd-wrapper">
+          <input
+            type="password"
+            id="password"
+            name="password"
+            class="form-control"
+            required
+            autocomplete="current-password"
+            placeholder="&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;"
+          >
+          <button
+            type="button"
+            class="pwd-toggle-btn"
+            data-target="password"
+            aria-label="Toggle password visibility"
+          >SHOW</button>
+        </div>
+      </div>
+
+      <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 1rem;">
+        AUTHENTICATE
+      </button>
+    </form>
+  </main>
+
+  <script src="{{ url_for('static', filename='admin/admin.js') }}"></script>
+</body>
+</html>

@@ -1,0 +1,199 @@
+{% extends "admin/base.html" %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block content %}
+<div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 2rem; flex-wrap: wrap; gap: 1rem;">
+  <div>
+    <h1>OPERATIONAL DASHBOARD</h1>
+    <p class="page-subtitle" style="margin-bottom: 0;">ALODANAX Hackathon Domain &amp; Problem Statement Registry</p>
+  </div>
+  <div style="display: flex; gap: 0.75rem; flex-wrap: wrap;">
+    <a href="{{ url_for('admin.domain_new') }}" class="btn btn-primary">+ NEW DOMAIN</a>
+    {% if domains %}
+      <a href="{{ url_for('admin.ps_new', domain_id=domains[0].id) }}" class="btn btn-secondary">+ NEW STATEMENT</a>
+    {% endif %}
+    <a href="http://localhost:3000/hackathon.html" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">VIEW LIVE SITE &nearr;</a>
+  </div>
+</div>
+
+<!-- Publish to Website Card -->
+<div class="export-publish-card">
+  <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1rem; flex-wrap: wrap; gap: 1rem;">
+    <div>
+      <h2 style="font-family: var(--font-display); font-size: 1.25rem; letter-spacing: 0.05em; color: var(--text-primary); margin-bottom: 0.25rem;">
+        PUBLISH TO WEBSITE
+      </h2>
+      <p style="color: var(--text-tertiary); font-size: 0.9rem; margin-bottom: 0;">
+        Generates the static <code>data/hackathon-domains.json</code> payload consumed by the public hackathon page.
+      </p>
+    </div>
+    <div style="display: flex; gap: 0.75rem; align-items: center; flex-wrap: wrap;">
+      <a href="{{ url_for('admin.export_download') }}" class="btn btn-secondary btn-sm" title="Download the JSON file directly">
+        DOWNLOAD JSON &darr;
+      </a>
+      <button type="button" class="btn btn-primary btn-publish-trigger" id="btn-dashboard-publish">
+        PUBLISH TO WEBSITE
+      </button>
+    </div>
+  </div>
+
+  <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1rem; background: var(--bg-card); padding: 1rem 1.25rem; border-radius: var(--radius-md); border: 1px solid var(--border-subtle); margin-bottom: 1rem;">
+    <div>
+      <span style="display: block; font-size: 0.75rem; color: var(--text-tertiary); letter-spacing: 0.05em;">SYNC STATUS</span>
+      {% if export_status.pending_changes %}
+        <span style="font-weight: 600; color: #FFD54F; display: inline-flex; align-items: center; gap: 0.5rem; margin-top: 0.25rem;">
+          <span class="status-dot dot-pending"></span> You have unpublished changes
+        </span>
+      {% else %}
+        <span style="font-weight: 600; color: var(--green); display: inline-flex; align-items: center; gap: 0.5rem; margin-top: 0.25rem;">
+          <span class="status-dot dot-uptodate"></span> Website file is up to date
+        </span>
+      {% endif %}
+    </div>
+
+    <div>
+      <span style="display: block; font-size: 0.75rem; color: var(--text-tertiary); letter-spacing: 0.05em;">PUBLISHED TRACKS</span>
+      <span style="font-weight: 600; color: var(--blue-text); display: block; margin-top: 0.25rem;">
+        {{ export_status.published_domains_count }} domain(s) included in export
+      </span>
+    </div>
+
+    <div>
+      <span style="display: block; font-size: 0.75rem; color: var(--text-tertiary); letter-spacing: 0.05em;">LAST EXPORTED</span>
+      <span style="font-weight: 500; color: var(--text-secondary); display: block; margin-top: 0.25rem; font-size: 0.9rem;">
+        {{ export_status.last_exported_at_iso or 'Never exported yet' }}
+      </span>
+    </div>
+
+    <div>
+      <span style="display: block; font-size: 0.75rem; color: var(--text-tertiary); letter-spacing: 0.05em;">TARGET DESTINATION</span>
+      <span style="font-weight: 500; color: var(--text-secondary); display: block; margin-top: 0.25rem; font-size: 0.85rem; font-family: monospace;">
+        data/hackathon-domains.json
+      </span>
+    </div>
+  </div>
+
+  <p style="font-size: 0.85rem; color: var(--text-tertiary); margin-bottom: 0;">
+    &bull; Done. Now upload <code>data/hackathon-domains.json</code> to your website (or commit and push it). The site updates when that file is live.
+  </p>
+</div>
+
+<!-- Stat Grid: Hackathon -->
+<h2 style="font-size: 0.85rem; color: var(--text-tertiary); letter-spacing: 0.1em; margin-bottom: 0.75rem;">HACKATHON METRICS</h2>
+<div class="stat-grid" style="margin-bottom: 2.5rem;">
+  <div class="stat-box">
+    <span class="stat-label">TOTAL DOMAINS</span>
+    <span class="stat-value">{{ stats.total_domains }}</span>
+  </div>
+  <div class="stat-box">
+    <span class="stat-label">PUBLISHED DOMAINS</span>
+    <span class="stat-value" style="color: var(--green);">{{ stats.published_domains }}</span>
+  </div>
+  <div class="stat-box">
+    <span class="stat-label">TOTAL STATEMENTS</span>
+    <span class="stat-value">{{ stats.total_statements }}</span>
+  </div>
+  <div class="stat-box">
+    <span class="stat-label">PUBLISHED STATEMENTS</span>
+    <span class="stat-value" style="color: var(--blue-text);">{{ stats.published_statements }}</span>
+  </div>
+  <div class="stat-box">
+    <span class="stat-label">DRAFT STATEMENTS</span>
+    <span class="stat-value" style="color: var(--text-tertiary);">{{ stats.draft_statements }}</span>
+  </div>
+  <div class="stat-box">
+    <span class="stat-label">LAST UPDATED</span>
+    <span class="stat-value" style="font-size: 1.1rem; line-height: 2rem;">
+      {{ stats.last_updated.strftime('%b %d, %H:%M UTC') if stats.last_updated else 'Never' }}
+    </span>
+  </div>
+</div>
+
+<!-- Domains Overview -->
+<div class="hud-card" style="margin-bottom: 2.5rem;">
+  <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.25rem;">
+    <h2>DOMAIN TRACKS OVERVIEW</h2>
+    <a href="{{ url_for('admin.domains_list') }}" class="btn btn-secondary btn-sm">MANAGE ALL DOMAINS &rarr;</a>
+  </div>
+
+  <div class="table-responsive">
+    <table class="hud-table">
+      <thead>
+        <tr>
+          <th>TAG</th>
+          <th>DOMAIN NAME</th>
+          <th>SLUG</th>
+          <th>STATEMENTS</th>
+          <th>STATUS</th>
+          <th style="text-align: right;">ACTIONS</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for d in domains %}
+        <tr>
+          <td><strong style="color: var(--blue-text); font-family: var(--font-display);">{{ d.tag }}</strong></td>
+          <td style="font-weight: 600;">{{ d.name }}</td>
+          <td><code style="color: var(--text-tertiary);">{{ d.slug }}</code></td>
+          <td>
+            {% set pub_cnt = d.problem_statements | selectattr('is_published') | list | length %}
+            <span>{{ pub_cnt }} / {{ d.problem_statements | length }} published</span>
+          </td>
+          <td>
+            {% if d.is_published %}
+              <span class="chip chip-published">PUBLISHED</span>
+            {% else %}
+              <span class="chip chip-draft">DRAFT</span>
+            {% endif %}
+          </td>
+          <td style="text-align: right; white-space: nowrap;">
+            <a href="{{ url_for('admin.domain_edit', domain_id=d.id) }}" class="btn btn-secondary btn-sm">EDIT / STATEMENTS</a>
+          </td>
+        </tr>
+        {% else %}
+        <tr>
+          <td colspan="6" style="text-align: center; color: var(--text-tertiary); padding: 2rem;">
+            No domains registered yet. Click "+ NEW DOMAIN" to get started.
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- Recent Activity Audit Log -->
+<div class="hud-card">
+  <h2>RECENT AUDIT ACTIVITY</h2>
+  <div class="table-responsive" style="margin-bottom: 0;">
+    <table class="hud-table">
+      <thead>
+        <tr>
+          <th>TIMESTAMP</th>
+          <th>OPERATOR</th>
+          <th>ACTION</th>
+          <th>TARGET ENTITY</th>
+          <th>IP ADDRESS</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for log in recent_activity %}
+        <tr>
+          <td style="color: var(--text-tertiary); font-size: 0.85rem;">{{ log.created_at.strftime('%Y-%m-%d %H:%M:%S UTC') }}</td>
+          <td>{{ log.admin.username if log.admin else 'System' }}</td>
+          <td><span class="brand-pill" style="font-size: 0.75rem;">{{ log.action }}</span></td>
+          <td>{{ log.entity_type }} #{{ log.entity_id or '-' }}</td>
+          <td style="color: var(--text-tertiary); font-size: 0.85rem;">{{ log.ip or '-' }}</td>
+        </tr>
+        {% else %}
+        <tr>
+          <td colspan="5" style="text-align: center; color: var(--text-tertiary); padding: 2rem;">
+            No activity logged yet.
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+{% endblock %}

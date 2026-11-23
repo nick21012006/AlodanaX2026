@@ -1,0 +1,174 @@
+{% extends "admin/base.html" %}
+
+{% block title %}{{ 'New Domain' if mode == 'create' else 'Edit ' ~ domain.name }}{% endblock %}
+
+{% block content %}
+<div style="margin-bottom: 2rem;">
+  <div style="font-size: 0.85rem; color: var(--text-tertiary); margin-bottom: 0.5rem;">
+    <a href="{{ url_for('admin.domains_list') }}" style="color: var(--blue-text); text-decoration: none;">DOMAINS</a>
+    <span> &gt; </span>
+    <span>{{ 'CREATE NEW DOMAIN' if mode == 'create' else domain.tag ~ ' / ' ~ domain.name }}</span>
+  </div>
+  <h1>{{ 'CREATE NEW HACKATHON DOMAIN' if mode == 'create' else 'EDIT DOMAIN: ' ~ domain.name }}</h1>
+</div>
+
+<div class="hud-card" style="margin-bottom: 2.5rem;">
+  <form id="domain-form" data-mode="{{ mode }}" {% if mode == 'edit' %}data-id="{{ domain.id }}"{% endif %} data-unsaved-warning novalidate>
+    <div class="form-group">
+      <label for="domain-name" class="form-label">
+        <span>DOMAIN NAME</span>
+        <span class="counter" id="name-counter">0 / 120</span>
+      </label>
+      <input
+        type="text"
+        id="domain-name"
+        name="name"
+        class="form-control"
+        maxlength="120"
+        data-counter="name-counter"
+        value="{{ domain.name if domain else '' }}"
+        required
+        placeholder="e.g. AI &amp; Autonomous Systems"
+      >
+      <div class="form-helper">Concise, impactful title for this hackathon track. Plain text only.</div>
+      <div class="form-error" id="error-name" style="display:none;"></div>
+    </div>
+
+    {% if mode == 'edit' %}
+    <div class="form-group">
+      <label class="form-label">SLUG IDENTIFIER</label>
+      <input type="text" class="form-control" value="{{ domain.slug }}" disabled style="opacity: 0.7; cursor: not-allowed;">
+      <div class="form-helper">
+        {% if domain.is_published %}
+          <span style="color: var(--blue-text);">&bull; Slug is locked and immutable because this domain is published to preserve deep links (<code>#domain={{ domain.slug }}</code>).</span>
+        {% else %}
+          <span>&bull; Slug updates automatically from title while unpublished.</span>
+        {% endif %}
+      </div>
+    </div>
+    {% endif %}
+
+    <div class="form-group">
+      <label for="domain-desc" class="form-label">
+        <span>SHORT DESCRIPTION</span>
+        <span class="counter" id="desc-counter">0 / 300</span>
+      </label>
+      <textarea
+        id="domain-desc"
+        name="short_description"
+        class="form-control"
+        maxlength="300"
+        data-counter="desc-counter"
+        required
+        rows="3"
+        placeholder="Brief summary of thematic pillars, technological focus, and engineering scope..."
+      >{{ domain.short_description if domain else '' }}</textarea>
+      <div class="form-helper">Max 300 characters. Displayed on public track header.</div>
+      <div class="form-error" id="error-short_description" style="display:none;"></div>
+    </div>
+
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 2rem; flex-wrap: wrap; gap: 1rem;">
+      <a href="{{ url_for('admin.domains_list') }}" class="btn btn-secondary">CANCEL</a>
+      <div style="display: flex; gap: 1rem;">
+        <button type="button" class="btn btn-secondary domain-submit-btn" data-publish="false">
+          {{ 'SAVE AS DRAFT' if (not domain or not domain.is_published) else 'SAVE &amp; UNPUBLISH' }}
+        </button>
+        <button type="button" class="btn btn-primary domain-submit-btn" data-publish="true">
+          {{ 'SAVE &amp; PUBLISH' if (not domain or not domain.is_published) else 'SAVE CHANGES' }}
+        </button>
+      </div>
+    </div>
+  </form>
+</div>
+
+{% if mode == 'edit' %}
+<!-- Problem Statements associated with this domain -->
+<div class="hud-card">
+  <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; flex-wrap: wrap; gap: 1rem;">
+    <div>
+      <h2>PROBLEM STATEMENTS ({{ domain.problem_statements | length }})</h2>
+      <p style="color: var(--text-tertiary); font-size: 0.9rem; margin-bottom: 0;">Statements assigned to {{ domain.name }}</p>
+    </div>
+    <a href="{{ url_for('admin.ps_new', domain_id=domain.id) }}" class="btn btn-primary btn-sm">+ NEW PROBLEM STATEMENT</a>
+  </div>
+
+  <div class="table-responsive" style="margin-bottom: 0;">
+    <table class="hud-table" id="statements-table">
+      <thead>
+        <tr>
+          <th style="width: 90px;">ORDER</th>
+          <th>CODE</th>
+          <th>TITLE</th>
+          <th>DIFFICULTY</th>
+          <th>STATUS</th>
+          <th style="text-align: right;">ACTIONS</th>
+        </tr>
+      </thead>
+      <tbody id="statements-tbody" data-domain-id="{{ domain.id }}">
+        {% for ps in domain.problem_statements %}
+        <tr data-ps-id="{{ ps.id }}" data-order="{{ ps.sort_order }}">
+          <td>
+            <div style="display: flex; gap: 0.25rem;">
+              <button
+                type="button"
+                class="btn btn-secondary btn-sm ps-move-btn"
+                data-dir="up"
+                aria-label="Move statement up"
+                style="min-height:32px; min-width:32px; padding:0;"
+                {% if loop.first %}disabled style="opacity:0.3; cursor:not-allowed;"{% endif %}
+              >&uarr;</button>
+              <button
+                type="button"
+                class="btn btn-secondary btn-sm ps-move-btn"
+                data-dir="down"
+                aria-label="Move statement down"
+                style="min-height:32px; min-width:32px; padding:0;"
+                {% if loop.last %}disabled style="opacity:0.3; cursor:not-allowed;"{% endif %}
+              >&darr;</button>
+            </div>
+          </td>
+          <td><strong style="color: var(--blue-text); font-family: var(--font-display);">{{ ps.code }}</strong></td>
+          <td>
+            <div style="font-weight: 600;">{{ ps.title }}</div>
+            <div style="color: var(--text-tertiary); font-size: 0.85rem; max-width: 450px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">{{ ps.description }}</div>
+          </td>
+          <td>
+            <span class="chip {% if ps.difficulty in ['HARD', 'EXTREME'] %}chip-hard{% else %}chip-medium{% endif %}">
+              {{ ps.difficulty }}
+            </span>
+          </td>
+          <td>
+            <button
+              type="button"
+              class="btn btn-sm ps-toggle-publish-btn {% if ps.is_published %}chip-published{% else %}chip-draft{% endif %}"
+              data-ps-id="{{ ps.id }}"
+              data-is-published="{{ 'true' if ps.is_published else 'false' }}"
+              aria-label="Toggle publish state for {{ ps.code }}"
+            >
+              {{ 'PUBLISHED' if ps.is_published else 'DRAFT' }}
+            </button>
+          </td>
+          <td style="text-align: right; white-space: nowrap;">
+            <a href="{{ url_for('admin.ps_edit', ps_id=ps.id) }}" class="btn btn-secondary btn-sm">EDIT</a>
+            <button
+              type="button"
+              class="btn btn-danger btn-sm ps-delete-btn"
+              data-ps-id="{{ ps.id }}"
+              data-code="{{ ps.code }}"
+              aria-label="Delete {{ ps.code }}"
+            >DELETE</button>
+          </td>
+        </tr>
+        {% else %}
+        <tr>
+          <td colspan="6" style="text-align: center; color: var(--text-tertiary); padding: 2.5rem;">
+            No problem statements created for this domain yet.
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+{% endif %}
+{% endblock %}

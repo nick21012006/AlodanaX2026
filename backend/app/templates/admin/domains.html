@@ -1,0 +1,105 @@
+{% extends "admin/base.html" %}
+
+{% block title %}Domains & Tracks{% endblock %}
+
+{% block content %}
+<div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 2rem; flex-wrap: wrap; gap: 1rem;">
+  <div>
+    <h1>HACKATHON DOMAINS &amp; TRACKS</h1>
+    <p class="page-subtitle" style="margin-bottom: 0;">Reorder, publish, and manage track titles and statements</p>
+  </div>
+  <div style="display: flex; gap: 0.75rem; flex-wrap: wrap;">
+    <button type="button" class="btn btn-secondary btn-publish-trigger">PUBLISH TO WEBSITE</button>
+    <a href="{{ url_for('admin.domain_new') }}" class="btn btn-primary">+ NEW DOMAIN</a>
+  </div>
+</div>
+
+<div class="hud-card" style="margin-bottom: 1.5rem; background: rgba(10, 132, 255, 0.05); border-color: var(--border-accent);">
+  <p style="font-size: 0.9rem; color: var(--blue-text);">
+    &bull; Domains order on the public site reflects the sequence below. Use the <strong>UP</strong> and <strong>DOWN</strong> buttons to adjust priority.
+    <br>&bull; Note: Slugs become permanent and immutable once published to safeguard public deep-links.
+  </p>
+</div>
+
+<div class="hud-card">
+  <div class="table-responsive" style="margin-bottom: 0;">
+    <table class="hud-table" id="domains-table">
+      <thead>
+        <tr>
+          <th style="width: 100px;">ORDER</th>
+          <th>TAG</th>
+          <th>NAME &amp; DESCRIPTION</th>
+          <th>STATEMENTS</th>
+          <th>STATUS</th>
+          <th style="text-align: right;">ACTIONS</th>
+        </tr>
+      </thead>
+      <tbody id="domains-tbody">
+        {% for d in domains %}
+        <tr data-domain-id="{{ d.id }}" data-order="{{ d.sort_order }}">
+          <td>
+            <div style="display: flex; gap: 0.25rem;">
+              <button
+                type="button"
+                class="btn btn-secondary btn-sm domain-move-btn"
+                data-dir="up"
+                aria-label="Move {{ d.name }} up"
+                style="min-height:36px; min-width:36px; padding:0;"
+                {% if loop.first %}disabled style="opacity:0.3; cursor:not-allowed;"{% endif %}
+              >&uarr;</button>
+              <button
+                type="button"
+                class="btn btn-secondary btn-sm domain-move-btn"
+                data-dir="down"
+                aria-label="Move {{ d.name }} down"
+                style="min-height:36px; min-width:36px; padding:0;"
+                {% if loop.last %}disabled style="opacity:0.3; cursor:not-allowed;"{% endif %}
+              >&darr;</button>
+            </div>
+          </td>
+          <td><strong style="color: var(--blue-text); font-family: var(--font-display);">{{ d.tag }}</strong></td>
+          <td>
+            <div style="font-weight: 600; font-size: 1.05rem; margin-bottom: 0.25rem;">{{ d.name }}</div>
+            <div style="color: var(--text-tertiary); font-size: 0.85rem; max-width: 480px;">{{ d.short_description }}</div>
+            <div style="margin-top: 0.35rem;"><code style="font-size: 0.75rem; color: var(--text-secondary);">#domain={{ d.slug }}</code></div>
+          </td>
+          <td>
+            {% set pub_cnt = d.problem_statements | selectattr('is_published') | list | length %}
+            <span style="font-size: 0.95rem;">{{ pub_cnt }} / {{ d.problem_statements | length }} published</span>
+          </td>
+          <td>
+            <button
+              type="button"
+              class="btn btn-sm domain-toggle-publish-btn {% if d.is_published %}chip-published{% else %}chip-draft{% endif %}"
+              data-domain-id="{{ d.id }}"
+              data-is-published="{{ 'true' if d.is_published else 'false' }}"
+              aria-label="Toggle publish state for {{ d.name }}"
+            >
+              {{ 'PUBLISHED' if d.is_published else 'DRAFT' }}
+            </button>
+          </td>
+          <td style="text-align: right; white-space: nowrap;">
+            <a href="{{ url_for('admin.domain_edit', domain_id=d.id) }}" class="btn btn-secondary btn-sm">EDIT</a>
+            <a href="{{ url_for('admin.ps_new', domain_id=d.id) }}" class="btn btn-secondary btn-sm">+ PS</a>
+            <button
+              type="button"
+              class="btn btn-danger btn-sm domain-delete-btn"
+              data-domain-id="{{ d.id }}"
+              data-name="{{ d.name }}"
+              data-statements-count="{{ d.problem_statements | length }}"
+              aria-label="Delete {{ d.name }}"
+            >DELETE</button>
+          </td>
+        </tr>
+        {% else %}
+        <tr>
+          <td colspan="6" style="text-align: center; color: var(--text-tertiary); padding: 3rem;">
+            No domains found. Create your first hackathon track with "+ NEW DOMAIN".
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+{% endblock %}

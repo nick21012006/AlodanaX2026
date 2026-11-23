@@ -1,0 +1,156 @@
+{% extends "admin/base.html" %}
+
+{% block title %}{{ 'New Problem Statement' if mode == 'create' else 'Edit ' ~ ps.code }}{% endblock %}
+
+{% block content %}
+<div style="margin-bottom: 2rem;">
+  <div style="font-size: 0.85rem; color: var(--text-tertiary); margin-bottom: 0.5rem;">
+    <a href="{{ url_for('admin.domains_list') }}" style="color: var(--blue-text); text-decoration: none;">DOMAINS</a>
+    <span> &gt; </span>
+    <a href="{{ url_for('admin.domain_edit', domain_id=domain.id) }}" style="color: var(--blue-text); text-decoration: none;">{{ domain.name }}</a>
+    <span> &gt; </span>
+    <span>{{ 'NEW PROBLEM STATEMENT' if mode == 'create' else ps.code }}</span>
+  </div>
+  <h1>{{ 'CREATE PROBLEM STATEMENT' if mode == 'create' else 'EDIT PROBLEM STATEMENT: ' ~ ps.code }}</h1>
+</div>
+
+<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; align-items: start;">
+  <!-- Statement Editor Form -->
+  <div class="hud-card">
+    <h2 style="font-size: 1.15rem; margin-bottom: 1.5rem;">STATEMENT SPECIFICATIONS</h2>
+    <form id="ps-form" data-mode="{{ mode }}" {% if mode == 'edit' %}data-id="{{ ps.id }}"{% endif %} data-domain-id="{{ domain.id }}" data-unsaved-warning novalidate>
+      <div class="form-group">
+        <label for="field-domain" class="form-label">ASSIGNED DOMAIN TRACK</label>
+        <select id="field-domain" class="form-control" {% if mode == 'edit' %}disabled style="opacity:0.7;"{% endif %}>
+          {% for d in all_domains %}
+            <option value="{{ d.id }}" {% if d.id == domain.id %}selected{% endif %}>{{ d.tag }} — {{ d.name }}</option>
+          {% endfor %}
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="field-code" class="form-label">
+          <span>STATEMENT CODE</span>
+          <button type="button" id="btn-suggest-code" class="btn btn-secondary btn-sm" style="padding: 0.2rem 0.6rem; font-size: 0.8rem;">AUTO-SUGGEST</button>
+        </label>
+        <input
+          type="text"
+          id="field-code"
+          name="code"
+          class="form-control"
+          maxlength="16"
+          required
+          placeholder="e.g. PS-01"
+          value="{{ ps.code if ps else '' }}"
+        >
+        <div class="form-helper">Must match format <code>PS-01</code> (1-4 uppercase letters, hyphen, 1-3 digits). Globally unique.</div>
+        <div class="form-error" id="error-code" style="display:none;"></div>
+      </div>
+
+      <div class="form-group">
+        <label for="field-title" class="form-label">
+          <span>TITLE</span>
+          <span class="counter" id="title-counter">0 / 150</span>
+        </label>
+        <input
+          type="text"
+          id="field-title"
+          name="title"
+          class="form-control"
+          maxlength="150"
+          data-counter="title-counter"
+          required
+          placeholder="Statement challenge title"
+          value="{{ ps.title if ps else '' }}"
+        >
+        <div class="form-error" id="error-title" style="display:none;"></div>
+      </div>
+
+      <div class="form-group">
+        <label for="field-difficulty" class="form-label">DIFFICULTY RATING</label>
+        <select id="field-difficulty" name="difficulty" class="form-control" required>
+          <option value="EASY" {% if ps and ps.difficulty == 'EASY' %}selected{% endif %}>EASY</option>
+          <option value="MEDIUM" {% if (not ps) or (ps and ps.difficulty == 'MEDIUM') %}selected{% endif %}>MEDIUM</option>
+          <option value="HARD" {% if ps and ps.difficulty == 'HARD' %}selected{% endif %}>HARD</option>
+          <option value="EXTREME" {% if ps and ps.difficulty == 'EXTREME' %}selected{% endif %}>EXTREME</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="field-description" class="form-label">
+          <span>DESCRIPTION &amp; CONTEXT</span>
+          <span class="counter" id="desc-counter">0 / 1500</span>
+        </label>
+        <textarea
+          id="field-description"
+          name="description"
+          class="form-control"
+          maxlength="1500"
+          data-counter="desc-counter"
+          rows="6"
+          required
+          placeholder="Detailed problem background, requirements, and constraints..."
+        >{{ ps.description if ps else '' }}</textarea>
+        <div class="form-helper">Plain text only. HTML is prohibited. Line breaks preserved.</div>
+        <div class="form-error" id="error-description" style="display:none;"></div>
+      </div>
+
+      <div class="form-group">
+        <label for="field-outcome" class="form-label">
+          <span>EXPECTED OUTCOME &amp; DELIVERABLES</span>
+          <span class="counter" id="outcome-counter">0 / 800</span>
+        </label>
+        <textarea
+          id="field-outcome"
+          name="expected_outcome"
+          class="form-control"
+          maxlength="800"
+          data-counter="outcome-counter"
+          rows="4"
+          required
+          placeholder="Expected submission deliverables, benchmarks, prototype requirements..."
+        >{{ ps.expected_outcome if ps else '' }}</textarea>
+        <div class="form-helper">Max 800 characters. Plain text only.</div>
+        <div class="form-error" id="error-expected_outcome" style="display:none;"></div>
+      </div>
+
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 2rem; flex-wrap: wrap; gap: 1rem;">
+        <a href="{{ url_for('admin.domain_edit', domain_id=domain.id) }}" class="btn btn-secondary">CANCEL</a>
+        <div style="display: flex; gap: 1rem;">
+          <button type="button" class="btn btn-secondary ps-submit-btn" data-publish="false">
+            {{ 'SAVE AS DRAFT' if (not ps or not ps.is_published) else 'SAVE &amp; UNPUBLISH' }}
+          </button>
+          <button type="button" class="btn btn-primary ps-submit-btn" data-publish="true">
+            {{ 'SAVE &amp; PUBLISH' if (not ps or not ps.is_published) else 'SAVE CHANGES' }}
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <!-- Live Preview Card (Mirrors public hackathon.html styling) -->
+  <div>
+    <div class="hud-card" style="margin-bottom: 1rem; border-color: var(--border-accent);">
+      <h2 style="font-size: 0.95rem; color: var(--blue-text); margin-bottom: 0.25rem;">LIVE PUBLIC PREVIEW</h2>
+      <p style="color: var(--text-tertiary); font-size: 0.85rem; margin-bottom: 0;">
+        Real-time simulation of how this problem statement card appears on the public hackathon page.
+      </p>
+    </div>
+
+    <article class="problem-statement-card">
+      <div class="ps-card-header">
+        <span class="ps-id-badge" id="prev-id">{{ ps.code if ps else 'PS-01' }}</span>
+        <span class="ps-diff-badge {{ 'badge-hard' if (ps and ps.difficulty in ['HARD', 'EXTREME']) else 'badge-medium' }}" id="prev-diff">
+          {{ ps.difficulty if ps else 'MEDIUM' }}
+        </span>
+      </div>
+      <h4 class="ps-title" id="prev-title">{{ ps.title if ps else 'Problem Statement Title' }}</h4>
+      <p class="ps-desc" id="prev-desc">{{ ps.description if ps else 'Problem description and engineering scope will appear here.' }}</p>
+      <div class="ps-outcome-box">
+        <span class="ps-outcome-lbl">EXPECTED OUTCOME</span>
+        <p class="ps-outcome-text" id="prev-outcome">{{ ps.expected_outcome if ps else 'Documented inference benchmarks, prototype demo interface.' }}</p>
+      </div>
+    </article>
+  </div>
+</div>
+{% endblock %}

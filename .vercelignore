@@ -1,0 +1,17 @@
+backend/
+.agent/
+.agents/
+.gemini/
+.gsd/
+.pytest_cache/
+tools/
+scripts/
+screenshots/
+server.js
+model_capabilities.yaml
+GSD-STYLE.md
+VERSION
+*.db
+*.py
+*.pyc
+__pycache__/
