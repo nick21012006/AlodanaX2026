@@ -3090,9 +3090,14 @@
             if (playPromise !== undefined) {
               playPromise.then(() => {
                 video.pause();
-                video.currentTime = 0;
+                if (window.scrollY < 10) {
+                  video.currentTime = 0;
+                }
               }).catch(() => { });
             }
+          } catch (e) { }
+          try {
+            fetch(video.src).catch(() => { });
           } catch (e) { }
         });
 
