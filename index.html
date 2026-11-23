@@ -176,14 +176,14 @@
 
     .reveal-item {
       opacity: 0;
-      transform: translateY(32px);
-      will-change: opacity, transform;
-      transition: opacity 0.75s var(--ease-cinematic), transform 0.75s var(--ease-cinematic);
+      transform: translateY(28px);
+      transition: opacity 0.6s var(--ease-cinematic), transform 0.6s var(--ease-cinematic);
     }
 
     .reveal-item.is-revealed {
       opacity: 1;
       transform: translateY(0);
+      will-change: auto;
     }
 
     /* ==========================================================================
@@ -1000,7 +1000,10 @@
 
     #scroll-progress-fill {
       width: 100%;
-      height: 0%;
+      height: 100%;
+      transform: scaleY(0);
+      transform-origin: top;
+      will-change: transform;
       background: var(--accent);
       box-shadow: 0 0 12px var(--accent);
       transition: background-color 0.4s ease, box-shadow 0.4s ease;
@@ -2495,7 +2498,11 @@
 
         aim() {
           if (!this.pointer.known) return null;
-          const rect = this.btn.getBoundingClientRect(), scale = rect.width / this.view.w || 1;
+          if (!this._cachedRect || (this._rectTime && performance.now() - this._rectTime > 250)) {
+            this._cachedRect = this.btn.getBoundingClientRect();
+            this._rectTime = performance.now();
+          }
+          const rect = this._cachedRect, scale = rect.width / this.view.w || 1;
           const hx = this.view.w / 2, hy = this.view.h / 2;
           const x = (this.pointer.x - rect.left - rect.width / 2) / scale, y = (rect.top + rect.height / 2 - this.pointer.y) / scale;
           const dist = Math.hypot(Math.max(Math.abs(x) - hx, 0), Math.max(Math.abs(y) - hy, 0));
@@ -2949,9 +2956,22 @@
       }
 
       function initScrollReveals() {
-        document.querySelectorAll('.reveal-item:not(.is-revealed)').forEach(el => {
-          ScrollTrigger.create({ trigger: el, start: 'top 88%', once: true, onEnter: () => el.classList.add('is-revealed') });
-        });
+        if ('IntersectionObserver' in window) {
+          const observer = new IntersectionObserver((entries, obs) => {
+            entries.forEach(entry => {
+              if (entry.isIntersecting) {
+                entry.target.classList.add('is-revealed');
+                obs.unobserve(entry.target);
+              }
+            });
+          }, { rootMargin: '0px 0px -10% 0px', threshold: 0.05 });
+
+          document.querySelectorAll('.reveal-item:not(.is-revealed)').forEach(el => observer.observe(el));
+        } else {
+          document.querySelectorAll('.reveal-item:not(.is-revealed)').forEach(el => {
+            ScrollTrigger.create({ trigger: el, start: 'top 88%', once: true, onEnter: () => el.classList.add('is-revealed') });
+          });
+        }
       }
 
       function setupVideoSource() {
@@ -2979,51 +2999,94 @@
         if (isReducedMotion) { enableFallbackMode(); return; }
         gsap.registerPlugin(ScrollTrigger);
 
+        const fillEl = document.getElementById('scroll-progress-fill');
+        const pEl = document.getElementById('hero-presenter');
+        const tEl = document.getElementById('hero-tagline-wrap');
+        const cEl = document.getElementById('hero-cta-group');
+        const cue = document.getElementById('scroll-cue');
+        const headerEl = document.getElementById('site-header');
+
         scrollTriggerInstance = ScrollTrigger.create({
           trigger: '#hero', start: 'top top', end: `+=${PIN_LENGTH_VH}vh`, pin: true, scrub: true, anticipatePin: 1,
           onUpdate: (self) => {
             const p = self.progress;
             targetTime = p * videoDuration;
 
-            document.getElementById('scroll-progress-fill').style.height = `${p * 100}%`;
+            if (fillEl) fillEl.style.transform = `scaleY(${p})`;
 
-            const pEl = document.getElementById('hero-presenter');
-            if (pEl) { const o = calculateRangeFade(p, CHOREO.PRESENTER.inStart, CHOREO.PRESENTER.inEnd, CHOREO.PRESENTER.outStart, CHOREO.PRESENTER.outEnd); pEl.style.opacity = o; pEl.style.transform = `translateY(${(1 - o) * -8}px)`; }
+            if (pEl) {
+              const o = calculateRangeFade(p, CHOREO.PRESENTER.inStart, CHOREO.PRESENTER.inEnd, CHOREO.PRESENTER.outStart, CHOREO.PRESENTER.outEnd);
+              pEl.style.opacity = o;
+              pEl.style.transform = `translateY(${(1 - o) * -8}px)`;
+            }
 
-            const tEl = document.getElementById('hero-tagline-wrap');
-            if (tEl) { const o = calculateRangeFade(p, CHOREO.TAGLINE.inStart, CHOREO.TAGLINE.inEnd, CHOREO.TAGLINE.outStart, CHOREO.TAGLINE.outEnd); tEl.style.opacity = o; tEl.style.transform = `translateX(-50%) translateY(${(1 - o) * 12}px)`; }
+            if (tEl) {
+              const o = calculateRangeFade(p, CHOREO.TAGLINE.inStart, CHOREO.TAGLINE.inEnd, CHOREO.TAGLINE.outStart, CHOREO.TAGLINE.outEnd);
+              tEl.style.opacity = o;
+              tEl.style.transform = `translateX(-50%) translateY(${(1 - o) * 12}px)`;
+            }
 
-            const cEl = document.getElementById('hero-cta-group');
-            if (cEl) { const o = calculateRangeFade(p, CHOREO.CTAS.inStart, CHOREO.CTAS.inEnd, CHOREO.CTAS.outStart, CHOREO.CTAS.outEnd); cEl.style.opacity = o; cEl.style.transform = `translateX(-50%) translateY(${(1 - o) * 12}px)`; cEl.style.pointerEvents = o > 0.5 ? 'auto' : 'none'; }
+            if (cEl) {
+              const o = calculateRangeFade(p, CHOREO.CTAS.inStart, CHOREO.CTAS.inEnd, CHOREO.CTAS.outStart, CHOREO.CTAS.outEnd);
+              cEl.style.opacity = o;
+              cEl.style.transform = `translateX(-50%) translateY(${(1 - o) * 12}px)`;
+              cEl.style.pointerEvents = o > 0.5 ? 'auto' : 'none';
+            }
 
-            const cue = document.getElementById('scroll-cue');
-            if (cue) { const o = calculateRangeFade(p, CHOREO.SCROLL_CUE.inStart, CHOREO.SCROLL_CUE.inEnd, CHOREO.SCROLL_CUE.outStart, CHOREO.SCROLL_CUE.outEnd); cue.style.opacity = o; cue.style.transform = `translateX(-50%) translateY(${p * 25}px)`; }
+            if (cue) {
+              const o = calculateRangeFade(p, CHOREO.SCROLL_CUE.inStart, CHOREO.SCROLL_CUE.inEnd, CHOREO.SCROLL_CUE.outStart, CHOREO.SCROLL_CUE.outEnd);
+              cue.style.opacity = o;
+              cue.style.transform = `translateX(-50%) translateY(${p * 25}px)`;
+            }
 
-            if (p >= CHOREO.NAVBAR.trigger) document.getElementById('site-header').classList.add('is-visible');
-            else document.getElementById('site-header').classList.remove('is-visible');
+            if (headerEl) {
+              if (p >= CHOREO.NAVBAR.trigger) headerEl.classList.add('is-visible');
+              else headerEl.classList.remove('is-visible');
+            }
           }
         });
 
+        let lastSeekTime = 0;
         gsap.ticker.add(() => {
-          if (!video || !isVideoReady || isSeeking) return;
+          if (!video || !isVideoReady) return;
+          if (scrollTriggerInstance && scrollTriggerInstance.progress >= 1 && video.currentTime >= videoDuration - 0.05) return;
+          if (scrollTriggerInstance && scrollTriggerInstance.progress <= 0 && video.currentTime <= 0.02) return;
+
           const diff = targetTime - video.currentTime;
-          if (Math.abs(diff) < 0.01) return;
-          try { video.currentTime = Math.max(0, Math.min(videoDuration - 0.02, video.currentTime + diff * LERP)); } catch (err) { }
+          if (Math.abs(diff) < 0.015) return;
+
+          const now = performance.now();
+          if (isSeeking && now - lastSeekTime < 50) return;
+          lastSeekTime = now;
+
+          const nextTime = Math.max(0, Math.min(videoDuration - 0.02, video.currentTime + diff * LERP));
+          try {
+            if (typeof video.fastSeek === 'function') {
+              video.fastSeek(nextTime);
+            } else {
+              video.currentTime = nextTime;
+            }
+          } catch (err) { }
         });
       }
 
       function initLenis() {
-        lenis = new Lenis({ duration: 1.2, easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), smoothWheel: true, orientation: 'vertical' });
+        lenis = new Lenis({
+          duration: 1.0,
+          easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+          smoothWheel: true,
+          orientation: 'vertical'
+        });
         lenis.on('scroll', ScrollTrigger.update);
         gsap.ticker.add((time) => lenis.raf(time * 1000));
-        gsap.ticker.lagSmoothing(0);
+        gsap.ticker.lagSmoothing(500, 33);
         document.querySelectorAll('a[href^="#"]').forEach(a => {
           a.addEventListener('click', (e) => {
             const href = a.getAttribute('href');
             if (!href || href === '#' || href === '#!') return;
             try {
               const tgt = document.querySelector(href);
-              if (tgt && lenis) { e.preventDefault(); lenis.scrollTo(tgt, { offset: -60, duration: 1.2 }); }
+              if (tgt && lenis) { e.preventDefault(); lenis.scrollTo(tgt, { offset: -60, duration: 1.0 }); }
             } catch (err) { }
           });
         });

@@ -78,6 +78,14 @@ const server = http.createServer((req, res) => {
     const totalSize = stats.size;
     const range = req.headers.range;
 
+    // Aggressive caching for media and static assets to enable smooth scrubbing
+    let cacheControl = 'public, max-age=0, must-revalidate';
+    if (['.mp4', '.jpg', '.jpeg', '.png', '.webp', '.svg', '.ico', '.pptx'].includes(ext)) {
+      cacheControl = 'public, max-age=31536000, immutable';
+    } else if (['.css', '.js'].includes(ext)) {
+      cacheControl = 'public, max-age=86400';
+    }
+
     // Range Request Support for HTML5 Video Scrubbing
     if (range) {
       const parts = range.replace(/bytes=/, '').split('-');
@@ -99,6 +107,7 @@ const server = http.createServer((req, res) => {
         'Accept-Ranges': 'bytes',
         'Content-Length': chunkSize,
         'Content-Type': contentType,
+        'Cache-Control': cacheControl,
         'Access-Control-Allow-Origin': '*'
       });
 
@@ -107,6 +116,7 @@ const server = http.createServer((req, res) => {
       res.writeHead(200, {
         'Content-Length': totalSize,
         'Content-Type': contentType,
+        'Cache-Control': cacheControl,
         'Accept-Ranges': 'bytes',
         'Access-Control-Allow-Origin': '*'
       });
