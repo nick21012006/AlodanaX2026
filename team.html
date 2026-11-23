@@ -5,12 +5,22 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Our Team | ALODANAX 2026</title>
-  <meta name="description" content="Meet the 40-member student organizing crew behind ALODANAX 2026.">
+  <meta name="description" content="Meet the student organizing crew behind ALODANAX 2026.">
 
   <!-- Open Graph -->
   <meta property="og:title" content="Our Team | ALODANAX 2026">
   <meta property="og:description" content="The dedicated student crew building and executing ALODANAX 2026.">
   <meta property="og:type" content="website">
+  <meta property="og:url" content="https://alodanax.up.railway.app/team.html">
+  <meta property="og:image" content="https://alodanax.up.railway.app/assets/hero-poster.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Our Team | ALODANAX 2026">
+  <meta name="twitter:description" content="The dedicated student crew building and executing ALODANAX 2026.">
+  <meta name="twitter:image" content="https://alodanax.up.railway.app/assets/hero-poster.jpg">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+  <link rel="alternate icon" href="favicon.ico">
 
   <!-- Fonts: Orbitron (Tech Display) & Outfit (Clean Body) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -1559,28 +1569,7 @@
       }
 
       async function init() {
-        // Attempt to fetch published team members from the API with a 3-second timeout
-        try {
-          const controller = new AbortController();
-          const timeoutId = setTimeout(() => controller.abort(), 3000);
-          const response = await fetch(`${API_BASE}/api/public/team`, {
-            signal: controller.signal,
-            headers: { 'Accept': 'application/json' }
-          });
-          clearTimeout(timeoutId);
-
-          if (response.ok) {
-            const data = await response.json();
-            if (data && Array.isArray(data.members) && data.members.length > 0) {
-              window.TEAM_DATA = data.members;
-            }
-          }
-        } catch (err) {
-          // Silently fall back to inline TEAM_DATA
-        }
-
         if (!window.TEAM_DATA) return;
-
         renderCards();
 
         // Listeners

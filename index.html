@@ -13,8 +13,16 @@
   <meta property="og:description"
     content="Experience precision engineering and cyber evolution at ALODANAX. 12h Hackathon, Competitive Coding, and Esports.">
   <meta property="og:type" content="website">
-  <!-- NOTE: Change og:image to an absolute URL (e.g. https://yourdomain.com/assets/hero-poster.jpg) after production domain is configured -->
-  <meta property="og:image" content="assets/hero-poster.jpg">
+  <meta property="og:url" content="https://alodanax.up.railway.app/">
+  <meta property="og:image" content="https://alodanax.up.railway.app/assets/hero-poster.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="ALODANAX 2026 | Annual IT/CS TechFest">
+  <meta name="twitter:description" content="Experience precision engineering and cyber evolution at ALODANAX. 12h Hackathon, Competitive Coding, and Esports.">
+  <meta name="twitter:image" content="https://alodanax.up.railway.app/assets/hero-poster.jpg">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+  <link rel="alternate icon" href="favicon.ico">
 
   <!-- Fonts: Orbitron (Tech Display) & Outfit (Clean Body) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -2950,7 +2958,7 @@
           const ev = window.EVENTS_DATA.find(e => e.slug === slug);
           if (!ev) return;
           const tColor = ev.category === 'technical' ? '#0A84FF' : (ev.category === 'gaming' ? '#FF1744' : '#FFF');
-          const regHtml = `<a href="events.html" class="specular-btn size-md" data-tint="${tColor}" data-radius="8" aria-label="Register for ${escapeHtml(ev.name)}"><canvas aria-hidden="true"></canvas><span class="specular-text">REGISTER</span></a>`;
+          const regHtml = `<a href="events.html#event=${ev.slug}" class="specular-btn size-md" data-tint="${tColor}" data-radius="8" aria-label="Register for ${escapeHtml(ev.name)}"><canvas aria-hidden="true"></canvas><span class="specular-text">REGISTER</span></a>`;
 
           fContainer.innerHTML += `
             <article class="featured-event-card reveal-item category-${ev.category}">

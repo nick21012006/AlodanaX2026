@@ -76,6 +76,10 @@ def create_app(config_name=None):
     def health():
         return jsonify({"status": "ok"}), 200
 
+    @app.route("/favicon.ico")
+    def favicon():
+        return app.send_static_file("favicon.ico")
+
     # Security Headers Hook
     @app.after_request
     def apply_security_headers(response):
