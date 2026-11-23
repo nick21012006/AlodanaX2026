@@ -45,9 +45,10 @@ The following bracketed placeholders are intentionally left for organizer data e
    - Department: `IT/CS Department` (Configured)
    - Venue: `Model College Campus, Dombivli (East)` (Configured)
    - Address & Interactive Map: Verified from `model-college.edu.in` and embedded with Google Maps navigation link.
-3. **Contact Information**:
-   - Email: `contact@model-college.edu.in` (Configured)
+3. **Contact Information & Inquiry System**:
+   - Campus Email: `contact@model-college.edu.in` (Configured)
    - Phone: `+91 70456 82157` (Configured)
+   - Official Inquiries: Formspree endpoint `https://formspree.io/f/mjywpwpl` connected to `nikunj.s.more@gmail.com` with spam protection and mailto fallback.
 4. **Student Coordinators**:
    - Coordinator names and phone numbers in `events.html`, `contact.html`, and `hackathon.html` (`[COORD 1]`, `[PHONE TBA]`).
 5. **Hackathon Problem Statements**:
