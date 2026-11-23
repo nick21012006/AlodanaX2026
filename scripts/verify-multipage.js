@@ -74,7 +74,6 @@ async function runTestSuite() {
     eventsLiveSearch: false,
     eventsModalDeepLink: false,
     eventsRegistrationDisabled: false,
-    facultyDirectorySearch: false,
     hackathonDomainsDeepLink: false,
     hackathonPptCheck: false,
     hackathonRulesAndHeads: false,
@@ -122,7 +121,7 @@ async function runTestSuite() {
     // -----------------------------------------------------------------
     // TEST 1: HOME PAGE (index.html) at 1440x900
     // -----------------------------------------------------------------
-    console.log('\n[1/6] Testing index.html (Home Page)...');
+    console.log('\n[1/5] Testing index.html (Home Page)...');
     await sendCdp(ws, 'Emulation.setDeviceMetricsOverride', {
       width: 1440,
       height: 900,
@@ -179,7 +178,7 @@ async function runTestSuite() {
     // -----------------------------------------------------------------
     // TEST 2: EVENTS PORTAL (events.html)
     // -----------------------------------------------------------------
-    console.log('\n[2/6] Testing events.html (Discovery & Registration Portal)...');
+    console.log('\n[2/5] Testing events.html (Discovery & Registration Portal)...');
     await sendCdp(ws, 'Page.navigate', { url: 'http://localhost:3000/events.html' });
     await sleep(1500);
 
@@ -246,32 +245,9 @@ async function runTestSuite() {
     console.log('  ✔ ESC key successfully closes modal:', isModalClosed);
 
     // -----------------------------------------------------------------
-    // TEST 3: FACULTY DIRECTORY (faculty.html)
+    // TEST 3: HACKATHON PORTAL (hackathon.html)
     // -----------------------------------------------------------------
-    console.log('\n[3/6] Testing faculty.html (Academic Mentors)...');
-    await sendCdp(ws, 'Page.navigate', { url: 'http://localhost:3000/faculty.html' });
-    await sleep(1500);
-
-    const initialFacultyCount = await evaluate(ws, `document.querySelectorAll('.faculty-profile-card').length`);
-    console.log('  ✔ Initial faculty count:', initialFacultyCount);
-
-    // Live filter search
-    await evaluate(ws, `(() => {
-      const input = document.getElementById('faculty-search-input');
-      input.value = 'HOD';
-      input.dispatchEvent(new Event('input', { bubbles: true }));
-    })()`);
-    await sleep(300);
-    const filteredFacultyCount = await evaluate(ws, `document.querySelectorAll('.faculty-profile-card').length`);
-    report.facultyDirectorySearch = (filteredFacultyCount === 1);
-    console.log('  ✔ Faculty name filter works:', report.facultyDirectorySearch, '(expected 1 match for HOD)');
-
-    await captureScreenshot(ws, path.join(screenshotsDir, '05_desktop_faculty.png'));
-
-    // -----------------------------------------------------------------
-    // TEST 4: HACKATHON PORTAL (hackathon.html)
-    // -----------------------------------------------------------------
-    console.log('\n[4/6] Testing hackathon.html (24-Hour Flagship Portal)...');
+    console.log('\n[3/5] Testing hackathon.html (24-Hour Flagship Portal)...');
     await sendCdp(ws, 'Page.navigate', { url: 'http://localhost:3000/hackathon.html' });
     await sleep(1500);
 
@@ -303,27 +279,22 @@ async function runTestSuite() {
     await captureScreenshot(ws, path.join(screenshotsDir, '06_desktop_hackathon.png'));
 
     // -----------------------------------------------------------------
-    // TEST 5: TEAM DIRECTORY (team.html)
+    // TEST 4: TEAM DIRECTORY (team.html)
     // -----------------------------------------------------------------
-    console.log('\n[5/6] Testing team.html (40 Student Crew Cards)...');
+    console.log('\n[4/5] Testing team.html (Crew Member Cards)...');
     await sendCdp(ws, 'Page.navigate', { url: 'http://localhost:3000/team.html' });
     await sleep(1500);
 
     const teamCardsCount = await evaluate(ws, `document.querySelectorAll('.team-profile-card').length`);
-    report.team40Cards = (teamCardsCount === 40);
-    console.log('  ✔ 40 Student crew profile cards rendered:', report.team40Cards, `(${teamCardsCount}/40)`);
-
-    // Dynamic department chips
-    const deptChipsCount = await evaluate(ws, `document.querySelectorAll('#team-department-chips .category-chip').length`);
-    report.teamDynamicChips = (deptChipsCount > 1);
-    console.log('  ✔ Dynamic department filter chips generated from team.js:', report.teamDynamicChips, `(${deptChipsCount} chips)`);
+    report.teamCardsPresent = (teamCardsCount > 0);
+    console.log('  ✔ Crew profile cards rendered:', report.teamCardsPresent, `(${teamCardsCount} members)`);
 
     await captureScreenshot(ws, path.join(screenshotsDir, '07_desktop_team.png'));
 
     // -----------------------------------------------------------------
-    // TEST 6: CONTACT PAGE (contact.html)
+    // TEST 5: CONTACT PAGE (contact.html)
     // -----------------------------------------------------------------
-    console.log('\n[6/6] Testing contact.html (Direct Dispatch & FAQ)...');
+    console.log('\n[5/5] Testing contact.html (Direct Dispatch & FAQ)...');
     await sendCdp(ws, 'Page.navigate', { url: 'http://localhost:3000/contact.html' });
     await sleep(1500);
 

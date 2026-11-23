@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -14,401 +15,1038 @@
   <!-- Fonts: Orbitron (Tech Display) & Outfit (Clean Body) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Outfit:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet">
 
   <!-- Stylesheet -->
   <style>
-/* ==== SHARED BASE CSS ==== */
-:root {
-  --black: #000000;
-  --page-bg: #05060A;
-  --surface: #0B0D14;
-  --blue: #0A84FF;
-  --blue-glow: rgba(10, 132, 255, 0.45);
-  --neon-red: #FF1744;
-  --neon-red-glow: rgba(255, 23, 68, 0.55);
-  --white: #FFFFFF;
-  --white-muted: rgba(255, 255, 255, 0.78);
-  --text-primary: rgba(255, 255, 255, 0.95);
-  --text-secondary: rgba(255, 255, 255, 0.75);
-  --text-tertiary: #8A94A6;
+    /* ==== SHARED BASE CSS ==== */
+    :root {
+      --black: #000000;
+      --page-bg: #05060A;
+      --surface: #0B0D14;
+      --blue: #0A84FF;
+      --blue-glow: rgba(10, 132, 255, 0.45);
+      --neon-red: #FF1744;
+      --neon-red-glow: rgba(255, 23, 68, 0.55);
+      --white: #FFFFFF;
+      --white-muted: rgba(255, 255, 255, 0.78);
+      --text-primary: rgba(255, 255, 255, 0.95);
+      --text-secondary: rgba(255, 255, 255, 0.75);
+      --text-tertiary: #8A94A6;
 
-  /* Typography */
-  --font-display: 'Orbitron', sans-serif;
-  --font-body: 'Outfit', sans-serif;
+      /* Typography */
+      --font-display: 'Orbitron', sans-serif;
+      --font-body: 'Outfit', sans-serif;
 
-  --container-max: 1280px;
-  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+      --container-max: 1280px;
+      --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
 
-  /* CardNav Dark Theme Variables */
-  --cn-max: 1280px;
-  --cn-bar: 68px;
-  --cn-inset: 8px;
-  --cn-gap: 8px;
-  --cn-radius: 24px;
-  --cn-logo: 32px;
-  --cn-card: 180px;
-  --cn-panel: rgba(38, 35, 46, 0.72);
-  --cn-solid: #26232e;
-  --cn-edge: rgba(255, 255, 255, 0.08);
-  --cn-highlight: rgba(255, 255, 255, 0.07);
-  --cn-shadow: 0 24px 48px -20px rgba(0, 0, 0, 0.8), 0 6px 16px -8px rgba(0, 0, 0, 0.5);
-  --cn-text: #f4f4f5;
-  --cn-muted: rgba(244, 244, 245, 0.56);
-  --cn-hover: rgba(255, 255, 255, 0.06);
-  --cn-ring: rgba(244, 244, 245, 0.55);
-  --cn-tile: linear-gradient(180deg, rgba(52, 48, 61, 0.6) 0%, rgba(39, 36, 47, 0.6) 100%);
-  --cn-tile-rim: inset 0 0 0 1px rgba(255, 255, 255, 0.06), inset 0 1px 0 rgba(255, 255, 255, 0.1), 0 4px 10px -4px rgba(0, 0, 0, 0.6);
-  --cn-blur: blur(20px) saturate(1.6);
-}
+      /* CardNav Dark Theme Variables */
+      --cn-max: 1280px;
+      --cn-bar: 68px;
+      --cn-inset: 8px;
+      --cn-gap: 8px;
+      --cn-radius: 24px;
+      --cn-logo: 32px;
+      --cn-card: 180px;
+      --cn-panel: rgba(38, 35, 46, 0.72);
+      --cn-solid: #26232e;
+      --cn-edge: rgba(255, 255, 255, 0.08);
+      --cn-highlight: rgba(255, 255, 255, 0.07);
+      --cn-shadow: 0 24px 48px -20px rgba(0, 0, 0, 0.8), 0 6px 16px -8px rgba(0, 0, 0, 0.5);
+      --cn-text: #f4f4f5;
+      --cn-muted: rgba(244, 244, 245, 0.56);
+      --cn-hover: rgba(255, 255, 255, 0.06);
+      --cn-ring: rgba(244, 244, 245, 0.55);
+      --cn-tile: linear-gradient(180deg, rgba(52, 48, 61, 0.6) 0%, rgba(39, 36, 47, 0.6) 100%);
+      --cn-tile-rim: inset 0 0 0 1px rgba(255, 255, 255, 0.06), inset 0 1px 0 rgba(255, 255, 255, 0.1), 0 4px 10px -4px rgba(0, 0, 0, 0.6);
+      --cn-blur: blur(20px) saturate(1.6);
+    }
 
-body {
-  font-family: var(--font-body);
-  font-size: 1.0625rem; 
-  line-height: 1.6;
-  color: var(--text-primary);
-  background-color: var(--page-bg);
-  min-height: 100vh;
-  margin: 0;
-  overflow-x: hidden;
-  background-image: 
-    linear-gradient(rgba(10, 132, 255, 0.03) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(10, 132, 255, 0.03) 1px, transparent 1px);
-  background-size: 40px 40px;
-  background-position: center top;
-}
+    body {
+      font-family: var(--font-body);
+      font-size: 1.0625rem;
+      line-height: 1.6;
+      color: var(--text-primary);
+      background-color: var(--page-bg);
+      min-height: 100vh;
+      margin: 0;
+      overflow-x: hidden;
+      background-image:
+        linear-gradient(rgba(10, 132, 255, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(10, 132, 255, 0.03) 1px, transparent 1px);
+      background-size: 40px 40px;
+      background-position: center top;
+    }
 
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-a { text-decoration: none; color: inherit; }
-a:focus-visible, button:focus-visible, input:focus-visible { outline: 2px solid var(--blue); outline-offset: 3px; }
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
-.section-container { width: 90%; max-width: var(--container-max); margin: 0 auto; position: relative; }
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
 
-/* Display Titles */
-.display-title {
-  font-family: var(--font-display);
-  font-size: clamp(1.4rem, 6vw, 4.5rem);
-  font-weight: 900;
-  letter-spacing: 0.02em;
-  text-transform: uppercase;
-  line-height: 1.1;
-  display: flex; flex-wrap: wrap; gap: 0.5rem 1rem;
-}
-.title-solid { color: var(--white); text-shadow: 0 0 20px rgba(255,255,255,0.2); overflow-wrap: break-word; }
-.title-outline {
-  color: transparent;
-  -webkit-text-stroke: 1.5px rgba(255, 255, 255, 0.6);
-  transition: -webkit-text-stroke 0.3s ease;
-  overflow-wrap: break-word;
-}
-.display-title:hover .title-outline { -webkit-text-stroke: 1.5px var(--blue); }
+    a:focus-visible,
+    button:focus-visible,
+    input:focus-visible {
+      outline: 2px solid var(--blue);
+      outline-offset: 3px;
+    }
 
-@keyframes fadeUp {
-  from { opacity: 0; transform: translateY(30px); }
-  to { opacity: 1; transform: translateY(0); }
-}
+    .section-container {
+      width: 90%;
+      max-width: var(--container-max);
+      margin: 0 auto;
+      position: relative;
+    }
 
-/* ==========================================================================
+    /* Display Titles */
+    .display-title {
+      font-family: var(--font-display);
+      font-size: clamp(1.4rem, 6vw, 4.5rem);
+      font-weight: 900;
+      letter-spacing: 0.02em;
+      text-transform: uppercase;
+      line-height: 1.1;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem 1rem;
+    }
+
+    .title-solid {
+      color: var(--white);
+      text-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
+      overflow-wrap: break-word;
+    }
+
+    .title-outline {
+      color: transparent;
+      -webkit-text-stroke: 1.5px rgba(255, 255, 255, 0.6);
+      transition: -webkit-text-stroke 0.3s ease;
+      overflow-wrap: break-word;
+    }
+
+    .display-title:hover .title-outline {
+      -webkit-text-stroke: 1.5px var(--blue);
+    }
+
+    @keyframes fadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* ==========================================================================
    CARD NAV (Spring Animated Header)
    ========================================================================== */
-#site-header {
-  position: fixed; top: 0; left: 0; width: 100%; z-index: 1000;
-  padding: 1.5rem 0; pointer-events: none; transition: padding 0.3s;
-}
-#site-header.is-scrolled { padding: 0.75rem 0; }
+    #site-header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 1000;
+      padding: 1.5rem 0;
+      pointer-events: none;
+      transition: padding 0.3s;
+    }
 
-.cn-root {
-  position: relative; margin: 0 auto; height: var(--cn-bar); width: 90%;
-  max-width: var(--cn-max); text-align: left; pointer-events: auto;
-}
-.cn-panel {
-  position: absolute; inset: 0; top: 0; z-index: 10; height: var(--cn-bar);
-  overflow: hidden; border-radius: var(--cn-radius); background: var(--cn-panel);
-  box-shadow: var(--cn-shadow); backdrop-filter: var(--cn-blur); -webkit-backdrop-filter: var(--cn-blur);
-  will-change: height, clip-path; transition: background 0.3s ease;
-}
-#site-header.is-scrolled .cn-panel { background: rgba(5,6,10,0.9); border: 1px solid rgba(10,132,255,0.2); }
-.cn-rim {
-  pointer-events: none; position: absolute; inset: 0; z-index: 3;
-  border-radius: inherit; box-shadow: inset 0 0 0 1px var(--cn-edge), inset 0 1px 0 var(--cn-highlight);
-}
-.cn-bar {
-  position: relative; z-index: 2; box-sizing: border-box; display: grid;
-  height: var(--cn-bar); grid-template-columns: 1fr auto 1fr; align-items: center;
-  padding: 0 var(--cn-inset);
-}
-.cn-menu-btn {
-  grid-column: 1; grid-row: 1;
-  display: inline-flex; height: calc(var(--cn-bar) - var(--cn-inset)*2); cursor: pointer;
-  align-items: center; gap: 10px; justify-self: start; border-radius: calc(var(--cn-radius) - var(--cn-inset));
-  border: 0; padding: 0 16px; background: none; font-family: var(--font-body);
-  font-size: 15px; font-weight: 600; color: var(--cn-text); outline: none;
-  transition: background-color 0.2s ease; text-transform: uppercase;
-}
-.cn-menu-btn:hover { background: var(--cn-hover); }
-.cn-burger { position: relative; height: 12px; width: 18px; }
-.cn-line {
-  position: absolute; left: 0; height: 1.5px; width: 100%; border-radius: 2px;
-  background: currentColor; transition: top 0.5s var(--ease-spring), transform 0.5s var(--ease-spring);
-}
-.cn-line-top { top: 2px; }
-.cn-line-bottom { top: 8px; }
-.cn-root[data-open] .cn-line-top { top: 5px; transform: rotate(45deg); }
-.cn-root[data-open] .cn-line-bottom { top: 5px; transform: rotate(-45deg); }
+    #site-header.is-scrolled {
+      padding: 0.75rem 0;
+    }
 
-.cn-menu-label { position: relative; display: inline-grid; overflow: hidden; height: 18px; line-height: 18px; }
-.cn-word-open, .cn-word-close { grid-area: 1/1; transition: transform 0.5s var(--ease-spring); }
-.cn-word-close { transform: translateY(110%); }
-.cn-root[data-open] .cn-word-open { transform: translateY(-110%); }
-.cn-root[data-open] .cn-word-close { transform: translateY(0); }
+    .cn-root {
+      position: relative;
+      margin: 0 auto;
+      height: var(--cn-bar);
+      width: 90%;
+      max-width: var(--cn-max);
+      text-align: left;
+      pointer-events: auto;
+    }
 
-.cn-logo {
-  grid-column: 2; grid-row: 1;
-  font-family: var(--font-display); font-size: 1.4rem; font-weight: 900;
-  letter-spacing: 0.1em; color: var(--white); justify-self: center; text-transform: uppercase;
-  text-decoration: none;
-}
-#nav-reg-wrap {
-  grid-column: 3; grid-row: 1; justify-self: end;
-}
+    .cn-panel {
+      position: absolute;
+      inset: 0;
+      top: 0;
+      z-index: 10;
+      height: var(--cn-bar);
+      overflow: hidden;
+      border-radius: var(--cn-radius);
+      background: var(--cn-panel);
+      box-shadow: var(--cn-shadow);
+      backdrop-filter: var(--cn-blur);
+      -webkit-backdrop-filter: var(--cn-blur);
+      will-change: height, clip-path;
+      transition: background 0.3s ease;
+    }
 
-.cn-content {
-  visibility: hidden; position: absolute; left: 0; right: 0; top: var(--cn-bar);
-  box-sizing: border-box; display: flex; flex-direction: column; gap: var(--cn-gap);
-  padding: 0 var(--cn-inset) var(--cn-inset); perspective: 900px;
-}
-.cn-root[data-shown] .cn-content { visibility: visible; }
-.cn-cards { display: flex; gap: var(--cn-gap); }
-.cn-card {
-  position: relative; box-sizing: border-box; display: flex; min-height: var(--cn-card);
-  min-width: 0; flex: 1 1 0; flex-direction: column; gap: 18px; transform-origin: top;
-  border-radius: calc(var(--cn-radius) - var(--cn-inset)); padding: 16px 16px 14px;
-  background: var(--cn-tile); box-shadow: var(--cn-tile-rim); color: var(--cn-text);
-  will-change: transform, opacity; opacity: 0;
-}
-.cn-card-head { display: flex; flex-direction: column; gap: 4px; }
-.cn-label { font-size: 18px; font-weight: 700; font-family: var(--font-display); letter-spacing: 1px; text-transform: uppercase; color: var(--blue-bright);}
-.cn-desc { margin: 0; font-size: 13px; line-height: 1.45; color: var(--cn-muted); font-family: var(--font-body); }
-.cn-links { margin: auto 0 0; display: flex; list-style: none; flex-direction: column; gap: 2px; padding: 0; }
-.cn-link {
-  display: inline-flex; cursor: pointer; align-items: center; gap: 8px; border-radius: 6px;
-  border: 0; padding: 3px 0; background: none; font-family: var(--font-body); font-size: 15px;
-  font-weight: 600; color: inherit; opacity: 0.82; transition: opacity 0.2s ease, color 0.2s;
-  text-transform: uppercase;
-}
-.cn-link:hover { opacity: 1; color: var(--white); }
-.cn-link::before { content: '>'; color: var(--blue); font-family: monospace; font-weight: bold; opacity: 0; transform: translateX(-5px); transition: all 0.2s; }
-.cn-link:hover::before { opacity: 1; transform: translateX(0); }
+    #site-header.is-scrolled .cn-panel {
+      background: rgba(5, 6, 10, 0.9);
+      border: 1px solid rgba(10, 132, 255, 0.2);
+    }
 
-@media (max-width: 800px) {
-  .cn-bar { grid-template-columns: auto 1fr auto; }
-  .cn-logo { grid-column: 1; grid-row: 1; justify-self: start; padding-left: 12px; font-size: 1.2rem; }
-  #nav-reg-wrap { grid-column: 2; grid-row: 1; justify-self: center; }
-  .cn-menu-btn { grid-column: 3; grid-row: 1; justify-self: end; }
-  .cn-cards { flex-direction: column; }
-  .cn-card { min-height: 0; flex: none; gap: 10px; padding: 14px 14px 12px; }
-  .cn-links { flex-direction: row; flex-wrap: wrap; gap: 6px 16px; }
-  .cn-panel { max-height: calc(100vh - 1.5rem); overflow-y: auto; -webkit-overflow-scrolling: touch; }
-}
+    .cn-rim {
+      pointer-events: none;
+      position: absolute;
+      inset: 0;
+      z-index: 3;
+      border-radius: inherit;
+      box-shadow: inset 0 0 0 1px var(--cn-edge), inset 0 1px 0 var(--cn-highlight);
+    }
 
-@media (max-width: 520px) {
-  #site-header { padding: 0.75rem 0 !important; }
-  #site-header.is-scrolled { padding: 0.5rem 0 !important; }
-  .cn-root { width: calc(100% - 1.5rem) !important; margin: 0 auto !important; }
-  #nav-reg-wrap { display: none !important; }
-  .cn-bar {
-    display: flex !important;
-    align-items: center !important;
-    justify-content: space-between !important;
-    padding: 0 10px !important;
-    height: var(--cn-bar) !important;
-  }
-  .cn-logo {
-    order: 1 !important;
-    grid-column: auto !important;
-    grid-row: auto !important;
-    justify-self: auto !important;
-    font-size: 1.15rem !important;
-    letter-spacing: 0.08em !important;
-    padding: 0 0 0 6px !important;
-    margin: 0 !important;
-    line-height: 1 !important;
-    display: inline-flex !important;
-    align-items: center !important;
-    white-space: nowrap !important;
-    text-decoration: none !important;
-  }
-  .cn-menu-btn {
-    order: 2 !important;
-    grid-column: auto !important;
-    grid-row: auto !important;
-    justify-self: auto !important;
-    padding: 0 12px !important;
-    margin: 0 !important;
-    display: inline-flex !important;
-    align-items: center !important;
-    gap: 8px !important;
-  }
-  .cn-panel {
-    max-height: calc(100dvh - 1.5rem) !important;
-    overflow-y: auto !important;
-    -webkit-overflow-scrolling: touch !important;
-  }
-  .cn-cards { flex-direction: column !important; gap: 8px !important; }
-  .cn-card { padding: 12px !important; min-height: 0 !important; flex: none !important; gap: 8px !important; }
-  .cn-links { flex-direction: column !important; gap: 4px !important; }
-  .cn-link { padding: 6px 0 !important; min-height: 38px !important; }
-}
+    .cn-bar {
+      position: relative;
+      z-index: 2;
+      box-sizing: border-box;
+      display: grid;
+      height: var(--cn-bar);
+      grid-template-columns: 1fr auto 1fr;
+      align-items: center;
+      padding: 0 var(--cn-inset);
+    }
 
-@media (max-width: 360px) {
-  .cn-logo { font-size: 1rem !important; letter-spacing: 0.05em !important; padding-left: 2px !important; }
-  .cn-menu-btn { padding: 0 8px !important; font-size: 13px !important; }
-}
+    .cn-menu-btn {
+      grid-column: 1;
+      grid-row: 1;
+      display: inline-flex;
+      height: calc(var(--cn-bar) - var(--cn-inset)*2);
+      cursor: pointer;
+      align-items: center;
+      gap: 10px;
+      justify-self: start;
+      border-radius: calc(var(--cn-radius) - var(--cn-inset));
+      border: 0;
+      padding: 0 16px;
+      background: none;
+      font-family: var(--font-body);
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--cn-text);
+      outline: none;
+      transition: background-color 0.2s ease;
+      text-transform: uppercase;
+    }
 
-/* ==========================================================================
+    .cn-menu-btn:hover {
+      background: var(--cn-hover);
+    }
+
+    .cn-burger {
+      position: relative;
+      height: 12px;
+      width: 18px;
+    }
+
+    .cn-line {
+      position: absolute;
+      left: 0;
+      height: 1.5px;
+      width: 100%;
+      border-radius: 2px;
+      background: currentColor;
+      transition: top 0.5s var(--ease-spring), transform 0.5s var(--ease-spring);
+    }
+
+    .cn-line-top {
+      top: 2px;
+    }
+
+    .cn-line-bottom {
+      top: 8px;
+    }
+
+    .cn-root[data-open] .cn-line-top {
+      top: 5px;
+      transform: rotate(45deg);
+    }
+
+    .cn-root[data-open] .cn-line-bottom {
+      top: 5px;
+      transform: rotate(-45deg);
+    }
+
+    .cn-menu-label {
+      position: relative;
+      display: inline-grid;
+      overflow: hidden;
+      height: 18px;
+      line-height: 18px;
+    }
+
+    .cn-word-open,
+    .cn-word-close {
+      grid-area: 1/1;
+      transition: transform 0.5s var(--ease-spring);
+    }
+
+    .cn-word-close {
+      transform: translateY(110%);
+    }
+
+    .cn-root[data-open] .cn-word-open {
+      transform: translateY(-110%);
+    }
+
+    .cn-root[data-open] .cn-word-close {
+      transform: translateY(0);
+    }
+
+    .cn-logo {
+      grid-column: 2;
+      grid-row: 1;
+      font-family: var(--font-display);
+      font-size: 1.4rem;
+      font-weight: 900;
+      letter-spacing: 0.1em;
+      color: var(--white);
+      justify-self: center;
+      text-transform: uppercase;
+      text-decoration: none;
+    }
+
+    #nav-reg-wrap {
+      grid-column: 3;
+      grid-row: 1;
+      justify-self: end;
+    }
+
+    .cn-content {
+      visibility: hidden;
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: var(--cn-bar);
+      box-sizing: border-box;
+      display: flex;
+      flex-direction: column;
+      gap: var(--cn-gap);
+      padding: 0 var(--cn-inset) var(--cn-inset);
+      perspective: 900px;
+    }
+
+    .cn-root[data-shown] .cn-content {
+      visibility: visible;
+    }
+
+    .cn-cards {
+      display: flex;
+      gap: var(--cn-gap);
+    }
+
+    .cn-card {
+      position: relative;
+      box-sizing: border-box;
+      display: flex;
+      min-height: var(--cn-card);
+      min-width: 0;
+      flex: 1 1 0;
+      flex-direction: column;
+      gap: 18px;
+      transform-origin: top;
+      border-radius: calc(var(--cn-radius) - var(--cn-inset));
+      padding: 16px 16px 14px;
+      background: var(--cn-tile);
+      box-shadow: var(--cn-tile-rim);
+      color: var(--cn-text);
+      will-change: transform, opacity;
+      opacity: 0;
+    }
+
+    .cn-card-head {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .cn-label {
+      font-size: 18px;
+      font-weight: 700;
+      font-family: var(--font-display);
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: var(--blue-bright);
+    }
+
+    .cn-desc {
+      margin: 0;
+      font-size: 13px;
+      line-height: 1.45;
+      color: var(--cn-muted);
+      font-family: var(--font-body);
+    }
+
+    .cn-links {
+      margin: auto 0 0;
+      display: flex;
+      list-style: none;
+      flex-direction: column;
+      gap: 2px;
+      padding: 0;
+    }
+
+    .cn-link {
+      display: inline-flex;
+      cursor: pointer;
+      align-items: center;
+      gap: 8px;
+      border-radius: 6px;
+      border: 0;
+      padding: 3px 0;
+      background: none;
+      font-family: var(--font-body);
+      font-size: 15px;
+      font-weight: 600;
+      color: inherit;
+      opacity: 0.82;
+      transition: opacity 0.2s ease, color 0.2s;
+      text-transform: uppercase;
+    }
+
+    .cn-link:hover {
+      opacity: 1;
+      color: var(--white);
+    }
+
+    .cn-link::before {
+      content: '>';
+      color: var(--blue);
+      font-family: monospace;
+      font-weight: bold;
+      opacity: 0;
+      transform: translateX(-5px);
+      transition: all 0.2s;
+    }
+
+    .cn-link:hover::before {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    @media (max-width: 800px) {
+      .cn-bar {
+        grid-template-columns: auto 1fr auto;
+      }
+
+      .cn-logo {
+        grid-column: 1;
+        grid-row: 1;
+        justify-self: start;
+        padding-left: 12px;
+        font-size: 1.2rem;
+      }
+
+      #nav-reg-wrap {
+        grid-column: 2;
+        grid-row: 1;
+        justify-self: center;
+      }
+
+      .cn-menu-btn {
+        grid-column: 3;
+        grid-row: 1;
+        justify-self: end;
+      }
+
+      .cn-cards {
+        flex-direction: column;
+      }
+
+      .cn-card {
+        min-height: 0;
+        flex: none;
+        gap: 10px;
+        padding: 14px 14px 12px;
+      }
+
+      .cn-links {
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 6px 16px;
+      }
+
+      .cn-panel {
+        max-height: calc(100vh - 1.5rem);
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+      }
+    }
+
+    @media (max-width: 520px) {
+      #site-header {
+        padding: 0.75rem 0 !important;
+      }
+
+      #site-header.is-scrolled {
+        padding: 0.5rem 0 !important;
+      }
+
+      .cn-root {
+        width: calc(100% - 1.5rem) !important;
+        margin: 0 auto !important;
+      }
+
+      #nav-reg-wrap {
+        display: none !important;
+      }
+
+      .cn-bar {
+        display: flex !important;
+        align-items: center !important;
+        justify-content: space-between !important;
+        padding: 0 10px !important;
+        height: var(--cn-bar) !important;
+      }
+
+      .cn-logo {
+        order: 1 !important;
+        grid-column: auto !important;
+        grid-row: auto !important;
+        justify-self: auto !important;
+        font-size: 1.15rem !important;
+        letter-spacing: 0.08em !important;
+        padding: 0 0 0 6px !important;
+        margin: 0 !important;
+        line-height: 1 !important;
+        display: inline-flex !important;
+        align-items: center !important;
+        white-space: nowrap !important;
+        text-decoration: none !important;
+      }
+
+      .cn-menu-btn {
+        order: 2 !important;
+        grid-column: auto !important;
+        grid-row: auto !important;
+        justify-self: auto !important;
+        padding: 0 12px !important;
+        margin: 0 !important;
+        display: inline-flex !important;
+        align-items: center !important;
+        gap: 8px !important;
+      }
+
+      .cn-panel {
+        max-height: calc(100dvh - 1.5rem) !important;
+        overflow-y: auto !important;
+        -webkit-overflow-scrolling: touch !important;
+      }
+
+      .cn-cards {
+        flex-direction: column !important;
+        gap: 8px !important;
+      }
+
+      .cn-card {
+        padding: 12px !important;
+        min-height: 0 !important;
+        flex: none !important;
+        gap: 8px !important;
+      }
+
+      .cn-links {
+        flex-direction: column !important;
+        gap: 4px !important;
+      }
+
+      .cn-link {
+        padding: 6px 0 !important;
+        min-height: 38px !important;
+      }
+    }
+
+    @media (max-width: 360px) {
+      .cn-logo {
+        font-size: 1rem !important;
+        letter-spacing: 0.05em !important;
+        padding-left: 2px !important;
+      }
+
+      .cn-menu-btn {
+        padding: 0 8px !important;
+        font-size: 13px !important;
+      }
+    }
+
+    /* ==========================================================================
    SPECULAR BUTTON (WebGL Hover Effect)
    ========================================================================== */
-.specular-btn {
-  position: relative; display: inline-flex; align-items: center; justify-content: center;
-  border: 0; font-family: var(--font-display); font-weight: 700; letter-spacing: 0.1em;
-  border-radius: var(--sb-radius, 14px);
-  background: rgba(10, 132, 255, 0.05); /* Fallback */
-  box-shadow: 0 10px 24px -14px rgba(0,0,0,0.45);
-  backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
-  cursor: pointer; outline: none; -webkit-tap-highlight-color: transparent;
-  transition: transform 0.25s cubic-bezier(0.2,0.8,0.2,1);
-  color: #ffffff; text-transform: uppercase; margin: 0; padding: 0;
-}
-.specular-btn:active { transform: scale(0.96); }
-.specular-btn canvas {
-  position: absolute; top: -24px; left: -24px; z-index: 1; display: block;
-  width: calc(100% + 48px); height: calc(100% + 48px); pointer-events: none;
-}
-.specular-text { position: relative; z-index: 2; display: inline-flex; align-items: center; gap: 8px; }
-.specular-btn.size-sm { padding: 10px 20px; font-size: 0.85rem; }
-.specular-btn.size-md { padding: 14px 28px; font-size: 1rem; }
-.specular-btn.size-lg { padding: 16px 34px; font-size: 1.1rem; }
+    .specular-btn {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border: 0;
+      font-family: var(--font-display);
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      border-radius: var(--sb-radius, 14px);
+      background: rgba(10, 132, 255, 0.05);
+      /* Fallback */
+      box-shadow: 0 10px 24px -14px rgba(0, 0, 0, 0.45);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      cursor: pointer;
+      outline: none;
+      -webkit-tap-highlight-color: transparent;
+      transition: transform 0.25s cubic-bezier(0.2, 0.8, 0.2, 1);
+      color: #ffffff;
+      text-transform: uppercase;
+      margin: 0;
+      padding: 0;
+    }
 
-/* Subpage Hero */
-.subpage-hero-section {
-  padding: 10rem 0 4rem;
-  background: radial-gradient(circle at 50% 100%, rgba(10, 132, 255, 0.1) 0%, transparent 60%);
-  text-align: center; position: relative;
-}
-.subpage-breadcrumb {
-  font-family: var(--font-display); font-size: 0.85rem; font-weight: 700;
-  letter-spacing: 0.15em; color: var(--blue); margin-bottom: 1rem;
-  display: inline-flex; align-items: center; gap: 0.5rem; text-transform: uppercase;
-}
-.subpage-breadcrumb a { color: var(--blue); text-decoration: none; transition: color 0.2s ease, text-shadow 0.2s ease; }
-.subpage-breadcrumb a:hover { color: var(--white); text-shadow: 0 0 8px var(--blue-glow); }
-.subpage-hero-subtitle { margin: 1.5rem auto 0; font-size: 1.15rem; color: var(--text-secondary); font-weight: 400; max-width: 600px; }
+    .specular-btn:active {
+      transform: scale(0.96);
+    }
 
-/* ==========================================================================
+    .specular-btn canvas {
+      position: absolute;
+      top: -24px;
+      left: -24px;
+      z-index: 1;
+      display: block;
+      width: calc(100% + 48px);
+      height: calc(100% + 48px);
+      pointer-events: none;
+    }
+
+    .specular-text {
+      position: relative;
+      z-index: 2;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .specular-btn.size-sm {
+      padding: 10px 20px;
+      font-size: 0.85rem;
+    }
+
+    .specular-btn.size-md {
+      padding: 14px 28px;
+      font-size: 1rem;
+    }
+
+    .specular-btn.size-lg {
+      padding: 16px 34px;
+      font-size: 1.1rem;
+    }
+
+    /* Subpage Hero */
+    .subpage-hero-section {
+      padding: 10rem 0 4rem;
+      background: radial-gradient(circle at 50% 100%, rgba(10, 132, 255, 0.1) 0%, transparent 60%);
+      text-align: center;
+      position: relative;
+    }
+
+    .subpage-breadcrumb {
+      font-family: var(--font-display);
+      font-size: 0.85rem;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      color: var(--blue);
+      margin-bottom: 1rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      text-transform: uppercase;
+    }
+
+    .subpage-breadcrumb a {
+      color: var(--blue);
+      text-decoration: none;
+      transition: color 0.2s ease, text-shadow 0.2s ease;
+    }
+
+    .subpage-breadcrumb a:hover {
+      color: var(--white);
+      text-shadow: 0 0 8px var(--blue-glow);
+    }
+
+    .subpage-hero-subtitle {
+      margin: 1.5rem auto 0;
+      font-size: 1.15rem;
+      color: var(--text-secondary);
+      font-weight: 400;
+      max-width: 600px;
+    }
+
+    /* ==========================================================================
    TEAM PORTAL MAIN 
    ========================================================================== */
-.team-portal-main { padding-bottom: 6rem; }
+    .team-portal-main {
+      padding-bottom: 6rem;
+    }
 
-/* Toolbar */
-.events-toolbar-wrap {
-  display: flex; justify-content: space-between; align-items: center;
-  gap: 1.5rem; flex-wrap: wrap; margin-bottom: 2rem;
-  background: rgba(11, 13, 20, 0.6); padding: 1rem; border-radius: 16px;
-  border: 1px solid rgba(255,255,255,0.05); backdrop-filter: blur(10px);
-}
-.events-search-box {
-  display: flex; align-items: center; gap: 0.75rem; background: rgba(0, 0, 0, 0.5);
-  border: 1px solid rgba(10, 132, 255, 0.3); padding: 0.75rem 1.25rem; border-radius: 100px;
-  flex: 1; max-width: 400px; transition: all 0.3s ease;
-}
-.events-search-box:focus-within { border-color: var(--blue); box-shadow: 0 0 15px var(--blue-glow); }
-.search-icon { color: var(--text-tertiary); }
-.events-search-box:focus-within .search-icon { color: var(--blue); }
-.events-search-input { background: transparent; border: none; color: var(--white); font-family: var(--font-body); font-size: 1rem; width: 100%; outline: none; }
-.search-clear-btn { background: none; border: none; color: var(--text-tertiary); font-size: 1.5rem; cursor: pointer; line-height: 1; }
+    /* Toolbar */
+    .events-toolbar-wrap {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+      margin-bottom: 2rem;
+      background: rgba(11, 13, 20, 0.6);
+      padding: 1rem;
+      border-radius: 16px;
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(10px);
+    }
+
+    .events-search-box {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      background: rgba(0, 0, 0, 0.5);
+      border: 1px solid rgba(10, 132, 255, 0.3);
+      padding: 0.75rem 1.25rem;
+      border-radius: 100px;
+      flex: 1;
+      max-width: 400px;
+      transition: all 0.3s ease;
+    }
+
+    .events-search-box:focus-within {
+      border-color: var(--blue);
+      box-shadow: 0 0 15px var(--blue-glow);
+    }
+
+    .search-icon {
+      color: var(--text-tertiary);
+    }
+
+    .events-search-box:focus-within .search-icon {
+      color: var(--blue);
+    }
+
+    .events-search-input {
+      background: transparent;
+      border: none;
+      color: var(--white);
+      font-family: var(--font-body);
+      font-size: 1rem;
+      width: 100%;
+      outline: none;
+    }
+
+    .search-clear-btn {
+      background: none;
+      border: none;
+      color: var(--text-tertiary);
+      font-size: 1.5rem;
+      cursor: pointer;
+      line-height: 1;
+    }
 
 
 
-.team-status-bar { font-family: var(--font-body); font-weight: 500; font-size: 0.9rem; color: var(--text-tertiary); margin-bottom: 2.5rem; border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 1rem; }
+    .team-status-bar {
+      font-family: var(--font-body);
+      font-weight: 500;
+      font-size: 0.9rem;
+      color: var(--text-tertiary);
+      margin-bottom: 2.5rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      padding-bottom: 1rem;
+    }
 
-/* Grid & Cards */
-.team-cards-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 2rem; }
+    /* Grid & Cards */
+    .team-cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 2rem;
+    }
 
-/* THE CARD - Animated & Cyber */
-.team-profile-card {
-  background: rgba(11, 13, 20, 0.6);
-  border: 1px solid rgba(255, 255, 255, 0.05);
-  border-radius: 16px;
-  overflow: hidden; display: flex; flex-direction: column; position: relative;
-  opacity: 0; transform: translateY(30px);
-  transition: transform 0.4s var(--ease-spring), box-shadow 0.4s ease, border-color 0.4s ease;
-}
-.team-profile-card.animate-in { animation: fadeUp 0.6s var(--ease-spring) forwards; }
-.team-profile-card::before {
-  content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-  background: linear-gradient(180deg, rgba(255,255,255,0.02) 0%, transparent 100%); pointer-events: none;
-}
-.team-profile-card:hover {
-  transform: translateY(-8px); border-color: rgba(10, 132, 255, 0.4);
-  box-shadow: 0 20px 40px rgba(0,0,0,0.6), 0 0 20px rgba(10, 132, 255, 0.15);
-}
+    /* THE CARD - Animated & Cyber */
+    .team-profile-card {
+      background: rgba(11, 13, 20, 0.6);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      border-radius: 16px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      opacity: 0;
+      transform: translateY(30px);
+      transition: transform 0.4s var(--ease-spring), box-shadow 0.4s ease, border-color 0.4s ease;
+    }
 
-.team-photo-wrap { width: 100%; aspect-ratio: 1/1; position: relative; overflow: hidden; }
-.team-photo-img { width: 100%; height: 100%; object-fit: cover; object-position: center 20%; transition: transform 0.6s ease, filter 0.6s ease; filter: brightness(0.9) grayscale(20%); }
-.team-profile-card:hover .team-photo-img { transform: scale(1.05); filter: brightness(1) grayscale(0%); }
+    .team-profile-card.animate-in {
+      animation: fadeUp 0.6s var(--ease-spring) forwards;
+    }
+
+    .team-profile-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.02) 0%, transparent 100%);
+      pointer-events: none;
+    }
+
+    .team-profile-card:hover {
+      transform: translateY(-8px);
+      border-color: rgba(10, 132, 255, 0.4);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6), 0 0 20px rgba(10, 132, 255, 0.15);
+    }
+
+    .team-photo-wrap {
+      width: 100%;
+      aspect-ratio: 1/1;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .team-photo-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center 20%;
+      transition: transform 0.6s ease, filter 0.6s ease;
+      filter: brightness(0.9) grayscale(20%);
+    }
+
+    .team-profile-card:hover .team-photo-img {
+      transform: scale(1.05);
+      filter: brightness(1) grayscale(0%);
+    }
 
 
 
-.team-card-content { padding: 1.5rem; display: flex; flex-direction: column; flex: 1; z-index: 2; }
-.team-role-title { font-family: var(--font-display); font-size: 0.75rem; font-weight: 700; color: var(--blue-bright); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 0.4rem; }
-.team-member-name { font-family: var(--font-display); font-size: 1.3rem; font-weight: 800; color: var(--white); margin-bottom: 0.5rem; letter-spacing: 0.05em; }
+    .team-card-content {
+      padding: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+      z-index: 2;
+    }
 
-.team-socials-row { display: flex; gap: 0.6rem; margin-top: auto; padding-top: 1rem; border-top: 1px solid rgba(255,255,255,0.05); }
-.team-social-icon {
-  display: flex; align-items: center; justify-content: center; width: 36px; height: 36px;
-  border-radius: 8px; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1);
-  color: var(--text-tertiary); transition: all 0.2s;
-}
-.team-social-icon:hover { background: var(--blue); border-color: var(--blue); color: var(--white); box-shadow: 0 0 12px var(--blue-glow); transform: translateY(-2px); }
+    .team-role-title {
+      font-family: var(--font-display);
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--blue-bright);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 0.4rem;
+    }
 
-/* Empty State */
-.events-empty-state { text-align: center; padding: 4rem 1rem; border: 1px dashed rgba(255,255,255,0.2); border-radius: 16px; margin: 2rem 0; background: rgba(255,255,255,0.02); }
-.empty-icon-box { font-size: 3rem; margin-bottom: 1rem; opacity: 0.5; font-family: var(--font-display); color: var(--text-tertiary); }
-.empty-heading { font-family: var(--font-display); font-size: 1.8rem; font-weight: 800; color: var(--white); margin-bottom: 0.5rem; }
-.empty-subtext { font-family: var(--font-body); color: var(--text-secondary); margin-bottom: 1.5rem; font-size: 1rem; }
+    .team-member-name {
+      font-family: var(--font-display);
+      font-size: 1.3rem;
+      font-weight: 800;
+      color: var(--white);
+      margin-bottom: 0.5rem;
+      letter-spacing: 0.05em;
+    }
 
-/* Footer */
-.site-footer { background: #020306; padding: 5rem 0 2rem; border-top: 1px solid rgba(255,255,255,0.05); margin-top: auto; }
-.footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 3rem; margin-bottom: 4rem; }
-.footer-brand { font-family: var(--font-display); font-size: 1.8rem; font-weight: 900; color: var(--white); margin-bottom: 1rem; display: block; letter-spacing: 0.1em; }
-.footer-col-title { font-family: var(--font-display); color: var(--white); margin-bottom: 1.2rem; font-size: 1.2rem; font-weight: 700; text-transform: uppercase; }
-.footer-nav-list { list-style: none; display: flex; flex-direction: column; gap: 0.75rem; }
-.footer-nav-list a { font-family: var(--font-body); font-weight: 500; color: var(--text-secondary); transition: color 0.2s; font-size: 1rem; }
-.footer-nav-list a:hover { color: var(--blue); }
-.footer-contact-line { font-family: var(--font-body); font-size: 1rem; color: var(--text-secondary); margin-bottom: 0.5rem; }
-.footer-bottom-bar { display: flex; justify-content: space-between; align-items: center; border-top: 1px solid rgba(255,255,255,0.05); padding-top: 2rem; font-family: var(--font-body); font-size: 0.9rem; color: var(--text-tertiary); }
+    .team-socials-row {
+      display: flex;
+      gap: 0.6rem;
+      margin-top: auto;
+      padding-top: 1rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+    }
 
-/* ==========================================================================
+    .team-social-icon {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 36px;
+      height: 36px;
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      color: var(--text-tertiary);
+      transition: all 0.2s;
+    }
+
+    .team-social-icon:hover {
+      background: var(--blue);
+      border-color: var(--blue);
+      color: var(--white);
+      box-shadow: 0 0 12px var(--blue-glow);
+      transform: translateY(-2px);
+    }
+
+    /* Empty State */
+    .events-empty-state {
+      text-align: center;
+      padding: 4rem 1rem;
+      border: 1px dashed rgba(255, 255, 255, 0.2);
+      border-radius: 16px;
+      margin: 2rem 0;
+      background: rgba(255, 255, 255, 0.02);
+    }
+
+    .empty-icon-box {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+      opacity: 0.5;
+      font-family: var(--font-display);
+      color: var(--text-tertiary);
+    }
+
+    .empty-heading {
+      font-family: var(--font-display);
+      font-size: 1.8rem;
+      font-weight: 800;
+      color: var(--white);
+      margin-bottom: 0.5rem;
+    }
+
+    .empty-subtext {
+      font-family: var(--font-body);
+      color: var(--text-secondary);
+      margin-bottom: 1.5rem;
+      font-size: 1rem;
+    }
+
+    /* Footer */
+    .site-footer {
+      background: #020306;
+      padding: 5rem 0 2rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+      margin-top: auto;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr;
+      gap: 3rem;
+      margin-bottom: 4rem;
+    }
+
+    .footer-brand {
+      font-family: var(--font-display);
+      font-size: 1.8rem;
+      font-weight: 900;
+      color: var(--white);
+      margin-bottom: 1rem;
+      display: block;
+      letter-spacing: 0.1em;
+    }
+
+    .footer-col-title {
+      font-family: var(--font-display);
+      color: var(--white);
+      margin-bottom: 1.2rem;
+      font-size: 1.2rem;
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+
+    .footer-nav-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+
+    .footer-nav-list a {
+      font-family: var(--font-body);
+      font-weight: 500;
+      color: var(--text-secondary);
+      transition: color 0.2s;
+      font-size: 1rem;
+    }
+
+    .footer-nav-list a:hover {
+      color: var(--blue);
+    }
+
+    .footer-contact-line {
+      font-family: var(--font-body);
+      font-size: 1rem;
+      color: var(--text-secondary);
+      margin-bottom: 0.5rem;
+    }
+
+    .footer-bottom-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+      padding-top: 2rem;
+      font-family: var(--font-body);
+      font-size: 0.9rem;
+      color: var(--text-tertiary);
+    }
+
+    /* ==========================================================================
    MOBILE OPTIMIZATION (Responsive Overrides)
    ========================================================================== */
-@media (max-width: 768px) {
-  #site-header { padding: 1rem 0; }
-  .subpage-hero-section { padding: 9rem 0 3rem; }
-  .display-title { font-size: clamp(1.4rem, 6vw, 2.2rem); }
-  .events-toolbar-wrap { flex-direction: column; align-items: stretch; padding: 1.25rem; min-width: 0; max-width: 100%; overflow: hidden; }
-  .events-search-box { max-width: 100%; min-width: 0; }
+    @media (max-width: 768px) {
+      #site-header {
+        padding: 1rem 0;
+      }
 
-  
-  .team-cards-grid { grid-template-columns: 1fr; gap: 1.5rem; }
-  
-  .footer-grid { grid-template-columns: 1fr; gap: 2.5rem; }
-  .footer-bottom-bar { flex-direction: column; gap: 1.5rem; text-align: center; }
-}
-@media (max-width: 480px) {
-  .team-cards-grid { grid-template-columns: 1fr; }
-}
+      .subpage-hero-section {
+        padding: 9rem 0 3rem;
+      }
+
+      .display-title {
+        font-size: clamp(1.4rem, 6vw, 2.2rem);
+      }
+
+      .events-toolbar-wrap {
+        flex-direction: column;
+        align-items: stretch;
+        padding: 1.25rem;
+        min-width: 0;
+        max-width: 100%;
+        overflow: hidden;
+      }
+
+      .events-search-box {
+        max-width: 100%;
+        min-width: 0;
+      }
+
+
+      .team-cards-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+      }
+
+      .footer-grid {
+        grid-template-columns: 1fr;
+        gap: 2.5rem;
+      }
+
+      .footer-bottom-bar {
+        flex-direction: column;
+        gap: 1.5rem;
+        text-align: center;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .team-cards-grid {
+        grid-template-columns: 1fr;
+      }
+    }
   </style>
 </head>
+
 <body class="page-team">
 
   <!-- Animated CardNav Navigation -->
@@ -416,7 +1054,7 @@ a:focus-visible, button:focus-visible, input:focus-visible { outline: 2px solid 
     <div class="cn-root" id="card-nav">
       <nav class="cn-panel">
         <div class="cn-bar">
-          
+
           <button type="button" class="cn-menu-btn" aria-expanded="false">
             <span class="cn-burger">
               <span class="cn-line cn-line-top"></span>
@@ -449,7 +1087,7 @@ a:focus-visible, button:focus-visible, input:focus-visible { outline: 2px solid 
                 <li><a href="index.html#about" class="cn-link">About TechFest</a></li>
               </ul>
             </div>
-            
+
             <div class="cn-card">
               <div class="cn-card-head">
                 <span class="cn-label">Arenas</span>
@@ -460,11 +1098,11 @@ a:focus-visible, button:focus-visible, input:focus-visible { outline: 2px solid 
                 <li><a href="hackathon.html" class="cn-link">24H Hackathon</a></li>
               </ul>
             </div>
-            
+
             <div class="cn-card">
               <div class="cn-card-head">
                 <span class="cn-label">Connect</span>
-                <p class="cn-desc">Meet the team & faculty.</p>
+                <p class="cn-desc">Meet the team.</p>
               </div>
               <ul class="cn-links">
                 <li><a href="team.html" class="cn-link">Our Team</a></li>
@@ -490,7 +1128,8 @@ a:focus-visible, button:focus-visible, input:focus-visible { outline: 2px solid 
         <span class="title-solid">OUR</span>
         <span class="title-outline">CREW</span>
       </h1>
-      <p class="subpage-hero-subtitle">Meet the student engineers, designers, coordinators, and directors driving ALODANAX 2026.</p>
+      <p class="subpage-hero-subtitle">Meet the student engineers, designers, coordinators, and directors driving
+        ALODANAX 2026.</p>
     </div>
   </section>
 
@@ -501,11 +1140,13 @@ a:focus-visible, button:focus-visible, input:focus-visible { outline: 2px solid 
       <!-- Interactive Toolbar -->
       <div class="events-toolbar-wrap" role="region" aria-label="Search team members">
         <div class="events-search-box">
-          <svg class="search-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <svg class="search-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+            stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
             <circle cx="11" cy="11" r="8"></circle>
             <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
           </svg>
-          <input type="search" id="team-search-input" class="events-search-input" placeholder="Search by name or role..." autocomplete="off">
+          <input type="search" id="team-search-input" class="events-search-input"
+            placeholder="Search by name or role..." autocomplete="off">
           <button type="button" id="team-search-clear" class="search-clear-btn" style="display: none;">&times;</button>
         </div>
       </div>
@@ -520,7 +1161,8 @@ a:focus-visible, button:focus-visible, input:focus-visible { outline: 2px solid 
         <div class="empty-icon-box">&empty;</div>
         <h3 class="empty-heading">NO CREW FOUND</h3>
         <p class="empty-subtext">No team members match your search.</p>
-        <button type="button" class="specular-btn size-md" id="btn-reset-team-filters" data-tint="#ffffff" data-base="#525252" data-radius="12">
+        <button type="button" class="specular-btn size-md" id="btn-reset-team-filters" data-tint="#ffffff"
+          data-base="#525252" data-radius="12">
           <canvas aria-hidden="true"></canvas><span class="specular-text">CLEAR SEARCH</span>
         </button>
       </div>
@@ -537,48 +1179,32 @@ a:focus-visible, button:focus-visible, input:focus-visible { outline: 2px solid 
       college: { name: "[COLLEGE NAME]", department: "[DEPARTMENT OF IT/CS]", venue: "[VENUE TBA]" },
       contacts: { email: "[EMAIL TBA]", phone: "[PHONE TBA]" }
     };
-    
+
     const TEAM_DATA = [
-      { id: 1, name: "[NAME 01]", role: "[TECHNICAL LEAD]", photo: "assets/images/team/member-01.jpg", social: { linkedin: "[LINKEDIN TBA]", instagram: "[INSTAGRAM TBA]", github: "[GITHUB TBA]" } },
-      { id: 2, name: "[NAME 02]", role: "[SYSTEMS ARCHITECT]", photo: "assets/images/team/member-02.jpg", social: { linkedin: "[LINKEDIN TBA]", instagram: "[INSTAGRAM TBA]", github: "[GITHUB TBA]" } },
-      { id: 3, name: "[NAME 03]", role: "[CYBERSEC SPECIALIST]", photo: "assets/images/team/member-03.jpg", social: { linkedin: "[LINKEDIN TBA]", instagram: "[INSTAGRAM TBA]", github: "[GITHUB TBA]" } },
-      { id: 4, name: "[NAME 04]", role: "[COMPETITIVE CODE LEAD]", photo: "assets/images/team/member-04.jpg", social: { linkedin: "[LINKEDIN TBA]", instagram: "[INSTAGRAM TBA]", github: "[GITHUB TBA]" } },
-      { id: 5, name: "[NAME 05]", role: "[HACKATHON TRACK LEAD]", photo: "assets/images/team/member-05.jpg", social: { linkedin: "[LINKEDIN TBA]", instagram: "[INSTAGRAM TBA]", github: "[GITHUB TBA]" } },
-      { id: 6, name: "[NAME 06]", role: "[HARDWARE/IOT SPECIALIST]", photo: "assets/images/team/member-06.jpg", social: { linkedin: "[LINKEDIN TBA]", instagram: "[INSTAGRAM TBA]", github: "[GITHUB TBA]" } },
-      { id: 7, name: "[NAME 07]", role: "[LEAD FULL-STACK DEV]", photo: "assets/images/team/member-07.jpg", social: { linkedin: "[LINKEDIN TBA]", instagram: "[INSTAGRAM TBA]", github: "[GITHUB TBA]" } },
-      { id: 8, name: "[NAME 08]", role: "[FRONT-END ENGINEER]", photo: "assets/images/team/member-08.jpg", social: { linkedin: "[LINKEDIN TBA]", instagram: "[INSTAGRAM TBA]", github: "[GITHUB TBA]" } },
-      { id: 9, name: "[NAME 09]", role: "[BACK-END DEVELOPER]", photo: "assets/images/team/member-09.jpg", social: { linkedin: "[LINKEDIN TBA]", instagram: "[INSTAGRAM TBA]", github: "[GITHUB TBA]" } },
-      { id: 10, name: "[NAME 10]", role: "[DEVOPS & CLOUD ARCHITECT]", photo: "assets/images/team/member-10.jpg", social: { linkedin: "[LINKEDIN TBA]", instagram: "[INSTAGRAM TBA]", github: "[GITHUB TBA]" } },
-      { id: 11, name: "[NAME 11]", role: "[QA & TEST AUTOMATION]", photo: "assets/images/team/member-11.jpg", social: { linkedin: "[LINKEDIN TBA]", instagram: "[INSTAGRAM TBA]", github: "[GITHUB TBA]" } },
-      { id: 12, name: "[NAME 12]", role: "[DATABASE ADMINISTRATOR]", photo: "assets/images/team/member-12.jpg", social: { linkedin: "[LINKEDIN TBA]", instagram: "[INSTAGRAM TBA]", github: "[GITHUB TBA]" } },
-      { id: 13, name: "[NAME 13]", role: "[CREATIVE DIRECTOR]", photo: "assets/images/team/member-13.jpg", social: { linkedin: "[LINKEDIN TBA]", instagram: "[INSTAGRAM TBA]", github: "[GITHUB TBA]" } },
-      { id: 14, name: "[NAME 14]", role: "[LEAD UI/UX DESIGNER]", photo: "assets/images/team/member-14.jpg", social: { linkedin: "[LINKEDIN TBA]", instagram: "[INSTAGRAM TBA]", github: "[GITHUB TBA]" } },
-      { id: 15, name: "[NAME 15]", role: "[3D & MOTION DESIGNER]", photo: "assets/images/team/member-15.jpg", social: { linkedin: "[LINKEDIN TBA]", instagram: "[INSTAGRAM TBA]", github: "[GITHUB TBA]" } },
-      { id: 16, name: "[NAME 16]", role: "[BRAND & GRAPHIC DESIGNER]", photo: "assets/images/team/member-16.jpg", social: { linkedin: "[LINKEDIN TBA]", instagram: "[INSTAGRAM TBA]", github: "[GITHUB TBA]" } },
-      { id: 17, name: "[NAME 17]", role: "[CINEMATOGRAPHER & VIDEO LEAD]", photo: "assets/images/team/member-17.jpg", social: { linkedin: "[LINKEDIN TBA]", instagram: "[INSTAGRAM TBA]", github: "[GITHUB TBA]" } },
-      { id: 18, name: "[NAME 18]", role: "[AUDIO & SFX ENGINEER]", photo: "assets/images/team/member-18.jpg", social: { linkedin: "[LINKEDIN TBA]", instagram: "[INSTAGRAM TBA]", github: "[GITHUB TBA]" } },
-      { id: 19, name: "[NAME 19]", role: "[LIVE STREAM PRODUCER]", photo: "assets/images/team/member-19.jpg", social: { linkedin: "[LINKEDIN TBA]", instagram: "[INSTAGRAM TBA]", github: "[GITHUB TBA]" } },
-      { id: 20, name: "[NAME 20]", role: "[PHOTOGRAPHY LEAD]", photo: "assets/images/team/member-20.jpg", social: { linkedin: "[LINKEDIN TBA]", instagram: "[INSTAGRAM TBA]", github: "[GITHUB TBA]" } },
-      { id: 21, name: "[NAME 21]", role: "[CHIEF OPERATIONS OFFICER]", photo: "assets/images/team/member-21.jpg", social: { linkedin: "[LINKEDIN TBA]", instagram: "[INSTAGRAM TBA]", github: "[GITHUB TBA]" } },
-      { id: 22, name: "[NAME 22]", role: "[VENUE & LAB COORDINATOR]", photo: "assets/images/team/member-22.jpg", social: { linkedin: "[LINKEDIN TBA]", instagram: "[INSTAGRAM TBA]", github: "[GITHUB TBA]" } },
-      { id: 23, name: "[NAME 23]", role: "[HOSPITALITY LEAD]", photo: "assets/images/team/member-23.jpg", social: { linkedin: "[LINKEDIN TBA]", instagram: "[INSTAGRAM TBA]", github: "[GITHUB TBA]" } },
-      { id: 24, name: "[NAME 24]", role: "[STAGE & AUDIO-VISUAL TECH]", photo: "assets/images/team/member-24.jpg", social: { linkedin: "[LINKEDIN TBA]", instagram: "[INSTAGRAM TBA]", github: "[GITHUB TBA]" } },
-      { id: 25, name: "[NAME 25]", role: "[SECURITY & PROTOCOL HEAD]", photo: "assets/images/team/member-25.jpg", social: { linkedin: "[LINKEDIN TBA]", instagram: "[INSTAGRAM TBA]", github: "[GITHUB TBA]" } },
-      { id: 26, name: "[NAME 26]", role: "[REGISTRATION DESK LEAD]", photo: "assets/images/team/member-26.jpg", social: { linkedin: "[LINKEDIN TBA]", instagram: "[INSTAGRAM TBA]", github: "[GITHUB TBA]" } },
-      { id: 27, name: "[NAME 27]", role: "[EQUIPMENT INVENTORY MGR]", photo: "assets/images/team/member-27.jpg", social: { linkedin: "[LINKEDIN TBA]", instagram: "[INSTAGRAM TBA]", github: "[GITHUB TBA]" } },
-      { id: 28, name: "[NAME 28]", role: "[EMERGENCY & FIRST-AID REP]", photo: "assets/images/team/member-28.jpg", social: { linkedin: "[LINKEDIN TBA]", instagram: "[INSTAGRAM TBA]", github: "[GITHUB TBA]" } },
-      { id: 29, name: "[NAME 29]", role: "[HEAD OF CORPORATE RELATIONS]", photo: "assets/images/team/member-29.jpg", social: { linkedin: "[LINKEDIN TBA]", instagram: "[INSTAGRAM TBA]", github: "[GITHUB TBA]" } },
-      { id: 30, name: "[NAME 30]", role: "[INDUSTRY PARTNERSHIP LEAD]", photo: "assets/images/team/member-30.jpg", social: { linkedin: "[LINKEDIN TBA]", instagram: "[INSTAGRAM TBA]", github: "[GITHUB TBA]" } },
-      { id: 31, name: "[NAME 31]", role: "[CAMPUS AMBASSADOR MGR]", photo: "assets/images/team/member-31.jpg", social: { linkedin: "[LINKEDIN TBA]", instagram: "[INSTAGRAM TBA]", github: "[GITHUB TBA]" } },
-      { id: 32, name: "[NAME 32]", role: "[PUBLIC RELATIONS OFFICER]", photo: "assets/images/team/member-32.jpg", social: { linkedin: "[LINKEDIN TBA]", instagram: "[INSTAGRAM TBA]", github: "[GITHUB TBA]" } },
-      { id: 33, name: "[NAME 33]", role: "[SOCIAL MEDIA STRATEGIST]", photo: "assets/images/team/member-33.jpg", social: { linkedin: "[LINKEDIN TBA]", instagram: "[INSTAGRAM TBA]", github: "[GITHUB TBA]" } },
-      { id: 34, name: "[NAME 34]", role: "[CONTENT & COPY LEAD]", photo: "assets/images/team/member-34.jpg", social: { linkedin: "[LINKEDIN TBA]", instagram: "[INSTAGRAM TBA]", github: "[GITHUB TBA]" } },
-      { id: 35, name: "[NAME 35]", role: "[ESPORTS ARENA DIRECTOR]", photo: "assets/images/team/member-35.jpg", social: { linkedin: "[LINKEDIN TBA]", instagram: "[INSTAGRAM TBA]", github: "[GITHUB TBA]" } },
-      { id: 36, name: "[NAME 36]", role: "[BGMI TOURNAMENT ADMIN]", photo: "assets/images/team/member-36.jpg", social: { linkedin: "[LINKEDIN TBA]", instagram: "[INSTAGRAM TBA]", github: "[GITHUB TBA]" } },
-      { id: 37, name: "[NAME 37]", role: "[PC GAMING & LAN SPECIALIST]", photo: "assets/images/team/member-37.jpg", social: { linkedin: "[LINKEDIN TBA]", instagram: "[INSTAGRAM TBA]", github: "[GITHUB TBA]" } },
-      { id: 38, name: "[NAME 38]", role: "[ESPORTS LIVE COMMENTATOR]", photo: "assets/images/team/member-38.jpg", social: { linkedin: "[LINKEDIN TBA]", instagram: "[INSTAGRAM TBA]", github: "[GITHUB TBA]" } },
-      { id: 39, name: "[NAME 39]", role: "[FAIR PLAY & ANTI-CHEAT JURY]", photo: "assets/images/team/member-39.jpg", social: { linkedin: "[LINKEDIN TBA]", instagram: "[INSTAGRAM TBA]", github: "[GITHUB TBA]" } },
-      { id: 40, name: "[NAME 40]", role: "[BRACKET & SCORING MANAGER]", photo: "assets/images/team/member-40.jpg", social: { linkedin: "[LINKEDIN TBA]", instagram: "[INSTAGRAM TBA]", github: "[GITHUB TBA]" } }
+      { id: 1, name: "NIKUNJ MORE", photo: "assets/images/team/member-01.jpg", social: { linkedin: "[LINKEDIN TBA]", instagram: "[INSTAGRAM TBA]", github: "[GITHUB TBA]" } },
+      { id: 2, name: "RIYA PATKAR", photo: "assets/images/team/member-02.jpg", social: { linkedin: "[LINKEDIN TBA]", instagram: "[INSTAGRAM TBA]", github: "[GITHUB TBA]" } },
+      { id: 3, name: "AARYAN SINGH", photo: "assets/images/team/member-03.jpg", social: { linkedin: "[LINKEDIN TBA]", instagram: "[INSTAGRAM TBA]", github: "[GITHUB TBA]" } },
+      { id: 4, name: "DHRUV PATHARE", photo: "assets/images/team/member-04.jpg", social: { linkedin: "[LINKEDIN TBA]", instagram: "[INSTAGRAM TBA]", github: "[GITHUB TBA]" } },
+      { id: 5, name: "ATHARVA JADHAV", photo: "assets/images/team/member-05.jpg", social: { linkedin: "[LINKEDIN TBA]", instagram: "[INSTAGRAM TBA]", github: "[GITHUB TBA]" } },
+      { id: 6, name: "VAIBHAV PALAV", photo: "assets/images/team/member-06.jpg", social: { linkedin: "[LINKEDIN TBA]", instagram: "[INSTAGRAM TBA]", github: "[GITHUB TBA]" } },
+      { id: 7, name: "YASH SARODE", photo: "assets/images/team/member-07.jpg", social: { linkedin: "[LINKEDIN TBA]", instagram: "[INSTAGRAM TBA]", github: "[GITHUB TBA]" } },
+      { id: 8, name: "SHANTANU JADHAV", photo: "assets/images/team/member-08.jpg", social: { linkedin: "[LINKEDIN TBA]", instagram: "[INSTAGRAM TBA]", github: "[GITHUB TBA]" } },
+      { id: 9, name: "OMKAR JADHAV", photo: "assets/images/team/member-09.jpg", social: { linkedin: "[LINKEDIN TBA]", instagram: "[INSTAGRAM TBA]", github: "[GITHUB TBA]" } },
+      { id: 10, name: "ATHARVA PATIL", photo: "assets/images/team/member-10.jpg", social: { linkedin: "[LINKEDIN TBA]", instagram: "[INSTAGRAM TBA]", github: "[GITHUB TBA]" } },
+      { id: 11, name: "ALWIN MUNTODE", photo: "assets/images/team/member-11.jpg", social: { linkedin: "[LINKEDIN TBA]", instagram: "[INSTAGRAM TBA]", github: "[GITHUB TBA]" } },
+      { id: 12, name: "PANKAJ MALIK", photo: "assets/images/team/member-12.jpg", social: { linkedin: "[LINKEDIN TBA]", instagram: "[INSTAGRAM TBA]", github: "[GITHUB TBA]" } },
+      { id: 13, name: "SACHANA SINGH", photo: "assets/images/team/member-13.jpg", social: { linkedin: "[LINKEDIN TBA]", instagram: "[INSTAGRAM TBA]", github: "[GITHUB TBA]" } },
+      { id: 14, name: "SAMBODHI PAGARE", photo: "assets/images/team/member-14.jpg", social: { linkedin: "[LINKEDIN TBA]", instagram: "[INSTAGRAM TBA]", github: "[GITHUB TBA]" } },
+      { id: 15, name: "DIVYA GAWADE", photo: "assets/images/team/member-15.jpg", social: { linkedin: "[LINKEDIN TBA]", instagram: "[INSTAGRAM TBA]", github: "[GITHUB TBA]" } },
+      { id: 16, name: "SHREENIDHI BANGERA", photo: "assets/images/team/member-16.jpg", social: { linkedin: "[LINKEDIN TBA]", instagram: "[INSTAGRAM TBA]", github: "[GITHUB TBA]" } },
+      { id: 17, name: "SAMRUDDHI JADHAV", photo: "assets/images/team/member-17.jpg", social: { linkedin: "[LINKEDIN TBA]", instagram: "[INSTAGRAM TBA]", github: "[GITHUB TBA]" } },
+      { id: 18, name: "SHEETAL KUMAWAT", photo: "assets/images/team/member-18.jpg", social: { linkedin: "[LINKEDIN TBA]", instagram: "[INSTAGRAM TBA]", github: "[GITHUB TBA]" } },
+      { id: 19, name: "MAYENG RANE", photo: "assets/images/team/member-19.jpg", social: { linkedin: "[LINKEDIN TBA]", instagram: "[INSTAGRAM TBA]", github: "[GITHUB TBA]" } },
+      { id: 20, name: "HARINARAYAN MISHRA", photo: "assets/images/team/member-20.jpg", social: { linkedin: "[LINKEDIN TBA]", instagram: "[INSTAGRAM TBA]", github: "[GITHUB TBA]" } },
+      { id: 21, name: "ADITYA SHARMA", photo: "assets/images/team/member-21.jpg", social: { linkedin: "[LINKEDIN TBA]", instagram: "[INSTAGRAM TBA]", github: "[GITHUB TBA]" } },
+      { id: 22, name: "TARUN KUNCHPAL", photo: "assets/images/team/member-22.jpg", social: { linkedin: "[LINKEDIN TBA]", instagram: "[INSTAGRAM TBA]", github: "[GITHUB TBA]" } },
+      { id: 23, name: "AYUSH KANADE", photo: "assets/images/team/member-23.jpg", social: { linkedin: "[LINKEDIN TBA]", instagram: "[INSTAGRAM TBA]", github: "[GITHUB TBA]" } },
+      { id: 24, name: "PRITAM VISHWAKARAMA", photo: "assets/images/team/member-24.jpg", social: { linkedin: "[LINKEDIN TBA]", instagram: "[INSTAGRAM TBA]", github: "[GITHUB TBA]" } }
     ];
     window.SITE_DATA = SITE_DATA;
     window.TEAM_DATA = TEAM_DATA;
@@ -586,7 +1212,7 @@ a:focus-visible, button:focus-visible, input:focus-visible { outline: 2px solid 
 
   <!-- Shared Utilities -->
   <script>
-    (function(window) {
+    (function (window) {
       function isPlaceholder(val) {
         if (val === null || val === undefined) return true;
         if (typeof val !== 'string') return false;
@@ -597,7 +1223,7 @@ a:focus-visible, button:focus-visible, input:focus-visible { outline: 2px solid 
 
       function createFallbackSvg(type, label = 'ALODANAX') {
         const safeLabel = (label || 'AX').replace(/[<>&"]/g, '');
-        let w = 400, h = 400; 
+        let w = 400, h = 400;
         let iconSvg = `
           <circle cx="200" cy="150" r="45" fill="transparent" stroke="rgba(255,255,255,0.1)" stroke-width="2"/>
           <path d="M130 260 C130 210, 270 210, 270 260 Z" fill="transparent" stroke="rgba(255,255,255,0.1)" stroke-width="2"/>
@@ -616,7 +1242,7 @@ a:focus-visible, button:focus-visible, input:focus-visible { outline: 2px solid 
 
       function handleImageError(img, type = 'team', label = '') {
         if (!img) return;
-        img.onerror = null; 
+        img.onerror = null;
         img.src = createFallbackSvg(type, label || img.alt || 'ALODANAX');
         img.classList.add('is-fallback-image');
       }
@@ -627,42 +1253,42 @@ a:focus-visible, button:focus-visible, input:focus-visible { outline: 2px solid 
 
   <!-- WebGL SpecularButton Engine -->
   <script>
-    (function(window) {
+    (function (window) {
       const TAU = Math.PI * 2;
       const VERTEX = `#version 300 es\nin vec2 aPosition;\nvoid main() { gl_Position = vec4(aPosition, 0.0, 1.0); }`;
       const FRAGMENT = `#version 300 es\nprecision highp float;\nuniform vec2 uCenter; uniform vec2 uHalf; uniform float uRadius; uniform float uPx; uniform float uSpot; uniform vec2 uEntry; uniform vec3 uLineColor; uniform vec3 uBaseColor; uniform float uIntensity; uniform vec2 uWindow; uniform float uThickness; uniform float uGlow;\nout vec4 outColor;\nfloat roundedBox(vec2 p, vec2 b, float r) {\n vec2 q = abs(p) - b + r;\n return length(max(q, 0.0)) + min(max(q.x, q.y), 0.0) - r;\n}\nfloat loopPosition(vec2 p, vec2 b, float r) {\n vec2 inner = b - r; float arc = 1.5707963 * r; float quarter = inner.x + inner.y + arc; vec2 a = abs(p); vec2 q = a - inner;\n float s = q.x > 0.0 && q.y > 0.0 ? inner.y + atan(q.y, q.x) * r : (q.x > q.y ? min(a.y, inner.y) : inner.y + arc + inner.x - min(a.x, inner.x));\n if (p.x < 0.0) s = p.y >= 0.0 ? 2.0 * quarter - s : 2.0 * quarter + s;\n else if (p.y < 0.0) s = 4.0 * quarter - s;\n return s / max(4.0 * quarter, 0.0001);\n}\nfloat lobe(float position, float center) {\n float gap = abs(fract(position - center + 0.5) - 0.5);\n return 1.0 - smoothstep(uWindow.x, uWindow.x + uWindow.y, gap);\n}\nvoid main() {\n vec2 p = gl_FragCoord.xy - uCenter; float d = roundedBox(p, uHalf, uRadius); float position = loopPosition(p, uHalf, uRadius); float key = lobe(position, uSpot); float back = lobe(position, uSpot + 0.5); float streak = key + back * 0.45; float width = max(uThickness * uPx * mix(1.0, max(key, back), 0.6), 0.35); float band = smoothstep(-width - 0.6, -width + 0.6, d) * (1.0 - smoothstep(-0.6, 0.6, d)); float hair = smoothstep(-uPx - 0.6, -uPx + 0.6, d) * (1.0 - smoothstep(-0.6, 0.6, d)); float inside = 1.0 - smoothstep(-0.6, 0.6, d); vec2 pool = (p - uEntry) / (uHalf.y * vec2(1.6, 1.1)); float glow = streak * 0.2 * exp(-abs(d + width * 0.5) / (5.0 * uPx)) + inside * 0.08 * exp(-dot(pool, pool)); float light = clamp((band * streak + glow * uGlow) * uIntensity, 0.0, 1.0); vec4 base = vec4(uBaseColor, 1.0) * hair * 0.6;\n outColor = vec4(uLineColor, 1.0) * light + base * (1.0 - light);\n}`;
-      const UNIFORMS = ['uCenter','uHalf','uRadius','uPx','uSpot','uEntry','uLineColor','uBaseColor','uIntensity','uWindow','uThickness','uGlow'];
+      const UNIFORMS = ['uCenter', 'uHalf', 'uRadius', 'uPx', 'uSpot', 'uEntry', 'uLineColor', 'uBaseColor', 'uIntensity', 'uWindow', 'uThickness', 'uGlow'];
       const clamp = (v, min, max) => Math.min(max, Math.max(min, v));
       const wrap = v => v - Math.floor(v);
       const loopPos = (x, y, hx, hy, r) => {
-        const ix = hx-r, iy = hy-r, arc = (Math.PI/2)*r, q = ix+iy+arc;
-        const ax = Math.abs(x), ay = Math.abs(y), qx = ax-ix, qy = ay-iy;
+        const ix = hx - r, iy = hy - r, arc = (Math.PI / 2) * r, q = ix + iy + arc;
+        const ax = Math.abs(x), ay = Math.abs(y), qx = ax - ix, qy = ay - iy;
         let s;
-        if(qx>0 && qy>0) s = iy + Math.atan2(qy,qx)*r; else if(qx>qy) s = Math.min(ay,iy); else s = iy+arc+ix-Math.min(ax,ix);
-        if(x<0) s = y>=0 ? 2*q-s : 2*q+s; else if(y<0) s = 4*q-s;
-        return wrap(s/Math.max(4*q,0.0001));
+        if (qx > 0 && qy > 0) s = iy + Math.atan2(qy, qx) * r; else if (qx > qy) s = Math.min(ay, iy); else s = iy + arc + ix - Math.min(ax, ix);
+        if (x < 0) s = y >= 0 ? 2 * q - s : 2 * q + s; else if (y < 0) s = 4 * q - s;
+        return wrap(s / Math.max(4 * q, 0.0001));
       };
       const rimPoint = (pos, hx, hy, r) => {
-        const ix = hx-r, iy = hy-r, arc = (Math.PI/2)*r, q = ix+iy+arc;
-        let s = wrap(pos)*4*q, sx = 1, sy = 1;
-        if(s>3*q){ s=4*q-s; sy=-1; } else if(s>2*q){ s-=2*q; sx=-1; sy=-1; } else if(s>q){ s=2*q-s; sx=-1; }
-        let x = ix-(s-iy-arc), y = hy;
-        if(s<=iy){ x=hx; y=s; } else if(s<=iy+arc){ const a = (s-iy)/Math.max(r,0.0001); x=ix+Math.cos(a)*r; y=iy+Math.sin(a)*r; }
-        return [x*sx, y*sy];
+        const ix = hx - r, iy = hy - r, arc = (Math.PI / 2) * r, q = ix + iy + arc;
+        let s = wrap(pos) * 4 * q, sx = 1, sy = 1;
+        if (s > 3 * q) { s = 4 * q - s; sy = -1; } else if (s > 2 * q) { s -= 2 * q; sx = -1; sy = -1; } else if (s > q) { s = 2 * q - s; sx = -1; }
+        let x = ix - (s - iy - arc), y = hy;
+        if (s <= iy) { x = hx; y = s; } else if (s <= iy + arc) { const a = (s - iy) / Math.max(r, 0.0001); x = ix + Math.cos(a) * r; y = iy + Math.sin(a) * r; }
+        return [x * sx, y * sy];
       };
-      const compile = (gl, type, src) => { const s=gl.createShader(type); gl.shaderSource(s,src); gl.compileShader(s); return gl.getShaderParameter(s,gl.COMPILE_STATUS)?s:null; };
-      
+      const compile = (gl, type, src) => { const s = gl.createShader(type); gl.shaderSource(s, src); gl.compileShader(s); return gl.getShaderParameter(s, gl.COMPILE_STATUS) ? s : null; };
+
       class SpecularButton {
         constructor(btn) {
-          if(!btn) return;
+          if (!btn) return;
           this.btn = btn;
           this.canvas = btn.querySelector('canvas');
-          if(!this.canvas) return;
+          if (!this.canvas) return;
           try {
-            this.gl = this.canvas.getContext('webgl2', {alpha:true, premultipliedAlpha:true, antialias:false, depth:false, stencil:false});
-          } catch(e) { this.gl = null; }
-          if(!this.gl) return;
-          
+            this.gl = this.canvas.getContext('webgl2', { alpha: true, premultipliedAlpha: true, antialias: false, depth: false, stencil: false });
+          } catch (e) { this.gl = null; }
+          if (!this.gl) return;
+
           this.s = {
             radius: parseFloat(btn.dataset.radius) || 14,
             lineColor: btn.dataset.tint || '#0A84FF',
@@ -670,210 +1296,210 @@ a:focus-visible, button:focus-visible, input:focus-visible { outline: 2px solid 
             intensity: 1, idleIntensity: 0.35, shineSize: 10, shineFade: 34, thickness: 1.2, glow: 1, speed: 0.35, proximity: 250
           };
           this.colors = new Map();
-          this.view = {w:1, h:1, ratio:1}; this.pointer = {x:0, y:0, known:false};
-          this.state = {spot:0, level:0, press:0, ready:false};
+          this.view = { w: 1, h: 1, ratio: 1 }; this.pointer = { x: 0, y: 0, known: false };
+          this.state = { spot: 0, level: 0, press: 0, ready: false };
           this.raf = 0; this.last = 0; this.visible = true;
-          
+
           this.initGL();
           this.measure();
-          
-          const ro = new ResizeObserver(()=>this.measure()); ro.observe(btn);
-          const io = new IntersectionObserver(e=>{ this.visible=e[0].isIntersecting; if(this.visible){this.last=0; this.wake();} }); io.observe(btn);
-          
+
+          const ro = new ResizeObserver(() => this.measure()); ro.observe(btn);
+          const io = new IntersectionObserver(e => { this.visible = e[0].isIntersecting; if (this.visible) { this.last = 0; this.wake(); } }); io.observe(btn);
+
           this.handlers = {
-            move: e => { this.pointer.x=e.clientX; this.pointer.y=e.clientY; this.pointer.known=true; this.wake(); },
-            down: e => { this.pointer.x=e.clientX; this.pointer.y=e.clientY; this.pointer.known=true; this.state.press=1; this.wake(); },
-            up: e => { if(e.pointerType!=='mouse') this.pointer.known=false; this.wake(); },
-            leave: () => { this.pointer.known=false; this.wake(); }
+            move: e => { this.pointer.x = e.clientX; this.pointer.y = e.clientY; this.pointer.known = true; this.wake(); },
+            down: e => { this.pointer.x = e.clientX; this.pointer.y = e.clientY; this.pointer.known = true; this.state.press = 1; this.wake(); },
+            up: e => { if (e.pointerType !== 'mouse') this.pointer.known = false; this.wake(); },
+            leave: () => { this.pointer.known = false; this.wake(); }
           };
-          window.addEventListener('pointermove', this.handlers.move, {passive:true});
-          window.addEventListener('pointerup', this.handlers.up, {passive:true});
+          window.addEventListener('pointermove', this.handlers.move, { passive: true });
+          window.addEventListener('pointerup', this.handlers.up, { passive: true });
           document.documentElement.addEventListener('pointerleave', this.handlers.leave);
           btn.addEventListener('pointerdown', this.handlers.down);
         }
-        
+
         initGL() {
           const v = compile(this.gl, this.gl.VERTEX_SHADER, VERTEX), f = compile(this.gl, this.gl.FRAGMENT_SHADER, FRAGMENT);
-          if(!v || !f) return;
+          if (!v || !f) return;
           this.prog = this.gl.createProgram();
-          if(!this.prog) return;
+          if (!this.prog) return;
           this.gl.attachShader(this.prog, v); this.gl.attachShader(this.prog, f);
           this.gl.bindAttribLocation(this.prog, 0, 'aPosition'); this.gl.linkProgram(this.prog);
-          if(!this.gl.getProgramParameter(this.prog, this.gl.LINK_STATUS)) return;
+          if (!this.gl.getProgramParameter(this.prog, this.gl.LINK_STATUS)) return;
           this.locs = {}; UNIFORMS.forEach(n => this.locs[n] = this.gl.getUniformLocation(this.prog, n));
           const buf = this.gl.createBuffer(); this.vao = this.gl.createVertexArray();
           this.gl.bindVertexArray(this.vao); this.gl.bindBuffer(this.gl.ARRAY_BUFFER, buf);
-          this.gl.bufferData(this.gl.ARRAY_BUFFER, new Float32Array([-1,-1,3,-1,-1,3]), this.gl.STATIC_DRAW);
-          this.gl.enableVertexAttribArray(0); this.gl.vertexAttribPointer(0,2,this.gl.FLOAT,false,0,0);
+          this.gl.bufferData(this.gl.ARRAY_BUFFER, new Float32Array([-1, -1, 3, -1, -1, 3]), this.gl.STATIC_DRAW);
+          this.gl.enableVertexAttribArray(0); this.gl.vertexAttribPointer(0, 2, this.gl.FLOAT, false, 0, 0);
           this.gl.bindVertexArray(null);
-          this.ctx2d = document.createElement('canvas').getContext('2d', {willReadFrequently:true});
+          this.ctx2d = document.createElement('canvas').getContext('2d', { willReadFrequently: true });
         }
-        
+
         toRgb(v) {
-          if(this.colors.has(v)) return this.colors.get(v);
-          this.ctx2d.clearRect(0,0,1,1); this.ctx2d.fillStyle='#000'; this.ctx2d.fillStyle=v; this.ctx2d.fillRect(0,0,1,1);
-          const [r,g,b] = this.ctx2d.getImageData(0,0,1,1).data; const rgb = [r/255,g/255,b/255];
+          if (this.colors.has(v)) return this.colors.get(v);
+          this.ctx2d.clearRect(0, 0, 1, 1); this.ctx2d.fillStyle = '#000'; this.ctx2d.fillStyle = v; this.ctx2d.fillRect(0, 0, 1, 1);
+          const [r, g, b] = this.ctx2d.getImageData(0, 0, 1, 1).data; const rgb = [r / 255, g / 255, b / 255];
           this.colors.set(v, rgb); return rgb;
         }
-        
-        cRad() { return Math.min(this.s.radius, this.view.w/2, this.view.h/2); }
-        restSpot() { const r=this.cRad(), i=r*(1-Math.SQRT1_2); return loopPos(i-this.view.w/2, this.view.h/2-i, this.view.w/2, this.view.h/2, r); }
-        
+
+        cRad() { return Math.min(this.s.radius, this.view.w / 2, this.view.h / 2); }
+        restSpot() { const r = this.cRad(), i = r * (1 - Math.SQRT1_2); return loopPos(i - this.view.w / 2, this.view.h / 2 - i, this.view.w / 2, this.view.h / 2, r); }
+
         aim() {
-          if(!this.pointer.known) return null;
-          const rect = this.btn.getBoundingClientRect(), scale = rect.width/this.view.w||1;
-          const hx = this.view.w/2, hy = this.view.h/2;
-          const x = (this.pointer.x - rect.left - rect.width/2)/scale, y = (rect.top + rect.height/2 - this.pointer.y)/scale;
-          const dist = Math.hypot(Math.max(Math.abs(x)-hx,0), Math.max(Math.abs(y)-hy,0));
-          const t = clamp(1-dist/this.s.proximity,0,1), near = t*t*(3-2*t);
-          const nearest = loopPos(x,y,hx,hy,this.cRad());
-          if(dist>0) return {spot:nearest, near};
-          const depth = clamp(Math.min(hx-Math.abs(x),hy-Math.abs(y))/(hy*0.8),0,1);
-          const sway = this.restSpot() - (x/hx)*0.06 - (y/hy)*0.02, offset = sway-nearest-Math.round(sway-nearest);
-          return {spot: wrap(nearest+offset*depth*depth*(3-2*depth)), near};
+          if (!this.pointer.known) return null;
+          const rect = this.btn.getBoundingClientRect(), scale = rect.width / this.view.w || 1;
+          const hx = this.view.w / 2, hy = this.view.h / 2;
+          const x = (this.pointer.x - rect.left - rect.width / 2) / scale, y = (rect.top + rect.height / 2 - this.pointer.y) / scale;
+          const dist = Math.hypot(Math.max(Math.abs(x) - hx, 0), Math.max(Math.abs(y) - hy, 0));
+          const t = clamp(1 - dist / this.s.proximity, 0, 1), near = t * t * (3 - 2 * t);
+          const nearest = loopPos(x, y, hx, hy, this.cRad());
+          if (dist > 0) return { spot: nearest, near };
+          const depth = clamp(Math.min(hx - Math.abs(x), hy - Math.abs(y)) / (hy * 0.8), 0, 1);
+          const sway = this.restSpot() - (x / hx) * 0.06 - (y / hy) * 0.02, offset = sway - nearest - Math.round(sway - nearest);
+          return { spot: wrap(nearest + offset * depth * depth * (3 - 2 * depth)), near };
         }
-        
+
         draw() {
-          const PAD=24, w=this.view.w, h=this.view.h, sx=this.canvas.width/(w+PAD*2), sy=this.canvas.height/(h+PAD*2);
-          this.gl.viewport(0,0,this.canvas.width,this.canvas.height); this.gl.clearColor(0,0,0,0); this.gl.clear(this.gl.COLOR_BUFFER_BIT);
+          const PAD = 24, w = this.view.w, h = this.view.h, sx = this.canvas.width / (w + PAD * 2), sy = this.canvas.height / (h + PAD * 2);
+          this.gl.viewport(0, 0, this.canvas.width, this.canvas.height); this.gl.clearColor(0, 0, 0, 0); this.gl.clear(this.gl.COLOR_BUFFER_BIT);
           this.gl.useProgram(this.prog);
-          this.gl.uniform2f(this.locs.uCenter, (PAD+w/2)*sx, (PAD+h/2)*sy);
-          this.gl.uniform2f(this.locs.uHalf, (w/2)*sx, (h/2)*sy);
-          this.gl.uniform1f(this.locs.uRadius, this.cRad()*sx);
+          this.gl.uniform2f(this.locs.uCenter, (PAD + w / 2) * sx, (PAD + h / 2) * sy);
+          this.gl.uniform2f(this.locs.uHalf, (w / 2) * sx, (h / 2) * sy);
+          this.gl.uniform1f(this.locs.uRadius, this.cRad() * sx);
           this.gl.uniform1f(this.locs.uPx, this.view.ratio);
-          const [rx,ry] = rimPoint(this.state.spot, w/2, h/2, this.cRad());
-          const pull = 1-Math.min(0.35*(h/2), Math.hypot(rx,ry))/Math.max(Math.hypot(rx,ry),0.0001);
+          const [rx, ry] = rimPoint(this.state.spot, w / 2, h / 2, this.cRad());
+          const pull = 1 - Math.min(0.35 * (h / 2), Math.hypot(rx, ry)) / Math.max(Math.hypot(rx, ry), 0.0001);
           this.gl.uniform1f(this.locs.uSpot, this.state.spot);
-          this.gl.uniform2f(this.locs.uEntry, rx*pull*sx, ry*pull*sy);
+          this.gl.uniform2f(this.locs.uEntry, rx * pull * sx, ry * pull * sy);
           this.gl.uniform3fv(this.locs.uLineColor, this.toRgb(this.s.lineColor));
           this.gl.uniform3fv(this.locs.uBaseColor, this.toRgb(this.s.baseColor));
-          this.gl.uniform1f(this.locs.uIntensity, this.s.intensity*(this.state.level+this.state.press*0.8));
-          this.gl.uniform2f(this.locs.uWindow, this.s.shineSize/360+this.state.press*0.06, this.s.shineFade/360+0.0001);
+          this.gl.uniform1f(this.locs.uIntensity, this.s.intensity * (this.state.level + this.state.press * 0.8));
+          this.gl.uniform2f(this.locs.uWindow, this.s.shineSize / 360 + this.state.press * 0.06, this.s.shineFade / 360 + 0.0001);
           this.gl.uniform1f(this.locs.uThickness, this.s.thickness);
           this.gl.uniform1f(this.locs.uGlow, this.s.glow);
           this.gl.bindVertexArray(this.vao); this.gl.drawArrays(this.gl.TRIANGLES, 0, 3);
         }
-        
+
         frame(now) {
-          this.raf = 0; if(!this.visible) return;
-          const dt = this.last ? Math.min(0.05, (now-this.last)/1000) : 1/60; this.last = now;
-          const target = this.aim(), steer = !!target && target.near>0;
-          if(!this.state.ready){ this.state.spot=this.restSpot(); this.state.level=this.s.idleIntensity; this.state.ready=true; }
-          let diff=0;
-          diff = (steer?target.spot:this.restSpot()) - this.state.spot; diff -= Math.round(diff);
-          this.state.spot = wrap(this.state.spot + diff*(1-Math.exp(-dt*8)));
-          const lvl = this.s.idleIntensity + (1-this.s.idleIntensity)*(target?target.near:0);
-          this.state.level += (lvl - this.state.level)*(1-Math.exp(-dt*7));
-          this.state.press *= Math.exp(-dt*5);
+          this.raf = 0; if (!this.visible) return;
+          const dt = this.last ? Math.min(0.05, (now - this.last) / 1000) : 1 / 60; this.last = now;
+          const target = this.aim(), steer = !!target && target.near > 0;
+          if (!this.state.ready) { this.state.spot = this.restSpot(); this.state.level = this.s.idleIntensity; this.state.ready = true; }
+          let diff = 0;
+          diff = (steer ? target.spot : this.restSpot()) - this.state.spot; diff -= Math.round(diff);
+          this.state.spot = wrap(this.state.spot + diff * (1 - Math.exp(-dt * 8)));
+          const lvl = this.s.idleIntensity + (1 - this.s.idleIntensity) * (target ? target.near : 0);
+          this.state.level += (lvl - this.state.level) * (1 - Math.exp(-dt * 7));
+          this.state.press *= Math.exp(-dt * 5);
           this.draw();
-          if(Math.abs(diff)>0.0002 || Math.abs(lvl-this.state.level)>0.001 || this.state.press>0.002) this.raf=requestAnimationFrame(n=>this.frame(n)); else this.last=0;
+          if (Math.abs(diff) > 0.0002 || Math.abs(lvl - this.state.level) > 0.001 || this.state.press > 0.002) this.raf = requestAnimationFrame(n => this.frame(n)); else this.last = 0;
         }
-        
-        wake() { if(!this.raf && this.visible) this.raf = requestAnimationFrame(n=>this.frame(n)); }
+
+        wake() { if (!this.raf && this.visible) this.raf = requestAnimationFrame(n => this.frame(n)); }
         measure() {
           this.view.w = Math.max(1, this.btn.offsetWidth); this.view.h = Math.max(1, this.btn.offsetHeight);
-          this.view.ratio = Math.min(window.devicePixelRatio||1, 3);
-          this.canvas.width = Math.max(1, Math.round((this.view.w+48)*this.view.ratio));
-          this.canvas.height = Math.max(1, Math.round((this.view.h+48)*this.view.ratio));
-          if(this.state.ready) this.draw();
+          this.view.ratio = Math.min(window.devicePixelRatio || 1, 3);
+          this.canvas.width = Math.max(1, Math.round((this.view.w + 48) * this.view.ratio));
+          this.canvas.height = Math.max(1, Math.round((this.view.h + 48) * this.view.ratio));
+          if (this.state.ready) this.draw();
           this.wake();
         }
       }
       window.SpecularButton = SpecularButton;
     })(window);
 
-    function initButtons() { document.querySelectorAll('.specular-btn').forEach(b => { if(!b.dataset.init){ new window.SpecularButton(b); b.dataset.init="1";} }); }
+    function initButtons() { document.querySelectorAll('.specular-btn').forEach(b => { if (!b.dataset.init) { new window.SpecularButton(b); b.dataset.init = "1"; } }); }
     document.addEventListener("DOMContentLoaded", initButtons);
   </script>
 
   <!-- CardNav Logic (Spring Physics) -->
   <script>
-    (function(window){
+    (function (window) {
       const header = document.getElementById('site-header');
       const root = document.getElementById('card-nav');
-      if(!root || !header) return;
-      
+      if (!root || !header) return;
+
       const panel = root.querySelector('.cn-panel');
       const content = root.querySelector('.cn-content');
       const btn = root.querySelector('.cn-menu-btn');
-      
+
       let isOpen = false, raf = 0, last = 0;
       let state = { p: 0, v: 0, height: 0, bar: 68 };
-      
+
       const render = () => {
-        panel.style.height = `${state.bar + Math.max(0, state.p)*state.height}px`;
+        panel.style.height = `${state.bar + Math.max(0, state.p) * state.height}px`;
         const cards = Array.from(content.querySelectorAll('.cn-card'));
-        const lag = cards.length > 1 ? Math.min(0.12, 0.7/(cards.length-1)) : 0;
-        const span = 1 - lag*(cards.length-1);
-        
+        const lag = cards.length > 1 ? Math.min(0.12, 0.7 / (cards.length - 1)) : 0;
+        const span = 1 - lag * (cards.length - 1);
+
         cards.forEach((card, i) => {
-          let local = Math.max(0, Math.min(1, (state.p - i*lag)/Math.max(span,0.05)));
+          let local = Math.max(0, Math.min(1, (state.p - i * lag) / Math.max(span, 0.05)));
           let e = 1 - Math.pow(1 - local, 3);
-          card.style.transform = `translateY(${(1-e)*26}px) scale(${0.97 + 0.03*e})`;
+          card.style.transform = `translateY(${(1 - e) * 26}px) scale(${0.97 + 0.03 * e})`;
           card.style.opacity = e;
         });
       };
-      
+
       const tick = now => {
-        raf = 0; 
-        const dt = last ? Math.min(0.05, (now-last)/1000) : 1/60; 
+        raf = 0;
+        const dt = last ? Math.min(0.05, (now - last) / 1000) : 1 / 60;
         last = now;
         const target = isOpen ? 1 : 0;
-        const k = 160, zeta = isOpen ? 1 - 0.68*0.2 : 1;
-        const steps = Math.ceil(dt/(1/240)), h = dt/steps;
-        
-        for(let i=0; i<steps; i++){
-          state.v += (-k*(state.p - target) - 2*zeta*Math.sqrt(k)*state.v)*h;
-          state.p += state.v*h;
+        const k = 160, zeta = isOpen ? 1 - 0.68 * 0.2 : 1;
+        const steps = Math.ceil(dt / (1 / 240)), h = dt / steps;
+
+        for (let i = 0; i < steps; i++) {
+          state.v += (-k * (state.p - target) - 2 * zeta * Math.sqrt(k) * state.v) * h;
+          state.p += state.v * h;
         }
-        
-        const done = Math.abs(state.p-target)<0.0005 && Math.abs(state.v)<0.002;
-        if(done){ state.p = target; state.v = 0; }
-        
+
+        const done = Math.abs(state.p - target) < 0.0005 && Math.abs(state.v) < 0.002;
+        if (done) { state.p = target; state.v = 0; }
+
         render();
-        
-        if(done && target===0) root.removeAttribute('data-shown');
-        if(!done) raf = requestAnimationFrame(tick);
+
+        if (done && target === 0) root.removeAttribute('data-shown');
+        if (!done) raf = requestAnimationFrame(tick);
       };
-      
+
       const setOpen = val => {
-        if(isOpen === val) return;
+        if (isOpen === val) return;
         isOpen = val;
-        if(isOpen){ 
-          root.setAttribute('data-open', ''); 
+        if (isOpen) {
+          root.setAttribute('data-open', '');
           root.setAttribute('data-shown', '');
-          content.style.visibility = 'hidden'; 
+          content.style.visibility = 'hidden';
           content.style.display = 'flex';
           state.height = content.offsetHeight;
-          content.style.visibility = ''; 
+          content.style.visibility = '';
           content.style.display = '';
         } else {
-          root.removeAttribute('data-open'); 
+          root.removeAttribute('data-open');
         }
         btn.setAttribute('aria-expanded', isOpen);
-        if(!raf){ last = 0; raf = requestAnimationFrame(tick); }
+        if (!raf) { last = 0; raf = requestAnimationFrame(tick); }
       };
-      
-      if(btn){ btn.addEventListener('click', () => setOpen(!isOpen)); }
+
+      if (btn) { btn.addEventListener('click', () => setOpen(!isOpen)); }
       document.addEventListener('keydown', (e) => {
-        if(e.key === 'Escape' && isOpen) setOpen(false);
+        if (e.key === 'Escape' && isOpen) setOpen(false);
       });
       document.addEventListener('click', (e) => {
-        if(isOpen && !root.contains(e.target)) setOpen(false);
+        if (isOpen && !root.contains(e.target)) setOpen(false);
       });
       root.querySelectorAll('.cn-card-links a').forEach(a => {
         a.addEventListener('click', () => setOpen(false));
       });
-      window.addEventListener('scroll', () => { header.classList.toggle('is-scrolled', window.scrollY > 40); }, {passive:true});
+      window.addEventListener('scroll', () => { header.classList.toggle('is-scrolled', window.scrollY > 40); }, { passive: true });
     })(window);
   </script>
 
   <!-- Team Directory Application Script -->
   <script>
-    (function(window) {
+    (function (window) {
       const API_BASE = 'http://localhost:5000'; // Set to '' for same-origin production deployment
       let searchQuery = '';
-      
+
       const searchInput = document.getElementById('team-search-input');
       const searchClearBtn = document.getElementById('team-search-clear');
       const cardsGrid = document.getElementById('team-cards-grid');
@@ -918,24 +1544,24 @@ a:focus-visible, button:focus-visible, input:focus-visible { outline: 2px solid 
 
         // Listeners
         if (searchInput) {
-          searchInput.addEventListener('input', e => { 
-            searchQuery = e.target.value.toLowerCase().trim(); 
-            searchClearBtn.style.display = searchQuery ? 'block' : 'none'; 
-            renderCards(); 
+          searchInput.addEventListener('input', e => {
+            searchQuery = e.target.value.toLowerCase().trim();
+            searchClearBtn.style.display = searchQuery ? 'block' : 'none';
+            renderCards();
           });
         }
         if (searchClearBtn) {
-          searchClearBtn.addEventListener('click', () => { 
-            searchInput.value = ''; searchQuery = ''; 
-            searchClearBtn.style.display = 'none'; 
-            renderCards(); 
+          searchClearBtn.addEventListener('click', () => {
+            searchInput.value = ''; searchQuery = '';
+            searchClearBtn.style.display = 'none';
+            renderCards();
           });
         }
         if (resetBtn) {
-          resetBtn.addEventListener('click', () => { 
-            searchInput.value = ''; searchQuery = ''; 
+          resetBtn.addEventListener('click', () => {
+            searchInput.value = ''; searchQuery = '';
             if (searchClearBtn) searchClearBtn.style.display = 'none';
-            renderCards(); 
+            renderCards();
           });
         }
       }
@@ -946,8 +1572,8 @@ a:focus-visible, button:focus-visible, input:focus-visible { outline: 2px solid 
 
         const filtered = members.filter(m => {
           if (!searchQuery) return true;
-          return (m.name && m.name.toLowerCase().includes(searchQuery)) || 
-                 (m.role && m.role.toLowerCase().includes(searchQuery));
+          return (m.name && m.name.toLowerCase().includes(searchQuery)) ||
+            (m.role && m.role.toLowerCase().includes(searchQuery));
         });
 
         cardsGrid.innerHTML = '';
@@ -1001,7 +1627,7 @@ a:focus-visible, button:focus-visible, input:focus-visible { outline: 2px solid 
           // Securely attach image error handler via addEventListener (no inline onerror attribute)
           const imgEl = card.querySelector('.team-photo-img');
           if (imgEl) {
-            imgEl.addEventListener('error', function() {
+            imgEl.addEventListener('error', function () {
               if (window.ALODANAX_UTILS && typeof window.ALODANAX_UTILS.handleImageError === 'function') {
                 window.ALODANAX_UTILS.handleImageError(imgEl, 'team', m.name);
               }
@@ -1055,4 +1681,5 @@ a:focus-visible, button:focus-visible, input:focus-visible { outline: 2px solid 
   </script>
 
 </body>
+
 </html>

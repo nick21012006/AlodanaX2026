@@ -1,10 +1,11 @@
 import fs from 'node:fs';
 
-const pages = ['index.html', 'events.html', 'faculty.html', 'hackathon.html', 'team.html', 'contact.html'];
+const pages = ['index.html', 'events.html', 'hackathon.html', 'team.html', 'contact.html'];
 
 console.log('=== AUDITING TYPOGRAPHY & READABILITY ISSUES ===\n');
 
 pages.forEach(p => {
+  if (!fs.existsSync(p)) return;
   const html = fs.readFileSync(p, 'utf-8');
   const styleMatch = html.match(/<style>([\s\S]*?)<\/style>/);
   if (!styleMatch) return;
