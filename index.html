@@ -2079,7 +2079,7 @@
   <!-- Pinned Scroll-Scrubbed Hero Section (500vh) -->
   <section id="hero" aria-label="ALODANAX Title Showcase">
     <div class="hero-media-wrapper">
-      <video id="hero-video" class="hero-video" muted playsinline preload="auto" aria-hidden="true"
+      <video id="hero-video" class="hero-video" muted playsinline webkit-playsinline preload="auto" aria-hidden="true"
         poster="assets/hero-poster.jpg"></video>
       <canvas id="hero-canvas" class="hero-video" style="display: none;"></canvas>
     </div>
@@ -3013,11 +3013,17 @@
       }
 
       let pendingSeekTime = null;
+      let seekSafetyTimer = null;
+      let smoothedTime = 0;
 
       function renderVideoScrub(t) {
         if (!video || !isVideoReady) return;
         const target = Math.max(0, Math.min(videoDuration - 0.02, t));
-        if (Math.abs(target - video.currentTime) < 0.025) return;
+        if (Math.abs(target - video.currentTime) < 0.02) return;
+
+        if (!video.seeking) {
+          isSeeking = false;
+        }
 
         if (video.seeking || isSeeking) {
           pendingSeekTime = target;
@@ -3025,8 +3031,22 @@
         }
 
         isSeeking = true;
+        clearTimeout(seekSafetyTimer);
+        seekSafetyTimer = setTimeout(() => {
+          isSeeking = false;
+          if (pendingSeekTime !== null) {
+            const next = pendingSeekTime;
+            pendingSeekTime = null;
+            renderVideoScrub(next);
+          }
+        }, 140);
+
         try {
-          video.currentTime = target;
+          if (typeof video.fastSeek === 'function') {
+            video.fastSeek(target);
+          } else {
+            video.currentTime = target;
+          }
         } catch (err) {
           isSeeking = false;
         }
@@ -3035,19 +3055,51 @@
       function setupVideoSource() {
         video = document.getElementById('hero-video');
         if (!video) return;
+
+        video.muted = true;
+        video.playsInline = true;
+        video.setAttribute('muted', '');
+        video.setAttribute('playsinline', '');
+        video.setAttribute('webkit-playsinline', '');
+
         video.src = window.innerWidth < 768 ? 'assets/introvideo_m.mp4' : 'assets/introvideo.mp4';
         video.load();
+
         video.addEventListener('seeking', () => { isSeeking = true; });
         video.addEventListener('seeked', () => {
           isSeeking = false;
+          clearTimeout(seekSafetyTimer);
           if (pendingSeekTime !== null) {
             const next = pendingSeekTime;
             pendingSeekTime = null;
             renderVideoScrub(next);
           }
         });
-        video.addEventListener('loadedmetadata', () => { videoDuration = video.duration || 9.96; try { video.currentTime = 0; } catch (e) { } });
-        video.addEventListener('canplaythrough', () => { if (!isVideoReady) { isVideoReady = true; document.getElementById('loader').classList.add('is-hidden'); } });
+
+        function markVideoReady() {
+          if (isVideoReady) return;
+          isVideoReady = true;
+          videoDuration = video.duration || 9.96;
+          const loader = document.getElementById('loader');
+          if (loader) loader.classList.add('is-hidden');
+        }
+
+        video.addEventListener('loadedmetadata', () => {
+          videoDuration = video.duration || 9.96;
+          try {
+            const playPromise = video.play();
+            if (playPromise !== undefined) {
+              playPromise.then(() => {
+                video.pause();
+                video.currentTime = 0;
+              }).catch(() => { });
+            }
+          } catch (e) { }
+        });
+
+        video.addEventListener('loadeddata', markVideoReady);
+        video.addEventListener('canplay', markVideoReady);
+        video.addEventListener('canplaythrough', markVideoReady);
         video.addEventListener('error', enableFallbackMode);
       }
 
@@ -3073,11 +3125,15 @@
         const headerEl = document.getElementById('site-header');
 
         scrollTriggerInstance = ScrollTrigger.create({
-          trigger: '#hero', start: 'top top', end: `+=${PIN_LENGTH_VH}vh`, pin: true, scrub: true, anticipatePin: 1,
+          trigger: '#hero',
+          start: 'top top',
+          end: () => `+=${Math.round(window.innerHeight * (PIN_LENGTH_VH / 100))}`,
+          pin: true,
+          scrub: true,
+          anticipatePin: 1,
           onUpdate: (self) => {
             const p = self.progress;
             targetTime = p * videoDuration;
-            renderVideoScrub(targetTime);
 
             if (fillEl) fillEl.style.transform = `scaleY(${p})`;
 
@@ -3110,6 +3166,16 @@
               if (p >= CHOREO.NAVBAR.trigger) headerEl.classList.add('is-visible');
               else headerEl.classList.remove('is-visible');
             }
+          }
+        });
+
+        // Continuous LERP smoothing loop for fluid 60fps video scrub on wheel & touch
+        gsap.ticker.add(() => {
+          if (!video || !isVideoReady) return;
+          const delta = targetTime - smoothedTime;
+          if (Math.abs(delta) > 0.003) {
+            smoothedTime += delta * 0.22;
+            renderVideoScrub(smoothedTime);
           }
         });
       }
@@ -3165,7 +3231,16 @@
         if (isReducedMotion) { enableFallbackMode(); } else { initLenis(); setupVideoSource(); initSmoothScrub(); }
         initScrollReveals();
         setTimeout(initButtons, 100);
-        setTimeout(() => { if (!isVideoReady) { isVideoReady = true; document.getElementById('loader').classList.add('is-hidden'); } }, 6000);
+        setTimeout(() => {
+          if (!isVideoReady) {
+            if (video && video.readyState >= 1) {
+              isVideoReady = true;
+              videoDuration = video.duration || 9.96;
+            }
+            const loader = document.getElementById('loader');
+            if (loader) loader.classList.add('is-hidden');
+          }
+        }, 1800);
       });
     })(window);
 
