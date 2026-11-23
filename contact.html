@@ -1849,7 +1849,8 @@
         embedUrl: "https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d15069.435153812969!2d73.108037!3d19.223189!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x36d96397bde202c!2sModel+College!5e0!3m2!1sen!2sin!4v1519819516943",
         link: "https://maps.google.com/?q=Model+College,+Khambalpada,+Thakurli+East,+Dombivli,+Maharashtra+421201"
       },
-      inquiryEndpoint: "[ENDPOINT TBA]"
+      inquiryRecipientEmail: "nikunj.s.more@gmail.com",
+      inquiryEndpoint: ""
     };
 
     // Grouped coordinators by event
@@ -1925,7 +1926,13 @@
         if (type === 'url') return clean.startsWith('http') ? clean : `https://${clean}`;
         return clean;
       }
-      window.ALODANAX_UTILS = { isPlaceholder, formatSafeLink };
+      function escapeHtml(str) {
+        if (!str) return '';
+        return String(str).replace(/[&<>"']/g, m => ({
+          '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
+        })[m]);
+      }
+      window.ALODANAX_UTILS = { isPlaceholder, formatSafeLink, escapeHtml };
     })(window);
   </script>
 
@@ -2178,6 +2185,7 @@
         if (!window.SITE_DATA) return;
         const site = window.SITE_DATA;
         const utils = window.ALODANAX_UTILS || {};
+        const escapeHtml = utils.escapeHtml || (s => s);
 
         // 1. Hydrate Contacts
         document.getElementById('college-full-title').textContent = site.college.fullTitle;
@@ -2418,34 +2426,83 @@
 
           if (!isValid) return;
 
-          const targetEmail = site.contacts && site.contacts.email ? site.contacts.email.trim() : '';
-          const isEmailPlaceholder = utils.isPlaceholder(targetEmail);
-          const succHeading = document.getElementById('inquiry-success-heading') || succ.querySelector('.success-heading');
-          const succMsg = document.getElementById('inquiry-success-msg');
-
-          if (!isEmailPlaceholder && targetEmail) {
-            const subjectVal = (document.getElementById('inq-subject').value || '').trim().slice(0, 100);
-            const nameVal = (document.getElementById('inq-name').value || '').trim();
-            const senderEmail = (emailEl.value || '').trim();
-            const messageVal = (document.getElementById('inq-message').value || '').trim().slice(0, 1000);
-            const fullBody = `Name: ${nameVal}\nEmail: ${senderEmail}\n\nMessage:\n${messageVal}`;
-
-            const mailtoUrl = `mailto:${encodeURIComponent(targetEmail)}?subject=${encodeURIComponent(subjectVal)}&body=${encodeURIComponent(fullBody)}`;
-            window.location.href = mailtoUrl;
-
-            if (succHeading) succHeading.textContent = 'INQUIRY INITIATED';
-            if (succMsg) {
-              succMsg.innerHTML = `Your email app should open. If it doesn&#39;t, write directly to <a href="mailto:${escapeHtml(targetEmail)}" style="color:var(--blue);text-decoration:underline;">${escapeHtml(targetEmail)}</a>.`;
+          let endpoint = (site.inquiryEndpoint || '').trim();
+          if (endpoint && !utils.isPlaceholder(endpoint)) {
+            if (!endpoint.startsWith('http')) {
+              endpoint = 'https://formspree.io/f/' + endpoint;
             }
           } else {
-            if (succHeading) succHeading.textContent = 'COMMUNICATION NOTICE';
-            if (succMsg) {
-              succMsg.textContent = 'Messaging is not active yet. Please check back soon.';
-            }
+            endpoint = '';
           }
 
-          form.style.display = 'none';
-          succ.style.display = 'block';
+          const targetEmail = (site.inquiryRecipientEmail || (site.contacts && site.contacts.email) || 'nikunj.s.more@gmail.com').trim();
+          const succHeading = document.getElementById('inquiry-success-heading') || succ.querySelector('.success-heading');
+          const succMsg = document.getElementById('inquiry-success-msg');
+          const submitBtn = form.querySelector('button[type="submit"]');
+          const submitText = submitBtn ? submitBtn.querySelector('.specular-text') : null;
+
+          const subjectVal = (document.getElementById('inq-subject').value || '').trim().slice(0, 100);
+          const nameVal = (document.getElementById('inq-name').value || '').trim();
+          const senderEmail = (emailEl.value || '').trim();
+          const messageVal = (document.getElementById('inq-message').value || '').trim().slice(0, 1000);
+
+          if (endpoint && /^https:\/\//i.test(endpoint)) {
+            if (submitBtn) submitBtn.disabled = true;
+            if (submitText) submitText.textContent = 'TRANSMITTING...';
+
+            fetch(endpoint, {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+              },
+              body: JSON.stringify({
+                name: nameVal,
+                email: senderEmail,
+                _replyto: senderEmail,
+                subject: subjectVal,
+                message: messageVal
+              })
+            }).then(async res => {
+              if (res.ok) {
+                if (succHeading) succHeading.textContent = 'TRANSMISSION SUCCESSFUL';
+                if (succMsg) {
+                  succMsg.innerHTML = `Thank you, <strong>${escapeHtml(nameVal)}</strong>! Your inquiry has been securely dispatched. We will review your message and reply to <strong>${escapeHtml(senderEmail)}</strong> shortly.`;
+                }
+                form.style.display = 'none';
+                succ.style.display = 'block';
+              } else {
+                throw new Error('Endpoint returned HTTP ' + res.status);
+              }
+            }).catch(err => {
+              console.warn('Formspree dispatch error, falling back to direct email:', err);
+              const fullBody = `Name: ${nameVal}\nEmail: ${senderEmail}\n\nMessage:\n${messageVal}`;
+              try {
+                window.location.href = `mailto:${encodeURIComponent(targetEmail)}?subject=${encodeURIComponent(subjectVal)}&body=${encodeURIComponent(fullBody)}`;
+              } catch (e) {}
+              if (succHeading) succHeading.textContent = 'INQUIRY INITIATED';
+              if (succMsg) {
+                succMsg.innerHTML = `Your email client has been opened. If it didn't open automatically, write directly to <a href="mailto:${escapeHtml(targetEmail)}" style="color:var(--blue);text-decoration:underline;">${escapeHtml(targetEmail)}</a>.`;
+              }
+              form.style.display = 'none';
+              succ.style.display = 'block';
+            }).finally(() => {
+              if (submitBtn) submitBtn.disabled = false;
+              if (submitText) submitText.textContent = 'TRANSMIT INQUIRY';
+            });
+          } else {
+            // Direct email dispatch to target recipient
+            const fullBody = `Name: ${nameVal}\nEmail: ${senderEmail}\n\nMessage:\n${messageVal}`;
+            try {
+              window.location.href = `mailto:${encodeURIComponent(targetEmail)}?subject=${encodeURIComponent(subjectVal)}&body=${encodeURIComponent(fullBody)}`;
+            } catch (e) {}
+            if (succHeading) succHeading.textContent = 'INQUIRY INITIATED';
+            if (succMsg) {
+              succMsg.innerHTML = `Your email client has been opened to send your message to <strong>${escapeHtml(targetEmail)}</strong>. If it didn't open automatically, write directly to <a href="mailto:${escapeHtml(targetEmail)}" style="color:var(--blue);text-decoration:underline;">${escapeHtml(targetEmail)}</a>.`;
+            }
+            form.style.display = 'none';
+            succ.style.display = 'block';
+          }
         });
 
         document.getElementById('btn-reset-inquiry').addEventListener('click', () => {
