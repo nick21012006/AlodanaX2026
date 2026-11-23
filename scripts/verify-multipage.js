@@ -73,7 +73,7 @@ async function runTestSuite() {
     eventsCategories: false,
     eventsLiveSearch: false,
     eventsModalDeepLink: false,
-    eventsRegistrationDisabled: false,
+    eventsRegistrationActive: false,
     hackathonDomainsDeepLink: false,
     hackathonPptCheck: false,
     hackathonRulesAndHeads: false,
@@ -219,21 +219,21 @@ async function runTestSuite() {
     const modalState = await evaluate(ws, `(() => {
       const modal = document.getElementById('event-modal');
       const title = document.getElementById('modal-event-title').textContent;
-      const regBtn = document.querySelector('#modal-register-wrap .reg-btn-wrap') || document.querySelector('#modal-register-wrap .btn-disabled');
+      const regBtn = document.querySelector('#modal-register-wrap a[target="_blank"]');
       const extraLink = document.querySelector('#modal-extra-link-wrap a');
       const bodyScrollLocked = document.body.style.overflow === 'hidden';
       return {
         isOpen: modal.classList.contains('is-active'),
         title,
-        isRegDisabled: !!regBtn,
+        isRegActive: !!regBtn && regBtn.getAttribute('href') === 'https://forms.gle/iTh2dt56ueLDLSLK8',
         hasExtraLink: !!extraLink && extraLink.getAttribute('href') === 'hackathon.html',
         bodyScrollLocked
       };
     })()`);
     report.eventsModalDeepLink = (modalState.isOpen && modalState.title === 'Hackathon' && modalState.bodyScrollLocked && modalState.hasExtraLink);
-    report.eventsRegistrationDisabled = modalState.isRegDisabled;
+    report.eventsRegistrationActive = modalState.isRegActive;
     console.log('  ✔ Modal deep link & focus/scroll lock:', report.eventsModalDeepLink, modalState);
-    console.log('  ✔ Registration button disabled with "Registration Opening Soon":', report.eventsRegistrationDisabled);
+    console.log('  ✔ Registration button active with confirmed Google Form link:', report.eventsRegistrationActive);
 
     await captureScreenshot(ws, path.join(screenshotsDir, '03_desktop_events_modal.png'));
 
