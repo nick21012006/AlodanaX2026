@@ -331,6 +331,32 @@ a:focus-visible, button:focus-visible, input:focus-visible { outline: 2px solid 
 }
 .subpage-hero-subtitle { margin: 1.5rem auto 0; font-size: 1.15rem; color: var(--text-secondary); font-weight: 400; max-width: 600px; }
 
+/* Official Event Poster */
+.hackathon-poster-wrap {
+  width: 100%;
+  max-width: 860px;
+  margin: 0 auto 3rem;
+  border-radius: 16px;
+  overflow: hidden;
+  border: 1px solid rgba(10, 132, 255, 0.35);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.75), 0 0 35px rgba(10, 132, 255, 0.2);
+  position: relative;
+  background: #000000;
+  transition: transform 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease;
+}
+.hackathon-poster-wrap:hover {
+  transform: translateY(-4px);
+  border-color: var(--blue-bright);
+  box-shadow: 0 25px 65px rgba(0, 0, 0, 0.85), 0 0 45px rgba(10, 132, 255, 0.3);
+}
+.hackathon-poster-img {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  display: block;
+}
+
 /* HACKATHON PORTAL MAIN */
 .hackathon-portal-main { padding-bottom: 6rem; }
 
@@ -470,11 +496,19 @@ a:focus-visible, button:focus-visible, input:focus-visible { outline: 2px solid 
   .hackathon-meta-grid { grid-template-columns: repeat(2, 1fr); }
   .sample-ppt-card { grid-template-columns: 1fr; gap: 1.5rem; }
   .problem-statements-grid { grid-template-columns: 1fr; }
+  .hackathon-poster-wrap { max-width: 100%; margin-bottom: 2.5rem; }
 }
 
 @media (max-width: 768px) {
   #site-header { padding: 1rem 0; }
-  .subpage-hero-section { padding: 9rem 0 3rem; }
+  .subpage-hero-section { padding: 6.5rem 0 2rem; }
+  .hackathon-poster-wrap {
+    max-width: 100%;
+    margin: 0 auto 2rem;
+    border-radius: 12px;
+    border-color: rgba(10, 132, 255, 0.3);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7), 0 0 20px rgba(10, 132, 255, 0.15);
+  }
   .display-title { font-size: 2.2rem; }
   .hackathon-meta-grid { grid-template-columns: 1fr; }
   .problem-statements-grid { grid-template-columns: 1fr; }
@@ -575,8 +609,8 @@ a:focus-visible, button:focus-visible, input:focus-visible { outline: 2px solid 
     <div class="section-container">
 
       <!-- Official Event Poster -->
-      <div class="hackathon-poster-wrap" style="width: 100%; margin-bottom: 2.5rem; border-radius: 16px; overflow: hidden; border: 1px solid rgba(10, 132, 255, 0.25); box-shadow: 0 15px 45px rgba(0, 0, 0, 0.6); position: relative; background: #000;">
-        <img src="assets/images/events/hackathon.jpg" alt="12-Hour Hackathon: Build, Collaborate, Innovate" style="width: 100%; aspect-ratio: 16/9; object-fit: cover; display: block;" width="1600" height="900" loading="eager">
+      <div class="hackathon-poster-wrap">
+        <img class="hackathon-poster-img" src="assets/images/events/hackathon.jpg" alt="12-Hour Hackathon: Build, Collaborate, Innovate" width="1600" height="900" loading="eager" fetchpriority="high">
       </div>
 
       <!-- Section 1: Hero Action Strip -->
