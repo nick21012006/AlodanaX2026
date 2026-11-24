@@ -746,14 +746,12 @@ a:focus-visible, button:focus-visible, input:focus-visible { outline: 2px solid 
             {
               id: "PS-01",
               title: "Digital Twin Workflow Preservation System",
-              difficulty: "HARD",
               description: "Skilled workers and specialists possess valuable skills and techniques that standard manuals fail to capture. When such experts retire, or become unavailable, their unique workflows become hard to replicate or preserve.",
               expectedOutcome: "Develop a Digital Twin – a system that learns a person's method of performing a specific task by observing demonstrations and creates an interactive digital representation of that workflow."
             },
             {
               id: "PS-02",
               title: "AI-Driven Food Demand Forecasting System",
-              difficulty: "MEDIUM",
               description: "Restaurants and canteens struggle daily to estimate exact meal quantities, relying heavily on guesswork. Over-preparing leads to massive food waste and financial loss, while under-preparing causes shortages.",
               expectedOutcome: "Develop an AI-driven forecasting system for restaurants, college canteens or hostels that predicts daily food demand using historical consumption patterns and helps reduce food wastage."
             }
@@ -766,14 +764,12 @@ a:focus-visible, button:focus-visible, input:focus-visible { outline: 2px solid 
             {
               id: "PS-03",
               title: "Predictive Urban Waterlogging Risk Mapping",
-              difficulty: "HARD",
               description: "Sudden monsoon waterlogging in cities like Mumbai paralyzes commuter routes and emergency services.",
               expectedOutcome: "Combine historical rainfall/elevation data with live weather APIs to design a predictive model that identifies waterlogging risk zones on an interactive map."
             },
             {
               id: "PS-04",
               title: "Satellite Heat Island & Urban Afforestation Optimizer",
-              difficulty: "MEDIUM",
               description: "Rapid concretization in cities increases surface temperatures, harming public health and raising cooling energy demand.",
               expectedOutcome: "Analyse satellite imagery (NDVI vegetation index) alongside local temperature data to highlight high-heat localities and suggest priority plantation zones."
             }
@@ -786,14 +782,12 @@ a:focus-visible, button:focus-visible, input:focus-visible { outline: 2px solid 
             {
               id: "PS-05",
               title: "Edge Vision Crowd Anomaly & Panic Detection System",
-              difficulty: "HARD",
               description: "Managing crowds in busy public spaces like transit hubs, stadiums, malls, and festivals is a major safety challenge where sudden panic results in critical and fatal incidents.",
               expectedOutcome: "Develop an intelligent monitoring system using computer vision and edge computing (via cameras or IR/ToF sensors) that estimates crowd density, identifies unusual movement patterns and detects potential overcrowding in public spaces."
             },
             {
               id: "PS-06",
               title: "Synthetic Media & Forensic KYC Document Fraud Detection",
-              difficulty: "HARD",
               description: "Digital public onboarding portals face growing identity fraud using AI-generated deepfake IDs, manipulated photos, and tampered document metadata designed to bypass automated KYC pipelines.",
               expectedOutcome: "Develop an automated forensic verification prototype that ingests submitted digital credentials, detects visual and metadata-level synthetic alterations, and generates an interpretable fraud risk report."
             }
@@ -1151,7 +1145,7 @@ a:focus-visible, button:focus-visible, input:focus-visible { outline: 2px solid 
             if (!ps || typeof ps !== 'object' || Array.isArray(ps)) return false;
             if (typeof ps.id !== 'string' || typeof ps.title !== 'string') return false;
             if (typeof ps.description !== 'string' || typeof ps.expectedOutcome !== 'string') return false;
-            if (typeof ps.difficulty !== 'string' || !allowedDiff.has(ps.difficulty.toUpperCase())) return false;
+            if (ps.difficulty && typeof ps.difficulty !== 'string') return false;
           }
         }
         return true;
@@ -1379,12 +1373,10 @@ a:focus-visible, button:focus-visible, input:focus-visible { outline: 2px solid 
             const card = document.createElement('article');
             card.className = 'problem-statement-card';
             card.style.animationDelay = `${index * 0.15}s`;
-            const diffClass = (ps.difficulty === 'EXTREME' || ps.difficulty === 'HARD') ? 'badge-hard' : 'badge-medium';
             
             card.innerHTML = `
               <div class="ps-card-header">
                 <span class="ps-id-badge">${escapeHtml(ps.id)}</span>
-                <span class="ps-diff-badge ${escapeHtml(diffClass)}">${escapeHtml(ps.difficulty)}</span>
               </div>
               <h4 class="ps-title">${escapeHtml(ps.title)}</h4>
               <p class="ps-desc">${escapeHtml(ps.description)}</p>
