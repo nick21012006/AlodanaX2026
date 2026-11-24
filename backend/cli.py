@@ -152,7 +152,7 @@ def register_cli_commands(app):
                 "problemStatements": [
                     {
                         "code": "PS-01",
-                        "title": "Digital Twin Workflow Preservation System",
+                        "title": "Scenario",
                         "difficulty": "HARD",
                         "description": "Skilled workers and specialists possess valuable skills and techniques that standard manuals fail to capture. When such experts retire, or become unavailable, their unique workflows become hard to replicate or preserve.",
                         "expected_outcome": "Develop a Digital Twin – a system that learns a person's method of performing a specific task by observing demonstrations and creates an interactive digital representation of that workflow.",
@@ -161,7 +161,7 @@ def register_cli_commands(app):
                     },
                     {
                         "code": "PS-02",
-                        "title": "AI-Driven Food Demand Forecasting System",
+                        "title": "Scenario",
                         "difficulty": "MEDIUM",
                         "description": "Restaurants and canteens struggle daily to estimate exact meal quantities, relying heavily on guesswork. Over-preparing leads to massive food waste and financial loss, while under-preparing causes shortages.",
                         "expected_outcome": "Develop an AI-driven forecasting system for restaurants, college canteens or hostels that predicts daily food demand using historical consumption patterns and helps reduce food wastage.",
@@ -179,7 +179,7 @@ def register_cli_commands(app):
                 "problemStatements": [
                     {
                         "code": "PS-03",
-                        "title": "Predictive Urban Waterlogging Risk Mapping",
+                        "title": "Scenario",
                         "difficulty": "HARD",
                         "description": "Sudden monsoon waterlogging in cities like Mumbai paralyzes commuter routes and emergency services.",
                         "expected_outcome": "Combine historical rainfall/elevation data with live weather APIs to design a predictive model that identifies waterlogging risk zones on an interactive map.",
@@ -188,7 +188,7 @@ def register_cli_commands(app):
                     },
                     {
                         "code": "PS-04",
-                        "title": "Satellite Heat Island & Urban Afforestation Optimizer",
+                        "title": "Scenario",
                         "difficulty": "MEDIUM",
                         "description": "Rapid concretization in cities increases surface temperatures, harming public health and raising cooling energy demand.",
                         "expected_outcome": "Analyse satellite imagery (NDVI vegetation index) alongside local temperature data to highlight high-heat localities and suggest priority plantation zones.",
@@ -206,7 +206,7 @@ def register_cli_commands(app):
                 "problemStatements": [
                     {
                         "code": "PS-05",
-                        "title": "Edge Vision Crowd Anomaly & Panic Detection System",
+                        "title": "Scenario",
                         "difficulty": "HARD",
                         "description": "Managing crowds in busy public spaces like transit hubs, stadiums, malls, and festivals is a major safety challenge where sudden panic results in critical and fatal incidents.",
                         "expected_outcome": "Develop an intelligent monitoring system using computer vision and edge computing (via cameras or IR/ToF sensors) that estimates crowd density, identifies unusual movement patterns and detects potential overcrowding in public spaces.",
@@ -215,7 +215,7 @@ def register_cli_commands(app):
                     },
                     {
                         "code": "PS-06",
-                        "title": "Synthetic Media & Forensic KYC Document Fraud Detection",
+                        "title": "Scenario",
                         "difficulty": "HARD",
                         "description": "Digital public onboarding portals face growing identity fraud using AI-generated deepfake IDs, manipulated photos, and tampered document metadata designed to bypass automated KYC pipelines.",
                         "expected_outcome": "Develop an automated forensic verification prototype that ingests submitted digital credentials, detects visual and metadata-level synthetic alterations, and generates an interpretable fraud risk report.",
