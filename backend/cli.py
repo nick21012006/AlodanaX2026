@@ -144,83 +144,83 @@ def register_cli_commands(app):
 
         demo_domains = [
             {
-                "slug": "domain-1",
-                "name": "[DOMAIN 1: AI & AUTONOMOUS SYSTEMS]",
-                "short_description": "[EMBEDDED INTELLIGENCE, NEURAL PIPELINES, AND PREDICTIVE DECISION ENGINES]",
+                "slug": "ai-data-science",
+                "name": "AI and Data Science",
+                "short_description": "Develop machine learning models, neural pipelines, predictive analytics, and intelligent automation systems solving real-world challenges.",
                 "sort_order": 1,
-                "is_published": False,
+                "is_published": True,
                 "problemStatements": [
                     {
                         "code": "PS-01",
-                        "title": "[PROBLEM STATEMENT 01 TITLE]",
+                        "title": "Digital Twin Workflow Preservation System",
                         "difficulty": "HARD",
-                        "description": "[ARCHITECT A RESILIENT, REAL-TIME SYSTEM SOLVING COMPLEX LOGISTICAL OR SENSORY BOTTLENECKS UNDER SUB-OPTIMAL NETWORK CONDITIONS.]",
-                        "expected_outcome": "[A FUNCTIONING HIGH-THROUGHPUT PROTOTYPE WITH DOCUMENTED INFERENCE BENCHMARKS, LOCAL REPOSITORY, AND DEPLOYED DEMO INTERFACE.]",
+                        "description": "Skilled workers and specialists possess valuable skills and techniques that standard manuals fail to capture. When such experts retire, or become unavailable, their unique workflows become hard to replicate or preserve.",
+                        "expected_outcome": "Develop a Digital Twin – a system that learns a person's method of performing a specific task by observing demonstrations and creates an interactive digital representation of that workflow.",
                         "sort_order": 1,
-                        "is_published": False
+                        "is_published": True
                     },
                     {
                         "code": "PS-02",
-                        "title": "[PROBLEM STATEMENT 02 TITLE]",
-                        "difficulty": "EXTREME",
-                        "description": "[IMPLEMENT AN AUTONOMOUS PIPELINE CAPABLE OF AUTOMATED ANOMALY DETECTION AND ADAPTIVE MITIGATION IN DISTRIBUTED STREAM DATA.]",
-                        "expected_outcome": "[AN OPEN-SOURCE SERVICE WITH LIVE SIMULATION HARNESS, TELEMETRY DASHBOARD, AND REPRODUCIBLE EVALUATION METRICS.]",
+                        "title": "AI-Driven Food Demand Forecasting System",
+                        "difficulty": "MEDIUM",
+                        "description": "Restaurants and canteens struggle daily to estimate exact meal quantities, relying heavily on guesswork. Over-preparing leads to massive food waste and financial loss, while under-preparing causes shortages.",
+                        "expected_outcome": "Develop an AI-driven forecasting system for restaurants, college canteens or hostels that predicts daily food demand using historical consumption patterns and helps reduce food wastage.",
                         "sort_order": 2,
-                        "is_published": False
+                        "is_published": True
                     }
                 ]
             },
             {
-                "slug": "domain-2",
-                "name": "[DOMAIN 2: CLOUD INFRASTRUCTURE & DECENTRALIZED SYSTEMS]",
-                "short_description": "[FAULT-TOLERANT ARCHITECTURES, HIGH-CONCURRENCY MICROSERVICES, AND CRYPTOGRAPHIC REGISTRIES]",
+                "slug": "sustainable-infrastructure",
+                "name": "Sustainable Infrastructure and Development",
+                "short_description": "Build resilient, eco-friendly technological solutions, smart city/campus resource optimizers, green compute pipelines, and sustainable development tools.",
                 "sort_order": 2,
-                "is_published": False,
+                "is_published": True,
                 "problemStatements": [
                     {
                         "code": "PS-03",
-                        "title": "[PROBLEM STATEMENT 03 TITLE]",
-                        "difficulty": "MEDIUM",
-                        "description": "[BUILD A LOW-LATENCY VERIFIABLE DATA REGISTRY DELIVERING HIGH THROUGHPUT WITHOUT SINGLE POINTS OF FAILURE.]",
-                        "expected_outcome": "[DEPLOYED SMART CONTRACTS OR CONSENSUS NODES WITH INTERACTIVE VERIFIER WEB APP AND BENCHMARK REPORT.]",
+                        "title": "Predictive Urban Waterlogging Risk Mapping",
+                        "difficulty": "HARD",
+                        "description": "Sudden monsoon waterlogging in cities like Mumbai paralyzes commuter routes and emergency services.",
+                        "expected_outcome": "Combine historical rainfall/elevation data with live weather APIs to design a predictive model that identifies waterlogging risk zones on an interactive map.",
                         "sort_order": 1,
-                        "is_published": False
+                        "is_published": True
                     },
                     {
                         "code": "PS-04",
-                        "title": "[PROBLEM STATEMENT 04 TITLE]",
-                        "difficulty": "HARD",
-                        "description": "[DESIGN A SELF-HEALING SERVICE MESH WITH AUTONOMOUS FAILOVER PROTOCOLS FOR CLOUD-NATIVE DEPLOYMENTS.]",
-                        "expected_outcome": "[CONTAINERIZED DAEMON WITH COMPREHENSIVE CHAOS TESTING SUITE AND CONFIGURABLE ROUTING RULES.]",
+                        "title": "Satellite Heat Island & Urban Afforestation Optimizer",
+                        "difficulty": "MEDIUM",
+                        "description": "Rapid concretization in cities increases surface temperatures, harming public health and raising cooling energy demand.",
+                        "expected_outcome": "Analyse satellite imagery (NDVI vegetation index) alongside local temperature data to highlight high-heat localities and suggest priority plantation zones.",
                         "sort_order": 2,
-                        "is_published": False
+                        "is_published": True
                     }
                 ]
             },
             {
-                "slug": "domain-3",
-                "name": "[DOMAIN 3: SMART CAMPUS & OPEN INNOVATION]",
-                "short_description": "[SUSTAINABLE CAMPUS INFRASTRUCTURE, DIGITAL ACCESSIBILITY, AND CITIZEN TECH TOOLS]",
+                "slug": "cyber-security-iot",
+                "name": "Cyber Security and IoT",
+                "short_description": "Architect secure embedded hardware systems, threat detection mechanisms, cryptographic validation protocols, and IoT network security solutions.",
                 "sort_order": 3,
-                "is_published": False,
+                "is_published": True,
                 "problemStatements": [
                     {
                         "code": "PS-05",
-                        "title": "[PROBLEM STATEMENT 05 TITLE]",
-                        "difficulty": "MEDIUM",
-                        "description": "[CREATE AN ACCESSIBLE CAMPUS RESOURCE ORCHESTRATOR OPTIMIZING PHYSICAL SPACES AND UTILITY CONSUMPTION.]",
-                        "expected_outcome": "[RESPONSIVE CROSS-PLATFORM APPLICATION WITH ROLE-BASED ACCESS CONTROL AND REAL-TIME TELEMETRY CHARTS.]",
+                        "title": "Edge Vision Crowd Anomaly & Panic Detection System",
+                        "difficulty": "HARD",
+                        "description": "Managing crowds in busy public spaces like transit hubs, stadiums, malls, and festivals is a major safety challenge where sudden panic results in critical and fatal incidents.",
+                        "expected_outcome": "Develop an intelligent monitoring system using computer vision and edge computing (via cameras or IR/ToF sensors) that estimates crowd density, identifies unusual movement patterns and detects potential overcrowding in public spaces.",
                         "sort_order": 1,
-                        "is_published": False
+                        "is_published": True
                     },
                     {
                         "code": "PS-06",
-                        "title": "[PROBLEM STATEMENT 06 TITLE]",
+                        "title": "Synthetic Media & Forensic KYC Document Fraud Detection",
                         "difficulty": "HARD",
-                        "description": "[DEVELOP AN ASSISTIVE WAYFINDING AND SAFETY SYSTEM FOR DIVERSE CAMPUS ENVIRONMENTS WITHOUT REQUIRING SPECIALIZED BEACONS.]",
-                        "expected_outcome": "[ACCESSIBLE MOBILE/WEB CLIENT WITH SPATIAL GUIDANCE, WCAG AAA CONTRAST COMPLIANCE, AND VOICE PROMPTS.]",
+                        "description": "Digital public onboarding portals face growing identity fraud using AI-generated deepfake IDs, manipulated photos, and tampered document metadata designed to bypass automated KYC pipelines.",
+                        "expected_outcome": "Develop an automated forensic verification prototype that ingests submitted digital credentials, detects visual and metadata-level synthetic alterations, and generates an interpretable fraud risk report.",
                         "sort_order": 2,
-                        "is_published": False
+                        "is_published": True
                     }
                 ]
             }

@@ -1,27 +1,72 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-12-05T08:00:00Z",
+  "updatedAt": "2026-11-24T18:15:00Z",
   "domains": [
     {
       "slug": "ai-data-science",
       "name": "AI and Data Science",
       "tag": "TRACK 01",
       "shortDescription": "Develop machine learning models, neural pipelines, predictive analytics, and intelligent automation systems solving real-world challenges.",
-      "problemStatements": []
+      "problemStatements": [
+        {
+          "id": "PS-01",
+          "title": "Digital Twin Workflow Preservation System",
+          "difficulty": "HARD",
+          "description": "Skilled workers and specialists possess valuable skills and techniques that standard manuals fail to capture. When such experts retire, or become unavailable, their unique workflows become hard to replicate or preserve.",
+          "expectedOutcome": "Develop a Digital Twin – a system that learns a person's method of performing a specific task by observing demonstrations and creates an interactive digital representation of that workflow."
+        },
+        {
+          "id": "PS-02",
+          "title": "AI-Driven Food Demand Forecasting System",
+          "difficulty": "MEDIUM",
+          "description": "Restaurants and canteens struggle daily to estimate exact meal quantities, relying heavily on guesswork. Over-preparing leads to massive food waste and financial loss, while under-preparing causes shortages.",
+          "expectedOutcome": "Develop an AI-driven forecasting system for restaurants, college canteens or hostels that predicts daily food demand using historical consumption patterns and helps reduce food wastage."
+        }
+      ]
     },
     {
       "slug": "sustainable-infrastructure",
       "name": "Sustainable Infrastructure and Development",
       "tag": "TRACK 02",
       "shortDescription": "Build resilient, eco-friendly technological solutions, smart city/campus resource optimizers, green compute pipelines, and sustainable development tools.",
-      "problemStatements": []
+      "problemStatements": [
+        {
+          "id": "PS-03",
+          "title": "Predictive Urban Waterlogging Risk Mapping",
+          "difficulty": "HARD",
+          "description": "Sudden monsoon waterlogging in cities like Mumbai paralyzes commuter routes and emergency services.",
+          "expectedOutcome": "Combine historical rainfall/elevation data with live weather APIs to design a predictive model that identifies waterlogging risk zones on an interactive map."
+        },
+        {
+          "id": "PS-04",
+          "title": "Satellite Heat Island & Urban Afforestation Optimizer",
+          "difficulty": "MEDIUM",
+          "description": "Rapid concretization in cities increases surface temperatures, harming public health and raising cooling energy demand.",
+          "expectedOutcome": "Analyse satellite imagery (NDVI vegetation index) alongside local temperature data to highlight high-heat localities and suggest priority plantation zones."
+        }
+      ]
     },
     {
       "slug": "cyber-security-iot",
       "name": "Cyber Security and IoT",
       "tag": "TRACK 03",
       "shortDescription": "Architect secure embedded hardware systems, threat detection mechanisms, cryptographic validation protocols, and IoT network security solutions.",
-      "problemStatements": []
+      "problemStatements": [
+        {
+          "id": "PS-05",
+          "title": "Edge Vision Crowd Anomaly & Panic Detection System",
+          "difficulty": "HARD",
+          "description": "Managing crowds in busy public spaces like transit hubs, stadiums, malls, and festivals is a major safety challenge where sudden panic results in critical and fatal incidents.",
+          "expectedOutcome": "Develop an intelligent monitoring system using computer vision and edge computing (via cameras or IR/ToF sensors) that estimates crowd density, identifies unusual movement patterns and detects potential overcrowding in public spaces."
+        },
+        {
+          "id": "PS-06",
+          "title": "Synthetic Media & Forensic KYC Document Fraud Detection",
+          "difficulty": "HARD",
+          "description": "Digital public onboarding portals face growing identity fraud using AI-generated deepfake IDs, manipulated photos, and tampered document metadata designed to bypass automated KYC pipelines.",
+          "expectedOutcome": "Develop an automated forensic verification prototype that ingests submitted digital credentials, detects visual and metadata-level synthetic alterations, and generates an interpretable fraud risk report."
+        }
+      ]
     }
   ]
 }
